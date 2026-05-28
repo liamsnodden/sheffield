@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SHW Stock Ticker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .ticker {
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .price {
+      font-weight: 900;
+    }
+
+    .up {
+      color: #22c55e; /* green */
+    }
+
+    .down {
+      color: #ef4444; /* red */
+    }
+  </style>
+</head>
+<body>
+
+<div id="ticker" class="ticker">Loading...</div>
+
+<script>
+async function loadStock() {
+  try {
+    const res = await fetch("https://stockprices.dev/api/stocks/SHW");
+    const data = await res.json();
+
+    const price = data.Price.toFixed(2);
+    const change = data.ChangePercentage.toFixed(2);
+
+    const isUp = change >= 0;
+    const arrow = isUp ? "▲" : "▼";
+    const className = isUp ? "up" : "down";
+
+    document.getElementById("ticker").innerHTML =
+      `NYSE: SHW <span class="price">$${price}</span> 
+       <span class="${className}">${arrow} ${change}%</span>`;
+  } catch (err) {
+    document.getElementById("ticker").innerText = "Error loading data";
+  }
+}
+
+// load immediately + refresh every 60s
+loadStock();
+setInterval(loadStock, 60000);
+</script>
+
+</body>
+</html>
