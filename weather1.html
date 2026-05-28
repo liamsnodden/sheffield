@@ -4,9 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Sherwin Weather</title>
 
@@ -20,322 +18,200 @@ box-sizing:border-box;
 
 html,
 body{
-
 width:100%;
 height:100%;
-
 overflow:hidden;
-
 background:transparent;
-
 font-family:Arial,sans-serif;
-
 color:white;
 }
 
 /* MAIN WIDGET */
 
 .widget{
-
 width:100%;
 height:100%;
-
 padding:3vh 2vw;
-
 display:flex;
-
 flex-direction:column;
-
 justify-content:space-between;
-
 position:relative;
 }
 
-/* SOFT GLASS OVERLAY */
+/* GLASS EFFECT */
 
 .widget::before{
-
 content:"";
-
 position:absolute;
-
 inset:0;
-
 background:
 linear-gradient(
 180deg,
 rgba(255,255,255,0.04),
 rgba(255,255,255,0.02)
 );
-
 backdrop-filter:blur(8px);
-
 border-radius:3vh;
-
 z-index:0;
 }
 
-/* CONTENT ABOVE GLASS */
+/* CONTENT */
 
 .content{
-
 position:relative;
-
 z-index:2;
-
 height:100%;
-
 display:flex;
-
 flex-direction:column;
-
 justify-content:space-between;
-}
-
-/* HEADER */
-
-.header{
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:flex-start;
-
-margin-bottom:2vh;
-}
-
-.title{
-
-font-size:5vh;
-
-font-weight:700;
-
-letter-spacing:0.1vh;
-}
-
-.weather-small{
-
-font-size:6vh;
-
-opacity:.9;
 }
 
 /* CURRENT WEATHER */
 
 .current{
-
 text-align:center;
+margin-top:2vh;
 }
 
 .icon{
-
 font-size:26vh;
-
 line-height:0.9;
-
 filter:
 drop-shadow(0 0 20px rgba(255,255,255,0.15));
 }
 
 .temp{
-
 font-size:20vh;
-
 font-weight:700;
-
 line-height:0.9;
-
 margin-top:-1vh;
 }
 
 .feels{
-
-font-size:4vh;
-
+font-size:6vh;
 opacity:.9;
-
 margin-top:1vh;
 }
 
 /* CONDITIONS */
 
 .conditions{
-
 display:flex;
-
 flex-direction:column;
-
 gap:1.4vh;
-
 margin-top:2vh;
 }
 
 .condition{
-
 display:flex;
-
 justify-content:space-between;
-
 align-items:center;
-
 padding-bottom:1vh;
-
 border-bottom:
 1px solid rgba(255,255,255,0.08);
-
 font-size:2.6vh;
 }
 
 .label{
-
 opacity:.75;
 }
 
 /* FORECAST */
 
 .forecast-wrap{
-
 margin-top:2vh;
 }
 
 .forecast-title{
-
 font-size:3vh;
-
 font-weight:700;
-
 color:#61b7ff;
-
 margin-bottom:1.5vh;
 }
 
 .days{
-
 display:flex;
-
 gap:1vw;
 }
 
 .day{
-
 flex:1;
-
 padding:2vh 1vh;
-
 border-radius:2vh;
-
 background:
 rgba(255,255,255,0.06);
-
 backdrop-filter:blur(8px);
-
 border:
 1px solid rgba(255,255,255,0.08);
-
 text-align:center;
 }
 
 .day-name{
-
-font-size:2.2vh;
-
+font-size:3vh;
 font-weight:700;
-
 margin-bottom:1vh;
 }
 
 .day-icon{
-
-font-size:7vh;
-
+font-size:10vh;
 margin-bottom:1vh;
 }
 
 .day-temp{
-
-font-size:4vh;
-
+font-size:5vh;
 font-weight:700;
 }
 
 /* ALERT */
 
 .alert{
-
 margin-top:2vh;
-
 padding:2vh;
-
 border-radius:2vh;
-
 background:
 rgba(0,255,100,0.08);
-
 border:
 1px solid rgba(0,255,100,0.25);
-
 text-align:center;
-
 font-size:2.5vh;
-
 font-weight:700;
-
 color:#5cff8d;
 }
 
-/* FOOTER TIMES */
+/* FOOTER */
 
 .footer{
-
 display:flex;
-
 justify-content:space-between;
-
 margin-top:2vh;
-
 gap:1vw;
 }
 
 .time-box{
-
 flex:1;
-
 padding:1.8vh;
-
 border-radius:2vh;
-
 background:
 rgba(255,255,255,0.06);
-
 backdrop-filter:blur(8px);
-
 border:
 1px solid rgba(255,255,255,0.08);
-
 text-align:center;
 }
 
 .time-title{
-
 font-size:2vh;
-
 opacity:.7;
-
 margin-bottom:.8vh;
 }
 
 .time{
-
 font-size:5vh;
-
 font-weight:700;
 }
 
 .time-zone{
-
 font-size:2vh;
-
 opacity:.7;
 }
 
@@ -346,42 +222,14 @@ opacity:.7;
 <body>
 
 <div class="widget">
-
 <div class="content">
-
-<!-- HEADER -->
-
-<div class="header">
-
-<div class="title">
-WEATHER
-</div>
-
-<div class="weather-small">
-⛅
-</div>
-
-</div>
 
 <!-- CURRENT -->
 
 <div class="current">
-
-<div class="icon"
-id="mainIcon">
-☀️
-</div>
-
-<div class="temp"
-id="temp">
-25°C
-</div>
-
-<div class="feels"
-id="feels">
-Feels like 26°C
-</div>
-
+<div class="icon" id="mainIcon">☀️</div>
+<div class="temp" id="temp">25°C</div>
+<div class="feels" id="feels">Feels like 26°C</div>
 </div>
 
 <!-- CONDITIONS -->
@@ -389,33 +237,18 @@ Feels like 26°C
 <div class="conditions">
 
 <div class="condition">
-<span class="label">
-WIND
-</span>
-
-<span id="wind">
-11 km/h
-</span>
+<span class="label">WIND</span>
+<span id="wind">11 km/h</span>
 </div>
 
 <div class="condition">
-<span class="label">
-HUMIDITY
-</span>
-
-<span id="humidity">
-58%
-</span>
+<span class="label">HUMIDITY</span>
+<span id="humidity">58%</span>
 </div>
 
 <div class="condition">
-<span class="label">
-UV INDEX
-</span>
-
-<span id="uv">
-5 MODERATE
-</span>
+<span class="label">UV INDEX</span>
+<span id="uv">5 MODERATE</span>
 </div>
 
 </div>
@@ -423,25 +256,15 @@ UV INDEX
 <!-- FORECAST -->
 
 <div class="forecast-wrap">
+<div class="forecast-title">3 DAY FORECAST</div>
 
-<div class="forecast-title">
-3 DAY FORECAST
-</div>
-
-<div class="days"
-id="forecastDays">
-
-</div>
-
+<div class="days" id="forecastDays"></div>
 </div>
 
 <!-- ALERT -->
 
-<div class="alert"
-id="alertBox">
-
+<div class="alert" id="alertBox">
 NO WEATHER ALERTS
-
 </div>
 
 <!-- FOOTER -->
@@ -449,51 +272,27 @@ NO WEATHER ALERTS
 <div class="footer">
 
 <div class="time-box">
-
-<div class="time-title">
-UK
-</div>
-
-<div class="time"
-id="ukTime">
-13:26
-</div>
-
-<div class="time-zone">
-GMT / BST
-</div>
-
+<div class="time-title">UK</div>
+<div class="time" id="ukTime">13:26</div>
+<div class="time-zone">GMT / BST</div>
 </div>
 
 <div class="time-box">
-
-<div class="time-title">
-US ET
-</div>
-
-<div class="time"
-id="usTime">
-08:26
-</div>
-
-<div class="time-zone">
-US EASTERN
+<div class="time-title">US ET</div>
+<div class="time" id="usTime">08:26</div>
+<div class="time-zone">US EASTERN</div>
 </div>
 
 </div>
 
 </div>
-
-</div>
-
 </div>
 
 <script>
 
-/* WEATHER ICONS */
+/* ICON MAP */
 
 const weatherIcons = {
-
 0:'☀️',
 1:'🌤️',
 2:'⛅',
@@ -515,165 +314,93 @@ const api =
 
 async function loadWeather(){
 
-const response =
-await fetch(api);
-
-const data =
-await response.json();
+const response = await fetch(api);
+const data = await response.json();
 
 /* CURRENT */
 
 document.getElementById('temp').innerText =
-Math.round(
-data.current.temperature_2m
-) + '°C';
+Math.round(data.current.temperature_2m) + '°C';
 
 document.getElementById('feels').innerText =
 'Feels like ' +
-Math.round(
-data.current.apparent_temperature
-) + '°C';
+Math.round(data.current.apparent_temperature) + '°C';
 
 document.getElementById('mainIcon').innerText =
-weatherIcons[
-data.current.weather_code
-] || '☁️';
+weatherIcons[data.current.weather_code] || '☁️';
 
 document.getElementById('wind').innerText =
-Math.round(
-data.current.wind_speed_10m
-) + ' km/h';
+Math.round(data.current.wind_speed_10m) + ' km/h';
 
 document.getElementById('humidity').innerText =
 data.current.relative_humidity_2m + '%';
 
-/* UV ESTIMATE */
-
-const temp =
-data.current.temperature_2m;
+/* UV (simple estimate) */
 
 let uv = 'LOW';
+const temp = data.current.temperature_2m;
 
-if(temp > 24){
-uv = '5 MODERATE';
-}
+if(temp > 24) uv = '5 MODERATE';
+if(temp > 28) uv = '7 HIGH';
 
-if(temp > 28){
-uv = '7 HIGH';
-}
-
-document.getElementById('uv').innerText =
-uv;
+document.getElementById('uv').innerText = uv;
 
 /* FORECAST */
 
-const container =
-document.getElementById(
-'forecastDays'
-);
-
+const container = document.getElementById('forecastDays');
 container.innerHTML = '';
 
 for(let i = 1; i <= 3; i++){
 
-const date =
-new Date(
-data.daily.time[i]
-);
+const date = new Date(data.daily.time[i]);
 
-const dayName =
-date.toLocaleDateString(
-'en-GB',
-{
+const dayName = date.toLocaleDateString('en-GB', {
 weekday:'short'
-}
-).toUpperCase();
+}).toUpperCase();
 
-const dayTemp =
-Math.round(
-data.daily
-.temperature_2m_max[i]
-);
-
-const code =
-data.daily.weather_code[i];
+const dayTemp = Math.round(data.daily.temperature_2m_max[i]);
+const code = data.daily.weather_code[i];
 
 container.innerHTML += `
-
 <div class="day">
-
-<div class="day-name">
-${dayName}
+<div class="day-name">${dayName}</div>
+<div class="day-icon">${weatherIcons[code] || '☁️'}</div>
+<div class="day-temp">${dayTemp}°</div>
 </div>
-
-<div class="day-icon">
-${weatherIcons[code] || '☁️'}
-</div>
-
-<div class="day-temp">
-${dayTemp}°
-</div>
-
-</div>
-
 `;
 }
 }
 
-/* CLOCKS */
+/* CLOCK */
 
 function updateClocks(){
 
-const uk =
-new Date();
+const uk = new Date();
 
-document.getElementById('ukTime')
-.innerText =
-uk.toLocaleTimeString(
-'en-GB',
-{
+document.getElementById('ukTime').innerText =
+uk.toLocaleTimeString('en-GB',{
 hour:'2-digit',
 minute:'2-digit'
-}
-);
+});
 
-document.getElementById('usTime')
-.innerText =
-uk.toLocaleTimeString(
-'en-US',
-{
-timeZone:
-'America/New_York',
-
+document.getElementById('usTime').innerText =
+uk.toLocaleTimeString('en-US',{
+timeZone:'America/New_York',
 hour:'2-digit',
-
 minute:'2-digit',
-
 hour12:false
-}
-);
+});
 }
 
-/* LOAD */
+/* INIT */
 
 loadWeather();
-
 updateClocks();
 
-/* REFRESH */
-
-setInterval(
-loadWeather,
-300000
-);
-
-setInterval(
-updateClocks,
-1000
-);
+setInterval(loadWeather, 300000);
+setInterval(updateClocks, 1000);
 
 </script>
 
 </body>
-
 </html>
