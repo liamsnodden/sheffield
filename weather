@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transparent Weather Widget</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+width:486px;
+height:600px;
+overflow:hidden;
+background:transparent;
+font-family:Arial,sans-serif;
+color:white;
+}
+
+.widget{
+width:486px;
+height:600px;
+padding:20px;
+border-radius:28px;
+
+background:rgba(8,18,36,0.72);
+backdrop-filter:blur(18px);
+
+border:1px solid rgba(255,255,255,0.12);
+
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+}
+
+.top{
+text-align:center;
+}
+
+.location{
+text-align:center;
+font-size:18px;
+letter-spacing:2px;
+opacity:.9;
+}
+
+.icon{
+font-size:120px;
+line-height:1;
+margin-top:10px;
+}
+
+.temp{
+font-size:110px;
+font-weight:700;
+line-height:1;
+}
+
+.feels{
+font-size:26px;
+opacity:.85;
+margin-top:8px;
+}
+
+.forecast{
+margin-top:18px;
+padding-top:18px;
+
+border-top:1px solid rgba(255,255,255,0.12);
+}
+
+.forecast-title{
+font-size:18px;
+margin-bottom:14px;
+letter-spacing:1px;
+color:#76b8ff;
+}
+
+.days{
+display:flex;
+justify-content:space-between;
+gap:10px;
+}
+
+.day{
+flex:1;
+
+text-align:center;
+
+background:rgba(255,255,255,0.05);
+
+border-radius:18px;
+
+padding:14px 8px;
+}
+
+.day-name{
+font-size:16px;
+margin-bottom:8px;
+}
+
+.day-icon{
+font-size:38px;
+margin-bottom:8px;
+}
+
+.day-temp{
+font-size:24px;
+font-weight:700;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="widget">
+
+<div class="top">
+
+<div class="location">
+SHEFFIELD
+</div>
+
+<div class="icon" id="mainIcon">
+☁️
+</div>
+
+<div class="temp" id="temp">
+18°C
+</div>
+
+<div class="feels" id="feels">
+Feels like 17°C
+</div>
+
+</div>
+
+<div class="forecast">
+
+<div class="forecast-title">
+3 DAY FORECAST
+</div>
+
+<div class="days" id="forecastDays"></div>
+
+</div>
+
+</div>
+
+<script>
+
+const weatherIcons = {
+0:'☀️',
+1:'🌤️',
+2:'⛅',
+3:'☁️',
+45:'🌫️',
+48:'🌫️',
+51:'🌦️',
+61:'🌧️',
+71:'❄️',
+95:'⛈️'
+};
+
+const api =
+'https://api.open-meteo.com/v1/forecast?latitude=53.3811&longitude=-1.4701&current=temperature_2m,apparent_temperature,weather_code&daily=weather_code,temperature_2m_max&forecast_days=4&timezone=Europe/London';
+
+async function loadWeather(){
+
+const response = await fetch(api);
+
+const data = await response.json();
+
+// Current weather
+
+document.getElementById('temp').innerText =
+Math.round(data.current.temperature_2m) + '°C';
+
+document.getElementById('feels').innerText =
+'Feels like ' +
+Math.round(data.current.apparent_temperature) +
+'°C';
+
+document.getElementById('mainIcon').innerText =
+weatherIcons[data.current.weather_code] || '☁️';
+
+// 3 day forecast
+
+const container =
+document.getElementById('forecastDays');
+
+container.innerHTML = '';
+
+for(let i = 1; i <= 3; i++){
+
+const date =
+new Date(data.daily.time[i]);
+
+const dayName =
+date.toLocaleDateString('en-GB',{
+weekday:'short'
+}).toUpperCase();
+
+const temp =
+Math.round(
+data.daily.temperature_2m_max[i]
+);
+
+const code =
+data.daily.weather_code[i];
+
+container.innerHTML += `
+
+<div class="day">
+
+<div class="day-name">
+${dayName}
+</div>
+
+<div class="day-icon">
+${weatherIcons[code] || '☁️'}
+</div>
+
+<div class="day-temp">
+${temp}°
+</div>
+
+</div>
+
+`;
+}
+}
+
+loadWeather();
+
+// Refresh every 5 mins
+
+setInterval(loadWeather, 300000);
+
+</script>
+
+</body>
+</html>
