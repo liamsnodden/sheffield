@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
 <title>Transparent Weather Widget</title>
 
 <style>
@@ -13,108 +18,159 @@ padding:0;
 box-sizing:border-box;
 }
 
+html,
 body{
-width:486px;
-height:600px;
+
+width:100%;
+height:100%;
+
 overflow:hidden;
-background:transparent;
+
+background:transparent !important;
+
 font-family:Arial,sans-serif;
+
 color:white;
 }
 
+/* MAIN CONTAINER */
+
 .widget{
-width:486px;
-height:600px;
-padding:20px;
-border-radius:28px;
 
-background:rgba(8,18,36,0.72);
-backdrop-filter:blur(18px);
+width:100%;
+height:100%;
 
-border:1px solid rgba(255,255,255,0.12);
+padding:4%;
 
 display:flex;
+
 flex-direction:column;
+
 justify-content:space-between;
+
+background:transparent !important;
+
+border:none;
 }
 
+/* TOP */
+
 .top{
+
 text-align:center;
 }
 
 .location{
-text-align:center;
-font-size:18px;
-letter-spacing:2px;
+
+font-size:4.2vh;
+
+letter-spacing:0.3vh;
+
 opacity:.9;
+
+margin-bottom:1vh;
+
+font-weight:700;
 }
 
 .icon{
-font-size:120px;
+
+font-size:20vh;
+
 line-height:1;
-margin-top:10px;
 }
 
 .temp{
-font-size:110px;
+
+font-size:18vh;
+
 font-weight:700;
+
 line-height:1;
 }
 
 .feels{
-font-size:26px;
+
+font-size:4vh;
+
 opacity:.85;
-margin-top:8px;
+
+margin-top:1vh;
 }
 
-.forecast{
-margin-top:18px;
-padding-top:18px;
+/* FORECAST */
 
-border-top:1px solid rgba(255,255,255,0.12);
+.forecast{
+
+margin-top:2vh;
 }
 
 .forecast-title{
-font-size:18px;
-margin-bottom:14px;
-letter-spacing:1px;
+
+font-size:3vh;
+
+margin-bottom:1.5vh;
+
+letter-spacing:.1vh;
+
 color:#76b8ff;
+
+text-align:center;
+
+font-weight:700;
 }
 
 .days{
+
 display:flex;
+
 justify-content:space-between;
-gap:10px;
+
+gap:2%;
 }
 
 .day{
+
 flex:1;
 
 text-align:center;
 
-background:rgba(255,255,255,0.05);
+background:rgba(255,255,255,0.08);
 
-border-radius:18px;
+border-radius:2vh;
 
-padding:14px 8px;
+padding:2vh 1vh;
+
+backdrop-filter:blur(10px);
+
+border:1px solid rgba(255,255,255,0.08);
 }
 
 .day-name{
-font-size:16px;
-margin-bottom:8px;
+
+font-size:2.5vh;
+
+margin-bottom:1vh;
+
+font-weight:700;
 }
 
 .day-icon{
-font-size:38px;
-margin-bottom:8px;
+
+font-size:5vh;
+
+margin-bottom:1vh;
 }
 
 .day-temp{
-font-size:24px;
+
+font-size:3.6vh;
+
 font-weight:700;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -127,15 +183,18 @@ font-weight:700;
 SHEFFIELD
 </div>
 
-<div class="icon" id="mainIcon">
+<div class="icon"
+id="mainIcon">
 ☁️
 </div>
 
-<div class="temp" id="temp">
+<div class="temp"
+id="temp">
 18°C
 </div>
 
-<div class="feels" id="feels">
+<div class="feels"
+id="feels">
 Feels like 17°C
 </div>
 
@@ -147,7 +206,8 @@ Feels like 17°C
 3 DAY FORECAST
 </div>
 
-<div class="days" id="forecastDays"></div>
+<div class="days"
+id="forecastDays"></div>
 
 </div>
 
@@ -155,7 +215,10 @@ Feels like 17°C
 
 <script>
 
+/* WEATHER ICONS */
+
 const weatherIcons = {
+
 0:'☀️',
 1:'🌤️',
 2:'⛅',
@@ -168,48 +231,67 @@ const weatherIcons = {
 95:'⛈️'
 };
 
+/* OPEN METEO API */
+
 const api =
 'https://api.open-meteo.com/v1/forecast?latitude=53.3811&longitude=-1.4701&current=temperature_2m,apparent_temperature,weather_code&daily=weather_code,temperature_2m_max&forecast_days=4&timezone=Europe/London';
 
+/* LOAD WEATHER */
+
 async function loadWeather(){
 
-const response = await fetch(api);
+const response =
+await fetch(api);
 
-const data = await response.json();
+const data =
+await response.json();
 
-// Current weather
+/* CURRENT WEATHER */
 
 document.getElementById('temp').innerText =
-Math.round(data.current.temperature_2m) + '°C';
+Math.round(
+data.current.temperature_2m
+) + '°C';
 
 document.getElementById('feels').innerText =
 'Feels like ' +
-Math.round(data.current.apparent_temperature) +
-'°C';
+Math.round(
+data.current.apparent_temperature
+) + '°C';
 
 document.getElementById('mainIcon').innerText =
-weatherIcons[data.current.weather_code] || '☁️';
+weatherIcons[
+data.current.weather_code
+] || '☁️';
 
-// 3 day forecast
+/* FORECAST */
 
 const container =
-document.getElementById('forecastDays');
+document.getElementById(
+'forecastDays'
+);
 
 container.innerHTML = '';
 
 for(let i = 1; i <= 3; i++){
 
 const date =
-new Date(data.daily.time[i]);
+new Date(
+data.daily.time[i]
+);
 
 const dayName =
-date.toLocaleDateString('en-GB',{
+date.toLocaleDateString(
+'en-GB',
+{
 weekday:'short'
-}).toUpperCase();
+}
+).toUpperCase();
 
 const temp =
 Math.round(
-data.daily.temperature_2m_max[i]
+data.daily
+.temperature_2m_max[i]
 );
 
 const code =
@@ -237,13 +319,19 @@ ${temp}°
 }
 }
 
+/* INITIAL LOAD */
+
 loadWeather();
 
-// Refresh every 5 mins
+/* AUTO REFRESH */
 
-setInterval(loadWeather, 300000);
+setInterval(
+loadWeather,
+300000
+);
 
 </script>
 
 </body>
+
 </html>
