@@ -1,25 +1,27 @@
-<div id="weatherWrap" style="
-width:100%;
+<div id="weatherPanel" style="
+width:500px;
 height:100%;
-position:relative;
 font-family:Inter,Arial,sans-serif;
 color:white;
+display:flex;
+flex-direction:column;
+gap:12px;
+padding:12px;
+box-sizing:border-box;
 overflow:hidden;
 ">
 
-<!-- MAIN TOP -->
+<!-- TOP -->
 <div style="
 display:flex;
 justify-content:space-between;
-align-items:flex-start;
-margin-bottom:22px;
+align-items:center;
 ">
 
-<!-- LEFT -->
 <div>
 
 <div id="mainTemp" style="
-font-size:110px;
+font-size:92px;
 font-weight:700;
 line-height:0.9;
 letter-spacing:-4px;
@@ -28,17 +30,15 @@ letter-spacing:-4px;
 </div>
 
 <div id="mainCondition" style="
-font-size:32px;
-font-weight:500;
-margin-top:8px;
-color:white;
+font-size:26px;
+margin-top:6px;
 ">
 Loading...
 </div>
 
 <div id="feelsLike" style="
-font-size:20px;
-color:rgba(255,255,255,0.65);
+font-size:16px;
+color:rgba(255,255,255,0.6);
 margin-top:4px;
 ">
 Feels like --
@@ -46,45 +46,35 @@ Feels like --
 
 </div>
 
-<!-- ICON -->
-<div id="mainIcon" style="
-opacity:0.95;
-margin-top:12px;
-">
-</div>
+<div id="mainIcon"></div>
 
 </div>
 
-<!-- METRICS -->
+<!-- METRICS GRID -->
 <div style="
 display:grid;
-grid-template-columns:1fr 1fr 1fr;
-gap:14px;
-margin-bottom:18px;
+grid-template-columns:1fr 1fr;
+gap:10px;
 ">
 
 <!-- WIND -->
 <div style="
 background:rgba(9,20,43,0.82);
 border-radius:18px;
-padding:20px;
-backdrop-filter:blur(6px);
+padding:16px;
 ">
 
 <div style="
 display:flex;
 align-items:center;
-gap:10px;
-margin-bottom:14px;
+gap:8px;
+margin-bottom:10px;
 ">
 
-<!-- WIND ICON -->
-<svg width="26" height="26" viewBox="0 0 24 24"
+<svg width="22" height="22" viewBox="0 0 24 24"
 fill="none"
 stroke="#ffffff"
-stroke-width="2"
-stroke-linecap="round"
-stroke-linejoin="round">
+stroke-width="2">
 
 <path d="M3 8h11a3 3 0 1 0-3-3"/>
 <path d="M2 12h15a3 3 0 1 1-3 3"/>
@@ -93,9 +83,9 @@ stroke-linejoin="round">
 </svg>
 
 <div style="
-font-size:14px;
+font-size:12px;
+color:rgba(255,255,255,0.65);
 letter-spacing:1px;
-color:rgba(255,255,255,0.75);
 ">
 WIND
 </div>
@@ -103,7 +93,7 @@ WIND
 </div>
 
 <div id="windVal" style="
-font-size:48px;
+font-size:42px;
 font-weight:700;
 line-height:1;
 ">
@@ -111,9 +101,9 @@ line-height:1;
 </div>
 
 <div style="
-font-size:18px;
-color:rgba(255,255,255,0.6);
-margin-top:6px;
+font-size:14px;
+color:rgba(255,255,255,0.55);
+margin-top:4px;
 ">
 km/h
 </div>
@@ -124,33 +114,29 @@ km/h
 <div style="
 background:rgba(9,20,43,0.82);
 border-radius:18px;
-padding:20px;
-backdrop-filter:blur(6px);
+padding:16px;
 ">
 
 <div style="
 display:flex;
 align-items:center;
-gap:10px;
-margin-bottom:14px;
+gap:8px;
+margin-bottom:10px;
 ">
 
-<!-- HUMIDITY -->
-<svg width="26" height="26" viewBox="0 0 24 24"
+<svg width="22" height="22" viewBox="0 0 24 24"
 fill="none"
 stroke="#ffffff"
-stroke-width="2"
-stroke-linecap="round"
-stroke-linejoin="round">
+stroke-width="2">
 
 <path d="M12 2C12 2 6 9 6 13a6 6 0 0 0 12 0c0-4-6-11-6-11z"/>
 
 </svg>
 
 <div style="
-font-size:14px;
+font-size:12px;
+color:rgba(255,255,255,0.65);
 letter-spacing:1px;
-color:rgba(255,255,255,0.75);
 ">
 HUMIDITY
 </div>
@@ -158,7 +144,7 @@ HUMIDITY
 </div>
 
 <div id="humidityVal" style="
-font-size:48px;
+font-size:42px;
 font-weight:700;
 line-height:1;
 ">
@@ -166,9 +152,9 @@ line-height:1;
 </div>
 
 <div style="
-font-size:18px;
-color:rgba(255,255,255,0.6);
-margin-top:6px;
+font-size:14px;
+color:rgba(255,255,255,0.55);
+margin-top:4px;
 ">
 %
 </div>
@@ -179,24 +165,20 @@ margin-top:6px;
 <div style="
 background:rgba(9,20,43,0.82);
 border-radius:18px;
-padding:20px;
-backdrop-filter:blur(6px);
+padding:16px;
 ">
 
 <div style="
 display:flex;
 align-items:center;
-gap:10px;
-margin-bottom:14px;
+gap:8px;
+margin-bottom:10px;
 ">
 
-<!-- UV -->
-<svg width="26" height="26" viewBox="0 0 24 24"
+<svg width="22" height="22" viewBox="0 0 24 24"
 fill="none"
 stroke="#ffffff"
-stroke-width="2"
-stroke-linecap="round"
-stroke-linejoin="round">
+stroke-width="2">
 
 <circle cx="12" cy="12" r="4"/>
 <path d="M12 2v2"/>
@@ -207,9 +189,9 @@ stroke-linejoin="round">
 </svg>
 
 <div style="
-font-size:14px;
+font-size:12px;
+color:rgba(255,255,255,0.65);
 letter-spacing:1px;
-color:rgba(255,255,255,0.75);
 ">
 UV INDEX
 </div>
@@ -217,11 +199,65 @@ UV INDEX
 </div>
 
 <div id="uvVal" style="
-font-size:48px;
+font-size:42px;
 font-weight:700;
 line-height:1;
 ">
 --
+</div>
+
+</div>
+
+<!-- PRECIP -->
+<div style="
+background:rgba(9,20,43,0.82);
+border-radius:18px;
+padding:16px;
+">
+
+<div style="
+display:flex;
+align-items:center;
+gap:8px;
+margin-bottom:10px;
+">
+
+<svg width="22" height="22" viewBox="0 0 24 24"
+fill="none"
+stroke="#ffffff"
+stroke-width="2">
+
+<path d="M16 13v6"/>
+<path d="M8 13v6"/>
+<path d="M12 15v6"/>
+<path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"/>
+
+</svg>
+
+<div style="
+font-size:12px;
+color:rgba(255,255,255,0.65);
+letter-spacing:1px;
+">
+RAIN CHANCE
+</div>
+
+</div>
+
+<div id="precipVal" style="
+font-size:42px;
+font-weight:700;
+line-height:1;
+">
+--
+</div>
+
+<div style="
+font-size:14px;
+color:rgba(255,255,255,0.55);
+margin-top:4px;
+">
+%
 </div>
 
 </div>
@@ -232,22 +268,20 @@ line-height:1;
 <div id="alertsBox" style="
 background:rgba(22,101,52,0.82);
 border-radius:18px;
-padding:18px 22px;
-margin-bottom:18px;
-backdrop-filter:blur(6px);
+padding:16px 18px;
 ">
 
 <div style="
-font-size:14px;
+font-size:12px;
+color:rgba(255,255,255,0.65);
 letter-spacing:1px;
-color:rgba(255,255,255,0.7);
-margin-bottom:8px;
+margin-bottom:6px;
 ">
 WEATHER ALERTS
 </div>
 
 <div id="alertsText" style="
-font-size:30px;
+font-size:24px;
 font-weight:700;
 line-height:1.2;
 ">
@@ -259,28 +293,28 @@ No weather alerts
 <!-- BOTTOM -->
 <div style="
 display:grid;
-grid-template-columns:1fr 1fr 1.2fr;
-gap:14px;
+grid-template-columns:1fr 1fr;
+gap:10px;
 ">
 
 <!-- SUNRISE -->
 <div style="
 background:rgba(9,20,43,0.82);
 border-radius:18px;
-padding:18px;
+padding:16px;
 ">
 
 <div style="
-font-size:13px;
+font-size:12px;
 color:rgba(255,255,255,0.65);
-margin-bottom:10px;
 letter-spacing:1px;
+margin-bottom:8px;
 ">
 SUNRISE
 </div>
 
 <div id="sunriseVal" style="
-font-size:34px;
+font-size:32px;
 font-weight:700;
 ">
 --
@@ -292,23 +326,25 @@ font-weight:700;
 <div style="
 background:rgba(9,20,43,0.82);
 border-radius:18px;
-padding:18px;
+padding:16px;
 ">
 
 <div style="
-font-size:13px;
+font-size:12px;
 color:rgba(255,255,255,0.65);
-margin-bottom:10px;
 letter-spacing:1px;
+margin-bottom:8px;
 ">
 SUNSET
 </div>
 
 <div id="sunsetVal" style="
-font-size:34px;
+font-size:32px;
 font-weight:700;
 ">
 --
+</div>
+
 </div>
 
 </div>
@@ -317,7 +353,7 @@ font-weight:700;
 <div style="
 background:rgba(9,20,43,0.82);
 border-radius:18px;
-padding:18px;
+padding:16px;
 display:flex;
 justify-content:space-between;
 align-items:center;
@@ -326,16 +362,40 @@ align-items:center;
 <div>
 
 <div style="
-font-size:13px;
-color:rgba(255,255,255,0.65);
+display:flex;
+align-items:center;
+gap:8px;
 margin-bottom:8px;
+">
+
+<svg width="16" height="16" viewBox="0 0 24 24"
+fill="none"
+stroke="rgba(255,255,255,0.65)"
+stroke-width="2">
+
+<path d="M3 21h18"/>
+<path d="M5 21V7l8-4v18"/>
+<path d="M19 21V11l-6-4"/>
+<path d="M9 9h.01"/>
+<path d="M9 13h.01"/>
+<path d="M9 17h.01"/>
+<path d="M15 13h.01"/>
+<path d="M15 17h.01"/>
+
+</svg>
+
+<div style="
+font-size:12px;
+color:rgba(255,255,255,0.65);
 letter-spacing:1px;
 ">
-CLEVELAND
+CLEVELAND, OH
+</div>
+
 </div>
 
 <div id="clevelandTemp" style="
-font-size:42px;
+font-size:32px;
 font-weight:700;
 ">
 --
@@ -344,8 +404,6 @@ font-weight:700;
 </div>
 
 <div id="clevelandIcon"></div>
-
-</div>
 
 </div>
 
@@ -369,13 +427,13 @@ function weatherIcon(code, size) {
 
 if (code >= 95) {
 
-return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><path d="M19 16.9A5 5 0 0 0 18 7h-1.3A8 8 0 1 0 4 15.3"/><polyline points="13 11 9 17 15 17 11 23"/></svg>';
+return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><path d="M17.5 19a4.5 4.5 0 1 0-.9-8.9A6 6 0 1 0 6 18h11.5z"/><polyline points="13 11 9 17 15 17 11 23"/></svg>';
 
 }
 
 if (code >= 61) {
 
-return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"/><line x1="8" y1="19" x2="8.01" y2="19"/><line x1="8" y1="23" x2="8.01" y2="23"/><line x1="16" y1="19" x2="16.01" y2="19"/><line x1="16" y1="23" x2="16.01" y2="23"/></svg>';
+return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><path d="M17.5 19a4.5 4.5 0 1 0-.9-8.9A6 6 0 1 0 6 18h11.5z"/><line x1="8" y1="20" x2="8.01" y2="20"/><line x1="12" y1="22" x2="12.01" y2="22"/><line x1="16" y1="20" x2="16.01" y2="20"/></svg>';
 
 }
 
@@ -388,7 +446,7 @@ return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" 
 return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M2 12h2"/><path d="M20 12h2"/></svg>';
 }
 
-fetch('https://api.open-meteo.com/v1/forecast?latitude=53.3811&longitude=-1.4701&current=temperature_2m,apparent_temperature,relative_humidity_2m,windspeed_10m,weathercode&daily=uv_index_max,precipitation_sum,windspeed_10m_max,weathercode,sunrise,sunset&timezone=auto')
+fetch('https://api.open-meteo.com/v1/forecast?latitude=53.3811&longitude=-1.4701&current=temperature_2m,apparent_temperature,relative_humidity_2m,windspeed_10m,weathercode&daily=uv_index_max,precipitation_probability_max,precipitation_sum,windspeed_10m_max,weathercode,sunrise,sunset&timezone=auto')
 
 .then(function(response) {
 return response.json();
@@ -407,7 +465,7 @@ document.getElementById('feelsLike').innerHTML =
 Math.round(data.current.apparent_temperature) + '°';
 
 document.getElementById('mainIcon').innerHTML =
-weatherIcon(data.current.weathercode, 170);
+weatherIcon(data.current.weathercode, 120);
 
 document.getElementById('windVal').innerHTML =
 Math.round(data.current.windspeed_10m);
@@ -417,6 +475,9 @@ data.current.relative_humidity_2m;
 
 document.getElementById('uvVal').innerHTML =
 data.daily.uv_index_max[0];
+
+document.getElementById('precipVal').innerHTML =
+data.daily.precipitation_probability_max[0];
 
 document.getElementById('sunriseVal').innerHTML =
 data.daily.sunrise[0].split('T')[1];
@@ -461,7 +522,7 @@ document.getElementById('clevelandTemp').innerHTML =
 Math.round(data.current.temperature_2m) + '°';
 
 document.getElementById('clevelandIcon').innerHTML =
-weatherIcon(data.current.weathercode, 64);
+weatherIcon(data.current.weathercode, 54);
 
 });
 
