@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+body{
+margin:0;
+font-family:Segoe UI,Arial,sans-serif;
+background:transparent;
+}
+#weather{
+width:500px;
+height:320px;
+box-sizing:border-box;
+padding:20px;
+color:#fff;
+border-radius:12px;
+background:linear-gradient(180deg,#0b5fc1,#0a4da0);
+}
+.header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+.city{
+font-size:26px;
+font-weight:700;
+}
+.temp{
+font-size:90px;
+font-weight:700;
+line-height:0.9;
+margin-top:10px;
+}
+.condition{
+font-size:24px;
+margin-bottom:15px;
+}
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:8px;
+}
+.item{
+background:rgba(255,255,255,.12);
+padding:8px;
+border-radius:6px;
+}
+.label{
+font-size:12px;
+opacity:.8;
+}
+.value{
+font-size:20px;
+font-weight:700;
+}
+.footer{
+margin-top:15px;
+padding-top:10px;
+border-top:1px solid rgba(255,255,255,.3);
+display:flex;
+justify-content:space-between;
+}
+</style>
+</head>
+<body>
+
+<div id="weather">
+<div class="header">
+<div class="city">SHEFFIELD, UK</div>
+<div>🇬🇧</div>
+</div>
+
+<div id="temp" class="temp">--°</div>
+<div id="condition" class="condition">Loading...</div>
+
+<div class="grid">
+<div class="item">
+<div class="label">Feels Like</div>
+<div id="feels" class="value">--</div>
+</div>
+
+<div class="item">
+<div class="label">Humidity</div>
+<div id="humidity" class="value">--</div>
+</div>
+
+<div class="item">
+<div class="label">Wind</div>
+<div id="wind" class="value">--</div>
+</div>
+
+<div class="item">
+<div class="label">Weather Code</div>
+<div id="code" class="value">--</div>
+</div>
+</div>
+
+<div class="footer">
+<div>🌅 <span id="sunrise">--:--</span></div>
+<div>🌇 <span id="sunset">--:--</span></div>
+</div>
+</div>
+
+<script>
+const weatherText={
+0:"Clear Sky",
+1:"Mainly Clear",
+2:"Partly Cloudy",
+3:"Overcast",
+45:"Fog",
+48:"Fog",
+51:"Drizzle",
+53:"Drizzle",
+55:"Heavy Drizzle",
+61:"Light Rain",
+63:"Rain",
+65:"Heavy Rain",
+71:"Snow",
+73:"Snow",
+75:"Heavy Snow",
+80:"Rain Showers",
+81:"Rain Showers",
+82:"Heavy Showers",
+95:"Thunderstorm"
+};
+
+async function updateWeather(){
+const url="https://api.open-meteo.com/v1/forecast?latitude=53.3811&longitude=-1.4701&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&daily=sunrise,sunset&timezone=Europe%2FLondon";
+
+const r=await fetch(url);
+const d=await r.json();
+
+document.getElementById("temp").innerHTML=Math.round(d.current.temperature_2m)+"°C";
+document.getElementById("condition").innerHTML=weatherText[d.current.weather_code]||"Unknown";
+document.getElementById("feels").innerHTML=Math.round(d.current.apparent_temperature)+"°C";
+document.getElementById("humidity").innerHTML=d.current.relative_humidity_2m+"%";
+document.getElementById("wind").innerHTML=Math.round(d.current.wind_speed_10m)+" mph";
+document.getElementById("code").innerHTML=d.current.weather_code;
+
+document.getElementById("sunrise").innerHTML=
+new Date(d.daily.sunrise[0]).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+
+document.getElementById("sunset").innerHTML=
+new Date(d.daily.sunset[0]).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+}
+
+updateWeather();
+setInterval(updateWeather,600000);
+</script>
+
+</body>
+</html>
