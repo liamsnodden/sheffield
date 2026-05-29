@@ -3,118 +3,89 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sheffield Dashboard Final</title>
+<title>Weather Bar Final Transparent</title>
 <style>
-body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:transparent}
-.wrap{width:700px}
-.card{background:#fff;border:1px solid #dde3ea;border-radius:14px;overflow:hidden;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-.header{background:#003da5;color:#fff;font-weight:700;font-size:18px;padding:8px 16px}
-.weather{padding:18px}
-.top{display:grid;grid-template-columns:320px 1px 1fr;gap:18px;align-items:center}
-.divider{background:#e4e8ee;height:190px}
-.left{display:flex;align-items:center;gap:16px}
-.temp{font-size:88px;font-weight:300;color:#111;line-height:.9}
-.cond{font-size:20px}
-.feels{font-size:15px;color:#666}
-.right .row{display:grid;grid-template-columns:40px 1fr auto;gap:10px;align-items:center;margin:16px 0}
-.right svg{width:32px;height:32px}
-.bottom{margin-top:12px;padding-top:12px;border-top:1px solid #e4e8ee;display:grid;grid-template-columns:repeat(4,1fr)}
-.box{text-align:center}
-.box:not(:last-child){border-right:1px solid #e4e8ee}
-.lbl{font-size:12px;color:#666}
-.val{font-size:18px;font-weight:700}
-.clockgrid{display:grid;grid-template-columns:repeat(5,1fr);padding:16px}
-.clock{text-align:center}
-.clock:not(:last-child){border-right:1px solid #e4e8ee}
-.city{font-size:13px;font-weight:700;color:#003da5}
-.tz{font-size:11px;color:#666;margin:8px 0}
-.time{font-size:30px}
-.ampm{font-size:11px;color:#666}
+body{margin:0;background:transparent;font-family:Segoe UI,Arial,sans-serif}
+.bar{
+width:700px;
+height:100px;
+background:transparent;
+color:#fff;
+display:flex;
+align-items:center;
+overflow:hidden;
+}
+.icon{width:70px;text-align:center;font-size:42px}
+.temp{font-size:54px;font-weight:700;line-height:1;margin-right:10px}
+.desc{width:140px}
+.cond{font-size:18px;font-weight:600}
+.feels{font-size:13px}
+.metric{width:62px;text-align:center;font-size:11px}
+.metric svg{width:24px;height:24px;display:block;margin:0 auto 2px}
+.val{font-size:14px;font-weight:700}
+.metric-divider{width:1px;height:42px;background:rgba(255,255,255,.30);margin:0 6px}
+.high{color:#ff4d4d}
+.low{color:#4ea1ff}
 </style>
 </head>
 <body>
-<div class="wrap">
-<div class="card">
-<div class="header">WEATHER</div>
-<div class="weather">
-<div class="top">
-<div class="left">
-<svg width="140" height="140" viewBox="0 0 160 120">
-<g stroke="#f6c21a" stroke-width="6" stroke-linecap="round" fill="none">
-<circle cx="50" cy="42" r="22"/>
-<line x1="50" y1="6" x2="50" y2="18"/><line x1="50" y1="66" x2="50" y2="78"/>
-<line x1="14" y1="42" x2="26" y2="42"/><line x1="74" y1="42" x2="86" y2="42"/>
-<line x1="25" y1="17" x2="34" y2="26"/><line x1="66" y1="58" x2="75" y2="67"/>
-<line x1="25" y1="67" x2="34" y2="58"/><line x1="66" y1="26" x2="75" y2="17"/>
-</g>
-<path d="M56 90h56c14 0 25-11 25-25s-11-25-25-25c-3-17-17-29-35-29-18 0-33 12-36 29-15 1-26 12-26 25s11 25 25 25z"
-fill="#fff" stroke="#c9ced6" stroke-width="5"/>
-</svg>
-<div>
-<div class="temp" id="temp">--°C</div>
+<div class="bar">
+<div class="icon" id="weatherIcon">⛅</div>
+<div class="temp" id="temp">--°</div>
+
+<div class="desc">
 <div class="cond" id="cond">Loading...</div>
-<div class="feels">Feels Like <span id="feels">--°C</span></div>
-</div>
-</div>
-<div class="divider"></div>
-<div class="right">
-<div class="row"><svg viewBox="0 0 24 24"><path d="M12 2C12 2 6 10 6 14a6 6 0 0 0 12 0c0-4-6-12-6-12z" fill="none" stroke="#0b46b5" stroke-width="2"/></svg><span>Humidity</span><b id="humidity"></b></div>
-<div class="row"><svg viewBox="0 0 24 24"><path d="M3 8h10c2 0 3-1 3-3s-1-3-3-3M3 12h16c2 0 3 1 3 3s-1 3-3 3M3 16h8" fill="none" stroke="#0b46b5" stroke-width="2" stroke-linecap="round"/></svg><span>Wind</span><b id="wind"></b></div>
-<div class="row"><svg viewBox="0 0 24 24"><path d="M7 17h9a4 4 0 0 0 0-8a5 5 0 0 0-9-2a4 4 0 0 0 0 10z" fill="none" stroke="#0b46b5" stroke-width="2"/><line x1="8" y1="19" x2="7" y2="22" stroke="#0b46b5" stroke-width="2"/><line x1="12" y1="19" x2="11" y2="22" stroke="#0b46b5" stroke-width="2"/><line x1="16" y1="19" x2="15" y2="22" stroke="#0b46b5" stroke-width="2"/></svg><span>Rain Chance</span><b id="rain"></b></div>
-</div>
-</div>
-<div class="bottom">
-<div class="box"><div class="lbl">HIGH</div><div class="val" id="high"></div></div>
-<div class="box"><div class="lbl">LOW</div><div class="val" id="low"></div></div>
-<div class="box"><div class="lbl">SUNRISE</div><div class="val" id="sunrise"></div></div>
-<div class="box"><div class="lbl">SUNSET</div><div class="val" id="sunset"></div></div>
-</div>
-</div>
+<div class="feels">Feels Like <span id="feels">--°</span></div>
 </div>
 
-<div class="card">
-<div class="header">WORLD CLOCKS</div>
-<div class="clockgrid">
-<div class="clock"><div class="city">LOS ANGELES</div><div class="tz" id="tzla"></div><div class="time" id="la"></div><div class="ampm" id="laap"></div></div>
-<div class="clock"><div class="city">CLEVELAND</div><div class="tz" id="tzcle"></div><div class="time" id="cle"></div><div class="ampm" id="cleap"></div></div>
-<div class="clock"><div class="city">CHICAGO</div><div class="tz" id="tzchi"></div><div class="time" id="chi"></div><div class="ampm" id="chiap"></div></div>
-<div class="clock"><div class="city">PHOENIX</div><div class="tz" id="tzphx"></div><div class="time" id="phx"></div><div class="ampm" id="phxap"></div></div>
-<div class="clock"><div class="city">SHEFFIELD</div><div class="tz" id="tzshf"></div><div class="time" id="shf"></div><div class="ampm" id="shfap"></div></div>
+<div class="metric">
+<svg viewBox="0 0 24 24"><path d="M12 2C12 2 6 10 6 14a6 6 0 0 0 12 0c0-4-6-12-6-12z" fill="none" stroke="#4ea1ff" stroke-width="2"/></svg>
+<div class="val" id="humidity">--</div><div>HUM</div>
 </div>
+
+<div class="metric">
+<svg viewBox="0 0 24 24"><path d="M3 8h10M3 12h16M3 16h8" fill="none" stroke="#4ea1ff" stroke-width="2" stroke-linecap="round"/></svg>
+<div class="val" id="wind">--</div><div>WIND</div>
+</div>
+
+<div class="metric">
+<svg viewBox="0 0 24 24"><path d="M7 17h9a4 4 0 0 0 0-8a5 5 0 0 0-9-2a4 4 0 0 0 0 10z" fill="none" stroke="#4ea1ff" stroke-width="2"/></svg>
+<div class="val" id="rain">--</div><div>RAIN</div>
+</div>
+
+<div class="metric-divider"></div>
+
+<div class="metric">
+<div class="val high" id="high">--</div>
+<div class="high">HIGH</div>
+</div>
+
+<div class="metric">
+<div class="val low" id="low">--</div>
+<div class="low">LOW</div>
 </div>
 </div>
 
 <script>
-const codes={0:"Clear Sky",1:"Mainly Clear",2:"Partly Cloudy",3:"Cloudy",45:"Fog",61:"Rain",63:"Rain",80:"Showers",95:"Thunderstorm"};
+const icons={0:'☀️',1:'⛅',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',61:'🌧️',63:'🌧️',65:'🌧️',80:'🌦️',81:'🌦️',82:'🌦️',95:'⛈️'};
+const descs={0:'Clear Sky',1:'Mainly Clear',2:'Partly Cloudy',3:'Cloudy',45:'Fog',61:'Rain',80:'Showers',95:'Thunderstorm'};
+
 async function loadWeather(){
- const u='https://api.open-meteo.com/v1/forecast?latitude=53.3811&longitude=-1.4701&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&daily=temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_probability_max&timezone=Europe%2FLondon';
- const d=await (await fetch(u)).json();
- temp.textContent=Math.round(d.current.temperature_2m)+'°C';
- cond.textContent=codes[d.current.weather_code]||'Current Conditions';
- feels.textContent=Math.round(d.current.apparent_temperature)+'°C';
+ const url='https://api.open-meteo.com/v1/forecast?latitude=53.3811&longitude=-1.4701&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,weather_code&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Europe%2FLondon';
+ const d=await (await fetch(url)).json();
+
+ temp.textContent=Math.round(d.current.temperature_2m)+'°';
+ feels.textContent=Math.round(d.current.apparent_temperature)+'°';
  humidity.textContent=d.current.relative_humidity_2m+'%';
- wind.textContent=Math.round(d.current.wind_speed_10m)+' mph';
+ wind.textContent=Math.round(d.current.wind_speed_10m)+'mph';
  rain.textContent=d.daily.precipitation_probability_max[0]+'%';
- high.textContent=Math.round(d.daily.temperature_2m_max[0])+'°C';
- low.textContent=Math.round(d.daily.temperature_2m_min[0])+'°C';
- sunrise.textContent=new Date(d.daily.sunrise[0]).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
- sunset.textContent=new Date(d.daily.sunset[0]).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+ high.textContent=Math.round(d.daily.temperature_2m_max[0])+'°';
+ low.textContent=Math.round(d.daily.temperature_2m_min[0])+'°';
+ weatherIcon.textContent=icons[d.current.weather_code]||'⛅';
+ cond.textContent=descs[d.current.weather_code]||'Current';
 }
-function tz(z){return new Intl.DateTimeFormat('en-US',{timeZone:z,timeZoneName:'short'}).formatToParts(new Date()).find(p=>p.type==='timeZoneName').value}
-function clk(id,ap,z,tzid){
- let p=new Intl.DateTimeFormat('en-US',{timeZone:z,hour:'2-digit',minute:'2-digit',hour12:true}).formatToParts(new Date());
- document.getElementById(id).textContent=p.filter(x=>x.type==='hour'||x.type==='minute').map(x=>x.value).join(':');
- document.getElementById(ap).textContent=p.find(x=>x.type==='dayPeriod').value;
- document.getElementById(tzid).textContent=tz(z);
-}
-function update(){
- clk('la','laap','America/Los_Angeles','tzla');
- clk('cle','cleap','America/New_York','tzcle');
- clk('chi','chiap','America/Chicago','tzchi');
- clk('phx','phxap','America/Phoenix','tzphx');
- clk('shf','shfap','Europe/London','tzshf');
-}
-loadWeather();update();setInterval(update,1000);setInterval(loadWeather,600000);
+loadWeather();
+setInterval(loadWeather,600000);
 </script>
 </body>
 </html>
