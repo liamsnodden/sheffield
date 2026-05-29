@@ -1,0 +1,76 @@
+<div class="topHeader">
+<div class="dateTime">
+<span id="currentDate"></span>
+<span class="sep">|</span>
+<span id="currentTime"></span>
+</div>
+
+<div class="location">
+Sheffield, England
+</div>
+
+<div class="tagline">
+FINISHES AND COATINGS THAT PERFORM™
+</div>
+</div>
+
+<style>
+.topHeader{
+width:100%;
+text-align:right;
+color:#ffffff;
+font-family:'Segoe UI',Arial,sans-serif;
+padding:18px 30px;
+box-sizing:border-box;
+}
+
+.dateTime{
+font-size:20px;
+font-weight:600;
+letter-spacing:.3px;
+}
+
+.sep{
+margin:0 14px;
+opacity:.7;
+}
+
+.location{
+margin-top:6px;
+font-size:18px;
+font-weight:600;
+}
+
+.tagline{
+margin-top:12px;
+font-size:14px;
+font-style:italic;
+letter-spacing:1px;
+opacity:.9;
+}
+</style>
+
+<script>
+function updateHeader(){
+
+const now = new Date();
+
+document.getElementById('currentDate').textContent =
+now.toLocaleDateString('en-US',{
+month:'long',
+day:'numeric',
+year:'numeric'
+});
+
+document.getElementById('currentTime').textContent =
+now.toLocaleTimeString('en-GB',{
+timeZone:'Europe/London',
+hour:'numeric',
+minute:'2-digit',
+hour12:true
+}) + ' BST';
+}
+
+updateHeader();
+setInterval(updateHeader,1000);
+</script>
