@@ -3,120 +3,198 @@
 <head>
 <meta charset="UTF-8">
 <style>
-body{
+*{
 margin:0;
-font-family:Segoe UI,Arial,sans-serif;
-background:transparent;
-}
-#weather{
-width:500px;
-height:320px;
+padding:0;
 box-sizing:border-box;
-padding:20px;
-color:#fff;
-border-radius:12px;
-background:linear-gradient(180deg,#0b5fc1,#0a4da0);
 }
+
+body{
+background:transparent;
+font-family:'Segoe UI',sans-serif;
+}
+
+.weather-panel{
+width:700px;
+height:245px;
+background:linear-gradient(180deg,#004f9f 0%, #005db8 100%);
+border-radius:8px;
+color:white;
+padding:14px 20px;
+overflow:hidden;
+}
+
 .header{
+font-size:18px;
+font-weight:600;
+letter-spacing:.5px;
+border-bottom:1px solid rgba(255,255,255,.25);
+padding-bottom:8px;
+}
+
+.content{
 display:flex;
-justify-content:space-between;
+height:150px;
 align-items:center;
 }
-.city{
-font-size:26px;
-font-weight:700;
+
+.left{
+width:60%;
+display:flex;
+align-items:center;
 }
+
+.icon{
+width:120px;
+text-align:center;
+font-size:85px;
+}
+
+.temp-area{
+margin-left:10px;
+}
+
 .temp{
-font-size:90px;
+font-size:82px;
 font-weight:700;
-line-height:0.9;
-margin-top:10px;
+line-height:.9;
 }
+
 .condition{
-font-size:24px;
-margin-bottom:15px;
+font-size:18px;
+margin-top:8px;
 }
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:8px;
+
+.right{
+width:40%;
+padding-left:20px;
 }
-.item{
-background:rgba(255,255,255,.12);
-padding:8px;
-border-radius:6px;
-}
-.label{
-font-size:12px;
-opacity:.8;
-}
-.value{
-font-size:20px;
-font-weight:700;
-}
-.footer{
-margin-top:15px;
-padding-top:10px;
-border-top:1px solid rgba(255,255,255,.3);
+
+.stat{
 display:flex;
 justify-content:space-between;
+margin-bottom:10px;
+font-size:16px;
+}
+
+.stat label{
+opacity:.9;
+font-weight:600;
+}
+
+.sun{
+border-top:1px solid rgba(255,255,255,.25);
+margin-top:5px;
+padding-top:10px;
+}
+
+.sun-row{
+display:flex;
+justify-content:space-between;
+margin-top:8px;
+font-size:16px;
+}
+
+.sun-icon{
+color:#ffd54f;
 }
 </style>
 </head>
 <body>
 
-<div id="weather">
+<div class="weather-panel">
+
 <div class="header">
-<div class="city">SHEFFIELD, UK</div>
-<div>🇬🇧</div>
+SHEFFIELD, UK
 </div>
 
-<div id="temp" class="temp">--°</div>
+<div class="content">
+
+<div class="left">
+
+<div id="icon" class="icon">☀️</div>
+
+<div class="temp-area">
+<div id="temp" class="temp">--°C</div>
 <div id="condition" class="condition">Loading...</div>
-
-<div class="grid">
-<div class="item">
-<div class="label">Feels Like</div>
-<div id="feels" class="value">--</div>
 </div>
 
-<div class="item">
-<div class="label">Humidity</div>
-<div id="humidity" class="value">--</div>
 </div>
 
-<div class="item">
-<div class="label">Wind</div>
-<div id="wind" class="value">--</div>
+<div class="right">
+
+<div class="stat">
+<label>Feels Like</label>
+<span id="feels">--</span>
 </div>
 
-<div class="item">
-<div class="label">Weather Code</div>
-<div id="code" class="value">--</div>
-</div>
+<div class="stat">
+<label>Humidity</label>
+<span id="humidity">--</span>
 </div>
 
-<div class="footer">
-<div>🌅 <span id="sunrise">--:--</span></div>
-<div>🌇 <span id="sunset">--:--</span></div>
+<div class="stat">
+<label>Wind</label>
+<span id="wind">--</span>
 </div>
+
+<div class="stat">
+<label>Rain Chance</label>
+<span id="rain">--</span>
+</div>
+
+<div class="sun">
+
+<div class="sun-row">
+<span><span class="sun-icon">🌅</span> Sunrise</span>
+<span id="sunrise">--</span>
+</div>
+
+<div class="sun-row">
+<span><span class="sun-icon">🌇</span> Sunset</span>
+<span id="sunset">--</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 <script>
-const weatherText={
+
+function weatherIcon(code){
+
+if(code===0) return "☀️";
+if([1,2].includes(code)) return "🌤️";
+if(code===3) return "☁️";
+if([45,48].includes(code)) return "🌫️";
+if([51,53,55].includes(code)) return "🌦️";
+if([61,63,65,80,81,82].includes(code)) return "🌧️";
+if([71,73,75].includes(code)) return "❄️";
+if(code===95) return "⛈️";
+
+return "☁️";
+}
+
+function weatherText(code){
+
+const map={
 0:"Clear Sky",
 1:"Mainly Clear",
 2:"Partly Cloudy",
 3:"Overcast",
 45:"Fog",
 48:"Fog",
-51:"Drizzle",
+51:"Light Drizzle",
 53:"Drizzle",
 55:"Heavy Drizzle",
 61:"Light Rain",
 63:"Rain",
 65:"Heavy Rain",
-71:"Snow",
+71:"Light Snow",
 73:"Snow",
 75:"Heavy Snow",
 80:"Rain Showers",
@@ -125,28 +203,57 @@ const weatherText={
 95:"Thunderstorm"
 };
 
+return map[code] || "Unknown";
+}
+
 async function updateWeather(){
-const url="https://api.open-meteo.com/v1/forecast?latitude=53.3811&longitude=-1.4701&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&daily=sunrise,sunset&timezone=Europe%2FLondon";
 
-const r=await fetch(url);
-const d=await r.json();
+const url =
+"https://api.open-meteo.com/v1/forecast?latitude=53.3811&longitude=-1.4701&current=temperature_2m,relative_humidity_2m,apparent_temperature,weather_code,wind_speed_10m&daily=sunrise,sunset&timezone=Europe%2FLondon";
 
-document.getElementById("temp").innerHTML=Math.round(d.current.temperature_2m)+"°C";
-document.getElementById("condition").innerHTML=weatherText[d.current.weather_code]||"Unknown";
-document.getElementById("feels").innerHTML=Math.round(d.current.apparent_temperature)+"°C";
-document.getElementById("humidity").innerHTML=d.current.relative_humidity_2m+"%";
-document.getElementById("wind").innerHTML=Math.round(d.current.wind_speed_10m)+" mph";
-document.getElementById("code").innerHTML=d.current.weather_code;
+const res = await fetch(url);
+const data = await res.json();
 
-document.getElementById("sunrise").innerHTML=
-new Date(d.daily.sunrise[0]).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+const c = data.current.weather_code;
 
-document.getElementById("sunset").innerHTML=
-new Date(d.daily.sunset[0]).toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+document.getElementById("icon").textContent =
+weatherIcon(c);
+
+document.getElementById("temp").textContent =
+Math.round(data.current.temperature_2m) + "°C";
+
+document.getElementById("condition").textContent =
+weatherText(c);
+
+document.getElementById("feels").textContent =
+Math.round(data.current.apparent_temperature) + "°C";
+
+document.getElementById("humidity").textContent =
+data.current.relative_humidity_2m + "%";
+
+document.getElementById("wind").textContent =
+Math.round(data.current.wind_speed_10m) + " mph";
+
+document.getElementById("rain").textContent =
+"--";
+
+document.getElementById("sunrise").textContent =
+new Date(data.daily.sunrise[0]).toLocaleTimeString(
+'en-GB',
+{hour:'2-digit',minute:'2-digit'}
+);
+
+document.getElementById("sunset").textContent =
+new Date(data.daily.sunset[0]).toLocaleTimeString(
+'en-GB',
+{hour:'2-digit',minute:'2-digit'}
+);
+
 }
 
 updateWeather();
 setInterval(updateWeather,600000);
+
 </script>
 
 </body>
