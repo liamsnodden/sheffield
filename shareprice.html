@@ -1,65 +1,87 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>SHW Stock Ticker</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+<div class="ticker">
+<div class="symbol">NYSE: SHW</div>
 
-    .ticker {
-      font-size: 28px;
-      font-weight: bold;
-    }
+<div class="row">
+<span id="price">$---</span>
+<span id="change" class="change">▲ --%</span>
+</div>
 
-    .price {
-      font-weight: 900;
-    }
+<div id="time" class="time">As of --:-- ET</div>
+</div>
 
-    .up {
-      color: #22c55e; /* green */
-    }
-
-    .down {
-      color: #ef4444; /* red */
-    }
-  </style>
-</head>
-<body>
-
-<div id="ticker" class="ticker">Loading...</div>
-
-<script>
-async function loadStock() {
-  try {
-    const res = await fetch("https://stockprices.dev/api/stocks/SHW");
-    const data = await res.json();
-
-    const price = data.Price.toFixed(2);
-    const change = data.ChangePercentage.toFixed(2);
-
-    const isUp = change >= 0;
-    const arrow = isUp ? "▲" : "▼";
-    const className = isUp ? "up" : "down";
-
-    document.getElementById("ticker").innerHTML =
-      `NYSE: SHW <span class="price">$${price}</span> 
-       <span class="${className}">${arrow} ${change}%</span>`;
-  } catch (err) {
-    document.getElementById("ticker").innerText = "Error loading data";
-  }
+<style>
+body{
+margin:0;
+overflow:hidden;
+font-family:Arial,Helvetica,sans-serif;
 }
 
-// load immediately + refresh every 60s
-loadStock();
-setInterval(loadStock, 60000);
-</script>
+.ticker{
+background:#004990;
+color:white;
+padding:20px 30px;
+width:100%;
+height:100%;
+box-sizing:border-box;
+}
 
-</body>
-</html>
+.symbol{
+font-size:42px;
+font-weight:500;
+margin-bottom:10px;
+}
+
+.row{
+display:flex;
+align-items:center;
+gap:25px;
+}
+
+#price{
+font-size:110px;
+font-weight:700;
+line-height:1;
+}
+
+.change{
+font-size:72px;
+font-weight:700;
+color:#19c15f;
+}
+
+.time{
+font-size:34px;
+margin-top:15px;
+}
+</style>
+
+<script>
+fetch("https://query1.finance.yahoo.com/v8/finance/chart/SHW")
+.then(r => r.json())
+.then(data => {
+const meta = data.chart.result[0].meta;
+
+const price = meta.regularMarketPrice;
+const prev = meta.previousClose;
+const pct = ((price - prev) / prev * 100);
+
+document.getElementById("price").textContent =
+"$" + price.toFixed(2);
+
+document.getElementById("change").textContent =
+(pct >= 0 ? "▲ " : "▼ ") +
+Math.abs(pct).toFixed(1) + "%";
+
+document.getElementById("change").style.color =
+pct >= 0 ? "#19c15f" : "#ff4d4d";
+
+const now = new Date();
+document.getElementById("time").textContent =
+"As of " +
+now.toLocaleTimeString("en-US", {
+hour: "numeric",
+minute: "2-digit"
+}) +
+" ET";
+});
+</script>
