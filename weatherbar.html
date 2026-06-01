@@ -3,25 +3,70 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Weather Metrics Bar</title>
+
+<title>Weather Display</title>
 
 <style>
-body{
+html, body{
 margin:0;
+height:100%;
 background:transparent;
-font-family:'Segoe UI',Arial,sans-serif;
+font-family:'Segoe UI','Segoe UI Variable','Segoe UI Symbol',Arial,sans-serif;
 color:#fff;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
+/* MAIN CONTAINER */
 .weather-container{
 width:700px;
 }
 
+/* =======================
+   TOP SUMMARY BAR
+======================= */
+.summary{
+display:flex;
+align-items:center;
+height:90px;
+margin-bottom:6px;
+}
+
+/* TEMP */
+#temp{
+font-size:66px;
+font-weight:700;
+line-height:1;
+margin-right:18px;
+color:#e6f2ff;
+}
+
+/* TEXT STACK */
+.weather-text{
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+#condition{
+font-size:20px;
+font-weight:600;
+}
+
+#feels{
+font-size:14px;
+color:#cfd8e3;
+margin-top:4px;
+}
+
+/* =======================
+   METRICS BAR
+======================= */
 .metrics{
 display:flex;
-justify-content:space-between;
-align-items:center;
 height:70px;
+align-items:center;
 }
 
 .metric{
@@ -47,20 +92,21 @@ font-size:20px;
 font-weight:700;
 }
 
+/* ALERT BAR */
 .alert-bar{
-margin-top:2px;
-height:30px;
+margin-top:4px;
+height:28px;
 border-radius:6px;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:14px;
+font-size:13px;
 font-weight:700;
-text-transform:uppercase;
 letter-spacing:.5px;
 background:#2e7d32;
 color:#fff;
 }
+
 </style>
 </head>
 
@@ -68,6 +114,17 @@ color:#fff;
 
 <div class="weather-container">
 
+<!-- TOP -->
+<div class="summary">
+  <div id="temp">--°</div>
+
+  <div class="weather-text">
+    <div id="condition">Loading...</div>
+    <div id="feels">Feels Like --°</div>
+  </div>
+</div>
+
+<!-- METRICS -->
 <div class="metrics">
 
 <div class="metric">
@@ -117,6 +174,7 @@ color:#fff;
 
 </div>
 
+<!-- ALERT -->
 <div id="alertBar" class="alert-bar">
 NO WEATHER ALERTS IN EFFECT
 </div>
@@ -125,68 +183,60 @@ NO WEATHER ALERTS IN EFFECT
 
 <script>
 
-async function loadWeather() {
+async function loadWeather(){
 
-const response = await fetch(
+const url =
 'https://api.open-meteo.com/v1/forecast?' +
 'latitude=53.3811&longitude=-1.4701&' +
-'current=relative_humidity_2m,wind_speed_10m,wind_gusts_10m,cloud_cover,pressure_msl&' +
+'current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,wind_gusts_10m,cloud_cover,pressure_msl,weather_code&' +
 'daily=precipitation_probability_max,temperature_2m_max,temperature_2m_min,uv_index_max&' +
-'timezone=Europe/London'
-);
+'timezone=Europe/London';
 
-const data = await response.json();
+const data = await fetch(url).then(r => r.json());
 
-document.getElementById('rain').textContent =
-data.daily.precipitation_probability_max[0] + '%';
+const conditions = {
+0:'Clear Sky',1:'Mainly Clear',2:'Partly Cloudy',3:'Cloudy',
+45:'Fog',48:'Fog',61:'Rain',63:'Rain',65:'Heavy Rain',
+80:'Showers',95:'Thunderstorm'
+};
 
-document.getElementById('humidity').textContent =
-data.current.relative_humidity_2m + '%';
+/* TOP */
+temp.textContent = Math.round(data.current.temperature_2m) + '°';
+condition.textContent = conditions[data.current.weather_code] || 'Current';
+feels.textContent = 'Feels Like ' + Math.round(data.current.apparent_temperature) + '°';
 
-document.getElementById('wind').textContent =
-Math.round(data.current.wind_speed_10m) + ' mph';
+/* METRICS */
+rain.textContent = data.daily.precipitation_probability_max[0] + '%';
+humidity.textContent = data.current.relative_humidity_2m + '%';
+wind.textContent = Math.round(data.current.wind_speed_10m) + ' mph';
+gusts.textContent = Math.round(data.current.wind_gusts_10m) + ' mph';
+high.textContent = Math.round(data.daily.temperature_2m_max[0]) + '°';
+low.textContent = Math.round(data.daily.temperature_2m_min[0]) + '°';
+uv.textContent = Math.round(data.daily.uv_index_max[0]);
+cloud.textContent = data.current.cloud_cover + '%';
+pressure.textContent = Math.round(data.current.pressure_msl);
 
-document.getElementById('gusts').textContent =
-Math.round(data.current.wind_gusts_10m) + ' mph';
-
-document.getElementById('high').textContent =
-Math.round(data.daily.temperature_2m_max[0]) + '°';
-
-document.getElementById('low').textContent =
-Math.round(data.daily.temperature_2m_min[0]) + '°';
-
-document.getElementById('uv').textContent =
-Math.round(data.daily.uv_index_max[0]);
-
-document.getElementById('cloud').textContent =
-data.current.cloud_cover + '%';
-
-document.getElementById('pressure').textContent =
-Math.round(data.current.pressure_msl);
-
-// Alert logic
-
+/* ALERT LOGIC */
 const rainChance = data.daily.precipitation_probability_max[0];
-const gusts = data.current.wind_gusts_10m;
+const gustVal = data.current.wind_gusts_10m;
 
-const alertBar = document.getElementById('alertBar');
-
-if (gusts >= 50) {
-alertBar.textContent = 'SEVERE WIND WARNING IN EFFECT';
+if (gustVal >= 50) {
+alertBar.textContent = 'SEVERE WIND WARNING';
 alertBar.style.background = '#c62828';
 }
 else if (rainChance >= 80) {
-alertBar.textContent = 'HEAVY RAIN WARNING IN EFFECT';
+alertBar.textContent = 'HEAVY RAIN WARNING';
 alertBar.style.background = '#ef6c00';
 }
 else if (rainChance >= 60) {
-alertBar.textContent = 'WEATHER ADVISORY IN EFFECT';
+alertBar.textContent = 'WEATHER ADVISORY';
 alertBar.style.background = '#f9a825';
 }
 else {
-alertBar.textContent = 'NO WEATHER ALERTS IN EFFECT';
+alertBar.textContent = 'NO WEATHER ALERTS';
 alertBar.style.background = '#2e7d32';
 }
+
 }
 
 loadWeather();
