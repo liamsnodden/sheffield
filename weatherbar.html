@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weather Metrics Bar</title>
+
+<style>
+body{
+margin:0;
+background:transparent;
+font-family:'Segoe UI',Arial,sans-serif;
+color:#fff;
+}
+
+.weather-container{
+width:700px;
+}
+
+.metrics{
+display:flex;
+justify-content:space-between;
+align-items:center;
+height:70px;
+}
+
+.metric{
+flex:1;
+text-align:center;
+}
+
+.metric:not(:last-child){
+border-right:1px solid rgba(255,255,255,0.25);
+}
+
+.label{
+font-size:10px;
+font-weight:600;
+letter-spacing:1px;
+text-transform:uppercase;
+opacity:0.85;
+margin-bottom:6px;
+}
+
+.value{
+font-size:20px;
+font-weight:700;
+}
+
+.alert-bar{
+margin-top:8px;
+height:32px;
+border-radius:4px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:14px;
+font-weight:700;
+text-transform:uppercase;
+letter-spacing:.5px;
+background:#2e7d32;
+color:#fff;
+}
+</style>
+</head>
+
+<body>
+
+<div class="weather-container">
+
+<div class="metrics">
+
+<div class="metric">
+<div class="label">Rain</div>
+<div class="value" id="rain">--%</div>
+</div>
+
+<div class="metric">
+<div class="label">Humidity</div>
+<div class="value" id="humidity">--%</div>
+</div>
+
+<div class="metric">
+<div class="label">Wind</div>
+<div class="value" id="wind">--</div>
+</div>
+
+<div class="metric">
+<div class="label">Gusts</div>
+<div class="value" id="gusts">--</div>
+</div>
+
+<div class="metric">
+<div class="label">High</div>
+<div class="value" id="high">--°</div>
+</div>
+
+<div class="metric">
+<div class="label">Low</div>
+<div class="value" id="low">--°</div>
+</div>
+
+<div class="metric">
+<div class="label">UV</div>
+<div class="value" id="uv">--</div>
+</div>
+
+<div class="metric">
+<div class="label">Cloud</div>
+<div class="value" id="cloud">--%</div>
+</div>
+
+<div class="metric">
+<div class="label">Pressure</div>
+<div class="value" id="pressure">--</div>
+</div>
+
+</div>
+
+<div id="alertBar" class="alert-bar">
+NO WEATHER ALERTS IN EFFECT
+</div>
+
+</div>
+
+<script>
+
+async function loadWeather() {
+
+const response = await fetch(
+'https://api.open-meteo.com/v1/forecast?' +
+'latitude=53.3811&longitude=-1.4701&' +
+'current=relative_humidity_2m,wind_speed_10m,wind_gusts_10m,cloud_cover,pressure_msl&' +
+'daily=precipitation_probability_max,temperature_2m_max,temperature_2m_min,uv_index_max&' +
+'timezone=Europe/London'
+);
+
+const data = await response.json();
+
+document.getElementById('rain').textContent =
+data.daily.precipitation_probability_max[0] + '%';
+
+document.getElementById('humidity').textContent =
+data.current.relative_humidity_2m + '%';
+
+document.getElementById('wind').textContent =
+Math.round(data.current.wind_speed_10m) + ' mph';
+
+document.getElementById('gusts').textContent =
+Math.round(data.current.wind_gusts_10m) + ' mph';
+
+document.getElementById('high').textContent =
+Math.round(data.daily.temperature_2m_max[0]) + '°';
+
+document.getElementById('low').textContent =
+Math.round(data.daily.temperature_2m_min[0]) + '°';
+
+document.getElementById('uv').textContent =
+Math.round(data.daily.uv_index_max[0]);
+
+document.getElementById('cloud').textContent =
+data.current.cloud_cover + '%';
+
+document.getElementById('pressure').textContent =
+Math.round(data.current.pressure_msl);
+
+// Alert logic
+
+const rainChance = data.daily.precipitation_probability_max[0];
+const gusts = data.current.wind_gusts_10m;
+
+const alertBar = document.getElementById('alertBar');
+
+if (gusts >= 50) {
+alertBar.textContent = 'SEVERE WIND WARNING IN EFFECT';
+alertBar.style.background = '#c62828';
+}
+else if (rainChance >= 80) {
+alertBar.textContent = 'HEAVY RAIN WARNING IN EFFECT';
+alertBar.style.background = '#ef6c00';
+}
+else if (rainChance >= 60) {
+alertBar.textContent = 'WEATHER ADVISORY IN EFFECT';
+alertBar.style.background = '#f9a825';
+}
+else {
+alertBar.textContent = 'NO WEATHER ALERTS IN EFFECT';
+alertBar.style.background = '#2e7d32';
+}
+}
+
+loadWeather();
+setInterval(loadWeather, 600000);
+
+</script>
+
+</body>
+</html>
