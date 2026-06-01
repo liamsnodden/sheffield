@@ -1,112 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Weather Display</title>
+<title>Weather Bar</title>
 
 <style>
-html, body{
+*{
+box-sizing:border-box;
 margin:0;
-height:100%;
-background:transparent;
-font-family:'Segoe UI','Segoe UI Variable','Segoe UI Symbol',Arial,sans-serif;
-color:#fff;
-display:flex;
-align-items:center;
-justify-content:center;
+padding:0;
 }
 
-/* MAIN CONTAINER */
+body{
+background:#f5f5f5;
+font-family:"Segoe UI",sans-serif;
+}
+
 .weather-container{
-width:700px;
+width:5350px;
+height:340px;
+background:#0d3f73;
+color:#fff;
+overflow:hidden;
 }
 
-/* =======================
-   TOP SUMMARY BAR
-======================= */
-.summary{
+.weather-top{
+height:255px;
 display:flex;
 align-items:center;
-height:90px;
-margin-bottom:6px;
+padding:10px 40px;
 }
 
-/* TEMP */
-#temp{
-font-size:66px;
-font-weight:700;
-line-height:1;
-margin-right:18px;
-color:#e6f2ff;
+.main-weather{
+width:900px;
+display:flex;
+align-items:center;
 }
 
-/* TEXT STACK */
-.weather-text{
+#weatherIcon{
+width:150px;
+height:150px;
+margin-right:20px;
+}
+
+.temp-block{
 display:flex;
 flex-direction:column;
-justify-content:center;
+}
+
+#temp{
+font-size:120px;
+line-height:105px;
+font-weight:600;
 }
 
 #condition{
-font-size:20px;
-font-weight:600;
+font-size:48px;
+line-height:50px;
 }
 
 #feels{
-font-size:14px;
-color:#cfd8e3;
-margin-top:4px;
+font-size:32px;
+opacity:.9;
 }
 
-/* =======================
-   METRICS BAR
-======================= */
-.metrics{
+#fahrenheit{
+font-size:32px;
+opacity:.8;
+}
+
+.stats{
 display:flex;
-height:70px;
 align-items:center;
-}
-
-.metric{
 flex:1;
-text-align:center;
+justify-content:space-evenly;
 }
 
-.metric:not(:last-child){
-border-right:1px solid rgba(255,255,255,0.25);
+.stat{
+text-align:center;
+min-width:170px;
 }
 
 .label{
-font-size:10px;
+font-size:22px;
 font-weight:600;
 letter-spacing:1px;
-text-transform:uppercase;
-opacity:0.85;
-margin-bottom:6px;
+opacity:.75;
 }
 
 .value{
-font-size:20px;
-font-weight:700;
+font-size:46px;
+font-weight:600;
 }
 
-/* ALERT BAR */
+.forecast{
+display:flex;
+align-items:center;
+border-left:2px solid rgba(255,255,255,.25);
+padding-left:40px;
+margin-left:30px;
+}
+
+.day{
+width:180px;
+text-align:center;
+}
+
+.day-name{
+font-size:24px;
+margin-bottom:8px;
+}
+
+.day img{
+width:60px;
+height:60px;
+}
+
+.day-temp{
+font-size:32px;
+font-weight:600;
+}
+
 .alert-bar{
-margin-top:4px;
-height:28px;
-border-radius:6px;
+height:85px;
 display:flex;
 align-items:center;
 justify-content:center;
-font-size:13px;
+font-size:36px;
 font-weight:700;
-letter-spacing:.5px;
-background:#2e7d32;
-color:#fff;
+letter-spacing:1px;
 }
-
 </style>
 </head>
 
@@ -114,133 +137,218 @@ color:#fff;
 
 <div class="weather-container">
 
-<!-- TOP -->
-<div class="summary">
-  <div id="temp">--°</div>
+<div class="weather-top">
 
-  <div class="weather-text">
-    <div id="condition">Loading...</div>
-    <div id="feels">Feels Like --°</div>
-  </div>
+<div class="main-weather">
+
+<img id="weatherIcon">
+
+<div class="temp-block">
+<div id="temp">--°</div>
+<div id="condition">Loading...</div>
+<div id="feels">Feels Like --°</div>
+<div id="fahrenheit">--°F</div>
 </div>
 
-<!-- METRICS -->
-<div class="metrics">
-
-<div class="metric">
-<div class="label">Rain</div>
-<div class="value" id="rain">--%</div>
 </div>
 
-<div class="metric">
-<div class="label">Humidity</div>
-<div class="value" id="humidity">--%</div>
+<div class="stats">
+
+<div class="stat">
+<div class="label">RAIN</div>
+<div id="rain" class="value">--</div>
 </div>
 
-<div class="metric">
-<div class="label">Wind</div>
-<div class="value" id="wind">--</div>
+<div class="stat">
+<div class="label">HUMIDITY</div>
+<div id="humidity" class="value">--</div>
 </div>
 
-<div class="metric">
-<div class="label">Gusts</div>
-<div class="value" id="gusts">--</div>
+<div class="stat">
+<div class="label">WIND</div>
+<div id="wind" class="value">--</div>
 </div>
 
-<div class="metric">
-<div class="label">High</div>
-<div class="value" id="high">--°</div>
+<div class="stat">
+<div class="label">GUSTS</div>
+<div id="gusts" class="value">--</div>
 </div>
 
-<div class="metric">
-<div class="label">Low</div>
-<div class="value" id="low">--°</div>
+<div class="stat">
+<div class="label">HIGH</div>
+<div id="high" class="value">--</div>
 </div>
 
-<div class="metric">
+<div class="stat">
+<div class="label">LOW</div>
+<div id="low" class="value">--</div>
+</div>
+
+<div class="stat">
 <div class="label">UV</div>
-<div class="value" id="uv">--</div>
+<div id="uv" class="value">--</div>
 </div>
 
-<div class="metric">
-<div class="label">Cloud</div>
-<div class="value" id="cloud">--%</div>
+<div class="stat">
+<div class="label">CLOUD</div>
+<div id="cloud" class="value">--</div>
 </div>
 
-<div class="metric">
-<div class="label">Pressure</div>
-<div class="value" id="pressure">--</div>
+<div class="stat">
+<div class="label">PRESSURE</div>
+<div id="pressure" class="value">--</div>
 </div>
 
 </div>
 
-<!-- ALERT -->
+<div class="forecast">
+
+<div class="day">
+<div id="day1name" class="day-name"></div>
+<img id="day1icon">
+<div id="day1temp" class="day-temp"></div>
+</div>
+
+<div class="day">
+<div id="day2name" class="day-name"></div>
+<img id="day2icon">
+<div id="day2temp" class="day-temp"></div>
+</div>
+
+<div class="day">
+<div id="day3name" class="day-name"></div>
+<img id="day3icon">
+<div id="day3temp" class="day-temp"></div>
+</div>
+
+</div>
+
+</div>
+
 <div id="alertBar" class="alert-bar">
-NO WEATHER ALERTS IN EFFECT
+LOADING WEATHER ALERTS...
 </div>
 
 </div>
 
 <script>
 
-async function loadWeather(){
-
 const url =
-'https://api.open-meteo.com/v1/forecast?' +
-'latitude=53.3811&longitude=-1.4701&' +
-'current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,wind_gusts_10m,cloud_cover,pressure_msl,weather_code&' +
-'daily=precipitation_probability_max,temperature_2m_max,temperature_2m_min,uv_index_max&' +
-'timezone=Europe/London';
+'https://api.open-meteo.com/v1/forecast?latitude=53.3811&longitude=-1.4701&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,wind_gusts_10m,pressure_msl,cloud_cover,weather_code&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,uv_index_max,weather_code&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=Europe%2FLondon';
 
-const data = await fetch(url).then(r => r.json());
+function iconMap(code){
 
-const conditions = {
-0:'Clear Sky',1:'Mainly Clear',2:'Partly Cloudy',3:'Cloudy',
-45:'Fog',48:'Fog',61:'Rain',63:'Rain',65:'Heavy Rain',
-80:'Showers',95:'Thunderstorm'
-};
+if(code===0) return ['01d','Clear'];
+if([1].includes(code)) return ['02d','Mostly Clear'];
+if([2].includes(code)) return ['03d','Partly Cloudy'];
+if([3].includes(code)) return ['04d','Cloudy'];
 
-/* TOP */
-temp.textContent = Math.round(data.current.temperature_2m) + '°';
-condition.textContent = conditions[data.current.weather_code] || 'Current';
-feels.textContent = 'Feels Like ' + Math.round(data.current.apparent_temperature) + '°';
+if([45,48].includes(code)) return ['50d','Fog'];
 
-/* METRICS */
-rain.textContent = data.daily.precipitation_probability_max[0] + '%';
-humidity.textContent = data.current.relative_humidity_2m + '%';
-wind.textContent = Math.round(data.current.wind_speed_10m) + ' mph';
-gusts.textContent = Math.round(data.current.wind_gusts_10m) + ' mph';
-high.textContent = Math.round(data.daily.temperature_2m_max[0]) + '°';
-low.textContent = Math.round(data.daily.temperature_2m_min[0]) + '°';
-uv.textContent = Math.round(data.daily.uv_index_max[0]);
-cloud.textContent = data.current.cloud_cover + '%';
-pressure.textContent = Math.round(data.current.pressure_msl);
+if([51,53,55].includes(code)) return ['09d','Drizzle'];
 
-/* ALERT LOGIC */
-const rainChance = data.daily.precipitation_probability_max[0];
-const gustVal = data.current.wind_gusts_10m;
+if([61,63,65].includes(code)) return ['10d','Rain'];
 
-if (gustVal >= 50) {
-alertBar.textContent = 'SEVERE WIND WARNING';
-alertBar.style.background = '#c62828';
-}
-else if (rainChance >= 80) {
-alertBar.textContent = 'HEAVY RAIN WARNING';
-alertBar.style.background = '#ef6c00';
-}
-else if (rainChance >= 60) {
-alertBar.textContent = 'WEATHER ADVISORY';
-alertBar.style.background = '#f9a825';
-}
-else {
-alertBar.textContent = 'NO WEATHER ALERTS';
-alertBar.style.background = '#2e7d32';
+if([71,73,75].includes(code)) return ['13d','Snow'];
+
+if([80,81,82].includes(code)) return ['09d','Showers'];
+
+if([95,96,99].includes(code)) return ['11d','Thunderstorm'];
+
+return ['03d','Weather'];
 }
 
+function fToC(f){
+return Math.round((f-32)*5/9);
 }
 
-loadWeather();
-setInterval(loadWeather, 600000);
+fetch(url)
+.then(r=>r.json())
+.then(data=>{
+
+const current = data.current;
+const daily = data.daily;
+
+const iconInfo = iconMap(current.weather_code);
+
+document.getElementById('weatherIcon').src =
+`https://openweathermap.org/img/wn/${iconInfo[0]}@4x.png`;
+
+document.getElementById('temp').textContent =
+`${fToC(current.temperature_2m)}°`;
+
+document.getElementById('condition').textContent =
+iconInfo[1];
+
+document.getElementById('feels').textContent =
+`Feels Like ${fToC(current.apparent_temperature)}°`;
+
+document.getElementById('fahrenheit').textContent =
+`${Math.round(current.temperature_2m)}°F`;
+
+document.getElementById('rain').textContent =
+`${daily.precipitation_probability_max[0]}%`;
+
+document.getElementById('humidity').textContent =
+`${current.relative_humidity_2m}%`;
+
+document.getElementById('wind').textContent =
+`${Math.round(current.wind_speed_10m)}`;
+
+document.getElementById('gusts').textContent =
+`${Math.round(current.wind_gusts_10m)}`;
+
+document.getElementById('high').textContent =
+`${fToC(daily.temperature_2m_max[0])}°`;
+
+document.getElementById('low').textContent =
+`${fToC(daily.temperature_2m_min[0])}°`;
+
+document.getElementById('uv').textContent =
+Math.round(daily.uv_index_max[0]);
+
+document.getElementById('cloud').textContent =
+`${current.cloud_cover}%`;
+
+document.getElementById('pressure').textContent =
+Math.round(current.pressure_msl);
+
+const days=['SUN','MON','TUE','WED','THU','FRI','SAT'];
+
+for(let i=1;i<=3;i++){
+
+const date = new Date(daily.time[i]);
+
+document.getElementById(`day${i}name`).textContent =
+days[date.getDay()];
+
+const forecastIcon =
+iconMap(daily.weather_code[i])[0];
+
+document.getElementById(`day${i}icon`).src =
+`https://openweathermap.org/img/wn/${forecastIcon}@2x.png`;
+
+document.getElementById(`day${i}temp`).textContent =
+`${fToC(daily.temperature_2m_max[i])}°/${fToC(daily.temperature_2m_min[i])}°`;
+}
+
+const rain = daily.precipitation_probability_max[0];
+const alertBar = document.getElementById('alertBar');
+
+if(rain >= 80){
+alertBar.style.background='#d35400';
+alertBar.textContent='HEAVY RAIN WARNING IN EFFECT';
+}
+else if(rain >= 50){
+alertBar.style.background='#f39c12';
+alertBar.textContent='RAIN POSSIBLE TODAY';
+}
+else{
+alertBar.style.background='#2e7d32';
+alertBar.textContent='NO WEATHER ALERTS IN EFFECT';
+}
+
+});
 
 </script>
 
