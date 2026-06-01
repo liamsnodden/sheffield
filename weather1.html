@@ -1,468 +1,99 @@
-<div id="weatherWrap" style="
-width:100%;
-height:100%;
-position:relative;
-font-family:Inter,Arial,sans-serif;
-color:white;
-overflow:hidden;
-">
+<div id="weatherSummary">
+<div id="temp">18°</div>
 
-<!-- MAIN TOP -->
-<div style="
+<div class="weather-text">
+<div id="condition">Partly Cloudy</div>
+<div id="feels">Feels Like 16°</div>
+</div>
+</div>
+
+<style>
+body{
+margin:0;
+background:transparent;
+font-family:'Segoe UI', Arial, sans-serif;
+}
+
+#weatherSummary{
 display:flex;
-justify-content:space-between;
-align-items:flex-start;
-margin-bottom:22px;
-">
-
-<!-- LEFT -->
-<div>
-
-<div id="mainTemp" style="
-font-size:110px;
-font-weight:700;
-line-height:0.9;
-letter-spacing:-4px;
-">
---
-</div>
-
-<div id="mainCondition" style="
-font-size:32px;
-font-weight:500;
-margin-top:8px;
+align-items:center;
+height:100px;
 color:white;
-">
-Loading...
-</div>
+}
 
-<div id="feelsLike" style="
+#temp{
+font-size:64px;
+font-weight:700;
+line-height:1;
+margin-right:18px;
+}
+
+.weather-text{
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+#condition{
 font-size:20px;
-color:rgba(255,255,255,0.65);
-margin-top:4px;
-">
-Feels like --
-</div>
-
-</div>
-
-<!-- ICON -->
-<div id="mainIcon" style="
-opacity:0.95;
-margin-top:12px;
-">
-</div>
-
-</div>
-
-<!-- METRICS -->
-<div style="
-display:grid;
-grid-template-columns:1fr 1fr 1fr;
-gap:14px;
-margin-bottom:18px;
-">
-
-<!-- WIND -->
-<div style="
-background:rgba(9,20,43,0.82);
-border-radius:18px;
-padding:20px;
-backdrop-filter:blur(6px);
-">
-
-<div style="
-display:flex;
-align-items:center;
-gap:10px;
-margin-bottom:14px;
-">
-
-<!-- WIND ICON -->
-<svg width="26" height="26" viewBox="0 0 24 24"
-fill="none"
-stroke="#ffffff"
-stroke-width="2"
-stroke-linecap="round"
-stroke-linejoin="round">
-
-<path d="M3 8h11a3 3 0 1 0-3-3"/>
-<path d="M2 12h15a3 3 0 1 1-3 3"/>
-<path d="M4 16h9"/>
-
-</svg>
-
-<div style="
-font-size:14px;
-letter-spacing:1px;
-color:rgba(255,255,255,0.75);
-">
-WIND
-</div>
-
-</div>
-
-<div id="windVal" style="
-font-size:48px;
-font-weight:700;
-line-height:1;
-">
---
-</div>
-
-<div style="
-font-size:18px;
-color:rgba(255,255,255,0.6);
-margin-top:6px;
-">
-km/h
-</div>
-
-</div>
-
-<!-- HUMIDITY -->
-<div style="
-background:rgba(9,20,43,0.82);
-border-radius:18px;
-padding:20px;
-backdrop-filter:blur(6px);
-">
-
-<div style="
-display:flex;
-align-items:center;
-gap:10px;
-margin-bottom:14px;
-">
-
-<!-- HUMIDITY -->
-<svg width="26" height="26" viewBox="0 0 24 24"
-fill="none"
-stroke="#ffffff"
-stroke-width="2"
-stroke-linecap="round"
-stroke-linejoin="round">
-
-<path d="M12 2C12 2 6 9 6 13a6 6 0 0 0 12 0c0-4-6-11-6-11z"/>
-
-</svg>
-
-<div style="
-font-size:14px;
-letter-spacing:1px;
-color:rgba(255,255,255,0.75);
-">
-HUMIDITY
-</div>
-
-</div>
-
-<div id="humidityVal" style="
-font-size:48px;
-font-weight:700;
-line-height:1;
-">
---
-</div>
-
-<div style="
-font-size:18px;
-color:rgba(255,255,255,0.6);
-margin-top:6px;
-">
-%
-</div>
-
-</div>
-
-<!-- UV -->
-<div style="
-background:rgba(9,20,43,0.82);
-border-radius:18px;
-padding:20px;
-backdrop-filter:blur(6px);
-">
-
-<div style="
-display:flex;
-align-items:center;
-gap:10px;
-margin-bottom:14px;
-">
-
-<!-- UV -->
-<svg width="26" height="26" viewBox="0 0 24 24"
-fill="none"
-stroke="#ffffff"
-stroke-width="2"
-stroke-linecap="round"
-stroke-linejoin="round">
-
-<circle cx="12" cy="12" r="4"/>
-<path d="M12 2v2"/>
-<path d="M12 20v2"/>
-<path d="M2 12h2"/>
-<path d="M20 12h2"/>
-
-</svg>
-
-<div style="
-font-size:14px;
-letter-spacing:1px;
-color:rgba(255,255,255,0.75);
-">
-UV INDEX
-</div>
-
-</div>
-
-<div id="uvVal" style="
-font-size:48px;
-font-weight:700;
-line-height:1;
-">
---
-</div>
-
-</div>
-
-</div>
-
-<!-- ALERTS -->
-<div id="alertsBox" style="
-background:rgba(22,101,52,0.82);
-border-radius:18px;
-padding:18px 22px;
-margin-bottom:18px;
-backdrop-filter:blur(6px);
-">
-
-<div style="
-font-size:14px;
-letter-spacing:1px;
-color:rgba(255,255,255,0.7);
-margin-bottom:8px;
-">
-WEATHER ALERTS
-</div>
-
-<div id="alertsText" style="
-font-size:30px;
-font-weight:700;
+font-weight:600;
 line-height:1.2;
-">
-No weather alerts
-</div>
+}
 
-</div>
-
-<!-- BOTTOM -->
-<div style="
-display:grid;
-grid-template-columns:1fr 1fr 1.2fr;
-gap:14px;
-">
-
-<!-- SUNRISE -->
-<div style="
-background:rgba(9,20,43,0.82);
-border-radius:18px;
-padding:18px;
-">
-
-<div style="
-font-size:13px;
-color:rgba(255,255,255,0.65);
-margin-bottom:10px;
-letter-spacing:1px;
-">
-SUNRISE
-</div>
-
-<div id="sunriseVal" style="
-font-size:34px;
-font-weight:700;
-">
---
-</div>
-
-</div>
-
-<!-- SUNSET -->
-<div style="
-background:rgba(9,20,43,0.82);
-border-radius:18px;
-padding:18px;
-">
-
-<div style="
-font-size:13px;
-color:rgba(255,255,255,0.65);
-margin-bottom:10px;
-letter-spacing:1px;
-">
-SUNSET
-</div>
-
-<div id="sunsetVal" style="
-font-size:34px;
-font-weight:700;
-">
---
-</div>
-
-</div>
-
-<!-- CLEVELAND -->
-<div style="
-background:rgba(9,20,43,0.82);
-border-radius:18px;
-padding:18px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-">
-
-<div>
-
-<div style="
-font-size:13px;
-color:rgba(255,255,255,0.65);
-margin-bottom:8px;
-letter-spacing:1px;
-">
-CLEVELAND
-</div>
-
-<div id="clevelandTemp" style="
-font-size:42px;
-font-weight:700;
-">
---
-</div>
-
-</div>
-
-<div id="clevelandIcon"></div>
-
-</div>
-
-</div>
-
-</div>
+#feels{
+font-size:14px;
+color:#cfd8e3;
+margin-top:4px;
+}
+</style>
 
 <script>
+async function loadWeather(){
 
-function weatherDescription(code) {
+const url =
+'https://api.open-meteo.com/v1/forecast?' +
+'latitude=53.3811&longitude=-1.4701&' +
+'current=temperature_2m,apparent_temperature,weather_code&' +
+'timezone=Europe/London';
 
-if (code >= 95) return 'Storm';
-if (code >= 80) return 'Rain Showers';
-if (code >= 61) return 'Rain';
-if (code >= 51) return 'Drizzle';
-if (code >= 3) return 'Cloudy';
-if (code >= 1) return 'Partly Cloudy';
+const data = await fetch(url).then(r => r.json());
 
-return 'Clear';
-}
+const conditions = {
+0:'Clear Sky',
+1:'Mainly Clear',
+2:'Partly Cloudy',
+3:'Cloudy',
+45:'Fog',
+48:'Fog',
+51:'Light Drizzle',
+53:'Drizzle',
+55:'Heavy Drizzle',
+61:'Light Rain',
+63:'Rain',
+65:'Heavy Rain',
+71:'Snow',
+73:'Heavy Snow',
+75:'Snowfall',
+80:'Rain Showers',
+81:'Heavy Showers',
+82:'Violent Showers',
+95:'Thunderstorm',
+96:'Thunderstorm',
+99:'Severe Thunderstorm'
+};
 
-function weatherIcon(code, size) {
-
-if (code >= 95) {
-
-return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><path d="M19 16.9A5 5 0 0 0 18 7h-1.3A8 8 0 1 0 4 15.3"/><polyline points="13 11 9 17 15 17 11 23"/></svg>';
-
-}
-
-if (code >= 61) {
-
-return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25"/><line x1="8" y1="19" x2="8.01" y2="19"/><line x1="8" y1="23" x2="8.01" y2="23"/><line x1="16" y1="19" x2="16.01" y2="19"/><line x1="16" y1="23" x2="16.01" y2="23"/></svg>';
-
-}
-
-if (code >= 1) {
-
-return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><path d="M17.5 19a4.5 4.5 0 1 0-.9-8.9A6 6 0 1 0 6 18h11.5z"/></svg>';
-
-}
-
-return '<svg width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="M2 12h2"/><path d="M20 12h2"/></svg>';
-}
-
-fetch('https://api.open-meteo.com/v1/forecast?latitude=53.3811&longitude=-1.4701&current=temperature_2m,apparent_temperature,relative_humidity_2m,windspeed_10m,weathercode&daily=uv_index_max,precipitation_sum,windspeed_10m_max,weathercode,sunrise,sunset&timezone=auto')
-
-.then(function(response) {
-return response.json();
-})
-
-.then(function(data) {
-
-document.getElementById('mainTemp').innerHTML =
+document.getElementById('temp').textContent =
 Math.round(data.current.temperature_2m) + '°';
 
-document.getElementById('mainCondition').innerHTML =
-weatherDescription(data.current.weathercode);
+document.getElementById('condition').textContent =
+conditions[data.current.weather_code] || 'Current Conditions';
 
-document.getElementById('feelsLike').innerHTML =
-'Feels like ' +
-Math.round(data.current.apparent_temperature) + '°';
-
-document.getElementById('mainIcon').innerHTML =
-weatherIcon(data.current.weathercode, 170);
-
-document.getElementById('windVal').innerHTML =
-Math.round(data.current.windspeed_10m);
-
-document.getElementById('humidityVal').innerHTML =
-data.current.relative_humidity_2m;
-
-document.getElementById('uvVal').innerHTML =
-data.daily.uv_index_max[0];
-
-document.getElementById('sunriseVal').innerHTML =
-data.daily.sunrise[0].split('T')[1];
-
-document.getElementById('sunsetVal').innerHTML =
-data.daily.sunset[0].split('T')[1];
-
-var alerts = [];
-
-if (data.daily.uv_index_max[0] >= 6) alerts.push('High UV');
-if (data.daily.precipitation_sum[0] >= 10) alerts.push('Heavy Rain');
-if (data.daily.windspeed_10m_max[0] >= 35) alerts.push('High Winds');
-
-if (
-data.daily.weathercode[0] == 95 ||
-data.daily.weathercode[0] == 96 ||
-data.daily.weathercode[0] == 99
-) {
-alerts.push('Storm Risk');
+document.getElementById('feels').textContent =
+'Feels Like ' +
+Math.round(data.current.apparent_temperature) +
+'°';
 }
 
-if (alerts.length > 0) {
-
-document.getElementById('alertsBox').style.background =
-'rgba(127,29,29,0.82)';
-
-document.getElementById('alertsText').innerHTML =
-alerts.join(' • ');
-}
-
-});
-
-fetch('https://api.open-meteo.com/v1/forecast?latitude=41.4993&longitude=-81.6944&current=temperature_2m,weathercode')
-
-.then(function(response) {
-return response.json();
-})
-
-.then(function(data) {
-
-document.getElementById('clevelandTemp').innerHTML =
-Math.round(data.current.temperature_2m) + '°';
-
-document.getElementById('clevelandIcon').innerHTML =
-weatherIcon(data.current.weathercode, 64);
-
-});
-
+loadWeather();
+setInterval(loadWeather, 600000);
 </script>
