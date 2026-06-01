@@ -4,8 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Weather Bar Final Transparent</title>
+
 <style>
-body{margin:0;background:transparent;font-family:Segoe UI,Arial,sans-serif}
+html, body{
+margin:0;
+height:100%;
+background:transparent;
+font-family:'Segoe UI','Segoe UI Variable','Segoe UI Symbol',Arial,sans-serif;
+display:flex;
+align-items:center;
+justify-content:center; /* ensures centered in Xibo region */
+}
+
 .bar{
 width:700px;
 height:100px;
@@ -15,20 +25,68 @@ display:flex;
 align-items:center;
 overflow:hidden;
 }
-.icon{width:70px;text-align:center;font-size:42px}
-.temp{font-size:54px;font-weight:700;line-height:1;margin-right:10px}
+
+/* ICON */
+.icon{
+width:70px;
+text-align:center;
+font-size:42px
+}
+
+/* TEMP (lightened) */
+.temp{
+font-size:54px;
+font-weight:700;
+line-height:1;
+margin-right:10px;
+color:#e6f2ff; /* lighter for contrast */
+}
+
+/* DESCRIPTION */
 .desc{width:140px}
-.cond{font-size:18px;font-weight:600}
-.feels{font-size:13px}
-.metric{width:62px;text-align:center;font-size:11px}
-.metric svg{width:24px;height:24px;display:block;margin:0 auto 2px}
-.val{font-size:14px;font-weight:700}
-.metric-divider{width:1px;height:42px;background:rgba(255,255,255,.30);margin:0 6px}
+.cond{
+font-size:18px;
+font-weight:600
+}
+.feels{
+font-size:13px;
+opacity:0.9;
+}
+
+/* METRICS */
+.metric{
+width:62px;
+text-align:center;
+font-size:11px
+}
+.metric svg{
+width:24px;
+height:24px;
+display:block;
+margin:0 auto 2px
+}
+.val{
+font-size:14px;
+font-weight:700
+}
+
+/* DIVIDER */
+.metric-divider{
+width:1px;
+height:42px;
+background:rgba(255,255,255,.30);
+margin:0 6px
+}
+
+/* HIGH / LOW */
 .high{color:#ff4d4d}
 .low{color:#4ea1ff}
+
 </style>
 </head>
+
 <body>
+
 <div class="bar">
 <div class="icon" id="weatherIcon">⛅</div>
 <div class="temp" id="temp">--°</div>
@@ -84,8 +142,10 @@ async function loadWeather(){
  weatherIcon.textContent=icons[d.current.weather_code]||'⛅';
  cond.textContent=descs[d.current.weather_code]||'Current';
 }
+
 loadWeather();
 setInterval(loadWeather,600000);
 </script>
+
 </body>
 </html>
