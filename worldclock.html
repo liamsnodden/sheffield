@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>World Clocks</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI,Arial,sans-serif;
+}
+
+body{
+background:#ffffff;
+}
+
+.widget{
+width:100%;
+border-radius:10px;
+overflow:hidden;
+border:1px solid #d8d8d8;
+}
+
+.header{
+background:#0047BA;
+color:white;
+padding:12px 16px;
+font-size:24px;
+font-weight:600;
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.header span{
+font-size:28px;
+}
+
+.clock-row{
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:14px 16px;
+border-bottom:1px solid #ececec;
+background:#fff;
+}
+
+.left{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.flag{
+width:32px;
+height:32px;
+border-radius:50%;
+object-fit:cover;
+border:1px solid #ddd;
+}
+
+.location{
+display:flex;
+flex-direction:column;
+}
+
+.city{
+font-size:16px;
+font-weight:600;
+color:#16325c;
+}
+
+.country{
+font-size:12px;
+color:#777;
+}
+
+.time{
+font-size:34px;
+font-weight:700;
+color:#16325c;
+min-width:90px;
+text-align:right;
+}
+
+.footer{
+background:#0047BA;
+color:white;
+padding:10px 16px;
+font-size:12px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="widget">
+
+<div class="header">
+🌎 WORLD CLOCKS
+</div>
+
+<div id="clocks"></div>
+
+<div class="footer">
+All times are local
+</div>
+
+</div>
+
+<script>
+
+const sites = [
+
+{
+city:"Richmond, CA",
+country:"United States",
+flag:"us",
+timezone:"America/Los_Angeles"
+},
+
+{
+city:"Garland, TX",
+country:"United States",
+flag:"us",
+timezone:"America/Chicago"
+},
+
+{
+city:"Cleveland HQ",
+country:"United States",
+flag:"us",
+timezone:"America/New_York"
+},
+
+{
+city:"Sheffield",
+country:"United Kingdom",
+flag:"gb",
+timezone:"Europe/London"
+},
+
+{
+city:"Bangalore",
+country:"India",
+flag:"in",
+timezone:"Asia/Kolkata"
+},
+
+{
+city:"HCM City",
+country:"Vietnam",
+flag:"vn",
+timezone:"Asia/Ho_Chi_Minh"
+}
+
+];
+
+function renderClocks(){
+
+const container=document.getElementById('clocks');
+
+container.innerHTML='';
+
+sites.forEach(site=>{
+
+const time=new Date().toLocaleTimeString(
+'en-GB',
+{
+timeZone:site.timezone,
+hour:'2-digit',
+minute:'2-digit',
+hour12:false
+}
+);
+
+container.innerHTML+=`
+<div class="clock-row">
+
+<div class="left">
+
+<img
+class="flag"
+src="https://flagcdn.com/w80/${site.flag}.png"
+>
+
+<div class="location">
+<div class="city">${site.city}</div>
+<div class="country">${site.country}</div>
+</div>
+
+</div>
+
+<div class="time">${time}</div>
+
+</div>
+`;
+});
+}
+
+renderClocks();
+
+setInterval(renderClocks,60000);
+
+</script>
+
+</body>
+</html>
