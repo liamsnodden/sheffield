@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Weather Dashboard</title>
+<title>Sheffield Weather</title>
 
 <style>
 
@@ -18,7 +18,7 @@ font-family:Arial,sans-serif;
 html,body{
 width:100%;
 height:100%;
-background:#ffffff;
+background:#fff;
 overflow:hidden;
 }
 
@@ -30,13 +30,15 @@ flex-direction:column;
 background:#fff;
 }
 
-/* CURRENT CONDITIONS */
+/* =====================
+CURRENT CONDITIONS
+===================== */
 
 .current{
 height:55%;
 display:flex;
-align-items:center;
 justify-content:space-between;
+align-items:center;
 padding:30px 50px;
 border-bottom:1px solid #e5e7eb;
 }
@@ -47,44 +49,39 @@ align-items:center;
 gap:30px;
 }
 
-.left img{
-width:170px;
-height:170px;
+#weatherIcon{
+width:180px;
+height:180px;
+}
+
+.location{
+font-size:28px;
+color:#666;
+margin-bottom:10px;
 }
 
 .temp{
-font-size:120px;
+font-size:140px;
 font-weight:700;
-color:#005CB9;
 line-height:1;
+color:#005CB9;
 }
 
 .condition{
 font-size:42px;
 color:#333;
-margin-top:10px;
-}
-
-.location{
-font-size:26px;
-color:#666;
-margin-bottom:15px;
 }
 
 .right{
 display:grid;
 grid-template-columns:repeat(2,1fr);
-gap:25px 70px;
-}
-
-.metric{
-display:flex;
-flex-direction:column;
+gap:30px 80px;
 }
 
 .metric-label{
 font-size:20px;
-color:#666;
+color:#777;
+margin-bottom:4px;
 }
 
 .metric-value{
@@ -93,19 +90,19 @@ color:#005CB9;
 font-weight:bold;
 }
 
-/* FORECAST */
+/* =====================
+FORECAST
+===================== */
 
 .forecast{
 flex:1;
-display:flex;
-flex-direction:column;
 padding:20px;
 }
 
 .forecast-title{
 font-size:28px;
-color:#005CB9;
 font-weight:bold;
+color:#005CB9;
 margin-bottom:15px;
 }
 
@@ -113,7 +110,7 @@ margin-bottom:15px;
 display:grid;
 grid-template-columns:repeat(10,1fr);
 gap:10px;
-flex:1;
+height:100%;
 }
 
 .day{
@@ -158,10 +155,10 @@ color:#666;
 
 <div class="left">
 
-<img id="weatherIcon">
+<img id="weatherIcon" src="">
 
 <div>
-<div class="location">Sheffield, UK</div>
+<div class="location">Sheffield, United Kingdom</div>
 <div class="temp" id="temp">--°</div>
 <div class="condition" id="condition">Loading...</div>
 </div>
@@ -170,24 +167,24 @@ color:#666;
 
 <div class="right">
 
-<div class="metric">
-<span class="metric-label">Feels Like</span>
-<span class="metric-value" id="feelsLike">--°</span>
+<div>
+<div class="metric-label">Feels Like</div>
+<div class="metric-value" id="feelsLike">--°</div>
 </div>
 
-<div class="metric">
-<span class="metric-label">Humidity</span>
-<span class="metric-value" id="humidity">--%</span>
+<div>
+<div class="metric-label">Humidity</div>
+<div class="metric-value" id="humidity">--%</div>
 </div>
 
-<div class="metric">
-<span class="metric-label">Wind</span>
-<span class="metric-value" id="wind">-- mph</span>
+<div>
+<div class="metric-label">Wind</div>
+<div class="metric-value" id="wind">-- mph</div>
 </div>
 
-<div class="metric">
-<span class="metric-label">Pressure</span>
-<span class="metric-value" id="pressure">----</span>
+<div>
+<div class="metric-label">Pressure</div>
+<div class="metric-value" id="pressure">----</div>
 </div>
 
 </div>
@@ -208,78 +205,140 @@ color:#666;
 
 <script>
 
-const apiKey = "YOUR_API_KEY";
+function weatherDescription(code){
 
-/* Sheffield */
-const lat = 53.3811;
-const lon = -1.4701;
+const map = {
+0:'Clear Sky',
+1:'Mainly Clear',
+2:'Partly Cloudy',
+3:'Overcast',
+45:'Fog',
+48:'Fog',
+51:'Light Drizzle',
+53:'Drizzle',
+55:'Heavy Drizzle',
+61:'Rain',
+63:'Rain',
+65:'Heavy Rain',
+71:'Snow',
+80:'Rain Showers',
+81:'Rain Showers',
+82:'Heavy Showers',
+95:'Thunderstorm'
+};
+
+return map[code] || 'Unknown';
+}
+
+function weatherIcon(code){
+
+if(code === 0)
+return 'https://openweathermap.org/img/wn/01d@4x.png';
+
+if([1,2].includes(code))
+return 'https://openweathermap.org/img/wn/02d@4x.png';
+
+if(code === 3)
+return 'https://openweathermap.org/img/wn/04d@4x.png';
+
+if([45,48].includes(code))
+return 'https://openweathermap.org/img/wn/50d@4x.png';
+
+if([51,53,55,61,63,65,80,81,82].includes(code))
+return 'https://openweathermap.org/img/wn/10d@4x.png';
+
+if([71,73,75].includes(code))
+return 'https://openweathermap.org/img/wn/13d@4x.png';
+
+if(code === 95)
+return 'https://openweathermap.org/img/wn/11d@4x.png';
+
+return 'https://openweathermap.org/img/wn/03d@4x.png';
+}
 
 async function loadWeather(){
 
+try{
+
 const response = await fetch(
-`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${apiKey}`
+'https://api.open-meteo.com/v1/forecast?latitude=53.3811&longitude=-1.4701&current=temperature_2m,relative_humidity_2m,apparent_temperature,pressure_msl,wind_speed_10m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&forecast_days=10&timezone=Europe/London'
 );
 
 const data = await response.json();
 
-/* Current */
+document.getElementById('temp').innerHTML =
+Math.round(data.current.temperature_2m) + '°';
 
-document.getElementById("temp").innerHTML =
-Math.round(data.current.temp) + "°";
+document.getElementById('condition').innerHTML =
+weatherDescription(data.current.weather_code);
 
-document.getElementById("condition").innerHTML =
-data.current.weather[0].description;
+document.getElementById('feelsLike').innerHTML =
+Math.round(data.current.apparent_temperature) + '°';
 
-document.getElementById("feelsLike").innerHTML =
-Math.round(data.current.feels_like) + "°";
+document.getElementById('humidity').innerHTML =
+data.current.relative_humidity_2m + '%';
 
-document.getElementById("humidity").innerHTML =
-data.current.humidity + "%";
+document.getElementById('wind').innerHTML =
+Math.round(data.current.wind_speed_10m) + ' mph';
 
-document.getElementById("wind").innerHTML =
-Math.round(data.current.wind_speed * 2.237) + " mph";
+document.getElementById('pressure').innerHTML =
+Math.round(data.current.pressure_msl) + ' hPa';
 
-document.getElementById("pressure").innerHTML =
-data.current.pressure + " hPa";
+document.getElementById('weatherIcon').src =
+weatherIcon(data.current.weather_code);
 
-document.getElementById("weatherIcon").src =
-`https://openweathermap.org/img/wn/${data.current.weather[0].icon}@4x.png`;
+const forecastGrid =
+document.getElementById('forecastGrid');
 
-/* Forecast */
+forecastGrid.innerHTML = '';
 
-const grid = document.getElementById("forecastGrid");
-grid.innerHTML = "";
+data.daily.time.forEach((date,index)=>{
 
-data.daily.slice(0,10).forEach(day=>{
+const dayDate = new Date(date);
 
-const date = new Date(day.dt * 1000);
+const card = document.createElement('div');
 
-const card = document.createElement("div");
-card.className="day";
+card.className = 'day';
 
-card.innerHTML=`
+card.innerHTML = `
 <div class="day-name">
-${date.toLocaleDateString('en-GB',{weekday:'short'})}
+${dayDate.toLocaleDateString('en-GB',{
+weekday:'short'
+})}
 </div>
 
-<img src="https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png">
+<img src="${weatherIcon(
+data.daily.weather_code[index]
+)}">
 
-<div class="high">${Math.round(day.temp.max)}°</div>
+<div class="high">
+${Math.round(
+data.daily.temperature_2m_max[index]
+)}°
+</div>
 
-<div class="low">${Math.round(day.temp.min)}°</div>
+<div class="low">
+${Math.round(
+data.daily.temperature_2m_min[index]
+)}°
+</div>
 `;
 
-grid.appendChild(card);
+forecastGrid.appendChild(card);
 
 });
 
 }
+catch(error){
+console.error(error);
+}
+}
 
 loadWeather();
 
-/* Refresh every 10 mins */
+/* Refresh every 5 minutes */
 
-setInterval(loadWeather,600000);
+setInterval(loadWeather,300000);
 
 </script>
 
