@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sheffield Traffic News</title>
+
+<title>Sheffield Traffic Updates</title>
 
 <style>
+
 *{
 margin:0;
 padding:0;
@@ -15,52 +17,154 @@ box-sizing:border-box;
 html,body{
 width:100%;
 height:100%;
-overflow:hidden;
-background:transparent;
+background:#ffffff;
 font-family:Arial,sans-serif;
+overflow:hidden;
 }
 
-#traffic-container{
+#container{
 width:100%;
 height:100%;
-padding:20px;
+padding:30px 40px;
 display:flex;
 flex-direction:column;
-justify-content:center;
 }
 
-.news-item{
-padding:12px 0;
-border-bottom:1px solid rgba(255,255,255,0.15);
+.header{
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+margin-bottom:20px;
 }
 
-.news-item:last-child{
-border-bottom:none;
-}
-
-.news-title{
-font-size:22px;
+.title{
+font-size:52px;
 font-weight:700;
-color:#ffffff;
-line-height:1.3;
+color:#000;
+letter-spacing:-1px;
 }
 
-.news-date{
+.clock{
+text-align:right;
+}
+
+.time{
+font-size:48px;
+font-weight:700;
+color:#000;
+}
+
+.date{
+font-size:18px;
+color:#666;
 margin-top:4px;
-font-size:14px;
-color:rgba(255,255,255,0.6);
+}
+
+#traffic-feed{
+flex:1;
+overflow:hidden;
+}
+
+.incident{
+display:flex;
+align-items:flex-start;
+gap:22px;
+padding:22px 0;
+border-bottom:1px solid #e6e6e6;
 }
 
 .status{
-color:#ffffff;
-font-size:18px;
+width:34px;
+height:34px;
+border-radius:50%;
+flex-shrink:0;
+margin-top:8px;
 }
+
+.critical{
+background:#ff3b30;
+}
+
+.warning{
+background:#ff9500;
+}
+
+.normal{
+background:#34c759;
+}
+
+.content{
+flex:1;
+}
+
+.incident-title{
+font-size:30px;
+font-weight:700;
+color:#000;
+line-height:1.2;
+}
+
+.incident-desc{
+font-size:22px;
+color:#555;
+margin-top:6px;
+}
+
+.incident-time{
+font-size:18px;
+color:#666;
+min-width:80px;
+text-align:right;
+}
+
+.footer{
+display:flex;
+justify-content:flex-end;
+align-items:center;
+padding-top:20px;
+}
+
+.updated{
+font-size:20px;
+color:#444;
+}
+
+.loading,
+.error{
+font-size:26px;
+color:#666;
+padding-top:40px;
+}
+
 </style>
 </head>
 <body>
 
-<div id="traffic-container">
-<div class="status">Loading Sheffield traffic updates...</div>
+<div id="container">
+
+<div class="header">
+<div class="title">
+SHEFFIELD TRAFFIC UPDATES
+</div>
+
+<div class="clock">
+<div class="time" id="time"></div>
+<div class="date" id="date"></div>
+</div>
+</div>
+
+<div id="traffic-feed">
+<div class="loading">
+Loading traffic updates...
+</div>
+</div>
+
+<div class="footer">
+<div class="updated" id="updated">
+Updated --
+</div>
+</div>
+
 </div>
 
 <script>
@@ -72,54 +176,139 @@ const API_URL =
 'https://api.rss2json.com/v1/api.json?rss_url=' +
 encodeURIComponent(RSS_URL);
 
-async function loadTrafficNews() {
+function updateClock(){
 
-try {
+const now = new Date();
+
+document.getElementById('time').innerHTML =
+now.toLocaleTimeString('en-GB',{
+hour:'2-digit',
+minute:'2-digit'
+});
+
+document.getElementById('date').innerHTML =
+now.toLocaleDateString('en-GB',{
+weekday:'long',
+day:'numeric',
+month:'long',
+year:'numeric'
+});
+}
+
+function getSeverity(title){
+
+title = title.toLowerCase();
+
+if(
+title.includes('closure') ||
+title.includes('closed') ||
+title.includes('crash') ||
+title.includes('accident')
+){
+return 'critical';
+}
+
+if(
+title.includes('delay') ||
+title.includes('roadworks') ||
+title.includes('traffic') ||
+title.includes('congestion')
+){
+return 'warning';
+}
+
+return 'normal';
+}
+
+async function loadTraffic(){
+
+try{
 
 const response = await fetch(API_URL);
 const data = await response.json();
 
-const container =
-document.getElementById('traffic-container');
+const feed = document.getElementById('traffic-feed');
 
-const trafficItems = data.items
+const items = data.items
 .filter(item =>
 item.title.toLowerCase().includes('road') ||
 item.title.toLowerCase().includes('traffic') ||
 item.title.toLowerCase().includes('closure') ||
 item.title.toLowerCase().includes('motorway') ||
-item.title.toLowerCase().includes('m1')
+item.title.toLowerCase().includes('m1') ||
+item.title.toLowerCase().includes('travel')
 )
 .slice(0,5);
 
-if(!trafficItems.length){
-container.innerHTML =
-'<div class="status">No current Sheffield traffic incidents found.</div>';
+if(items.length === 0){
+
+feed.innerHTML = `
+<div class="loading">
+No traffic incidents currently reported.
+</div>
+`;
+
 return;
 }
 
-container.innerHTML = trafficItems.map(item => `
-<div class="news-item">
-<div class="news-title">${item.title}</div>
-<div class="news-date">
-${new Date(item.pubDate).toLocaleString('en-GB')}
+feed.innerHTML = items.map(item => {
+
+const severity = getSeverity(item.title);
+
+return `
+<div class="incident">
+
+<div class="status ${severity}"></div>
+
+<div class="content">
+<div class="incident-title">
+${item.title}
+</div>
+
+<div class="incident-desc">
+${item.description
+.replace(/<[^>]*>/g,'')
+.substring(0,100)}...
 </div>
 </div>
-`).join('');
 
-} catch(error){
+<div class="incident-time">
+${new Date(item.pubDate)
+.toLocaleTimeString('en-GB',{
+hour:'2-digit',
+minute:'2-digit'
+})}
+</div>
 
-document.getElementById('traffic-container').innerHTML =
-'<div class="status">Unable to load traffic data.</div>';
+</div>
+`;
+}).join('');
+
+document.getElementById('updated').innerHTML =
+'Updated ' +
+new Date().toLocaleTimeString('en-GB',{
+hour:'2-digit',
+minute:'2-digit'
+});
+
+}
+catch(error){
+
+document.getElementById('traffic-feed').innerHTML = `
+<div class="error">
+Unable to load traffic updates.
+</div>
+`;
 
 console.error(error);
 }
 }
 
-loadTrafficNews();
+updateClock();
+loadTraffic();
 
-/* Refresh every 5 minutes */
-setInterval(loadTrafficNews, 300000);
+setInterval(updateClock,1000);
+setInterval(loadTraffic,300000);
 
 </script>
 
