@@ -1,50 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>World Clocks</title>
+<meta charset="UTF-8">
+<title>World Clock</title>
 
 <style>
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Segoe UI,Arial,sans-serif;
+font-family:'Segoe UI',sans-serif;
 }
 
-body{
-background:#ffffff;
-}
-
-.widget{
+html,body{
 width:100%;
-border-radius:10px;
+height:100%;
+background:transparent;
 overflow:hidden;
-border:1px solid #d8d8d8;
 }
 
-.header{
-background:#0047BA;
-color:white;
-padding:12px 16px;
-font-size:24px;
-font-weight:600;
+#world-clocks{
+width:523px;
+height:296px;
+background:transparent;
 display:flex;
-align-items:center;
-gap:10px;
-}
-
-.header span{
-font-size:28px;
+flex-direction:column;
 }
 
 .clock-row{
+flex:1;
 display:flex;
 align-items:center;
 justify-content:space-between;
-padding:14px 16px;
-border-bottom:1px solid #ececec;
-background:#fff;
+border-bottom:1px solid rgba(0,71,186,.12);
+padding:0 14px;
+}
+
+.clock-row:last-child{
+border-bottom:none;
 }
 
 .left{
@@ -58,7 +52,7 @@ width:32px;
 height:32px;
 border-radius:50%;
 object-fit:cover;
-border:1px solid #ddd;
+flex-shrink:0;
 }
 
 .location{
@@ -67,48 +61,53 @@ flex-direction:column;
 }
 
 .city{
-font-size:16px;
-font-weight:600;
-color:#16325c;
+font-size:18px;
+font-weight:700;
+color:#0047BA;
+line-height:1.1;
 }
 
 .country{
 font-size:12px;
-color:#777;
+color:#6b7280;
+margin-top:2px;
+}
+
+.right{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.status{
+width:10px;
+height:10px;
+border-radius:50%;
+}
+
+.day{
+background:#22c55e;
+}
+
+.night{
+background:#4b5563;
 }
 
 .time{
-font-size:34px;
+font-size:40px;
 font-weight:700;
-color:#16325c;
-min-width:90px;
+color:#16325C;
+letter-spacing:-1px;
+min-width:110px;
 text-align:right;
 }
 
-.footer{
-background:#0047BA;
-color:white;
-padding:10px 16px;
-font-size:12px;
-}
 </style>
 </head>
 
 <body>
 
-<div class="widget">
-
-<div class="header">
-🌎 WORLD CLOCKS
-</div>
-
-<div id="clocks"></div>
-
-<div class="footer">
-All times are local
-</div>
-
-</div>
+<div id="world-clocks"></div>
 
 <script>
 
@@ -158,23 +157,43 @@ timezone:"Asia/Ho_Chi_Minh"
 
 ];
 
-function renderClocks(){
+function getStatus(timezone){
 
-const container=document.getElementById('clocks');
+const hour = parseInt(
+new Intl.DateTimeFormat(
+'en-GB',
+{
+hour:'2-digit',
+hour12:false,
+timeZone:timezone
+}
+).format(new Date())
+);
+
+return (hour >= 7 && hour < 19)
+? 'day'
+: 'night';
+}
+
+function render(){
+
+const container=document.getElementById('world-clocks');
 
 container.innerHTML='';
 
 sites.forEach(site=>{
 
-const time=new Date().toLocaleTimeString(
+const time=new Intl.DateTimeFormat(
 'en-GB',
 {
-timeZone:site.timezone,
 hour:'2-digit',
 minute:'2-digit',
-hour12:false
+hour12:false,
+timeZone:site.timezone
 }
-);
+).format(new Date());
+
+const status=getStatus(site.timezone);
 
 container.innerHTML+=`
 <div class="clock-row">
@@ -184,6 +203,7 @@ container.innerHTML+=`
 <img
 class="flag"
 src="https://flagcdn.com/w80/${site.flag}.png"
+alt=""
 >
 
 <div class="location">
@@ -193,16 +213,23 @@ src="https://flagcdn.com/w80/${site.flag}.png"
 
 </div>
 
+<div class="right">
+
+<div class="status ${status}"></div>
+
 <div class="time">${time}</div>
+
+</div>
 
 </div>
 `;
 });
+
 }
 
-renderClocks();
+render();
 
-setInterval(renderClocks,60000);
+setInterval(render,60000);
 
 </script>
 
