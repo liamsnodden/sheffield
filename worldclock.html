@@ -21,7 +21,7 @@ overflow:hidden;
 }
 
 #world-clocks{
-width:523px;
+width:400px;
 height:296px;
 background:transparent;
 display:flex;
@@ -48,8 +48,8 @@ gap:12px;
 }
 
 .flag{
-width:32px;
-height:32px;
+width:25px;
+height:25px;
 border-radius:50%;
 object-fit:cover;
 flex-shrink:0;
@@ -63,7 +63,7 @@ flex-direction:column;
 .city{
 font-size:18px;
 font-weight:700;
-color:#0047BA;
+color:#000000;
 line-height:1.1;
 }
 
@@ -80,8 +80,8 @@ gap:10px;
 }
 
 .status{
-width:10px;
-height:10px;
+width:15px;
+height:15px;
 border-radius:50%;
 }
 
@@ -94,7 +94,7 @@ background:#4b5563;
 }
 
 .time{
-font-size:40px;
+font-size:35px;
 font-weight:700;
 color:#16325C;
 letter-spacing:-1px;
@@ -114,20 +114,6 @@ text-align:right;
 const sites = [
 
 {
-city:"Richmond, CA",
-country:"United States",
-flag:"us",
-timezone:"America/Los_Angeles"
-},
-
-{
-city:"Garland, TX",
-country:"United States",
-flag:"us",
-timezone:"America/Chicago"
-},
-
-{
 city:"Cleveland HQ",
 country:"United States",
 flag:"us",
@@ -141,6 +127,13 @@ flag:"gb",
 timezone:"Europe/London"
 },
 
+  {
+city:"Brodziszewo",
+country:"Poland",
+flag:"pl",
+timezone:"Europa/Warsaw"
+},
+
 {
 city:"Bangalore",
 country:"India",
@@ -149,7 +142,7 @@ timezone:"Asia/Kolkata"
 },
 
 {
-city:"HCM City",
+city:"Hồ Chí Minh City",
 country:"Vietnam",
 flag:"vn",
 timezone:"Asia/Ho_Chi_Minh"
