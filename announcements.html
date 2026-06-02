@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Sherwin Announcements</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html,body{
+width:100%;
+height:100%;
+overflow:hidden;
+font-family:Arial, Helvetica, sans-serif;
+background:#ffffff;
+}
+
+.container{
+width:100%;
+height:100%;
+border:1px solid #cfcfcf;
+border-radius:8px;
+overflow:hidden;
+display:flex;
+flex-direction:column;
+}
+
+.header{
+background:#002d72;
+color:white;
+height:48px;
+display:flex;
+align-items:center;
+padding:0 16px;
+font-size:24px;
+font-weight:bold;
+border-bottom:4px solid #e31837;
+}
+
+.header span{
+margin-right:10px;
+}
+
+.content{
+flex:1;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+padding:20px;
+text-align:center;
+opacity:1;
+transition:opacity .5s ease;
+}
+
+.icon{
+font-size:72px;
+margin-bottom:15px;
+}
+
+.title{
+color:#003DA5;
+font-size:42px;
+font-weight:bold;
+line-height:1.1;
+margin-bottom:15px;
+}
+
+.message{
+color:#333;
+font-size:24px;
+line-height:1.3;
+max-width:90%;
+}
+
+.date{
+margin-top:18px;
+color:#777;
+font-size:18px;
+}
+
+.dots{
+height:35px;
+display:flex;
+justify-content:center;
+align-items:center;
+gap:10px;
+}
+
+.dot{
+width:12px;
+height:12px;
+border-radius:50%;
+background:#d0d0d0;
+}
+
+.dot.active{
+background:#003DA5;
+}
+
+.progress{
+height:5px;
+background:#e31837;
+width:0%;
+animation:progress 10s linear infinite;
+}
+
+@keyframes progress{
+from{width:0%;}
+to{width:100%;}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+<span>📢</span> ANNOUNCEMENTS
+</div>
+
+<div class="content" id="card">
+
+<div class="icon" id="icon"></div>
+
+<div class="title" id="title"></div>
+
+<div class="message" id="message"></div>
+
+<div class="date" id="date"></div>
+
+</div>
+
+<div class="dots" id="dots"></div>
+
+<div class="progress"></div>
+
+</div>
+
+<script>
+
+// =====================================
+// CONFIGURATION
+// =====================================
+
+// Change this whenever an incident occurs
+const lastIncidentDate = "2024-01-08";
+
+// Static announcements
+function getAnnouncements(){
+
+const safetyDays = calculateIncidentDays();
+
+return [
+
+{
+icon:"🟢",
+title:`${safetyDays} DAYS INCIDENT FREE`,
+message:"Great work Sheffield team. Keep it up.",
+date:"Updated Automatically"
+},
+
+{
+icon:"⚠️",
+title:"SAFETY WEEK",
+message:"Remember hearing protection in all production areas.",
+date:"02 JUN 2026"
+},
+
+{
+icon:"🔧",
+title:"MAINTENANCE SHUTDOWN",
+message:"Planned shutdown Saturday 14th June.",
+date:"14 JUN 2026"
+},
+
+{
+icon:"📢",
+title:"TEAM BRIEFING",
+message:"Production meeting Friday at 10:00 in the canteen.",
+date:"THIS WEEK"
+}
+
+];
+}
+
+function calculateIncidentDays(){
+
+const start = new Date(lastIncidentDate);
+const today = new Date();
+
+const diff = today - start;
+
+return Math.floor(
+diff / (1000 * 60 * 60 * 24)
+);
+}
+
+let current = 0;
+let announcements = getAnnouncements();
+
+const icon = document.getElementById("icon");
+const title = document.getElementById("title");
+const message = document.getElementById("message");
+const date = document.getElementById("date");
+const card = document.getElementById("card");
+
+function buildDots(){
+
+const dotsContainer = document.getElementById("dots");
+
+dotsContainer.innerHTML = "";
+
+announcements.forEach((_,index)=>{
+
+const dot = document.createElement("div");
+
+dot.className =
+index===0 ? "dot active" : "dot";
+
+dotsContainer.appendChild(dot);
+});
+}
+
+function updateDots(){
+
+const dots =
+document.querySelectorAll(".dot");
+
+dots.forEach((dot,index)=>{
+
+dot.classList.toggle(
+"active",
+index===current
+);
+
+});
+}
+
+function showAnnouncement(){
+
+card.style.opacity = 0;
+
+setTimeout(()=>{
+
+announcements = getAnnouncements();
+
+const item =
+announcements[current];
+
+icon.textContent = item.icon;
+title.textContent = item.title;
+message.textContent = item.message;
+date.textContent = item.date;
+
+card.style.opacity = 1;
+
+updateDots();
+
+},250);
+}
+
+buildDots();
+showAnnouncement();
+
+setInterval(()=>{
+
+current++;
+
+if(current >= announcements.length){
+current = 0;
+}
+
+showAnnouncement();
+
+},10000);
+
+</script>
+
+</body>
+</html>
