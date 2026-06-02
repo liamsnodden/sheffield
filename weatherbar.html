@@ -10,14 +10,14 @@ body{font-family:"Segoe UI",sans-serif}
 
 .weather-container{
     width:100%;
-    height:120px;
+    height:100px;
     background:#0d3f73;
     color:#fff;
     overflow:hidden;
 }
 
 .weather-top{
-    height:92px;
+    height:100%;
     display:flex;
     align-items:center;
     padding:0 10px;
@@ -32,12 +32,12 @@ body{font-family:"Segoe UI",sans-serif}
 }
 
 #weatherIcon{
-    width:60px;
-    height:60px;
+    width:90px;
+    height:90px;
 }
 
 #temp{
-    font-size:60px;
+    font-size:70px;
     line-height:56px;
     font-weight:700;
 }
@@ -48,7 +48,7 @@ body{font-family:"Segoe UI",sans-serif}
 }
 
 #feels{
-    font-size:14px;
+    font-size:18px;
     opacity:.9;
 }
 
@@ -76,17 +76,10 @@ body{font-family:"Segoe UI",sans-serif}
 }
 
 .day-name{font-size:11px;font-weight:700}
-.day img{width:26px;height:26px}
-.day-temp{font-size:14px;font-weight:700}
+.day img{width:36px;height:36px}
+.day-temp{font-size:17px;font-weight:700}
 
-.alert-bar{
-    height:28px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:12px;
-    font-weight:700;
-}
+
 </style>
 </head>
 <body>
@@ -123,8 +116,7 @@ body{font-family:"Segoe UI",sans-serif}
 
     </div>
 
-    <div id="alertBar" class="alert-bar">Loading Weather...</div>
-</div>
+
 
 <script>
 const url='https://api.open-meteo.com/v1/forecast?latitude=53.3811&longitude=-1.4701&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,wind_gusts_10m,pressure_msl,cloud_cover,weather_code&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,uv_index_max,weather_code&timezone=Europe/London';
