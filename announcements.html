@@ -2,9 +2,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Sherwin Announcements</title>
 
 <style>
+
 *{
 margin:0;
 padding:0;
@@ -15,14 +15,14 @@ html,body{
 width:100%;
 height:100%;
 overflow:hidden;
-font-family:Arial, Helvetica, sans-serif;
+font-family:Arial,Helvetica,sans-serif;
 background:#ffffff;
 }
 
 .container{
 width:100%;
 height:100%;
-border:0px solid #;
+border:1px solid #d8d8d8;
 border-radius:8px;
 overflow:hidden;
 display:flex;
@@ -30,82 +30,84 @@ flex-direction:column;
 }
 
 .header{
-background:#002d72;
-color:white;
 height:48px;
+background:#002D72;
+color:white;
 display:flex;
 align-items:center;
-padding:0 16px;
+padding-left:18px;
 font-size:24px;
-font-weight:bold;
-border-bottom:4px solid #e31837;
+font-weight:700;
+border-bottom:4px solid #E31837;
 }
 
-.header span{
-margin-right:10px;
+.kpi{
+padding:14px 18px;
+background:#ffffff;
+border-bottom:1px solid #e6e6e6;
 }
 
-.content{
+.kpi-days{
+color:#00843D;
+font-size:42px;
+font-weight:700;
+line-height:1;
+}
+
+.kpi-text{
+color:#00843D;
+font-size:22px;
+font-weight:700;
+margin-top:4px;
+}
+
+.kpi-sub{
+color:#444;
+font-size:15px;
+margin-top:4px;
+}
+
+.announcements{
 flex:1;
 display:flex;
 flex-direction:column;
-justify-content:center;
-align-items:center;
-padding:20px;
-text-align:center;
-opacity:1;
-transition:opacity .5s ease;
 }
 
-.icon{
-font-size:72px;
-margin-bottom:15px;
+.row{
+flex:1;
+padding:10px 18px;
+border-bottom:1px solid #ececec;
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+.row:nth-child(even){
+background:#f8f9fb;
 }
 
 .title{
-color:#003DA5;
-font-size:30px;
-font-weight:bold;
+color:#002D72;
+font-size:20px;
+font-weight:700;
 line-height:1.1;
-margin-bottom:15px;
 }
 
 .message{
-color:#333;
-font-size:16px;
-line-height:1.3;
-max-width:90%;
+color:#444;
+font-size:15px;
+margin-top:3px;
 }
 
-.date{
-margin-top:18px;
-color:#777;
-font-size:18px;
-}
-
-.dots{
-height:35px;
-display:flex;
-justify-content:center;
-align-items:center;
-gap:10px;
-}
-
-.dot{
-width:12px;
-height:12px;
-border-radius:50%;
-background:#d0d0d0;
-}
-
-.dot.active{
-background:#003DA5;
+.progress-wrap{
+height:5px;
+background:#e8e8e8;
 }
 
 .progress{
-height:5px;
-background:#e31837;
+height:100%;
 width:0%;
+background:#E31837;
 animation:progress 10s linear infinite;
 }
 
@@ -113,6 +115,7 @@ animation:progress 10s linear infinite;
 from{width:0%;}
 to{width:100%;}
 }
+
 </style>
 </head>
 
@@ -120,161 +123,197 @@ to{width:100%;}
 
 <div class="container">
 
-<div class="content" id="card">
+<div class="header">
+ANNOUNCEMENTS
+</div>
 
-<div class="icon" id="icon"></div>
+<div class="kpi">
+<div class="kpi-days" id="days">0</div>
+<div class="kpi-text">DAYS INCIDENT FREE</div>
+<div class="kpi-sub">Great work Sheffield team</div>
+</div>
 
-<div class="title" id="title"></div>
+<div class="announcements">
 
-<div class="message" id="message"></div>
+<div class="row">
+<div class="title" id="t1"></div>
+<div class="message" id="m1"></div>
+</div>
 
-<div class="date" id="date"></div>
+<div class="row">
+<div class="title" id="t2"></div>
+<div class="message" id="m2"></div>
+</div>
+
+<div class="row">
+<div class="title" id="t3"></div>
+<div class="message" id="m3"></div>
+</div>
+
+<div class="row">
+<div class="title" id="t4"></div>
+<div class="message" id="m4"></div>
+</div>
 
 </div>
 
-<div class="dots" id="dots"></div>
-
+<div class="progress-wrap">
 <div class="progress"></div>
+</div>
 
 </div>
 
 <script>
 
-// =====================================
+// ======================================
 // CONFIGURATION
-// =====================================
+// ======================================
 
-// Change this whenever an incident occurs
-const lastIncidentDate = "2024-01-08";
+// Update only when an incident occurs
+const lastIncidentDate = "2026-01-08";
 
-// Static announcements
-function getAnnouncements(){
+// Optional API endpoint
+const apiUrl = "";
 
-const safetyDays = calculateIncidentDays();
-
-return [
+// Fallback announcements
+const localAnnouncements = [
 
 {
-icon:"🟢",
-title:`${safetyDays} DAYS INCIDENT FREE`,
-message:"Great work Sheffield team. Keep it up.",
-date:"Updated Automatically"
+title:"Safety Week",
+message:"Remember hearing protection in all production areas."
 },
 
 {
-icon:"⚠️",
-title:"SAFETY WEEK",
-message:"Remember hearing protection in all production areas.",
-date:"02 JUN 2026"
+title:"Maintenance Shutdown",
+message:"Saturday 14th June."
 },
 
 {
-icon:"🔧",
-title:"MAINTENANCE SHUTDOWN",
-message:"Planned shutdown Saturday 14th June.",
-date:"14 JUN 2026"
+title:"Team Briefing",
+message:"Friday 10:00 AM in canteen."
 },
 
 {
-icon:"📢",
-title:"TEAM BRIEFING",
-message:"Production meeting Friday at 10:00 in the canteen.",
-date:"THIS WEEK"
+title:"New H&S Policy",
+message:"Available now on intranet."
+},
+
+{
+title:"Employee Recognition",
+message:"Celebrating our amazing team."
+},
+
+{
+title:"Production Milestone",
+message:"Monthly target achieved."
+},
+
+{
+title:"Visitor Notice",
+message:"Reception improvement works."
+},
+
+{
+title:"Charity Event",
+message:"Friday lunchtime fundraiser."
 }
 
 ];
-}
 
-function calculateIncidentDays(){
+let announcements = [...localAnnouncements];
+let currentPage = 0;
+
+function updateIncidentDays(){
 
 const start = new Date(lastIncidentDate);
-const today = new Date();
+const now = new Date();
 
-const diff = today - start;
-
-return Math.floor(
-diff / (1000 * 60 * 60 * 24)
-);
-}
-
-let current = 0;
-let announcements = getAnnouncements();
-
-const icon = document.getElementById("icon");
-const title = document.getElementById("title");
-const message = document.getElementById("message");
-const date = document.getElementById("date");
-const card = document.getElementById("card");
-
-function buildDots(){
-
-const dotsContainer = document.getElementById("dots");
-
-dotsContainer.innerHTML = "";
-
-announcements.forEach((_,index)=>{
-
-const dot = document.createElement("div");
-
-dot.className =
-index===0 ? "dot active" : "dot";
-
-dotsContainer.appendChild(dot);
-});
-}
-
-function updateDots(){
-
-const dots =
-document.querySelectorAll(".dot");
-
-dots.forEach((dot,index)=>{
-
-dot.classList.toggle(
-"active",
-index===current
+const diff = Math.floor(
+(now - start) / 86400000
 );
 
-});
+document.getElementById("days").innerText = diff;
 }
 
-function showAnnouncement(){
+async function loadApiData(){
 
-card.style.opacity = 0;
+if(!apiUrl) return;
 
-setTimeout(()=>{
+try{
 
-announcements = getAnnouncements();
+const response = await fetch(
+apiUrl + "?t=" + Date.now()
+);
+
+const data = await response.json();
+
+announcements = data;
+
+}
+catch(e){
+console.log(e);
+}
+}
+
+function showPage(){
+
+const start = currentPage * 4;
+
+for(let i=0;i<4;i++){
 
 const item =
-announcements[current];
+announcements[start+i];
 
-icon.textContent = item.icon;
-title.textContent = item.title;
-message.textContent = item.message;
-date.textContent = item.date;
+const title =
+document.getElementById(
+"t"+(i+1)
+);
 
-card.style.opacity = 1;
+const msg =
+document.getElementById(
+"m"+(i+1)
+);
 
-updateDots();
+if(item){
 
-},250);
+title.innerText =
+item.title;
+
+msg.innerText =
+item.message;
+
+}
+else{
+
+title.innerText="";
+msg.innerText="";
+
 }
 
-buildDots();
-showAnnouncement();
+}
+
+currentPage++;
+
+if(currentPage * 4 >= announcements.length){
+currentPage = 0;
+}
+
+}
+
+updateIncidentDays();
+showPage();
+
+setInterval(updateIncidentDays,3600000);
 
 setInterval(()=>{
 
-current++;
-
-if(current >= announcements.length){
-current = 0;
-}
-
-showAnnouncement();
+showPage();
 
 },10000);
+
+setInterval(loadApiData,300000);
+
+loadApiData();
 
 </script>
 
