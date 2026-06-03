@@ -2,444 +2,154 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-
+<meta name="viewport" content="width=450,height=450">
+<title>Factory Announcements</title>
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;}
 html,body{
-width:450px;
-height:450px;
-overflow:hidden;
-background:#fff;
+width:450px;height:450px;overflow:hidden;
 font-family:Arial,Helvetica,sans-serif;
+background:#002D72;color:white;
 }
-
 #content{
-width:450px;
-height:450px;
+width:450px;height:450px;
 display:grid;
-grid-template-rows:1.3fr 1fr 1fr 1fr;
+grid-template-rows:140px 80px 76px 76px 78px;
+background:;
 }
+.kpi-wrap{padding:10px;}
+.kpi{
+height:100%;
+border:5px solid #00A651;
+border-radius:8px;
+background:white;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+}
+.kpi-days{font-size:78px;font-weight:800;color:#00A651;line-height:.9;}
+.kpi-text{font-size:24px;font-weight:700;color:#00A651;}
 
-.row{
-padding:12px 16px;
-border-bottom:1px solid #e6e6e6;
+.alert,.item{
+padding:10px 14px;
 display:flex;
 flex-direction:column;
 justify-content:center;
-overflow:hidden;
 }
-
-.row:last-child{
-border-bottom:none;
+.alert{
+color:white;
 }
-
-/* KPI */
-
-.kpi{
-background:#fff;
+.alert-head{
+display:flex;align-items:center;gap:10px;
+font-size:20px;font-weight:700;
 }
+.alert-msg{font-size:16px;font-weight:700;margin-top:4px;}
+.triangle{font-size:34px;line-height:1;}
 
-.kpi-box{
-border:4px solid #00A651;
-border-radius:10px;
-height:100%;
-display:flex;
-align-items:center;
-justify-content:center;
-gap:20px;
-padding:10px;
+.item{
+border-top:1px solid rgba(255,255,255,.15);
 }
-
-.kpi-days{
-font-size:clamp(60px,7vw,120px);
-font-weight:800;
-color:#00A651;
-line-height:1;
-}
-
-.kpi-text{
-font-size:clamp(24px,2vw,42px);
-font-weight:700;
-color:#00A651;
-line-height:1.1;
-}
-
-/* Weather */
-
-.weather{
-color:#fff;
-}
-
-.weather-title{
-font-size:20px;
-font-weight:700;
-}
-
-.weather-message{
-font-size:16px;
-margin-top:4px;
-}
-
-/* Announcement */
-
-.title{
-color:#002D72;
-font-size:24px;
-font-weight:700;
-line-height:1.1;
-}
-
-.message{
-color:#555;
-font-size:16px;
-margin-top:4px;
-}
-
-.empty{
-background:#fff;
-}
-
+.title{font-size:22px;font-weight:700;}
+.message{font-size:14px;opacity:.95;margin-top:3px;}
+.empty{border-top:1px solid rgba(255,255,255,.15);}
 </style>
 </head>
 <body>
-
 <div id="content"></div>
 
 <script>
+const LAST_INCIDENT_DATE="2026-01-08";
+const LAT=53.3811;
+const LON=-1.4701;
+const ROTATE=10000;
+const ANNOUNCEMENT_API="";
 
-/****************************************
-CONFIG
-****************************************/
+let weatherAlert=null;
+let pages=[];
+let currentPage=0;
 
-const LAST_INCIDENT_DATE = "2026-01-08";
-
-// Sheffield
-const LAT = 53.3811;
-const LON = -1.4701;
-
-const ROTATE_EVERY = 10000;
-
-// Your API here if required
-const ANNOUNCEMENT_API = "";
-
-/****************************************
-FALLBACK DATA
-****************************************/
-
-let announcements = [
-
-{
-title:"Safety Week",
-message:"Remember hearing protection in all production areas."
-},
-
-{
-title:"Maintenance Shutdown",
-message:"Saturday 14th June."
-},
-
-{
-title:"Team Briefing",
-message:"Friday 10:00 AM in canteen."
-},
-
-{
-title:"New H&S Policy",
-message:"Available on the intranet."
-},
-
-{
-title:"Production Milestone",
-message:"Monthly target achieved."
-},
-
-{
-title:"Visitor Notice",
-message:"Reception refurbishment works."
-},
-
-{
-title:"Charity Event",
-message:"Friday lunchtime fundraiser."
-}
-
+let announcements=[
+{title:"SAFETY WEEK",message:"Remember hearing protection in all production areas."},
+{title:"MAINTENANCE SHUTDOWN",message:"Saturday 14th June."},
+{title:"TEAM BRIEFING",message:"Friday 10:00 AM in the canteen."},
+{title:"NEW H&S POLICY",message:"Available on the intranet."},
+{title:"PRODUCTION MILESTONE",message:"Monthly target achieved."}
 ];
 
-let weatherAlert = null;
-let pages = [];
-let currentPage = 0;
-
-/****************************************
-INCIDENT DAYS
-****************************************/
-
 function incidentDays(){
-
-const start =
-new Date(LAST_INCIDENT_DATE);
-
-const now =
-new Date();
-
-return Math.floor(
-(now - start) / 86400000
-);
-
+ return Math.floor((new Date()-new Date(LAST_INCIDENT_DATE))/86400000);
 }
-
-/****************************************
-WEATHER ALERTS
-****************************************/
 
 async function loadWeather(){
+ try{
+  const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&daily=weather_code&timezone=Europe/London`);
+  const d=await r.json();
+  weatherAlert=null;
+  const c=d.daily.weather_code[0];
 
-try{
+  if([95,96,99].includes(c))
+    weatherAlert={color:"#C8102E",msg:"SEVERE THUNDERSTORM WARNING"};
+  else if([61,63,65,80,81,82].includes(c))
+    weatherAlert={color:"#F39C12",msg:"HEAVY RAIN WARNING"};
+  else if([71,73,75,77,85,86].includes(c))
+    weatherAlert={color:"#FFD100",text:"#000",msg:"HEAVY SNOW WARNING"};
 
-const response =
-await fetch(
-`https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&daily=weather_code&timezone=Europe/London`
-);
-
-const data =
-await response.json();
-
-weatherAlert = null;
-
-const code =
-data.daily.weather_code[0];
-
-if([95,96,99].includes(code)){
-
-weatherAlert = {
-colour:"#C8102E",
-title:"WEATHER ALERT",
-message:"SEVERE THUNDERSTORM WARNING"
-};
-
+  buildPages();
+ }catch(e){}
 }
-else if(
-[71,73,75,77,85,86]
-.includes(code)
-){
-
-weatherAlert = {
-colour:"#F39C12",
-title:"WEATHER ALERT",
-message:"HEAVY SNOW EXPECTED"
-};
-
-}
-else if(
-[61,63,65,80,81,82]
-.includes(code)
-){
-
-weatherAlert = {
-colour:"#F39C12",
-title:"WEATHER ALERT",
-message:"HEAVY RAIN EXPECTED"
-};
-
-}
-
-buildPages();
-
-}
-catch(err){
-
-console.log(err);
-
-}
-
-}
-
-/****************************************
-ANNOUNCEMENT API
-****************************************/
-
-async function loadAnnouncements(){
-
-if(!ANNOUNCEMENT_API) return;
-
-try{
-
-const response =
-await fetch(
-ANNOUNCEMENT_API +
-"?t=" +
-Date.now()
-);
-
-announcements =
-await response.json();
-
-buildPages();
-
-}
-catch(err){
-
-console.log(err);
-
-}
-
-}
-
-/****************************************
-PAGING
-****************************************/
 
 function buildPages(){
+ pages=[];
+ const slots=weatherAlert?2:3;
 
-pages = [];
-
-const slots =
-weatherAlert ? 2 : 3;
-
-for(
-let i=0;
-i<announcements.length;
-i+=slots
-){
-
-pages.push(
-announcements.slice(
-i,
-i + slots
-)
-);
-
+ for(let i=0;i<announcements.length;i+=slots){
+   pages.push(announcements.slice(i,i+slots));
+ }
+ if(!pages.length) pages=[[]];
 }
-
-if(pages.length === 0){
-
-pages.push([]);
-
-}
-
-}
-
-/****************************************
-RENDER
-****************************************/
 
 function render(){
+ const page=pages[currentPage]||[];
+ let html=`
+ <div class="kpi-wrap">
+  <div class="kpi">
+   <div class="kpi-days">${incidentDays()}</div>
+   <div class="kpi-text">DAYS INCIDENT FREE</div>
+  </div>
+ </div>`;
 
-const page =
-pages[currentPage] || [];
+ let remaining=3;
 
-let html = '';
+ if(weatherAlert){
+   html+=`
+   <div class="alert" style="background:${weatherAlert.color};color:${weatherAlert.text||'#fff'}">
+    <div class="alert-head"><span class="triangle">⚠</span> WEATHER ALERT</div>
+    <div class="alert-msg">${weatherAlert.msg}</div>
+   </div>`;
+   remaining--;
+ }
 
-html += `
-<div class="row kpi">
-<div class="kpi-box">
-<div class="kpi-days">
-${incidentDays()}
-</div>
+ page.forEach(a=>{
+   html+=`<div class="item"><div class="title">${a.title}</div><div class="message">${a.message}</div></div>`;
+   remaining--;
+ });
 
-<div class="kpi-text">
-DAYS<br>
-INCIDENT FREE
-</div>
-</div>
-</div>
-`;
+ while(remaining>0){
+   html+=`<div class="empty"></div>`;
+   remaining--;
+ }
 
-let rowsRemaining = 3;
-
-if(weatherAlert){
-
-html += `
-<div
-class="row weather"
-style="
-background:${weatherAlert.colour};
-"
->
-<div class="weather-title">
-${weatherAlert.title}
-</div>
-
-<div class="weather-message">
-${weatherAlert.message}
-</div>
-</div>
-`;
-
-rowsRemaining--;
-
+ document.getElementById('content').innerHTML=html;
+ currentPage=(currentPage+1)%pages.length;
 }
-
-page.forEach(item=>{
-
-html += `
-<div class="row">
-<div class="title">
-${item.title}
-</div>
-
-<div class="message">
-${item.message}
-</div>
-</div>
-`;
-
-rowsRemaining--;
-
-});
-
-while(rowsRemaining > 0){
-
-html += `
-<div class="row empty"></div>
-`;
-
-rowsRemaining--;
-
-}
-
-document
-.getElementById("content")
-.innerHTML = html;
-
-currentPage++;
-
-if(currentPage >= pages.length){
-
-currentPage = 0;
-
-}
-
-}
-
-/****************************************
-START
-****************************************/
 
 buildPages();
 render();
-
 loadWeather();
-loadAnnouncements();
 
-setInterval(render, ROTATE_EVERY);
-
-setInterval(
-loadWeather,
-900000
-);
-
-setInterval(
-loadAnnouncements,
-300000
-);
-
+setInterval(render,ROTATE);
+setInterval(loadWeather,900000);
 </script>
-
 </body>
 </html>
