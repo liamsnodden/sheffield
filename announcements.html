@@ -9,7 +9,7 @@
 html,body{
 width:450px;height:450px;overflow:hidden;
 font-family:Arial,Helvetica,sans-serif;
-background:#002D72;color:white;
+background:;color:white;
 }
 #content{
 width:450px;height:450px;
@@ -50,7 +50,7 @@ font-size:20px;font-weight:700;
 .item{
 border-top:1px solid rgba(255,255,255,.15);
 }
-.title{font-size:22px;font-weight:700;}
+.title{font-family:"Arial Narrow", Arial, sans-serif; font-size:22px;font-weight:700;}
 .message{font-size:14px;opacity:.95;margin-top:3px;}
 .empty{border-top:1px solid rgba(255,255,255,.15);}
 </style>
@@ -59,7 +59,7 @@ border-top:1px solid rgba(255,255,255,.15);
 <div id="content"></div>
 
 <script>
-const LAST_INCIDENT_DATE="2026-01-08";
+const LAST_INCIDENT_DATE="2025-01-08";
 const LAT=53.3811;
 const LON=-1.4701;
 const ROTATE=10000;
@@ -70,8 +70,8 @@ let pages=[];
 let currentPage=0;
 
 let announcements=[
-{title:"SAFETY WEEK",message:"Remember hearing protection in all production areas."},
-{title:"MAINTENANCE SHUTDOWN",message:"Saturday 14th June."},
+{title:"COMPLIANCE TRAINING",message:"Please arrange with your line manager to complete your Code of Conduct training at the earliest opportunity."},
+{title:"CALLUM RICKHUSS PROMOTION!",message:"A massive congratulations to Callum on his promotion to Warehouse Team Leader! Well done Callum!"},
 {title:"TEAM BRIEFING",message:"Friday 10:00 AM in the canteen."},
 {title:"NEW H&S POLICY",message:"Available on the intranet."},
 {title:"PRODUCTION MILESTONE",message:"Monthly target achieved."}
