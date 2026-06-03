@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 
@@ -15,96 +15,88 @@ html,body{
 width:450px;
 height:450px;
 overflow:hidden;
-font-family:Arial,sans-serif;
-background:;
+background:#ffffff;
+font-family:Arial,Helvetica,sans-serif;
 }
 
-.container{
+#content{
 width:450px;
-height:450px;
-border:0px solid #d8d8d8;
-border-radius:8px;
-overflow:hidden;
+height:calc(100% - 4px);
 display:flex;
 flex-direction:column;
 }
 
-.header{
-height:48px;
-background:#002D72;
-color:white;
-display:flex;
-align-items:center;
-padding-left:10px;
-font-size:24px;
-font-weight:700;
-border-bottom:2px solid #E31837;
-}
-
-.kpi{
-padding:10px 10px;
-background:;
-border-bottom:1px solid #e6e6e6;
-}
-
-.kpi-days{
-color:#3DB54A;
-font-size:35px;
-font-weight:700;
-line-height:1;
-}
-
-.kpi-text{
-color:#ffffff;
-font-size:18px;
-font-weight:700;
-margin-top:2px;
-}
-
-.kpi-sub{
-color:#ffffff;
-font-size:12px;
-margin-top:4px;
-}
-
-.announcements{
+.item{
 flex:1;
-display:flex;
-flex-direction:column;
-}
-
-.row{
-flex:1;
-padding:10px 10px;
-border-bottom:1px solid #ececec;
 display:flex;
 flex-direction:column;
 justify-content:center;
+padding:12px 16px;
+border-bottom:1px solid #ececec;
 }
 
-.row:nth-child(even){
-background:;
+.item:last-child{
+border-bottom:none;
+}
+
+.kpi{
+flex:1.2;
+background:#ffffff;
+}
+
+.kpi-days{
+font-size:72px;
+font-weight:800;
+color:#00A651;
+line-height:0.9;
+}
+
+.kpi-label{
+font-size:28px;
+font-weight:700;
+color:#00A651;
+line-height:1;
+}
+
+.kpi-sub{
+font-size:14px;
+color:#666;
+margin-top:4px;
+}
+
+.alert{
+color:white;
+}
+
+.alert-title{
+font-size:16px;
+font-weight:700;
+text-transform:uppercase;
+}
+
+.alert-message{
+font-size:14px;
+margin-top:2px;
 }
 
 .title{
-color:#ffffff;
-font-size:16px;
+font-size:18px;
 font-weight:700;
-line-height:1.1;
+color:#002D72;
 }
 
 .message{
-color:#ffffff;
 font-size:14px;
-margin-top:1px;
-}
-
-.progress-wrap{
-height:5px;
-background:#e8e8e8;
+color:#555;
+margin-top:2px;
 }
 
 .progress{
+height:4px;
+background:#efefef;
+}
+
+.progress-bar{
 height:100%;
 width:0%;
 background:#E31837;
@@ -112,8 +104,8 @@ animation:progress 10s linear infinite;
 }
 
 @keyframes progress{
-from{width:0%;}
-to{width:100%;}
+from {width:0%;}
+to {width:100%;}
 }
 
 </style>
@@ -121,66 +113,42 @@ to{width:100%;}
 
 <body>
 
-<div class="container">
+<div id="content"></div>
 
-<div class="kpi">
-<div class="kpi-days" id="days">0</div>
-<div class="kpi-text">DAYS INCIDENT FREE</div>
-</div>
-
-<div class="announcements">
-
-<div class="row">
-<div class="title" id="t1"></div>
-<div class="message" id="m1"></div>
-</div>
-
-<div class="row">
-<div class="title" id="t2"></div>
-<div class="message" id="m2"></div>
-</div>
-
-<div class="row">
-<div class="title" id="t3"></div>
-<div class="message" id="m3"></div>
-</div>
-
-<div class="row">
-<div class="title" id="t4"></div>
-<div class="message" id="m4"></div>
-</div>
-
-</div>
-
-<div class="progress-wrap">
-<div class="progress"></div>
-</div>
-
+<div class="progress">
+<div class="progress-bar"></div>
 </div>
 
 <script>
 
-// ======================================
-// CONFIGURATION
-// ======================================
+/*************************************************
+CONFIGURATION
+**************************************************/
 
-// Update only when an incident occurs
-const lastIncidentDate = "2026-01-08";
+const LAST_INCIDENT_DATE = "2026-01-08";
 
-// Optional API endpoint
-const apiUrl = "";
+const LATITUDE = 53.3811;
+const LONGITUDE = -1.4701;
 
-// Fallback announcements
-const localAnnouncements = [
+const ROTATION_TIME = 10000;
+
+// Leave blank to use built-in announcements
+const ANNOUNCEMENT_API = "";
+
+/*************************************************
+FALLBACK ANNOUNCEMENTS
+**************************************************/
+
+let announcements = [
 
 {
-title:"Compliance Training",
-message:"Please arrange with your line manager to complete mandatory compliance training as soon as possible."
+title:"Safety Week",
+message:"Remember hearing protection in all production areas."
 },
 
 {
-title:"Callum Rickhuss Promotion",
-message:"Congratulations to Callum Rickhuss on his promotion to Warehouse Team Leader. Well done Callum!"
+title:"Maintenance Shutdown",
+message:"Saturday 14th June."
 },
 
 {
@@ -190,105 +158,252 @@ message:"Friday 10:00 AM in canteen."
 
 {
 title:"New H&S Policy",
-message:"Available now on intranet."
+message:"Available on the intranet."
 },
+
+{
+title:"Production Milestone",
+message:"Monthly target achieved."
+},
+
+{
+title:"Visitor Notice",
+message:"Reception refurbishment works."
+},
+
+{
+title:"Charity Event",
+message:"Friday lunchtime fundraiser."
+}
 
 ];
 
-let announcements = [...localAnnouncements];
+let weatherAlert = null;
+let pages = [];
 let currentPage = 0;
 
-function updateIncidentDays(){
+/*************************************************
+INCIDENT DAYS
+**************************************************/
 
-const start = new Date(lastIncidentDate);
+function getIncidentDays(){
+
+const start = new Date(LAST_INCIDENT_DATE);
 const now = new Date();
 
-const diff = Math.floor(
+return Math.floor(
 (now - start) / 86400000
 );
-
-document.getElementById("days").innerText = diff;
 }
 
-async function loadApiData(){
+/*************************************************
+OPEN METEO ALERT CHECK
+**************************************************/
 
-if(!apiUrl) return;
+async function loadWeatherAlert(){
 
 try{
 
-const response = await fetch(
-apiUrl + "?t=" + Date.now()
-);
+const url =
+`https://api.open-meteo.com/v1/forecast?latitude=${LATITUDE}&longitude=${LONGITUDE}&daily=weather_code&timezone=Europe/London`;
 
+const response = await fetch(url);
 const data = await response.json();
 
-announcements = data;
+weatherAlert = null;
+
+const code = data.daily.weather_code[0];
+
+if([95,96,99].includes(code)){
+
+weatherAlert = {
+color:"#C8102E",
+title:"WEATHER ALERT",
+message:"SEVERE THUNDERSTORM WARNING"
+};
+}
+
+else if([71,73,75,77,85,86].includes(code)){
+
+weatherAlert = {
+color:"#F39C12",
+title:"WEATHER ALERT",
+message:"HEAVY SNOW EXPECTED"
+};
+}
+
+else if([61,63,65,80,81,82].includes(code)){
+
+weatherAlert = {
+color:"#F39C12",
+title:"WEATHER ALERT",
+message:"HEAVY RAIN EXPECTED"
+};
+}
+
+buildPages();
 
 }
-catch(e){
-console.log(e);
+catch(error){
+
+console.log(error);
+
 }
+
 }
 
-function showPage(){
+/*************************************************
+ANNOUNCEMENT API
+**************************************************/
 
-const start = currentPage * 2;
+async function loadAnnouncements(){
 
-for(let i=0;i<4;i++){
+if(!ANNOUNCEMENT_API) return;
 
-const item =
-announcements[start+i];
+try{
 
-const title =
-document.getElementById(
-"t"+(i+1)
+const response =
+await fetch(
+ANNOUNCEMENT_API +
+"?t=" +
+Date.now()
 );
 
-const msg =
-document.getElementById(
-"m"+(i+1)
+announcements =
+await response.json();
+
+buildPages();
+
+}
+catch(error){
+
+console.log(error);
+
+}
+
+}
+
+/*************************************************
+PAGE BUILDER
+**************************************************/
+
+function buildPages(){
+
+pages = [];
+
+const availableSlots =
+weatherAlert ? 2 : 3;
+
+for(
+let i = 0;
+i < announcements.length;
+i += availableSlots
+){
+
+pages.push(
+announcements.slice(
+i,
+i + availableSlots
+)
 );
-
-if(item){
-
-title.innerText =
-item.title;
-
-msg.innerText =
-item.message;
-
 }
-else{
 
-title.innerText="";
-msg.innerText="";
-
+if(pages.length === 0){
+pages.push([]);
 }
 
 }
+
+/*************************************************
+RENDER
+**************************************************/
+
+function render(){
+
+const content =
+document.getElementById("content");
+
+const page =
+pages[currentPage] || [];
+
+let html = "";
+
+html += `
+<div class="item kpi">
+<div class="kpi-days">
+${getIncidentDays()}
+</div>
+
+<div class="kpi-label">
+DAYS INCIDENT FREE
+</div>
+
+<div class="kpi-sub">
+Great work Sheffield team
+</div>
+</div>
+`;
+
+if(weatherAlert){
+
+html += `
+<div
+class="item alert"
+style="background:${weatherAlert.color};"
+>
+<div class="alert-title">
+${weatherAlert.title}
+</div>
+
+<div class="alert-message">
+${weatherAlert.message}
+</div>
+</div>
+`;
+}
+
+page.forEach(item => {
+
+html += `
+<div class="item">
+
+<div class="title">
+${item.title}
+</div>
+
+<div class="message">
+${item.message}
+</div>
+
+</div>
+`;
+
+});
+
+content.innerHTML = html;
 
 currentPage++;
 
-if(currentPage * 4 >= announcements.length){
+if(currentPage >= pages.length){
 currentPage = 0;
 }
 
 }
 
-updateIncidentDays();
-showPage();
+/*************************************************
+STARTUP
+**************************************************/
 
-setInterval(updateIncidentDays,3600000);
+buildPages();
+render();
 
-setInterval(()=>{
+setInterval(render, ROTATION_TIME);
 
-showPage();
+loadWeatherAlert();
+loadAnnouncements();
 
-},10000);
-
-setInterval(loadApiData,300000);
-
-loadApiData();
+setInterval(loadWeatherAlert, 900000);
+setInterval(loadAnnouncements, 300000);
 
 </script>
 
