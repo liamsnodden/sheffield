@@ -2,185 +2,154 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Responsive Sheffield Weather Bar</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Arial,sans-serif}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weather Panel</title>
 
-.weather-container{
-    width:90%;
-    height:100px;
-    background:;
-    color:#fff;
-    overflow:hidden;
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
-.weather-top{
-    height:100%;
-    display:flex;
-    align-items:center;
-    padding:0 10px;
+body{
+background:#f5f5f5;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+font-family:"Arial Narrow", Arial, sans-serif;
+}
+
+.weather-card{
+width:1356px;
+height:450px;
+background:linear-gradient(135deg,#0055a4,#003f8a);
+border-radius:20px;
+color:#fff;
+display:flex;
+align-items:center;
+padding:0 40px;
+overflow:hidden;
 }
 
 .main-weather{
-    width:360px;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    flex-shrink:0;
+display:flex;
+align-items:center;
+gap:30px;
+min-width:520px;
 }
 
-#weatherIcon{
-    width:90px;
-    height:90px;
+.main-weather img{
+width:180px;
+height:180px;
 }
 
-#temp{
-    font-size:70px;
-    line-height:56px;
-    font-weight:700;
+.temp-section{
+display:flex;
+flex-direction:column;
 }
 
-#condition{
-    font-size:20px;
-    font-weight:700;
+.temp{
+font-size:110px;
+font-weight:700;
+line-height:1;
 }
 
-#feels{
-    font-size:18px;
-    opacity:.9;
+.condition{
+font-size:40px;
+font-weight:600;
+margin-top:10px;
 }
 
-.stats{
-    flex:1;
-    display:flex;
-    justify-content:space-evenly;
-    align-items:center;
+.metrics{
+display:flex;
+flex:1;
+height:180px;
 }
 
-.stat{text-align:center;min-width:70px}
-.label{font-size:15px;font-weight:700;opacity:.75}
-.value{font-size:30px;font-weight:700}
-
-.forecast{
-    display:flex;
-    align-items:center;
-    border-left:1px solid rgba(255,255,255,.3);
-    padding-left:10px;
+.metric{
+flex:1;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+border-left:2px solid rgba(255,255,255,0.25);
 }
 
-.day{
-    width:80px;
-    text-align:center;
+.metric-label{
+font-size:28px;
+font-weight:700;
+letter-spacing:1px;
+opacity:.95;
+margin-bottom:25px;
 }
 
-.day-name{font-size:14px;font-weight:700}
-.day img{width:45px;height:45px}
-.day-temp{font-size:19px;font-weight:600}
+.metric-value{
+font-size:72px;
+font-weight:700;
+line-height:1;
+}
 
-
+.metric-small{
+font-size:26px;
+}
 </style>
 </head>
+
 <body>
 
-<div class="weather-container">
-    <div class="weather-top">
+<div class="weather-card">
 
-        <div class="main-weather">
-            <img id="weatherIcon" alt="weather">
-            <div id="temp">--°</div>
-            <div>
-                <div id="condition">Loading...</div>
-                <div id="feels">Feels Like --°</div>
-            </div>
-        </div>
+<div class="main-weather">
+<!-- OpenWeather icon -->
+<img id="weatherIcon"
+src="https://openweathermap.org/img/wn/01d@4x.png"
+alt="Weather">
 
-        <div class="stats">
-            <div class="stat"><div class="label">HIGH</div><div id="high" class="value">--</div></div>
-            <div class="stat"><div class="label">LOW</div><div id="low" class="value">--</div></div>
-            <div class="stat"><div class="label">RAIN</div><div id="rain" class="value">--</div></div>
-            <div class="stat"><div class="label">HUMIDITY</div><div id="hum" class="value">--</div></div>
-            <div class="stat"><div class="label">WIND</div><div id="wind" class="value">--</div></div>
-            <div class="stat"><div class="label">GUST</div><div id="gust" class="value">--</div></div>
-            <div class="stat"><div class="label">UV</div><div id="uv" class="value">--</div></div>
-            <div class="stat"><div class="label">CLOUD</div><div id="cloud" class="value">--</div></div>
-            <div class="stat"><div class="label">PRESSURE</div><div id="press" class="value">--</div></div>
-        </div>
+<div class="temp-section">
+<div class="temp" id="temp">18°C</div>
+<div class="condition" id="condition">Sunny</div>
+</div>
+</div>
 
-        <div class="forecast">
-            <div class="day"><div id="d1n" class="day-name"></div><img id="d1i"><div id="d1t" class="day-temp"></div></div>
-            <div class="day"><div id="d2n" class="day-name"></div><img id="d2i"><div id="d2t" class="day-temp"></div></div>
-            <div class="day"><div id="d3n" class="day-name"></div><img id="d3i"><div id="d3t" class="day-temp"></div></div>
-        </div>
+<div class="metrics">
 
-    </div>
+<div class="metric">
+<div class="metric-label">HIGH</div>
+<div class="metric-value" id="high">21°</div>
+</div>
 
+<div class="metric">
+<div class="metric-label">LOW</div>
+<div class="metric-value" id="low">11°</div>
+</div>
 
+<div class="metric">
+<div class="metric-label">RAIN</div>
+<div class="metric-value" id="rain">10%</div>
+</div>
 
-<script>
-const url='https://api.open-meteo.com/v1/forecast?latitude=53.3811&longitude=-1.4701&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,wind_gusts_10m,pressure_msl,cloud_cover,weather_code&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,uv_index_max,weather_code&timezone=Europe/London';
+<div class="metric">
+<div class="metric-label">WIND</div>
+<div class="metric-value">12</div>
+<div class="metric-small">mph</div>
+</div>
 
-function mapCode(code){
- if(code===0)return['01d','Clear'];
- if([1].includes(code))return['02d','Mostly Clear'];
- if([2].includes(code))return['03d','Partly Cloudy'];
- if([3].includes(code))return['04d','Cloudy'];
- if([45,48].includes(code))return['50d','Fog'];
- if([51,53,55,80,81,82].includes(code))return['09d','Showers'];
- if([61,63,65].includes(code))return['10d','Rain'];
- if([71,73,75].includes(code))return['13d','Snow'];
- if([95,96,99].includes(code))return['11d','Storm'];
- return['03d','Weather'];
-}
+<div class="metric">
+<div class="metric-label">GUSTS</div>
+<div class="metric-value">21</div>
+<div class="metric-small">mph</div>
+</div>
 
-function cToF(c){return Math.round((c*9/5)+32);}
+<div class="metric">
+<div class="metric-label">UV</div>
+<div class="metric-value">6</div>
+</div>
 
-fetch(url)
-.then(r=>r.json())
-.then(data=>{
- const c=data.current,d=data.daily;
- const icon=mapCode(c.weather_code);
+</div>
 
- document.getElementById('weatherIcon').src=`https://openweathermap.org/img/wn/${icon[0]}@2x.png`;
- document.getElementById('temp').textContent=Math.round(c.temperature_2m)+'°';
- document.getElementById('condition').textContent=icon[1];
- document.getElementById('feels').textContent='Feels Like '+Math.round(c.apparent_temperature)+'°';
-
- document.getElementById('rain').textContent=d.precipitation_probability_max[0]+'%';
- document.getElementById('hum').textContent=c.relative_humidity_2m+'%';
- document.getElementById('wind').textContent=Math.round(c.wind_speed_10m);
- document.getElementById('gust').textContent=Math.round(c.wind_gusts_10m);
- document.getElementById('high').textContent=Math.round(d.temperature_2m_max[0])+'°';
- document.getElementById('low').textContent=Math.round(d.temperature_2m_min[0])+'°';
- document.getElementById('uv').textContent=Math.round(d.uv_index_max[0]);
- document.getElementById('cloud').textContent=c.cloud_cover+'%';
- document.getElementById('press').textContent=Math.round(c.pressure_msl);
-
- const names=['SUN','MON','TUE','WED','THU','FRI','SAT'];
-
- for(let i=1;i<=3;i++){
-   const dt=new Date(d.time[i]);
-   document.getElementById('d'+i+'n').textContent=names[dt.getDay()];
-   document.getElementById('d'+i+'i').src=`https://openweathermap.org/img/wn/${mapCode(d.weather_code[i])[0]}@2x.png`;
-   document.getElementById('d'+i+'t').textContent=Math.round(d.temperature_2m_max[i])+'°/'+Math.round(d.temperature_2m_min[i])+'°';
- }
-
- const rain=d.precipitation_probability_max[0];
- const bar=document.getElementById('alertBar');
-
- if(rain>=80){
-   bar.style.background='#d35400';
-   bar.textContent='HEAVY RAIN WARNING IN EFFECT';
- }else if(rain>=50){
-   bar.style.background='#f39c12';
-   bar.textContent='RAIN POSSIBLE TODAY';
- }else{
-   bar.style.background='#2e7d32';
-   bar.textContent='NO WEATHER ALERTS IN EFFECT';
- }
-});
-</script>
+</div>
 
 </body>
 </html>
