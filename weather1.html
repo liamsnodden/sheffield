@@ -1,53 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Weather Bar</title>
 
 <style>
-body{
+*{
 margin:0;
-background:#1565c0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:#1565c0; /* Sherwin-style blue */
 font-family:Arial, Helvetica, sans-serif;
 }
 
-.weather-bar{
+#weather-bar{
 height:120px;
 display:flex;
 align-items:center;
-padding:0 20px;
 color:white;
+padding:0 20px;
 }
 
-.weather-icon{
-width:90px;
-height:90px;
-margin-right:20px;
-object-fit:contain;
+#weather-icon{
+width:110px;
+height:110px;
+margin-right:15px;
+filter:drop-shadow(0 0 10px rgba(255,255,255,0.2));
 }
 
-.temperature{
-font-size:64px;
+#weather-temp{
+font-size:72px;
 font-weight:700;
 line-height:1;
-margin-right:25px;
+margin-right:20px;
+white-space:nowrap;
 }
 
-.weather-details{
+#weather-info{
 display:flex;
 flex-direction:column;
 justify-content:center;
 }
 
-.condition{
-font-size:28px;
+#weather-condition{
+font-size:30px;
 font-weight:600;
 line-height:1.1;
 }
 
-.feels-like{
+#weather-feels{
 font-size:20px;
-opacity:.9;
+opacity:0.9;
 margin-top:4px;
 }
 </style>
@@ -55,24 +63,17 @@ margin-top:4px;
 
 <body>
 
-<div class="weather-bar">
+<div id="weather-bar">
 
-<img id="weatherIcon"
-class="weather-icon"
+<img id="weather-icon"
+src="https://openweathermap.org/img/wn/01d@4x.png"
 alt="Weather">
 
-<div id="temperature" class="temperature">
---
-</div>
+<div id="weather-temp">--°C</div>
 
-<div class="weather-details">
-<div id="condition" class="condition">
-Loading...
-</div>
-
-<div id="feelsLike" class="feels-like">
-Feels like --
-</div>
+<div id="weather-info">
+<div id="weather-condition">Loading...</div>
+<div id="weather-feels">Feels like --°C</div>
 </div>
 
 </div>
@@ -82,55 +83,52 @@ Feels like --
 const LATITUDE = 53.3811; // Sheffield
 const LONGITUDE = -1.4701;
 
-const iconBase =
-"https://cdn.jsdelivr.net/gh/basmilius/weather-icons@dev/production/fill/all/";
-
-const descriptions = {
-0:"Clear",
-1:"Mainly Clear",
-2:"Partly Cloudy",
-3:"Overcast",
-45:"Fog",
-48:"Fog",
-51:"Light Drizzle",
-53:"Drizzle",
-55:"Heavy Drizzle",
-61:"Light Rain",
-63:"Rain",
-65:"Heavy Rain",
-71:"Snow",
-73:"Snow",
-75:"Heavy Snow",
-80:"Rain Showers",
-81:"Heavy Showers",
-82:"Violent Showers",
-95:"Thunderstorm",
-96:"Thunderstorm",
-99:"Thunderstorm"
+const weatherDescriptions = {
+0: "Clear",
+1: "Mainly Clear",
+2: "Partly Cloudy",
+3: "Overcast",
+45: "Fog",
+48: "Fog",
+51: "Light Drizzle",
+53: "Drizzle",
+55: "Heavy Drizzle",
+61: "Light Rain",
+63: "Rain",
+65: "Heavy Rain",
+71: "Snow",
+73: "Snow",
+75: "Heavy Snow",
+80: "Rain Showers",
+81: "Heavy Showers",
+82: "Heavy Rain",
+95: "Thunderstorm",
+96: "Thunderstorm",
+99: "Thunderstorm"
 };
 
-const icons = {
-0:"clear-day.svg",
-1:"partly-cloudy-day.svg",
-2:"partly-cloudy-day.svg",
-3:"overcast.svg",
-45:"fog.svg",
-48:"fog.svg",
-51:"drizzle.svg",
-53:"drizzle.svg",
-55:"drizzle.svg",
-61:"rain.svg",
-63:"rain.svg",
-65:"rain.svg",
-71:"snow.svg",
-73:"snow.svg",
-75:"snow.svg",
-80:"rain.svg",
-81:"rain.svg",
-82:"rain.svg",
-95:"thunderstorms.svg",
-96:"thunderstorms.svg",
-99:"thunderstorms.svg"
+const iconMap = {
+0: "01d",
+1: "02d",
+2: "03d",
+3: "04d",
+45: "50d",
+48: "50d",
+51: "09d",
+53: "09d",
+55: "09d",
+61: "10d",
+63: "10d",
+65: "10d",
+71: "13d",
+73: "13d",
+75: "13d",
+80: "09d",
+81: "09d",
+82: "09d",
+95: "11d",
+96: "11d",
+99: "11d"
 };
 
 async function updateWeather() {
@@ -145,26 +143,28 @@ const data = await response.json();
 
 const code = data.current.weather_code;
 
-document.getElementById("temperature").textContent =
-Math.round(data.current.temperature_2m) + "°C";
+document.getElementById('weather-temp').textContent =
+Math.round(data.current.temperature_2m) + '°C';
 
-document.getElementById("condition").textContent =
-descriptions[code] || "Unknown";
+document.getElementById('weather-condition').textContent =
+weatherDescriptions[code] || 'Unknown';
 
-document.getElementById("feelsLike").textContent =
-"Feels like " +
+document.getElementById('weather-feels').textContent =
+'Feels like ' +
 Math.round(data.current.apparent_temperature) +
-"°C";
+'°C';
 
-document.getElementById("weatherIcon").src =
-iconBase + (icons[code] || "overcast.svg");
+document.getElementById('weather-icon').src =
+`https://openweathermap.org/img/wn/${iconMap[code] || '04d'}@4x.png`;
 
-} catch(err) {
+} catch (error) {
 
-document.getElementById("condition").textContent =
-"Weather unavailable";
+console.error(error);
 
-console.error(err);
+document.getElementById('weather-condition').textContent =
+'Weather unavailable';
+
+document.getElementById('weather-feels').textContent = '';
 }
 }
 
