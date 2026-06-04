@@ -138,7 +138,7 @@ opacity:1;
 CONFIG
 *****************************************/
 
-const ROTATE_EVERY = 10000;
+const ROTATE_EVERY = 30000;
 
 // Sheffield
 const LATITUDE = 53.3811;
@@ -187,27 +187,10 @@ message:"Congratulations to Callum on his promotion to Warehouse Team Leader - w
 
 {
 category:"people",
-title:"TEAM BRIEFING",
+title:"Site Town Hall",
 message:"Friday 10:00 AM in canteen."
 },
 
-{
-category:"celebration",
-title:"TARGET ACHIEVED",
-message:"Monthly production target exceeded."
-},
-
-{
-category:"quality",
-title:"QUALITY FOCUS",
-message:"Verify paperwork before release."
-},
-
-{
-category:"training",
-title:"TRAINING",
-message:"Forklift refresher training this week."
-}
 
 ];
 
@@ -241,7 +224,7 @@ data.daily.weather_code[0];
 weatherInfo = {
 class:"normal",
 title:"WEATHER",
-message:"No active alerts"
+message:"No Alerts in Effect"
 };
 
 if([95,96,99].includes(code)){
@@ -249,7 +232,7 @@ if([95,96,99].includes(code)){
 weatherInfo = {
 class:"red",
 title:"WEATHER ALERT",
-message:"Severe thunderstorm warning"
+message:"Severe Thunderstorm Warning in Effect"
 };
 
 }
@@ -262,7 +245,7 @@ else if(
 weatherInfo = {
 class:"amber",
 title:"WEATHER ALERT",
-message:"Heavy rain warning"
+message:"Heavy Rain Warning in Effect. Periods of Heavy Rain Expected"
 };
 
 }
@@ -275,7 +258,7 @@ else if(
 weatherInfo = {
 class:"yellow",
 title:"WEATHER ALERT",
-message:"Heavy snow warning"
+message:"Heavy Snow Warning in Effect"
 };
 
 }
