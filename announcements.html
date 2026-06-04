@@ -5,150 +5,121 @@
 <meta name="viewport" content="width=450,height=450">
 <title>Factory Announcements</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
+*{margin:0;padding:0;box-sizing:border-box}
 html,body{
 width:450px;height:450px;overflow:hidden;
+background:transparent;
 font-family:Arial,Helvetica,sans-serif;
-background:;color:white;
 }
 #content{
 width:450px;height:450px;
 display:grid;
-grid-template-rows:140px 80px 76px 76px 78px;
-background:;
+grid-template-rows:120px 110px 73px 73px 74px;
 }
-.kpi-wrap{padding:10px;}
 .kpi{
-height:100%;
-border:5px solid #00A651;
-border-radius:8px;
-background:white;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
+display:flex;flex-direction:column;align-items:center;justify-content:center;
 }
-.kpi-days{font-size:78px;font-weight:800;color:#00A651;line-height:.9;}
-.kpi-text{font-size:24px;font-weight:700;color:#00A651;}
+.kpi-days{font-size:86px;font-weight:800;color:#19c15a;line-height:.9}
+.kpi-label{font-size:24px;font-weight:700;color:#19c15a}
 
 .alert,.item{
+margin:4px 0;
+border-radius:8px;
 padding:10px 14px;
 display:flex;
-flex-direction:column;
-justify-content:center;
+align-items:center;
+gap:12px;
 }
-.alert{
-color:white;
-}
-.alert-head{
-display:flex;align-items:center;gap:10px;
-font-size:20px;font-weight:700;
-}
-.alert-msg{font-size:16px;font-weight:700;margin-top:4px;}
-.triangle{font-size:34px;line-height:1;}
-
-.item{
-border-top:1px solid rgba(255,255,255,.15);
-}
-.title{font-family:"Arial Narrow", Arial, sans-serif; font-size:22px;font-weight:700;}
-.message{font-size:14px;opacity:.95;margin-top:3px;}
-.empty{border-top:1px solid rgba(255,255,255,.15);}
+.alert{background:#c8102e;color:#fff}
+.item{background:rgba(0,45,114,.92);color:#fff}
+.icon,.warn{width:34px;height:34px;flex-shrink:0}
+.icon{stroke:white;fill:none;stroke-width:2}
+.title{font-size:20px;font-weight:700;line-height:1}
+.msg{font-size:12px;margin-top:4px;opacity:.95}
+.text{display:flex;flex-direction:column}
+.empty{background:transparent}
 </style>
 </head>
 <body>
 <div id="content"></div>
 
 <script>
-const LAST_INCIDENT_DATE="2025-01-08";
-const LAT=53.3811;
-const LON=-1.4701;
-const ROTATE=10000;
-const ANNOUNCEMENT_API="";
+const LAST_INCIDENT_DATE="2026-01-08";
+const ROTATE_MS=10000;
 
-let weatherAlert=null;
-let pages=[];
-let currentPage=0;
-
-let announcements=[
-{title:"COMPLIANCE TRAINING",message:"Please arrange with your line manager to complete your Code of Conduct training at the earliest opportunity."},
-{title:"CALLUM RICKHUSS PROMOTION!",message:"A massive congratulations to Callum on his promotion to Warehouse Team Leader! Well done Callum!"},
-{title:"TEAM BRIEFING",message:"Friday 10:00 AM in the canteen."},
-{title:"NEW H&S POLICY",message:"Available on the intranet."},
-{title:"PRODUCTION MILESTONE",message:"Monthly target achieved."}
+const announcements=[
+ {category:"safety",title:"SAFETY WEEK",message:"Remember hearing protection in all production areas."},
+ {category:"maintenance",title:"MAINTENANCE SHUTDOWN",message:"Saturday 14th June."},
+ {category:"people",title:"TEAM BRIEFING",message:"Friday 10:00 AM in canteen."},
+ {category:"quality",title:"QUALITY FOCUS",message:"Verify paperwork before release."},
+ {category:"training",title:"TRAINING",message:"Forklift refresher this week."}
 ];
 
-function incidentDays(){
+let weatherAlert=null;
+let currentPage=0;
+
+function daysFree(){
  return Math.floor((new Date()-new Date(LAST_INCIDENT_DATE))/86400000);
+}
+
+function svg(cat){
+const s={
+safety:'<svg class="icon" viewBox="0 0 24 24"><path d="M12 2l7 3v6c0 5-3.5 8.5-7 11-3.5-2.5-7-6-7-11V5z"/></svg>',
+maintenance:'<svg class="icon" viewBox="0 0 24 24"><path d="M21 7a5 5 0 0 1-6 6L7 21l-4-4 8-8a5 5 0 0 1 6-6l-3 3 4 4z"/></svg>',
+people:'<svg class="icon" viewBox="0 0 24 24"><circle cx="8" cy="8" r="3"/><circle cx="17" cy="8" r="3"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/></svg>',
+quality:'<svg class="icon" viewBox="0 0 24 24"><path d="M12 2l7 3v6c0 5-3.5 8.5-7 11-3.5-2.5-7-6-7-11V5z"/><path d="M8 12l2 2 5-5"/></svg>',
+training:'<svg class="icon" viewBox="0 0 24 24"><path d="M2 8l10-5 10 5-10 5z"/><path d="M6 10v4c0 2 3 4 6 4s6-2 6-4v-4"/></svg>'
+};
+return s[cat]||s.safety;
 }
 
 async function loadWeather(){
  try{
-  const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&daily=weather_code&timezone=Europe/London`);
+  const r=await fetch("https://api.open-meteo.com/v1/forecast?latitude=53.3811&longitude=-1.4701&daily=weather_code&timezone=Europe%2FLondon");
   const d=await r.json();
-  weatherAlert=null;
   const c=d.daily.weather_code[0];
-
-  if([95,96,99].includes(c))
-    weatherAlert={color:"#C8102E",msg:"SEVERE THUNDERSTORM WARNING"};
-  else if([61,63,65,80,81,82].includes(c))
-    weatherAlert={color:"#F39C12",msg:"HEAVY RAIN WARNING"};
-  else if([71,73,75,77,85,86].includes(c))
-    weatherAlert={color:"#FFD100",text:"#000",msg:"HEAVY SNOW WARNING"};
-
-  buildPages();
- }catch(e){}
+  weatherAlert=null;
+  if([95,96,99].includes(c)) weatherAlert="SEVERE THUNDERSTORM WARNING";
+  else if([61,63,65,80,81,82].includes(c)) weatherAlert="HEAVY RAIN WARNING";
+  else if([71,73,75,77,85,86].includes(c)) weatherAlert="HEAVY SNOW WARNING";
+ } catch(e){}
 }
 
-function buildPages(){
- pages=[];
+function pages(){
  const slots=weatherAlert?2:3;
-
+ const p=[];
  for(let i=0;i<announcements.length;i+=slots){
-   pages.push(announcements.slice(i,i+slots));
+   p.push(announcements.slice(i,i+slots));
  }
- if(!pages.length) pages=[[]];
+ return p.length?p:[[]];
 }
 
 function render(){
- const page=pages[currentPage]||[];
- let html=`
- <div class="kpi-wrap">
-  <div class="kpi">
-   <div class="kpi-days">${incidentDays()}</div>
-   <div class="kpi-text">DAYS INCIDENT FREE</div>
-  </div>
- </div>`;
+ const pgs=pages();
+ const page=pgs[currentPage]||[];
 
- let remaining=3;
+ let h=`<div class="kpi"><div class="kpi-days">${daysFree()}</div><div class="kpi-label">DAYS INCIDENT FREE</div></div>`;
+ let remain=4;
 
  if(weatherAlert){
-   html+=`
-   <div class="alert" style="background:${weatherAlert.color};color:${weatherAlert.text||'#fff'}">
-    <div class="alert-head"><span class="triangle">⚠</span> WEATHER ALERT</div>
-    <div class="alert-msg">${weatherAlert.msg}</div>
-   </div>`;
-   remaining--;
+ h+=`<div class="alert">
+ <svg class="warn" viewBox="0 0 24 24"><path fill="white" d="M12 2L23 21H1z"/><rect x="11" y="8" width="2" height="7" fill="#c8102e"/><circle cx="12" cy="18" r="1.2" fill="#c8102e"/></svg>
+ <div class="text"><div class="title">WEATHER ALERT</div><div class="msg">${weatherAlert}</div></div></div>`;
+ remain--;
  }
 
  page.forEach(a=>{
-   html+=`<div class="item"><div class="title">${a.title}</div><div class="message">${a.message}</div></div>`;
-   remaining--;
+ h+=`<div class="item">${svg(a.category)}<div class="text"><div class="title">${a.title}</div><div class="msg">${a.message}</div></div></div>`;
+ remain--;
  });
 
- while(remaining>0){
-   html+=`<div class="empty"></div>`;
-   remaining--;
- }
-
- document.getElementById('content').innerHTML=html;
- currentPage=(currentPage+1)%pages.length;
+ while(remain-->0) h+='<div class="empty"></div>';
+ document.getElementById('content').innerHTML=h;
+ currentPage=(currentPage+1)%pgs.length;
 }
 
-buildPages();
-render();
-loadWeather();
-
-setInterval(render,ROTATE);
+loadWeather().then(render);
+setInterval(render,ROTATE_MS);
 setInterval(loadWeather,900000);
 </script>
 </body>
