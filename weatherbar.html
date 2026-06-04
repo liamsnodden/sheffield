@@ -2,256 +2,184 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Weather Dashboard</title>
-
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Responsive Sheffield Weather Bar</title>
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Arial,sans-serif}
+
+.weather-container{
+    width:90%;
+    height:100px;
+    background:;
+    color:#fff;
+    overflow:hidden;
 }
 
-html,body{
-width:100%;
-height:100%;
-overflow:hidden;
-font-family:"Arial Narrow", Arial, sans-serif;
-}
-
-.weather-card{
-width:1356px;
-height:450px;
-background:linear-gradient(135deg,#0055a4,#003f8a);
-border-radius:20px;
-color:#fff;
-display:flex;
-align-items:center;
-padding:0 40px;
-overflow:hidden;
+.weather-top{
+    height:100%;
+    display:flex;
+    align-items:center;
+    padding:0 10px;
 }
 
 .main-weather{
-display:flex;
-align-items:center;
-gap:20px;
-min-width:520px;
+    width:360px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-shrink:0;
 }
 
-.main-weather img{
-width:180px;
-height:180px;
+#weatherIcon{
+    width:90px;
+    height:90px;
 }
 
-.temp-section{
-display:flex;
-flex-direction:column;
+#temp{
+    font-size:70px;
+    line-height:56px;
+    font-weight:700;
 }
 
-.temp{
-font-size:110px;
-font-weight:700;
-line-height:1;
+#condition{
+    font-size:20px;
+    font-weight:700;
 }
 
-.condition{
-font-size:38px;
-font-weight:600;
+#feels{
+    font-size:18px;
+    opacity:.9;
 }
 
-.metrics{
-display:flex;
-flex:1;
-height:180px;
+.stats{
+    flex:1;
+    display:flex;
+    justify-content:space-evenly;
+    align-items:center;
 }
 
-.metric{
-flex:1;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-border-left:2px solid rgba(255,255,255,.25);
+.stat{text-align:center;min-width:70px}
+.label{font-size:15px;font-weight:700;opacity:.75}
+.value{font-size:30px;font-weight:700}
+
+.forecast{
+    display:flex;
+    align-items:center;
+    border-left:1px solid rgba(255,255,255,.3);
+    padding-left:10px;
 }
 
-.metric-label{
-font-size:28px;
-font-weight:700;
-margin-bottom:18px;
+.day{
+    width:80px;
+    text-align:center;
 }
 
-.metric-value{
-font-size:70px;
-font-weight:700;
-line-height:1;
-}
+.day-name{font-size:14px;font-weight:700}
+.day img{width:45px;height:45px}
+.day-temp{font-size:19px;font-weight:600}
 
-.metric-unit{
-font-size:24px;
-opacity:.9;
-}
+
 </style>
 </head>
-
 <body>
 
-<div class="weather-card">
+<div class="weather-container">
+    <div class="weather-top">
 
-<div class="main-weather">
-<img id="weatherIcon"
-src="https://openweathermap.org/img/wn/01d@4x.png">
+        <div class="main-weather">
+            <img id="weatherIcon" alt="weather">
+            <div id="temp">--°</div>
+            <div>
+                <div id="condition">Loading...</div>
+                <div id="feels">Feels Like --°</div>
+            </div>
+        </div>
 
-<div class="temp-section">
-<div class="temp" id="temp">--°C</div>
-<div class="condition" id="condition">Loading...</div>
-</div>
-</div>
+        <div class="stats">
+            <div class="stat"><div class="label">HIGH</div><div id="high" class="value">--</div></div>
+            <div class="stat"><div class="label">LOW</div><div id="low" class="value">--</div></div>
+            <div class="stat"><div class="label">RAIN</div><div id="rain" class="value">--</div></div>
+            <div class="stat"><div class="label">HUMIDITY</div><div id="hum" class="value">--</div></div>
+            <div class="stat"><div class="label">WIND</div><div id="wind" class="value">--</div></div>
+            <div class="stat"><div class="label">GUST</div><div id="gust" class="value">--</div></div>
+            <div class="stat"><div class="label">UV</div><div id="uv" class="value">--</div></div>
+            <div class="stat"><div class="label">CLOUD</div><div id="cloud" class="value">--</div></div>
+            <div class="stat"><div class="label">PRESSURE</div><div id="press" class="value">--</div></div>
+        </div>
 
-<div class="metrics">
+        <div class="forecast">
+            <div class="day"><div id="d1n" class="day-name"></div><img id="d1i"><div id="d1t" class="day-temp"></div></div>
+            <div class="day"><div id="d2n" class="day-name"></div><img id="d2i"><div id="d2t" class="day-temp"></div></div>
+            <div class="day"><div id="d3n" class="day-name"></div><img id="d3i"><div id="d3t" class="day-temp"></div></div>
+        </div>
 
-<div class="metric">
-<div class="metric-label">HIGH</div>
-<div class="metric-value" id="high">--</div>
-</div>
+    </div>
 
-<div class="metric">
-<div class="metric-label">LOW</div>
-<div class="metric-value" id="low">--</div>
-</div>
 
-<div class="metric">
-<div class="metric-label">RAIN</div>
-<div class="metric-value" id="rain">--%</div>
-</div>
-
-<div class="metric">
-<div class="metric-label">WIND</div>
-<div class="metric-value" id="wind">--</div>
-<div class="metric-unit">mph</div>
-</div>
-
-<div class="metric">
-<div class="metric-label">GUSTS</div>
-<div class="metric-value" id="gusts">--</div>
-<div class="metric-unit">mph</div>
-</div>
-
-<div class="metric">
-<div class="metric-label">UV</div>
-<div class="metric-value" id="uv">--</div>
-</div>
-
-</div>
-
-</div>
 
 <script>
+const url='https://api.open-meteo.com/v1/forecast?latitude=53.3811&longitude=-1.4701&current=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,wind_gusts_10m,pressure_msl,cloud_cover,weather_code&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,uv_index_max,weather_code&timezone=Europe/London';
 
-const LATITUDE = 53.38; // Change to your site
-const LONGITUDE = -1.47; // Change to your site
-
-function weatherDescription(code){
-
-const map = {
-0:"Clear",
-1:"Mainly Clear",
-2:"Partly Cloudy",
-3:"Cloudy",
-45:"Fog",
-48:"Fog",
-51:"Drizzle",
-53:"Drizzle",
-55:"Drizzle",
-61:"Rain",
-63:"Rain",
-65:"Heavy Rain",
-71:"Snow",
-73:"Snow",
-75:"Snow",
-80:"Showers",
-81:"Showers",
-82:"Heavy Showers",
-95:"Thunderstorm"
-};
-
-return map[code] || "Weather";
+function mapCode(code){
+ if(code===0)return['01d','Clear'];
+ if([1].includes(code))return['02d','Mostly Clear'];
+ if([2].includes(code))return['03d','Partly Cloudy'];
+ if([3].includes(code))return['04d','Cloudy'];
+ if([45,48].includes(code))return['50d','Fog'];
+ if([51,53,55,80,81,82].includes(code))return['09d','Showers'];
+ if([61,63,65].includes(code))return['10d','Rain'];
+ if([71,73,75].includes(code))return['13d','Snow'];
+ if([95,96,99].includes(code))return['11d','Storm'];
+ return['03d','Weather'];
 }
 
-function weatherIcon(code){
+function cToF(c){return Math.round((c*9/5)+32);}
 
-if(code === 0)
-return "01d";
+fetch(url)
+.then(r=>r.json())
+.then(data=>{
+ const c=data.current,d=data.daily;
+ const icon=mapCode(c.weather_code);
 
-if([1,2].includes(code))
-return "02d";
+ document.getElementById('weatherIcon').src=`https://openweathermap.org/img/wn/${icon[0]}@2x.png`;
+ document.getElementById('temp').textContent=Math.round(c.temperature_2m)+'°';
+ document.getElementById('condition').textContent=icon[1];
+ document.getElementById('feels').textContent='Feels Like '+Math.round(c.apparent_temperature)+'°';
 
-if([3,45,48].includes(code))
-return "03d";
+ document.getElementById('rain').textContent=d.precipitation_probability_max[0]+'%';
+ document.getElementById('hum').textContent=c.relative_humidity_2m+'%';
+ document.getElementById('wind').textContent=Math.round(c.wind_speed_10m);
+ document.getElementById('gust').textContent=Math.round(c.wind_gusts_10m);
+ document.getElementById('high').textContent=Math.round(d.temperature_2m_max[0])+'°';
+ document.getElementById('low').textContent=Math.round(d.temperature_2m_min[0])+'°';
+ document.getElementById('uv').textContent=Math.round(d.uv_index_max[0]);
+ document.getElementById('cloud').textContent=c.cloud_cover+'%';
+ document.getElementById('press').textContent=Math.round(c.pressure_msl);
 
-if([51,53,55,61,63,65,80,81,82].includes(code))
-return "10d";
+ const names=['SUN','MON','TUE','WED','THU','FRI','SAT'];
 
-if([71,73,75,77,85,86].includes(code))
-return "13d";
+ for(let i=1;i<=3;i++){
+   const dt=new Date(d.time[i]);
+   document.getElementById('d'+i+'n').textContent=names[dt.getDay()];
+   document.getElementById('d'+i+'i').src=`https://openweathermap.org/img/wn/${mapCode(d.weather_code[i])[0]}@2x.png`;
+   document.getElementById('d'+i+'t').textContent=Math.round(d.temperature_2m_max[i])+'°/'+Math.round(d.temperature_2m_min[i])+'°';
+ }
 
-if([95,96,99].includes(code))
-return "11d";
+ const rain=d.precipitation_probability_max[0];
+ const bar=document.getElementById('alertBar');
 
-return "03d";
-}
-
-async function loadWeather(){
-
-try{
-
-const url =
-`https://api.open-meteo.com/v1/forecast?latitude=${LATITUDE}&longitude=${LONGITUDE}&current=temperature_2m,weather_code,wind_speed_10m,wind_gusts_10m&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,uv_index_max&forecast_days=1`;
-
-const response = await fetch(url);
-const data = await response.json();
-
-const code = data.current.weather_code;
-
-document.getElementById('temp').innerText =
-Math.round(data.current.temperature_2m) + "°C";
-
-document.getElementById('condition').innerText =
-weatherDescription(code);
-
-document.getElementById('high').innerText =
-Math.round(data.daily.temperature_2m_max[0]) + "°";
-
-document.getElementById('low').innerText =
-Math.round(data.daily.temperature_2m_min[0]) + "°";
-
-document.getElementById('rain').innerText =
-data.daily.precipitation_probability_max[0] + "%";
-
-document.getElementById('wind').innerText =
-Math.round(data.current.wind_speed_10m * 0.621371);
-
-document.getElementById('gusts').innerText =
-Math.round(data.current.wind_gusts_10m * 0.621371);
-
-document.getElementById('uv').innerText =
-Math.round(data.daily.uv_index_max[0]);
-
-document.getElementById('weatherIcon').src =
-`https://openweathermap.org/img/wn/${weatherIcon(code)}@4x.png`;
-
-}
-catch(error){
-console.error(error);
-document.getElementById('condition').innerText =
-"Weather unavailable";
-}
-}
-
-loadWeather();
-
-/* Refresh every 10 minutes */
-setInterval(loadWeather, 600000);
-
+ if(rain>=80){
+   bar.style.background='#d35400';
+   bar.textContent='HEAVY RAIN WARNING IN EFFECT';
+ }else if(rain>=50){
+   bar.style.background='#f39c12';
+   bar.textContent='RAIN POSSIBLE TODAY';
+ }else{
+   bar.style.background='#2e7d32';
+   bar.textContent='NO WEATHER ALERTS IN EFFECT';
+ }
+});
 </script>
 
 </body>
