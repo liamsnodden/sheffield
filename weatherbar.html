@@ -27,13 +27,13 @@ body{font-family:Arial,sans-serif}
     width:360px;
     display:flex;
     align-items:center;
-    gap:10px;
+    gap:5px;
     flex-shrink:0;
 }
 
 #weatherIcon{
-    width:90px;
-    height:90px;
+    width:100px;
+    height:100px;
 }
 
 #temp{
@@ -102,17 +102,12 @@ body{font-family:Arial,sans-serif}
             <div class="stat"><div class="label">RAIN</div><div id="rain" class="value">--</div></div>
             <div class="stat"><div class="label">HUMIDITY</div><div id="hum" class="value">--</div></div>
             <div class="stat"><div class="label">WIND</div><div id="wind" class="value">--</div></div>
-            <div class="stat"><div class="label">GUST</div><div id="gust" class="value">--</div></div>
             <div class="stat"><div class="label">UV</div><div id="uv" class="value">--</div></div>
             <div class="stat"><div class="label">CLOUD</div><div id="cloud" class="value">--</div></div>
-            <div class="stat"><div class="label">PRESSURE</div><div id="press" class="value">--</div></div>
+          
         </div>
 
-        <div class="forecast">
-            <div class="day"><div id="d1n" class="day-name"></div><img id="d1i"><div id="d1t" class="day-temp"></div></div>
-            <div class="day"><div id="d2n" class="day-name"></div><img id="d2i"><div id="d2t" class="day-temp"></div></div>
-            <div class="day"><div id="d3n" class="day-name"></div><img id="d3i"><div id="d3t" class="day-temp"></div></div>
-        </div>
+     
 
     </div>
 
@@ -150,12 +145,11 @@ fetch(url)
  document.getElementById('rain').textContent=d.precipitation_probability_max[0]+'%';
  document.getElementById('hum').textContent=c.relative_humidity_2m+'%';
  document.getElementById('wind').textContent=Math.round(c.wind_speed_10m);
- document.getElementById('gust').textContent=Math.round(c.wind_gusts_10m);
  document.getElementById('high').textContent=Math.round(d.temperature_2m_max[0])+'°';
  document.getElementById('low').textContent=Math.round(d.temperature_2m_min[0])+'°';
  document.getElementById('uv').textContent=Math.round(d.uv_index_max[0]);
  document.getElementById('cloud').textContent=c.cloud_cover+'%';
- document.getElementById('press').textContent=Math.round(c.pressure_msl);
+
 
  const names=['SUN','MON','TUE','WED','THU','FRI','SAT'];
 
