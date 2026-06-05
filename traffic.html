@@ -145,7 +145,1461 @@ background:white;
 
 <script>
 
+const apiKey = "<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=450">
+
+<link rel="stylesheet"
+href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:FILL@1" />
+
+<style>
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+font-family:Arial,sans-serif;
+}
+
+body{
+width:450px;
+background:transparent;
+overflow:hidden;
+}
+
+#widget{
+width:450px;
+height:240px;
+background:#0b2341;
+color:#fff;
+border-radius:8px;
+overflow:hidden;
+}
+
+.header{
+height:40px;
+padding:0 12px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+border-bottom:1px solid rgba(255,255,255,.15);
+}
+
+.title{
+font-size:18px;
+font-weight:700;
+}
+
+.updated{
+font-size:12px;
+color:#8fb6ff;
+}
+
+#content{
+height:180px;
+}
+
+.row{
+height:60px;
+padding:6px 12px;
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.road{
+font-size:26px;
+font-weight:700;
+}
+
+.delay{
+font-size:22px;
+font-weight:700;
+}
+
+.details{
+margin-top:4px;
+font-size:14px;
+color:#e5e5e5;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+display:flex;
+align-items:center;
+gap:6px;
+}
+
+.material-symbols-rounded{
+font-size:18px;
+}
+
+.red{
+color:#ff4d4f;
+}
+
+.amber{
+color:#faad14;
+}
+
+.yellow{
+color:#fadb14;
+}
+
+.green{
+color:#52c41a;
+}
+
+.footer{
+height:20px;
+display:flex;
+justify-content:center;
+align-items:center;
+gap:6px;
+}
+
+.dot{
+width:6px;
+height:6px;
+border-radius:50%;
+background:#35507d;
+}
+
+.dot.active{
+background:white;
+}
+</style>
+</head>
+
+<body>
+
+<div id="widget">
+
+<div class="header">
+<div class="title">🚦 Major Routes</div>
+<div class="updated" id="updated">Loading...</div>
+</div>
+
+<div id="content"></div>
+
+<div class="footer" id="footer"></div>
+
+</div>
+
+<script>
+
 const apiKey = "YOUR_TOMTOM_API_KEY";
+
+const bbox = "-1.60,53.32,-1.34,53.45";
+
+const monitoredRoads = [
+"M1",
+"A57",
+"A61",
+"A616",
+"A630"
+];
+
+const trafficUrl =
+`https://api.tomtom.com/traffic/services/5/incidentDetails?bbox=${bbox}&language=en-GB&fields={incidents{properties{roadNumbers,from,to,length,delay,events{description}}}}&key=${apiKey}`;
+
+let pages = [];
+let currentPage = 0;
+
+function getColour(delay){
+
+if(delay >= 15) return "red";
+if(delay >= 5) return "amber";
+if(delay > 0) return "yellow";
+
+return "green";
+}
+
+function getIcon(description){
+
+const text = (description || "").toLowerCase();
+
+if(text.includes("accident") ||
+text.includes("collision") ||
+text.includes("crash"))
+return "car_crash";
+
+if(text.includes("roadworks"))
+return "construction";
+
+if(text.includes("closure") ||
+text.includes("closed"))
+return "block";
+
+if(text.includes("queue") ||
+text.includes("traffic") ||
+text.includes("congestion"))
+return "traffic";
+
+return "warning";
+}
+
+function buildDescription(description){
+
+const text = (description || "")
+.replace("Northbound","NB")
+.replace("Southbound","SB")
+.replace("Eastbound","EB")
+.replace("Westbound","WB");
+
+if(text.toLowerCase().includes("accident"))
+return "Accident • " + text;
+
+if(text.toLowerCase().includes("roadworks"))
+return "Roadworks • " + text;
+
+if(text.toLowerCase().includes("closure"))
+return "Closure • " + text;
+
+if(text.toLowerCase().includes("queue"))
+return "Queueing • " + text;
+
+if(text.toLowerCase().includes("congestion"))
+return "Congestion • " + text;
+
+return text;
+}
+
+async function loadTraffic(){
+
+try{
+
+const response = await fetch(trafficUrl);
+const data = await response.json();
+
+const rows = [];
+
+monitoredRoads.forEach(road=>{
+
+const incidents = (data.incidents || []).filter(i=>{
+
+const roads =
+i.properties?.roadNumbers || [];
+
+return roads.some(r =>
+String(r).toUpperCase() === road
+);
+
+});
+
+if(incidents.length){
+
+incidents.forEach(i=>{
+
+const p = i.properties || {};
+
+const delay =
+p.delay
+? Math.round(p.delay/60)
+: 0;
+
+const description =
+p.events?.[0]?.description ||
+"Traffic incident";
+
+rows.push({
+road,
+detail:buildDescription(description),
+icon:getIcon(description),
+delay,
+colour:getColour(delay)
+});
+
+});
+
+}else{
+
+rows.push({
+road,
+detail:"No reported incidents",
+icon:"check_circle",
+delay:null,
+colour:"green"
+});
+
+}
+
+});
+
+rows.sort((a,b)=>
+(b.delay||0)-(a.delay||0)
+);
+
+pages = [];
+
+for(let i=0;i<rows.length;i+=3){
+
+pages.push(
+rows.slice(i,i+3)
+);
+
+}
+
+currentPage = 0;
+
+renderPage();
+
+document.getElementById("updated")
+.textContent =
+new Date().toLocaleTimeString([],{
+hour:'2-digit',
+minute:'2-digit'
+});
+
+}
+catch(error){
+
+console.error(error);
+
+}
+
+}
+
+function renderPage(){
+
+const page = pages[currentPage] || [];
+
+document.getElementById("content").innerHTML =
+page.map(item=>`
+
+<div class="row">
+
+<div class="top">
+
+<div class="road ${item.colour}">
+${item.road}
+</div>
+
+<div class="delay ${item.colour}">
+${item.delay
+? item.delay + "m"
+: "—"}
+</div>
+
+</div>
+
+<div class="details">
+
+<span class="material-symbols-rounded ${item.colour}">
+${item.icon}
+</span>
+
+<span>
+${item.detail}
+</span>
+
+</div>
+
+</div>
+
+`).join("");
+
+document.getElementById("footer").innerHTML =
+pages.map((_,i)=>
+`<div class="dot ${
+i===currentPage
+? 'active'
+: ''
+}"></div>`
+).join("");
+
+}
+
+setInterval(()=>{
+
+if(pages.length <= 1) return;
+
+currentPage++;
+
+if(currentPage >= pages.length){
+
+currentPage = 0;
+
+}
+
+renderPage();
+
+},10000);
+
+loadTraffic();
+
+setInterval(loadTraffic,60000);
+
+</script>
+
+</body>
+</html>
+
+
+On Fri, 5 Jun 2026 at 11:44, Liam Snodden <liamsnodden@googlemail.com> wrote:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=450">
+
+<style>
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+font-family:Arial,sans-serif;
+}
+
+body{
+width:450px;
+background:transparent;
+overflow:hidden;
+}
+
+#widget{
+width:450px;
+height:240px;
+background:#0b2341;
+color:#fff;
+border-radius:8px;
+overflow:hidden;
+}
+
+.header{
+height:40px;
+padding:0 12px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+border-bottom:1px solid rgba(255,255,255,.15);
+}
+
+.title{
+font-size:18px;
+font-weight:700;
+}
+
+.updated{
+font-size:12px;
+color:#8fb6ff;
+}
+
+#content{
+height:180px;
+}
+
+.row{
+height:60px;
+padding:6px 12px;
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.road{
+font-size:26px;
+font-weight:700;
+}
+
+.delay{
+font-size:22px;
+font-weight:700;
+}
+
+.details{
+margin-top:4px;
+font-size:15px;
+color:#e5e5e5;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+
+.red{
+color:#ff4d4f;
+}
+
+.amber{
+color:#faad14;
+}
+
+.yellow{
+color:#fadb14;
+}
+
+.green{
+color:#52c41a;
+}
+
+.footer{
+height:20px;
+display:flex;
+justify-content:center;
+align-items:center;
+gap:6px;
+}
+
+.dot{
+width:6px;
+height:6px;
+border-radius:50%;
+background:#35507d;
+}
+
+.dot.active{
+background:white;
+}
+</style>
+</head>
+
+<body>
+
+<div id="widget">
+
+<div class="header">
+<div class="title">🚦 Major Routes</div>
+<div class="updated" id="updated">Loading...</div>
+</div>
+
+<div id="content"></div>
+
+<div class="footer" id="footer"></div>
+
+</div>
+
+<script>
+
+const apiKey = "<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=450">
+
+<link rel="stylesheet"
+href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:FILL@1" />
+
+<style>
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+font-family:Arial,sans-serif;
+}
+
+body{
+width:450px;
+background:transparent;
+overflow:hidden;
+}
+
+#widget{
+width:450px;
+height:240px;
+background:#0b2341;
+color:#fff;
+border-radius:8px;
+overflow:hidden;
+}
+
+.header{
+height:40px;
+padding:0 12px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+border-bottom:1px solid rgba(255,255,255,.15);
+}
+
+.title{
+font-size:18px;
+font-weight:700;
+}
+
+.updated{
+font-size:12px;
+color:#8fb6ff;
+}
+
+#content{
+height:180px;
+}
+
+.row{
+height:60px;
+padding:6px 12px;
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.road{
+font-size:26px;
+font-weight:700;
+}
+
+.delay{
+font-size:22px;
+font-weight:700;
+}
+
+.details{
+margin-top:4px;
+font-size:14px;
+color:#e5e5e5;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+display:flex;
+align-items:center;
+gap:6px;
+}
+
+.material-symbols-rounded{
+font-size:18px;
+}
+
+.red{
+color:#ff4d4f;
+}
+
+.amber{
+color:#faad14;
+}
+
+.yellow{
+color:#fadb14;
+}
+
+.green{
+color:#52c41a;
+}
+
+.footer{
+height:20px;
+display:flex;
+justify-content:center;
+align-items:center;
+gap:6px;
+}
+
+.dot{
+width:6px;
+height:6px;
+border-radius:50%;
+background:#35507d;
+}
+
+.dot.active{
+background:white;
+}
+</style>
+</head>
+
+<body>
+
+<div id="widget">
+
+<div class="header">
+<div class="title">🚦 Major Routes</div>
+<div class="updated" id="updated">Loading...</div>
+</div>
+
+<div id="content"></div>
+
+<div class="footer" id="footer"></div>
+
+</div>
+
+<script>
+
+const apiKey = "YOUR_TOMTOM_API_KEY";
+
+const bbox = "-1.60,53.32,-1.34,53.45";
+
+const monitoredRoads = [
+"M1",
+"A57",
+"A61",
+"A616",
+"A630"
+];
+
+const trafficUrl =
+`https://api.tomtom.com/traffic/services/5/incidentDetails?bbox=${bbox}&language=en-GB&fields={incidents{properties{roadNumbers,from,to,length,delay,events{description}}}}&key=${apiKey}`;
+
+let pages = [];
+let currentPage = 0;
+
+function getColour(delay){
+
+if(delay >= 15) return "red";
+if(delay >= 5) return "amber";
+if(delay > 0) return "yellow";
+
+return "green";
+}
+
+function getIcon(description){
+
+const text = (description || "").toLowerCase();
+
+if(text.includes("accident") ||
+text.includes("collision") ||
+text.includes("crash"))
+return "car_crash";
+
+if(text.includes("roadworks"))
+return "construction";
+
+if(text.includes("closure") ||
+text.includes("closed"))
+return "block";
+
+if(text.includes("queue") ||
+text.includes("traffic") ||
+text.includes("congestion"))
+return "traffic";
+
+return "warning";
+}
+
+function buildDescription(description){
+
+const text = (description || "")
+.replace("Northbound","NB")
+.replace("Southbound","SB")
+.replace("Eastbound","EB")
+.replace("Westbound","WB");
+
+if(text.toLowerCase().includes("accident"))
+return "Accident • " + text;
+
+if(text.toLowerCase().includes("roadworks"))
+return "Roadworks • " + text;
+
+if(text.toLowerCase().includes("closure"))
+return "Closure • " + text;
+
+if(text.toLowerCase().includes("queue"))
+return "Queueing • " + text;
+
+if(text.toLowerCase().includes("congestion"))
+return "Congestion • " + text;
+
+return text;
+}
+
+async function loadTraffic(){
+
+try{
+
+const response = await fetch(trafficUrl);
+const data = await response.json();
+
+const rows = [];
+
+monitoredRoads.forEach(road=>{
+
+const incidents = (data.incidents || []).filter(i=>{
+
+const roads =
+i.properties?.roadNumbers || [];
+
+return roads.some(r =>
+String(r).toUpperCase() === road
+);
+
+});
+
+if(incidents.length){
+
+incidents.forEach(i=>{
+
+const p = i.properties || {};
+
+const delay =
+p.delay
+? Math.round(p.delay/60)
+: 0;
+
+const description =
+p.events?.[0]?.description ||
+"Traffic incident";
+
+rows.push({
+road,
+detail:buildDescription(description),
+icon:getIcon(description),
+delay,
+colour:getColour(delay)
+});
+
+});
+
+}else{
+
+rows.push({
+road,
+detail:"No reported incidents",
+icon:"check_circle",
+delay:null,
+colour:"green"
+});
+
+}
+
+});
+
+rows.sort((a,b)=>
+(b.delay||0)-(a.delay||0)
+);
+
+pages = [];
+
+for(let i=0;i<rows.length;i+=3){
+
+pages.push(
+rows.slice(i,i+3)
+);
+
+}
+
+currentPage = 0;
+
+renderPage();
+
+document.getElementById("updated")
+.textContent =
+new Date().toLocaleTimeString([],{
+hour:'2-digit',
+minute:'2-digit'
+});
+
+}
+catch(error){
+
+console.error(error);
+
+}
+
+}
+
+function renderPage(){
+
+const page = pages[currentPage] || [];
+
+document.getElementById("content").innerHTML =
+page.map(item=>`
+
+<div class="row">
+
+<div class="top">
+
+<div class="road ${item.colour}">
+${item.road}
+</div>
+
+<div class="delay ${item.colour}">
+${item.delay
+? item.delay + "m"
+: "—"}
+</div>
+
+</div>
+
+<div class="details">
+
+<span class="material-symbols-rounded ${item.colour}">
+${item.icon}
+</span>
+
+<span>
+${item.detail}
+</span>
+
+</div>
+
+</div>
+
+`).join("");
+
+document.getElementById("footer").innerHTML =
+pages.map((_,i)=>
+`<div class="dot ${
+i===currentPage
+? 'active'
+: ''
+}"></div>`
+).join("");
+
+}
+
+setInterval(()=>{
+
+if(pages.length <= 1) return;
+
+currentPage++;
+
+if(currentPage >= pages.length){
+
+currentPage = 0;
+
+}
+
+renderPage();
+
+},10000);
+
+loadTraffic();
+
+setInterval(loadTraffic,60000);
+
+</script>
+
+</body>
+</html>
+
+
+On Fri, 5 Jun 2026 at 11:44, Liam Snodden <liamsnodden@googlemail.com> wrote:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=450">
+
+<style>
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
+font-family:Arial,sans-serif;
+}
+
+body{
+width:450px;
+background:transparent;
+overflow:hidden;
+}
+
+#widget{
+width:450px;
+height:240px;
+background:#0b2341;
+color:#fff;
+border-radius:8px;
+overflow:hidden;
+}
+
+.header{
+height:40px;
+padding:0 12px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+border-bottom:1px solid rgba(255,255,255,.15);
+}
+
+.title{
+font-size:18px;
+font-weight:700;
+}
+
+.updated{
+font-size:12px;
+color:#8fb6ff;
+}
+
+#content{
+height:180px;
+}
+
+.row{
+height:60px;
+padding:6px 12px;
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.road{
+font-size:26px;
+font-weight:700;
+}
+
+.delay{
+font-size:22px;
+font-weight:700;
+}
+
+.details{
+margin-top:4px;
+font-size:15px;
+color:#e5e5e5;
+white-space:nowrap;
+overflow:hidden;
+text-overflow:ellipsis;
+}
+
+.red{
+color:#ff4d4f;
+}
+
+.amber{
+color:#faad14;
+}
+
+.yellow{
+color:#fadb14;
+}
+
+.green{
+color:#52c41a;
+}
+
+.footer{
+height:20px;
+display:flex;
+justify-content:center;
+align-items:center;
+gap:6px;
+}
+
+.dot{
+width:6px;
+height:6px;
+border-radius:50%;
+background:#35507d;
+}
+
+.dot.active{
+background:white;
+}
+</style>
+</head>
+
+<body>
+
+<div id="widget">
+
+<div class="header">
+<div class="title">🚦 Major Routes</div>
+<div class="updated" id="updated">Loading...</div>
+</div>
+
+<div id="content"></div>
+
+<div class="footer" id="footer"></div>
+
+</div>
+
+<script>
+
+const apiKey = "YOUR_TOMTOM_API_KEY";
+
+const bbox = "-1.60,53.32,-1.34,53.45";
+
+const monitoredRoads = [
+"M1",
+"A57",
+"A61",
+"A616",
+"A630"
+];
+
+const trafficUrl =
+`https://api.tomtom.com/traffic/services/5/incidentDetails?bbox=${bbox}&language=en-GB&fields={incidents{properties{roadNumbers,from,to,length,delay,events{description}}}}&key=${apiKey}`;
+
+let pages = [];
+let currentPage = 0;
+
+function getColour(delay){
+
+if(delay >= 15) return "red";
+if(delay >= 5) return "amber";
+if(delay > 0) return "yellow";
+
+return "green";
+}
+
+function shorten(text){
+
+if(!text) return "Traffic incident";
+
+return text
+.replace("Northbound","NB")
+.replace("Southbound","SB")
+.replace("Eastbound","EB")
+.replace("Westbound","WB");
+}
+
+async function loadTraffic(){
+
+try{
+
+const response = await fetch(trafficUrl);
+const data = await response.json();
+
+const rows = [];
+
+monitoredRoads.forEach(road=>{
+
+const incidents = (data.incidents || []).filter(i=>{
+
+const roads =
+i.properties?.roadNumbers || [];
+
+return roads.some(r =>
+String(r).toUpperCase() === road
+);
+
+});
+
+if(incidents.length){
+
+incidents.forEach(i=>{
+
+const p = i.properties || {};
+
+const delay =
+p.delay
+? Math.round(p.delay/60)
+: 0;
+
+rows.push({
+road,
+detail:shorten(
+p.events?.[0]?.description
+),
+delay,
+colour:getColour(delay)
+});
+
+});
+
+}else{
+
+rows.push({
+road,
+detail:"No reported incidents",
+delay:null,
+colour:"green"
+});
+
+}
+
+});
+
+rows.sort((a,b)=>
+(b.delay||0)-(a.delay||0)
+);
+
+pages = [];
+
+for(let i=0;i<rows.length;i+=3){
+
+pages.push(
+rows.slice(i,i+3)
+);
+
+}
+
+currentPage = 0;
+
+renderPage();
+
+document.getElementById("updated")
+.textContent =
+new Date().toLocaleTimeString([],{
+hour:'2-digit',
+minute:'2-digit'
+});
+
+}
+catch(error){
+
+console.error(error);
+
+}
+
+}
+
+function renderPage(){
+
+const page = pages[currentPage] || [];
+
+document.getElementById("content").innerHTML =
+page.map(item=>`
+
+<div class="row">
+
+<div class="top">
+
+<div class="road ${item.colour}">
+${item.road}
+</div>
+
+<div class="delay ${item.colour}">
+${item.delay
+? item.delay + "m"
+: "—"}
+</div>
+
+</div>
+
+<div class="details">
+${item.detail}
+</div>
+
+</div>
+
+`).join("");
+
+document.getElementById("footer").innerHTML =
+pages.map((_,i)=>
+`<div class="dot ${
+i===currentPage
+? 'active'
+: ''
+}"></div>`
+).join("");
+
+}
+
+setInterval(()=>{
+
+if(pages.length <= 1) return;
+
+currentPage++;
+
+if(currentPage >= pages.length){
+
+currentPage = 0;
+
+}
+
+renderPage();
+
+},10000);
+
+loadTraffic();
+
+setInterval(loadTraffic,60000);
+
+</script>
+
+</body>
+</html>";
+
+const bbox = "-1.60,53.32,-1.34,53.45";
+
+const monitoredRoads = [
+"M1",
+"A57",
+"A61",
+"A616",
+"A630"
+];
+
+const trafficUrl =
+`https://api.tomtom.com/traffic/services/5/incidentDetails?bbox=${bbox}&language=en-GB&fields={incidents{properties{roadNumbers,from,to,length,delay,events{description}}}}&key=${apiKey}`;
+
+let pages = [];
+let currentPage = 0;
+
+function getColour(delay){
+
+if(delay >= 15) return "red";
+if(delay >= 5) return "amber";
+if(delay > 0) return "yellow";
+
+return "green";
+}
+
+function shorten(text){
+
+if(!text) return "Traffic incident";
+
+return text
+.replace("Northbound","NB")
+.replace("Southbound","SB")
+.replace("Eastbound","EB")
+.replace("Westbound","WB");
+}
+
+async function loadTraffic(){
+
+try{
+
+const response = await fetch(trafficUrl);
+const data = await response.json();
+
+const rows = [];
+
+monitoredRoads.forEach(road=>{
+
+const incidents = (data.incidents || []).filter(i=>{
+
+const roads =
+i.properties?.roadNumbers || [];
+
+return roads.some(r =>
+String(r).toUpperCase() === road
+);
+
+});
+
+if(incidents.length){
+
+incidents.forEach(i=>{
+
+const p = i.properties || {};
+
+const delay =
+p.delay
+? Math.round(p.delay/60)
+: 0;
+
+rows.push({
+road,
+detail:shorten(
+p.events?.[0]?.description
+),
+delay,
+colour:getColour(delay)
+});
+
+});
+
+}else{
+
+rows.push({
+road,
+detail:"No reported incidents",
+delay:null,
+colour:"green"
+});
+
+}
+
+});
+
+rows.sort((a,b)=>
+(b.delay||0)-(a.delay||0)
+);
+
+pages = [];
+
+for(let i=0;i<rows.length;i+=3){
+
+pages.push(
+rows.slice(i,i+3)
+);
+
+}
+
+currentPage = 0;
+
+renderPage();
+
+document.getElementById("updated")
+.textContent =
+new Date().toLocaleTimeString([],{
+hour:'2-digit',
+minute:'2-digit'
+});
+
+}
+catch(error){
+
+console.error(error);
+
+}
+
+}
+
+function renderPage(){
+
+const page = pages[currentPage] || [];
+
+document.getElementById("content").innerHTML =
+page.map(item=>`
+
+<div class="row">
+
+<div class="top">
+
+<div class="road ${item.colour}">
+${item.road}
+</div>
+
+<div class="delay ${item.colour}">
+${item.delay
+? item.delay + "m"
+: "—"}
+</div>
+
+</div>
+
+<div class="details">
+${item.detail}
+</div>
+
+</div>
+
+`).join("");
+
+document.getElementById("footer").innerHTML =
+pages.map((_,i)=>
+`<div class="dot ${
+i===currentPage
+? 'active'
+: ''
+}"></div>`
+).join("");
+
+}
+
+setInterval(()=>{
+
+if(pages.length <= 1) return;
+
+currentPage++;
+
+if(currentPage >= pages.length){
+
+currentPage = 0;
+
+}
+
+renderPage();
+
+},10000);
+
+loadTraffic();
+
+setInterval(loadTraffic,60000);
+
+</script>
+
+</body>
+</html>";
 
 const bbox = "-1.60,53.32,-1.34,53.45";
 
