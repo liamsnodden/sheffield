@@ -3,167 +3,66 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=450">
-
-<link rel="stylesheet"
-href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:FILL@1" />
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:FILL@1" />
 <style>
-*{
-box-sizing:border-box;
-margin:0;
-padding:0;
-font-family:Arial,sans-serif;
-}
-
-body{
-width:450px;
-background:transparent;
-overflow:hidden;
-}
-
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{width:450px;background:transparent;overflow:hidden}
 #widget{
-width:450px;
-height:320px;
-background:#0b2341;
-color:#fff;
-border-radius:8px;
-overflow:hidden;
+width:450px;height:320px;
+background:linear-gradient(90deg,#001326,#002b5c);
+color:#fff;border-radius:18px;overflow:hidden;
+box-shadow:0 8px 24px rgba(0,0,0,.35);
 }
-
 .header{
-height:40px;
-padding:0 12px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-border-bottom:1px solid rgba(255,255,255,.15);
+height:60px;padding:0 18px;display:flex;
+align-items:center;justify-content:space-between;
+border-bottom:1px solid rgba(255,255,255,.15)
 }
-
-.title{
-font-size:18px;
-font-weight:700;
-}
-
-.updated{
-font-size:12px;
-color:#8fb6ff;
-}
-
-#content{
-height:260px;
-}
-
+.title{font-size:28px;font-weight:700}
+.updated{font-size:14px;color:#8fb6ff}
+#content{height:235px}
 .row{
-height:80px;
-padding:6px 12px;
-border-bottom:1px solid rgba(255,255,255,.08);
+height:92px;padding:10px 16px;
+border-bottom:1px solid rgba(255,255,255,.08)
 }
-
-.top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.road{
-font-size:42px;
-font-weight:700;
-}
-
-.delay{
-font-size:38px;
-font-weight:700;
-}
-
+.top{display:flex;justify-content:space-between;align-items:center}
+.road{font-size:46px;font-weight:700;line-height:1}
+.delay{font-size:54px;font-weight:700;line-height:1}
 .details{
-margin-top:4px;
-font-size:14px;
-color:#e5e5e5;
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis;
-display:flex;
-align-items:center;
-gap:6px;
+margin-top:8px;font-size:16px;color:#e5e5e5;
+display:flex;align-items:center;gap:10px;
+white-space:nowrap;overflow:hidden;text-overflow:ellipsis
 }
-
-.material-symbols-rounded{
-font-size:18px;
+.icon-circle{
+width:56px;height:56px;border-radius:50%;
+display:flex;align-items:center;justify-content:center;
+flex-shrink:0;color:#fff
 }
-
-.red{
-color:#ff4d4f;
-}
-
-.amber{
-color:#faad14;
-}
-
-.yellow{
-color:#fadb14;
-}
-
-.green{
-color:#52c41a;
-}
-
-.footer{
-height:20px;
-display:flex;
-justify-content:center;
-align-items:center;
-gap:6px;
-}
-
-.dot{
-width:6px;
-height:6px;
-border-radius:50%;
-background:#35507d;
-}
-
-.dot.active{
-background:white;
-}
+.icon-red{background:#ff4d4f}
+.icon-amber{background:#ff9800}
+.icon-green{background:#73d13d}
+.icon-circle .material-symbols-rounded{font-size:30px}
+.red{color:#ff4d4f}.amber{color:#faad14}.yellow{color:#fadb14}.green{color:#73d13d}
+.footer{height:25px;display:flex;justify-content:center;align-items:center;gap:8px}
+.dot{width:8px;height:8px;border-radius:50%;background:#35507d}
+.dot.active{background:#fff}
 </style>
 </head>
-
 <body>
-
 <div id="widget">
-
 <div class="header">
-<div class="title">🚦 Major Routes</div>
+<div class="title">Major Routes</div>
 <div class="updated" id="updated">Loading...</div>
 </div>
-
 <div id="content"></div>
-
 <div class="footer" id="footer"></div>
-
 </div>
 
 <script>
-
-const apiKey = "N61XFRwHAscPzxZI6ci39stZrnzoc4qS";
-
-const bbox = "-1.60,53.32,-1.34,53.45";
-
-const monitoredRoads = [
-"M1",
-"A57",
-"A61",
-"A616",
-"A630"
-];
-
-const trafficUrl =
-`https://api.tomtom.com/traffic/services/5/incidentDetails?bbox=${bbox}&language=en-GB&fields={incidents{properties{roadNumbers,from,to,length,delay,events{description}}}}&key=${apiKey}`;
-
-let pages = [];
-let currentPage = 0;
-
-const roadNames = {
+const apiKey="N61XFRwHAscPzxZI6ci39stZrnzoc4qS";
+const bbox="-1.60,53.32,-1.34,53.45";
+const monitoredRoads=["M1","A57","A61","A616","A630"];
+const roadNames={
 "M1":"M1",
 "A630":"A630 Parkway",
 "A616":"A616 Stocksbridge",
@@ -171,234 +70,117 @@ const roadNames = {
 "A57":"A57 Worksop Rd"
 };
 
+const trafficUrl=`https://api.tomtom.com/traffic/services/5/incidentDetails?bbox=${bbox}&language=en-GB&fields={incidents{properties{roadNumbers,from,to,length,delay,events{description}}}}&key=${apiKey}`;
+
+let pages=[],currentPage=0;
 
 function getColour(delay){
-
-if(delay >= 15) return "red";
-if(delay >= 5) return "amber";
-if(delay > 0) return "yellow";
-
-return "green";
+ if(delay>=15) return "red";
+ if(delay>=5) return "amber";
+ if(delay>0) return "yellow";
+ return "green";
 }
 
 function getIcon(description){
-
-const text = (description || "").toLowerCase();
-
-if(text.includes("accident") ||
-text.includes("collision") ||
-text.includes("crash"))
-return "car_crash";
-
-if(text.includes("roadworks"))
-return "construction";
-
-if(text.includes("closure") ||
-text.includes("closed"))
-return "block";
-
-if(text.includes("queue") ||
-text.includes("traffic") ||
-text.includes("congestion"))
-return "traffic";
-
-return "warning";
+ const text=(description||"").toLowerCase();
+ if(text.includes("accident")||text.includes("collision")||text.includes("crash")) return "car_crash";
+ if(text.includes("roadworks")) return "construction";
+ if(text.includes("closure")||text.includes("closed")) return "block";
+ if(text.includes("queue")||text.includes("traffic")||text.includes("congestion")) return "traffic";
+ return "warning";
 }
 
 function buildDescription(description){
-
-const text = (description || "")
-.replace("Northbound","NB")
-.replace("Southbound","SB")
-.replace("Eastbound","EB")
-.replace("Westbound","WB");
-
-if(text.toLowerCase().includes("accident"))
-return "Accident • " + text;
-
-if(text.toLowerCase().includes("roadworks"))
-return "Roadworks • " + text;
-
-if(text.toLowerCase().includes("closure"))
-return "Closure • " + text;
-
-if(text.toLowerCase().includes("queue"))
-return "Queueing • " + text;
-
-if(text.toLowerCase().includes("congestion"))
-return "Congestion • " + text;
-
-return text;
+ return (description||"")
+ .replace("Northbound","NB")
+ .replace("Southbound","SB")
+ .replace("Eastbound","EB")
+ .replace("Westbound","WB")
+ .trim();
 }
 
 async function loadTraffic(){
+ try{
+  const response=await fetch(trafficUrl);
+  const data=await response.json();
+  const rows=[];
 
-try{
+  monitoredRoads.forEach(road=>{
+   const incidents=(data.incidents||[]).filter(i=>{
+     const roads=i.properties?.roadNumbers||[];
+     return roads.some(r=>String(r).toUpperCase()===road);
+   });
 
-const response = await fetch(trafficUrl);
-const data = await response.json();
+   if(incidents.length){
+     incidents.forEach(i=>{
+       const p=i.properties||{};
+       const delay=p.delay?Math.round(p.delay/60):0;
+       const description=p.events?.[0]?.description||"Traffic incident";
 
-const rows = [];
+       rows.push({
+         road:roadNames[road]||road,
+         detail:`${buildDescription(description)}${p.from?" • "+p.from:""}${p.to?" → "+p.to:""}`,
+         icon:getIcon(description),
+         delay,
+         colour:getColour(delay)
+       });
+     });
+   }else{
+     rows.push({
+       road:roadNames[road]||road,
+       detail:"No reported incidents",
+       icon:"check",
+       delay:null,
+       colour:"green"
+     });
+   }
+  });
 
-monitoredRoads.forEach(road=>{
+  rows.sort((a,b)=>{
+    if(a.delay && !b.delay) return -1;
+    if(!a.delay && b.delay) return 1;
+    return (b.delay||0)-(a.delay||0);
+  });
 
-const incidents = (data.incidents || []).filter(i=>{
+  pages=[];
+  for(let i=0;i<rows.length;i+=3) pages.push(rows.slice(i,i+3));
+  currentPage=0;
+  renderPage();
 
-const roads =
-i.properties?.roadNumbers || [];
+  document.getElementById("updated").textContent=
+  new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
 
-return roads.some(r =>
-String(r).toUpperCase() === road
-);
-
-});
-
-if(incidents.length){
-
-incidents.forEach(i=>{
-
-const p = i.properties || {};
-
-const delay =
-p.delay
-? Math.round(p.delay/60)
-: 0;
-
-const description =
-p.events?.[0]?.description ||
-"Traffic incident";
-
-rows.push({
-road: roadNames[road] || road,
-detail:`${buildDescription(description)}${p.from ? " • " + p.from : ""}${p.to ? " → " + p.to : ""}`,
-icon:getIcon(description),
-delay,
-colour:getColour(delay)
-});
-
-});
-
-}else{
-
-rows.push({
-road,
-detail:"No reported incidents",
-icon:"check_circle",
-delay:null,
-colour:"green"
-});
-
-}
-
-});
-
-rows.sort((a,b)=>
-(b.delay||0)-(a.delay||0)
-);
-
-pages = [];
-
-for(let i=0;i<rows.length;i+=3){
-
-pages.push(
-rows.slice(i,i+3)
-);
-
-}
-
-currentPage = 0;
-
-renderPage();
-
-document.getElementById("updated")
-.textContent =
-new Date().toLocaleTimeString([],{
-hour:'2-digit',
-minute:'2-digit'
-});
-
-}
-catch(error){
-
-console.error(error);
-
-}
-
+ }catch(e){console.error(e);}
 }
 
 function renderPage(){
+ const page=pages[currentPage]||[];
 
-const page = pages[currentPage] || [];
+ document.getElementById("content").innerHTML=page.map(item=>`
+ <div class="row">
+  <div class="top">
+   <div class="road ${item.colour}">${item.road}</div>
+   <div class="delay ${item.colour}">${item.delay?item.delay+"m":"—"}</div>
+  </div>
+  <div class="details">
+   <div class="icon-circle ${item.colour==='red'?'icon-red':item.colour==='green'?'icon-green':'icon-amber'}">
+     <span class="material-symbols-rounded">${item.icon}</span>
+   </div>
+   <span>${item.detail}</span>
+  </div>
+ </div>`).join("");
 
-document.getElementById("content").innerHTML =
-page.map(item=>`
-
-<div class="row">
-
-<div class="top">
-
-<div class="road ${item.colour}">
-${item.road}
-</div>
-
-<div class="delay ${item.colour}">
-${item.delay
-? item.delay + "m"
-: "—"}
-</div>
-
-</div>
-
-<div class="details">
-
-<span class="icon-circle ${item.colour==="red"?"icon-red":item.colour==="green"?"icon-green":"icon-amber"}">
-<span class="material-symbols-rounded">
-${item.icon}
-</span>
-</span>
-
-<span>
-${item.detail}
-</span>
-
-</div>
-
-</div>
-
-`).join("");
-
-document.getElementById("footer").innerHTML =
-pages.map((_,i)=>
-`<div class="dot ${
-i===currentPage
-? 'active'
-: ''
-}"></div>`
-).join("");
-
+ document.getElementById("footer").innerHTML=pages.map((_,i)=>`<div class="dot ${i===currentPage?'active':''}"></div>`).join("");
 }
 
 setInterval(()=>{
-
-if(pages.length <= 1) return;
-
-currentPage++;
-
-if(currentPage >= pages.length){
-
-currentPage = 0;
-
-}
-
-renderPage();
-
+ if(pages.length<=1) return;
+ currentPage=(currentPage+1)%pages.length;
+ renderPage();
 },10000);
 
 loadTraffic();
-
 setInterval(loadTraffic,60000);
-
 </script>
-
 </body>
 </html>
