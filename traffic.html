@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +24,7 @@ overflow:hidden;
 
 #widget{
 width:450px;
-height:240px;
+height:320px;
 background:#0b2341;
 color:#fff;
 border-radius:8px;
@@ -40,21 +41,21 @@ border-bottom:1px solid rgba(255,255,255,.15);
 }
 
 .title{
-font-size:18px;
+font-size:12px;
 font-weight:700;
 }
 
 .updated{
-font-size:12px;
+font-size:10px;
 color:#8fb6ff;
 }
 
 #content{
-height:180px;
+height:260px;
 }
 
 .row{
-height:60px;
+height:80px;
 padding:6px 12px;
 border-bottom:1px solid rgba(255,255,255,.08);
 }
@@ -66,12 +67,12 @@ align-items:center;
 }
 
 .road{
-font-size:26px;
+font-size:18px;
 font-weight:700;
 }
 
 .delay{
-font-size:22px;
+font-size:18px;
 font-weight:700;
 }
 
@@ -132,10 +133,6 @@ background:white;
 
 <div id="widget">
 
-<div class="header">
-<div class="title">🚦 Major Routes</div>
-<div class="updated" id="updated">Loading...</div>
-</div>
 
 <div id="content"></div>
 
@@ -162,6 +159,15 @@ const trafficUrl =
 
 let pages = [];
 let currentPage = 0;
+
+const roadNames = {
+"M1":"M1",
+"A630":"A630 Parkway",
+"A616":"A616 Stocksbridge",
+"A61":"A61 Barnsley Rd",
+"A57":"A57 Worksop Rd"
+};
+
 
 function getColour(delay){
 
@@ -260,8 +266,8 @@ p.events?.[0]?.description ||
 "Traffic incident";
 
 rows.push({
-road,
-detail:buildDescription(description),
+road: roadNames[road] || road,
+detail:`${buildDescription(description)}${p.from ? " • " + p.from : ""}${p.to ? " → " + p.to : ""}`,
 icon:getIcon(description),
 delay,
 colour:getColour(delay)
@@ -342,8 +348,10 @@ ${item.delay
 
 <div class="details">
 
-<span class="material-symbols-rounded ${item.colour}">
+<span class="icon-circle ${item.colour==="red"?"icon-red":item.colour==="green"?"icon-green":"icon-amber"}">
+<span class="material-symbols-rounded">
 ${item.icon}
+</span>
 </span>
 
 <span>
