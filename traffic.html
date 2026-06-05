@@ -275,25 +275,24 @@ colour:getColour(delay)
 
 });
 
-}else{
 
-rows.push({
-road,
-detail:"No reported incidents",
-icon:"check_circle",
-delay:null,
-colour:"green"
+
 });
 
+
+// Remove non-delays
+const delayRows = rows.filter(r => r.delay && r.delay > 0);
+
+// Sort delays highest first
+delayRows.sort((a, b) => b.delay - a.delay);
+
+// Replace rows with filtered version
+pages = [];
+
+for (let i = 0; i < delayRows.length; i += 3) {
+  pages.push(delayRows.slice(i, i + 3));
 }
 
-});
-
-rows.sort((a,b)=>
-(b.delay||0)-(a.delay||0)
-);
-
-pages = [];
 
 for(let i=0;i<rows.length;i+=3){
 
