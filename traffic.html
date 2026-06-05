@@ -9,8 +9,8 @@
 body{width:450px;background:transparent;overflow:hidden}
 #widget{
 width:450px;height:320px;
-background:linear-gradient(90deg,#001326,#002b5c);
-color:#fff;border-radius:18px;overflow:hidden;
+background:transparent;
+color:#fff;border-radius:0px;overflow:hidden;
 box-shadow:0 8px 24px rgba(0,0,0,.35);
 }
 .header{
@@ -50,10 +50,6 @@ flex-shrink:0;color:#fff
 </head>
 <body>
 <div id="widget">
-<div class="header">
-<div class="title">Major Routes</div>
-<div class="updated" id="updated">Loading...</div>
-</div>
 <div id="content"></div>
 <div class="footer" id="footer"></div>
 </div>
@@ -125,14 +121,7 @@ async function loadTraffic(){
          colour:getColour(delay)
        });
      });
-   }else{
-     rows.push({
-       road:roadNames[road]||road,
-       detail:"No reported incidents",
-       icon:"check",
-       delay:null,
-       colour:"green"
-     });
+
    }
   });
 
