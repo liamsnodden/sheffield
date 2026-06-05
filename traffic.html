@@ -2,232 +2,139 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>Sheffield Traffic Updates</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sheffield Traffic Incidents</title>
 
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
+body{
+font-family: Arial, sans-serif;
+background:#f4f4f4;
+margin:20px;
 }
 
-html,body{
-width:100%;
-height:100%;
-background:#fff;
-font-family:Arial,sans-serif;
-overflow:hidden;
+h1{
+margin-bottom:10px;
 }
 
-.container{
-width:100%;
-height:100%;
-padding:25px 35px;
-}
-
-.header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:20px;
-}
-
-.title{
-font-size:42px;
-font-weight:700;
-color:#111;
-}
-
-.updated{
-font-size:18px;
+#status{
 color:#666;
+margin-bottom:15px;
 }
 
-.feed{
-overflow:auto;
-height:calc(100% - 80px);
+.incident{
+background:white;
+padding:12px;
+margin-bottom:10px;
+border-left:5px solid #e67e22;
+border-radius:4px;
+box-shadow:0 1px 3px rgba(0,0,0,.1);
 }
 
-.item{
-display:flex;
-gap:18px;
-padding:18px 0;
-border-bottom:1px solid #ececec;
+.road{
+font-weight:bold;
+font-size:16px;
 }
 
-.dot{
-width:28px;
-height:28px;
-border-radius:50%;
-flex-shrink:0;
-margin-top:4px;
+.type{
+color:#c0392b;
 }
 
-.red{
-background:#ff3b30;
-}
-
-.orange{
-background:#ff9500;
-}
-
-.green{
-background:#34c759;
-}
-
-.content{
-flex:1;
-}
-
-.headline{
-font-size:24px;
-font-weight:700;
-color:#111;
-}
-
-.desc{
-font-size:18px;
+.time{
 color:#666;
-margin-top:4px;
-line-height:1.4;
+font-size:13px;
 }
-
 </style>
 </head>
 <body>
 
-<div class="container">
-
-<div class="header">
-<div class="title">SHEFFIELD TRAFFIC UPDATES</div>
-<div class="updated" id="updated">Loading...</div>
-</div>
-
-<div id="feed" class="feed">
-Loading live traffic...
-</div>
-
-</div>
+<h1>Sheffield Traffic Incidents</h1>
+<div id="status">Loading...</div>
+<div id="incidents"></div>
 
 <script>
 
+const apiKey = "N61XFRwHAscPzxZI6ci39stZrnzoc4qS";
+
 /*
-CURRENT INCIDENTS FEED
+Bounding box around Sheffield
+
+West,South,East,North
+-1.75,53.30,-1.20,53.50
 */
 
-const RSS_URL =
-'https://www.trafficengland.com/rss/feeds/currentincidents';
+const bbox = "-1.75,53.30,-1.20,53.50";
 
-const API =
-'https://api.rss2json.com/v1/api.json?rss_url=' +
-encodeURIComponent(RSS_URL);
+const url =
+`https://api.tomtom.com/traffic/services/5/incidentDetails?bbox=${bbox}&fields={incidents{type,geometry{type,coordinates},properties{iconCategory,events{description},from,to,startTime,endTime,length}}}&language=en-GB&key=${apiKey}`;
 
-function getSeverity(text){
+async function loadIncidents(){
 
-text = text.toLowerCase();
-
-if(
-text.includes('closed') ||
-text.includes('closure') ||
-text.includes('collision') ||
-text.includes('accident')
-){
-return 'red';
-}
-
-if(
-text.includes('delay') ||
-text.includes('congestion') ||
-text.includes('roadworks')
-){
-return 'orange';
-}
-
-return 'green';
-}
-
-async function loadTraffic(){
+const status = document.getElementById("status");
+const container = document.getElementById("incidents");
 
 try{
 
-const response = await fetch(API);
+const response = await fetch(url);
 const data = await response.json();
 
-console.log(data);
+container.innerHTML = "";
 
-let incidents = data.items.filter(item=>{
+const incidents = data.incidents || [];
 
-const text =
-(item.title + " " + item.description).toLowerCase();
-
-return (
-text.includes("m1") ||
-text.includes("a57") ||
-text.includes("a61") ||
-text.includes("sheffield") ||
-text.includes("rotherham") ||
-text.includes("barnsley")
-);
-
-});
+status.textContent =
+`${incidents.length} incidents found`;
 
 if(incidents.length === 0){
-incidents = data.items.slice(0,6);
+container.innerHTML =
+"<div class='incident'>No incidents reported.</div>";
+return;
 }
 
-document.getElementById("feed").innerHTML =
-incidents.slice(0,6).map(item=>`
+incidents.forEach(incident => {
 
-<div class="item">
+const p = incident.properties || {};
 
-<div class="dot ${getSeverity(item.title)}"></div>
+let description = "Traffic Incident";
 
-<div class="content">
-
-<div class="headline">
-${item.title}
-</div>
-
-<div class="desc">
-${item.description
-.replace(/<[^>]+>/g,'')
-.substring(0,150)}
-</div>
-
-</div>
-
-</div>
-
-`).join("");
-
-document.getElementById("updated").innerHTML =
-"Updated " +
-new Date().toLocaleTimeString("en-GB",{
-hour:"2-digit",
-minute:"2-digit"
-});
-
+if(p.events &&
+p.events.length &&
+p.events[0].description){
+description =
+p.events[0].description;
 }
-catch(error){
 
-console.error(error);
+const div = document.createElement("div");
+div.className = "incident";
 
-document.getElementById("feed").innerHTML =
-`
-<div style="font-size:20px;color:red">
-Unable to load traffic data.<br><br>
-Check browser console (F12) for details.
+div.innerHTML = `
+<div class="road">${p.from || "Unknown Road"}</div>
+<div class="type">${description}</div>
+<div>To: ${p.to || "-"}</div>
+<div>Length: ${p.length || 0} m</div>
+<div class="time">
+Started:
+${p.startTime
+? new Date(p.startTime).toLocaleString()
+: "Unknown"}
 </div>
 `;
+
+container.appendChild(div);
+});
+
+} catch(err){
+
+status.textContent =
+"Error loading TomTom data";
+
+console.error(err);
 }
 }
 
-loadTraffic();
+loadIncidents();
 
-setInterval(loadTraffic,60000);
+/* Refresh every 60 seconds */
+setInterval(loadIncidents, 60000);
 
 </script>
 
