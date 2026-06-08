@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Weather + Clock Widget</title>
 
 <style>
@@ -17,40 +18,40 @@ html,body{
 width:100%;
 height:100%;
 background:transparent;
+overflow:hidden;
 color:#fff;
-overflow:visible;
 }
 
 #widget{
 width:100%;
 height:120px;
 display:flex;
+justify-content:space-between;
 align-items:center;
-justify-content:flex-end;
-margin-left:auto;
-padding-right:10px;
+padding:0 12px;
 }
+
+/* WEATHER */
 
 #weatherSection{
 display:flex;
 align-items:center;
-min-width:0;
 }
 
 #weather-icon{
-width:100px;
-height:100px;
+width:110px;
+height:110px;
 flex-shrink:0;
 }
 
 #weatherText{
 display:flex;
 flex-direction:column;
-margin-left:4px;
+margin-left:8px;
 }
 
 #weather-temp{
-font-size:50px;
+font-size:64px;
 font-weight:700;
 line-height:1;
 }
@@ -62,53 +63,35 @@ line-height:1.1;
 }
 
 #weather-feels{
-font-size:14px;
+font-size:16px;
 opacity:.9;
 margin-top:2px;
 }
 
-#divider{
-width:2px;
-height:92px;
-margin:0 16px;
-flex-shrink:0;
-background:linear-gradient(
-to bottom,
-rgba(255,255,255,0),
-rgba(255,255,255,.55),
-rgba(255,255,255,0)
-);
-filter:drop-shadow(0 0 8px rgba(255,255,255,.15));
-}
+/* RIGHT SIDE */
 
 #rightSection{
-width:280px;
 display:flex;
 flex-direction:column;
 align-items:flex-end;
 justify-content:center;
 text-align:right;
-min-width:0;
+min-width:340px;
 }
 
 #date{
 font-size:18px;
 font-weight:600;
-width:100%;
-text-align:right;
 }
 
 #time{
-font-size:48px;
+font-size:42px;
 font-weight:700;
 line-height:1;
-width:100%;
-text-align:right;
 margin-top:2px;
 }
 
 #worldClock{
-width:100%;
 display:flex;
 justify-content:flex-end;
 align-items:center;
@@ -116,7 +99,6 @@ gap:6px;
 margin-top:6px;
 font-size:15px;
 font-weight:600;
-min-width:0;
 }
 
 #worldFlag{
@@ -124,7 +106,6 @@ width:20px;
 height:14px;
 object-fit:cover;
 border-radius:2px;
-flex-shrink:0;
 }
 
 #worldStatus{
@@ -132,7 +113,6 @@ width:8px;
 height:8px;
 border-radius:50%;
 display:inline-block;
-flex-shrink:0;
 }
 
 .day{
@@ -146,22 +126,6 @@ background:#f59e0b;
 .night{
 background:#6b7280;
 }
-
-#worldLocation{
-flex:1;
-min-width:0;
-text-align:right;
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis;
-}
-
-#worldTime{
-width:55px;
-text-align:right;
-font-weight:700;
-flex-shrink:0;
-}
 </style>
 </head>
 
@@ -170,32 +134,48 @@ flex-shrink:0;
 <div id="widget">
 
 <div id="weatherSection">
-<img id="weather-icon" src="https://openweathermap.org/img/wn/01d@4x.png" alt="Weather">
+
+<img id="weather-icon"
+src="https://openweathermap.org/img/wn/01d@4x.png"
+alt="Weather">
 
 <div id="weatherText">
+
 <div id="weather-temp">--°C</div>
+
 <div id="weather-condition">Loading...</div>
+
 <div id="weather-feels">Feels like --°C</div>
-</div>
+
 </div>
 
-<div id="divider"></div>
+</div>
 
 <div id="rightSection">
+
 <div id="date"></div>
+
 <div id="time"></div>
 
 <div id="worldClock">
+
 <span id="worldTime"></span>
+
 <span id="worldStatus"></span>
+
 <span id="worldLocation"></span>
+
 <img id="worldFlag" alt="Flag">
+
 </div>
+
 </div>
 
 </div>
 
 <script>
+
+/* WEATHER */
 
 const LATITUDE = 53.3811;
 const LONGITUDE = -1.4701;
@@ -249,12 +229,15 @@ const iconMap = {
 };
 
 async function updateWeather(){
+
 try{
+
 const response = await fetch(
 `https://api.open-meteo.com/v1/forecast?latitude=${LATITUDE}&longitude=${LONGITUDE}&current=temperature_2m,apparent_temperature,weather_code`
 );
 
 const data = await response.json();
+
 const code = data.current.weather_code;
 
 document.getElementById('weather-temp').textContent =
@@ -264,38 +247,56 @@ document.getElementById('weather-condition').textContent =
 weatherDescriptions[code] || 'Unknown';
 
 document.getElementById('weather-feels').textContent =
-'Feels like ' + Math.round(data.current.apparent_temperature) + '°C';
+'Feels like ' +
+Math.round(data.current.apparent_temperature) +
+'°C';
 
 document.getElementById('weather-icon').src =
 `https://openweathermap.org/img/wn/${iconMap[code] || '04d'}@4x.png`;
 
-} catch(error){
+}catch(error){
+
+document.getElementById('weather-condition').textContent =
+'Weather unavailable';
+
+document.getElementById('weather-feels').textContent = '';
+
 console.error(error);
+
 }
+
 }
 
 updateWeather();
-setInterval(updateWeather, 600000);
+setInterval(updateWeather,600000);
+
+/* DATE & TIME */
 
 function updateDateTime(){
+
 const now = new Date();
 
-document.getElementById('date').textContent =
-now.toLocaleDateString('en-GB',{
-day:'numeric',
+const date = now.toLocaleDateString('en-US',{
 month:'long',
+day:'numeric',
 year:'numeric'
 });
 
-document.getElementById('time').textContent =
-now.toLocaleTimeString('en-GB',{
-hour:'2-digit',
-minute:'2-digit'
+const time = now.toLocaleTimeString('en-US',{
+hour:'numeric',
+minute:'2-digit',
+hour12:true
 });
+
+document.getElementById('date').textContent = date;
+document.getElementById('time').textContent = time;
+
 }
 
 updateDateTime();
 setInterval(updateDateTime,1000);
+
+/* WORLD CLOCK */
 
 const sites = [
 {
@@ -323,6 +324,7 @@ timezone:"Asia/Ho_Chi_Minh"
 let currentSite = 0;
 
 function getStatus(timezone){
+
 const hour = parseInt(
 new Intl.DateTimeFormat(
 'en-GB',
@@ -337,6 +339,7 @@ timeZone:timezone
 if(hour >= 7 && hour < 18) return 'day';
 if(hour >= 18 && hour < 22) return 'evening';
 return 'night';
+
 }
 
 function updateWorldClock(){
@@ -360,11 +363,18 @@ timeZone:site.timezone
 }
 ).format(new Date());
 
-const status = document.getElementById('worldStatus');
+const status =
+document.getElementById('worldStatus');
+
 status.className = '';
+status.id = 'worldStatus';
 status.classList.add(getStatus(site.timezone));
 
-currentSite = (currentSite + 1) % sites.length;
+currentSite++;
+if(currentSite >= sites.length){
+currentSite = 0;
+}
+
 }
 
 updateWorldClock();
