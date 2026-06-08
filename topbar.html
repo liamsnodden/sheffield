@@ -4,12 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Weather + Clock Widget</title>
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;}
-html,body{width:100%;height:100%;background:transparent;overflow:hidden;color:#fff;}
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+html,body{
+width:100%;
+height:100%;
+background:transparent;
+color:#fff;
+overflow:visible;
+}
 
 #widget{
-width:1293px;
+width:100%;
+max-width:1293px;
 height:120px;
 margin-left:auto;
 display:flex;
@@ -18,30 +32,81 @@ justify-content:flex-end;
 padding-right:5px;
 }
 
-#weatherSection{display:flex;align-items:center;}
-#weather-icon{width:100px;height:100px;flex-shrink:0;}
-#weatherText{display:flex;flex-direction:column;margin-left:4px;}
-#weather-temp{font-size:50px;font-weight:700;line-height:1;}
-#weather-condition{font-size:22px;font-weight:600;line-height:1.1;}
-#weather-feels{font-size:14px;opacity:.9;margin-top:2px;}
+#weatherSection{
+display:flex;
+align-items:center;
+min-width:0;
+}
+
+#weather-icon{
+width:100px;
+height:100px;
+flex-shrink:0;
+}
+
+#weatherText{
+display:flex;
+flex-direction:column;
+margin-left:4px;
+}
+
+#weather-temp{
+font-size:50px;
+font-weight:700;
+line-height:1;
+}
+
+#weather-condition{
+font-size:22px;
+font-weight:600;
+line-height:1.1;
+}
+
+#weather-feels{
+font-size:14px;
+opacity:.9;
+margin-top:2px;
+}
 
 #divider{
-width:2px;height:92px;margin:0 16px;flex-shrink:0;
-background:linear-gradient(to bottom,rgba(255,255,255,0),rgba(255,255,255,.55),rgba(255,255,255,0));
+width:2px;
+height:92px;
+margin:0 16px;
+flex-shrink:0;
+background:linear-gradient(
+to bottom,
+rgba(255,255,255,0),
+rgba(255,255,255,.55),
+rgba(255,255,255,0)
+);
 filter:drop-shadow(0 0 8px rgba(255,255,255,.15));
 }
 
 #rightSection{
-width:320px;
+width:280px;
 display:flex;
 flex-direction:column;
 align-items:flex-end;
 justify-content:center;
 text-align:right;
+min-width:0;
 }
 
-#date{font-size:18px;font-weight:600;width:100%;text-align:right;}
-#time{font-size:48px;font-weight:700;line-height:1;width:100%;text-align:right;margin-top:2px;}
+#date{
+font-size:18px;
+font-weight:600;
+width:100%;
+text-align:right;
+}
+
+#time{
+font-size:48px;
+font-weight:700;
+line-height:1;
+width:100%;
+text-align:right;
+margin-top:2px;
+}
 
 #worldClock{
 width:100%;
@@ -52,28 +117,55 @@ gap:6px;
 margin-top:6px;
 font-size:15px;
 font-weight:600;
+min-width:0;
 }
 
-#worldFlag{width:20px;height:14px;object-fit:cover;border-radius:2px;}
-#worldStatus{width:8px;height:8px;border-radius:50%;display:inline-block;}
-.day{background:#22c55e;}
-.evening{background:#f59e0b;}
-.night{background:#6b7280;}
+#worldFlag{
+width:20px;
+height:14px;
+object-fit:cover;
+border-radius:2px;
+flex-shrink:0;
+}
+
+#worldStatus{
+width:8px;
+height:8px;
+border-radius:50%;
+display:inline-block;
+flex-shrink:0;
+}
+
+.day{
+background:#22c55e;
+}
+
+.evening{
+background:#f59e0b;
+}
+
+.night{
+background:#6b7280;
+}
 
 #worldLocation{
-width:170px;
+flex:1;
+min-width:0;
 text-align:right;
 white-space:nowrap;
 overflow:hidden;
+text-overflow:ellipsis;
 }
 
 #worldTime{
 width:55px;
 text-align:right;
 font-weight:700;
+flex-shrink:0;
 }
 </style>
 </head>
+
 <body>
 
 <div id="widget">
@@ -82,9 +174,9 @@ font-weight:700;
 <img id="weather-icon" src="https://openweathermap.org/img/wn/01d@4x.png" alt="Weather">
 
 <div id="weatherText">
-<div id="weather-temp">--°c</div>
+<div id="weather-temp">--°C</div>
 <div id="weather-condition">Loading...</div>
-<div id="weather-feels">Feels like --°c</div>
+<div id="weather-feels">Feels like --°C</div>
 </div>
 </div>
 
@@ -105,65 +197,181 @@ font-weight:700;
 </div>
 
 <script>
+
 const LATITUDE = 53.3811;
 const LONGITUDE = -1.4701;
 
-const weatherDescriptions={0:"Clear",1:"Mainly Clear",2:"Partly Cloudy",3:"Overcast",45:"Fog",48:"Fog",51:"Light Drizzle",53:"Drizzle",55:"Heavy Drizzle",61:"Light Rain",63:"Rain",65:"Heavy Rain",71:"Snow",73:"Snow",75:"Heavy Snow",80:"Rain Showers",81:"Heavy Showers",82:"Heavy Rain",95:"Thunderstorm",96:"Thunderstorm",99:"Thunderstorm"};
-const iconMap={0:"01d",1:"02d",2:"03d",3:"04d",45:"50d",48:"50d",51:"09d",53:"09d",55:"09d",61:"10d",63:"10d",65:"10d",71:"13d",73:"13d",75:"13d",80:"09d",81:"09d",82:"09d",95:"11d",96:"11d",99:"11d"};
+const weatherDescriptions = {
+0:"Clear",
+1:"Mainly Clear",
+2:"Partly Cloudy",
+3:"Overcast",
+45:"Fog",
+48:"Fog",
+51:"Light Drizzle",
+53:"Drizzle",
+55:"Heavy Drizzle",
+61:"Light Rain",
+63:"Rain",
+65:"Heavy Rain",
+71:"Snow",
+73:"Snow",
+75:"Heavy Snow",
+80:"Rain Showers",
+81:"Heavy Showers",
+82:"Heavy Rain",
+95:"Thunderstorm",
+96:"Thunderstorm",
+99:"Thunderstorm"
+};
+
+const iconMap = {
+0:"01d",
+1:"02d",
+2:"03d",
+3:"04d",
+45:"50d",
+48:"50d",
+51:"09d",
+53:"09d",
+55:"09d",
+61:"10d",
+63:"10d",
+65:"10d",
+71:"13d",
+73:"13d",
+75:"13d",
+80:"09d",
+81:"09d",
+82:"09d",
+95:"11d",
+96:"11d",
+99:"11d"
+};
 
 async function updateWeather(){
 try{
-const response=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${LATITUDE}&longitude=${LONGITUDE}&current=temperature_2m,apparent_temperature,weather_code`);
-const data=await response.json();
-const code=data.current.weather_code;
+const response = await fetch(
+`https://api.open-meteo.com/v1/forecast?latitude=${LATITUDE}&longitude=${LONGITUDE}&current=temperature_2m,apparent_temperature,weather_code`
+);
 
-document.getElementById('weather-temp').textContent=Math.round(data.current.temperature_2m)+'°c';
-document.getElementById('weather-condition').textContent=weatherDescriptions[code]||'Unknown';
-document.getElementById('weather-feels').textContent='Feels like '+Math.round(data.current.apparent_temperature)+'°c';
-document.getElementById('weather-icon').src=`https://openweathermap.org/img/wn/${iconMap[code]||'04d'}@4x.png`;
-}catch(e){console.error(e);}
+const data = await response.json();
+const code = data.current.weather_code;
+
+document.getElementById('weather-temp').textContent =
+Math.round(data.current.temperature_2m) + '°C';
+
+document.getElementById('weather-condition').textContent =
+weatherDescriptions[code] || 'Unknown';
+
+document.getElementById('weather-feels').textContent =
+'Feels like ' + Math.round(data.current.apparent_temperature) + '°C';
+
+document.getElementById('weather-icon').src =
+`https://openweathermap.org/img/wn/${iconMap[code] || '04d'}@4x.png`;
+
+} catch(error){
+console.error(error);
 }
+}
+
 updateWeather();
-setInterval(updateWeather,600000);
+setInterval(updateWeather, 600000);
 
 function updateDateTime(){
-const now=new Date();
-document.getElementById('date').textContent=now.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
-document.getElementById('time').textContent=now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true});
+const now = new Date();
+
+document.getElementById('date').textContent =
+now.toLocaleDateString('en-GB',{
+day:'numeric',
+month:'long',
+year:'numeric'
+});
+
+document.getElementById('time').textContent =
+now.toLocaleTimeString('en-GB',{
+hour:'2-digit',
+minute:'2-digit'
+});
 }
+
 updateDateTime();
 setInterval(updateDateTime,1000);
 
-const sites=[
-{city:"Cleveland HQ",flag:"us",timezone:"America/New_York"},
-{city:"Brodziszewo",flag:"pl",timezone:"Europe/Warsaw"},
-{city:"Bangalore",flag:"in",timezone:"Asia/Kolkata"},
-{city:"Ho Chi Minh City",flag:"vn",timezone:"Asia/Ho_Chi_Minh"}
+const sites = [
+{
+city:"Cleveland HQ",
+flag:"us",
+timezone:"America/New_York"
+},
+{
+city:"Brodziszewo",
+flag:"pl",
+timezone:"Europe/Warsaw"
+},
+{
+city:"Bangalore",
+flag:"in",
+timezone:"Asia/Kolkata"
+},
+{
+city:"Ho Chi Minh City",
+flag:"vn",
+timezone:"Asia/Ho_Chi_Minh"
+}
 ];
 
-let currentSite=0;
+let currentSite = 0;
 
-function getStatus(tz){
-const hour=parseInt(new Intl.DateTimeFormat('en-GB',{hour:'2-digit',hour12:false,timeZone:tz}).format(new Date()));
-if(hour>=7&&hour<18) return 'day';
-if(hour>=18&&hour<22) return 'evening';
+function getStatus(timezone){
+const hour = parseInt(
+new Intl.DateTimeFormat(
+'en-GB',
+{
+hour:'2-digit',
+hour12:false,
+timeZone:timezone
+}
+).format(new Date())
+);
+
+if(hour >= 7 && hour < 18) return 'day';
+if(hour >= 18 && hour < 22) return 'evening';
 return 'night';
 }
 
 function updateWorldClock(){
-const site=sites[currentSite];
-document.getElementById('worldFlag').src=`https://flagcdn.com/w40/${site.flag}.png`;
-document.getElementById('worldLocation').textContent=site.city;
-document.getElementById('worldTime').textContent=new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',hour12:false,timeZone:site.timezone}).format(new Date());
 
-const status=document.getElementById('worldStatus');
-status.className='';
+const site = sites[currentSite];
+
+document.getElementById('worldFlag').src =
+`https://flagcdn.com/w40/${site.flag}.png`;
+
+document.getElementById('worldLocation').textContent =
+site.city;
+
+document.getElementById('worldTime').textContent =
+new Intl.DateTimeFormat(
+'en-GB',
+{
+hour:'2-digit',
+minute:'2-digit',
+hour12:false,
+timeZone:site.timezone
+}
+).format(new Date());
+
+const status = document.getElementById('worldStatus');
+status.className = '';
 status.classList.add(getStatus(site.timezone));
 
-currentSite=(currentSite+1)%sites.length;
+currentSite = (currentSite + 1) % sites.length;
 }
+
 updateWorldClock();
 setInterval(updateWorldClock,10000);
+
 </script>
+
 </body>
 </html>
