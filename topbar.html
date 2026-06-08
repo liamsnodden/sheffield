@@ -135,11 +135,25 @@ updateDateTime();
 setInterval(updateDateTime,1000);
 
 const sites=[
-{city:"Cleveland HQ",flag:"us",timezone:"America/New_York"},
-{city:"Brodziszewo",flag:"pl",timezone:"Europe/Warsaw"},
-{city:"Bangalore",flag:"in",timezone:"Asia/Kolkata"},
-{city:"Ho Chi Minh City",flag:"vn",timezone:"Asia/Ho_Chi_Minh"}
+
+const sites = [
+  { city: "Cleveland HQ", flag: "us", timezone: "America/New_York" },
+  { city: "Kingston", flag: "jm", timezone: "America/Jamaica" },
+  { city: "São Paulo", flag: "br", timezone: "America/Sao_Paulo" },
+
+  { city: "Tournus", flag: "fr", timezone: "Europe/Paris" },
+  { city: "Lelystad", flag: "nl", timezone: "Europe/Amsterdam" },
+  { city: "Stuttgart", flag: "de", timezone: "Europe/Berlin" },
+  { city: "Civitanova", flag: "it", timezone: "Europe/Rome" },
+  { city: "Brodziszewo", flag: "pl", timezone: "Europe/Warsaw" },
+
+  { city: "Durban", flag: "za", timezone: "Africa/Johannesburg" },
+
+  { city: "Bangalore", flag: "in", timezone: "Asia/Kolkata" },
+  { city: "Ho Chi Minh City", flag: "vn", timezone: "Asia/Ho_Chi_Minh" },
+  { city: "Shanghai", flag: "cn", timezone: "Asia/Shanghai" }
 ];
+
 
 let currentSite=0;
 
