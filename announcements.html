@@ -4,43 +4,210 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=450,height=450">
 <title>Announcements & Alerts</title>
+
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{
-width:450px;height:450px;overflow:hidden;
-font-family:Arial,Helvetica,sans-serif;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
-.header{height:52px;display:flex;align-items:center;padding:0 12px}
-.header-accent{width:4px;height:24px;background:#D22630;border-radius:2px;margin-right:10px}
-.header-title{font-family:"Arial Narrow",Arial,sans-serif;font-size:20px;font-weight:700;color:#fff}
-.header-line{flex:1;height:1px;margin-left:12px;background:)}
-#content{height:398px;padding-top:2px}
+
+html,body{
+width:450px;
+height:450px;
+overflow:hidden;
+font-family:Arial,Helvetica,sans-serif;
+background:transparent;
+}
+
+/* HEADERS */
+
+.header{
+height:40px;
+display:flex;
+align-items:center;
+padding:0 12px;
+}
+
+.header-accent{
+width:4px;
+height:24px;
+background:#D22630;
+border-radius:2px;
+margin-right:10px;
+}
+
+.header-title{
+font-family:"Arial Narrow",Arial,sans-serif;
+font-size:20px;
+font-weight:700;
+color:#fff;
+}
+
+.header-line{
+flex:1;
+height:1px;
+margin-left:12px;
+background:rgba(255,255,255,.25);
+}
+
+/* CARDS */
+
 .row{
-display:flex;align-items:center;gap:12px;
-margin:4px 10px;padding:12px 14px;
+display:flex;
+align-items:center;
+gap:12px;
+margin:4px 10px;
+padding:12px 14px;
 border-radius:10px;
-background:linear-gradient(180deg,rgba(6,48,100,.95),rgba(2,28,65,.95));
 border:1px solid rgba(255,255,255,.08);
 color:#fff;
 }
-.weather.normal{background:linear-gradient(180deg,#00A651,#008f46)}
-.weather.yellow{background:linear-gradient(180deg,#FFD100,#e0ba00);color:#000}
-.weather.amber{background:linear-gradient(180deg,#d8871a,#c8700d)}
-.weather.red{background:linear-gradient(180deg,#d3203e,#b00020)}
-.icon-wrap{
-width:50px;height:50px;border-radius:50%;
-display:flex;align-items:center;justify-content:center;
-border:2px solid rgba(255,255,255,.15);
-background:rgba(0,0,0,.15);flex-shrink:0
+
+.standard-card{
+background:linear-gradient(
+180deg,
+rgba(6,48,100,.95),
+rgba(2,28,65,.95)
+);
 }
-.material-symbols-outlined{font-size:28px}
-.text{flex:1;min-width:0}
-.title{font-size:16px;font-weight:700;line-height:1.15}
-.message{margin-top:4px;font-size:14px;line-height:1.3;opacity:.95}
+
+.weather.normal{
+background:linear-gradient(180deg,#00A651,#008f46);
+}
+
+.weather.yellow{
+background:linear-gradient(180deg,#FFD100,#E0BA00);
+color:#000;
+}
+
+.weather.amber{
+background:linear-gradient(180deg,#D8871A,#C8700D);
+}
+
+.weather.red{
+background:linear-gradient(180deg,#D3203E,#B00020);
+}
+
+.safety-card{
+background:linear-gradient(180deg,#00A651,#008F46);
+min-height:105px;
+justify-content:center;
+}
+
+/* ICONS */
+
+.icon-wrap{
+width:50px;
+height:50px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+border:2px solid rgba(255,255,255,.15);
+background:rgba(0,0,0,.15);
+flex-shrink:0;
+}
+
+.material-symbols-outlined{
+font-size:28px;
+}
+
+.text{
+flex:1;
+min-width:0;
+}
+
+.title{
+font-size:16px;
+font-weight:700;
+line-height:1.15;
+}
+
+.message{
+margin-top:4px;
+font-size:14px;
+line-height:1.3;
+opacity:.95;
+}
+
+/* SAFETY */
+
+.safety-content{
+flex:1;
+text-align:center;
+}
+
+.days{
+font-size:42px;
+font-weight:700;
+line-height:1;
+margin-top:2px;
+}
+
+.days-label{
+font-size:14px;
+font-weight:600;
+margin-top:4px;
+}
+
+.last-date{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:4px;
+margin-top:8px;
+font-size:13px;
+}
+
+.last-date .material-symbols-outlined{
+font-size:16px;
+}
+
+/* CONTENT AREA */
+
+#content{
+height:220px;
+overflow:hidden;
+}
 </style>
 </head>
 <body>
+
+<!-- SAFETY PERFORMANCE -->
+
+<div class="header">
+<div class="header-accent"></div>
+<div class="header-title">Safety Performance</div>
+<div class="header-line"></div>
+</div>
+
+<div class="row safety-card">
+<div class="icon-wrap">
+<span class="material-symbols-outlined">shield</span>
+</div>
+
+<div class="safety-content">
+
+<div id="daysSince" class="days">0</div>
+
+<div class="days-label">
+Days Since Last LTI
+</div>
+
+<div class="last-date">
+<span class="material-symbols-outlined">
+calendar_month
+</span>
+25 May 2025
+</div>
+
+</div>
+</div>
+
+<!-- ANNOUNCEMENTS -->
 
 <div class="header">
 <div class="header-accent"></div>
@@ -51,11 +218,37 @@ background:rgba(0,0,0,.15);flex-shrink:0
 <div id="content"></div>
 
 <script>
-const ROTATE_EVERY=30000;
-const LATITUDE=53.3811;
-const LONGITUDE=-1.4701;
+const ROTATE_EVERY = 30000;
 
-const iconMap={
+const LATITUDE = 53.3811;
+const LONGITUDE = -1.4701;
+
+/* SAFETY */
+
+const LTI_DATE = new Date("2025-05-25");
+
+function updateLTIDays(){
+
+const today = new Date();
+
+const start = new Date(LTI_DATE);
+start.setHours(0,0,0,0);
+
+today.setHours(0,0,0,0);
+
+const days =
+Math.floor(
+(today - start) /
+(1000 * 60 * 60 * 24)
+);
+
+document.getElementById("daysSince").textContent =
+days.toLocaleString();
+}
+
+/* ICONS */
+
+const iconMap = {
 training:"school",
 celebration:"celebration",
 announcement:"campaign",
@@ -65,7 +258,9 @@ people:"groups",
 production:"factory"
 };
 
-let announcements=[
+/* SAMPLE DATA */
+
+let announcements = [
 {
 category:"training",
 title:"Compliance Training - Now Due!",
@@ -78,80 +273,171 @@ message:"Congratulations on promotion to Warehouse Team Leader."
 }
 ];
 
-let weatherInfo={
+/* WEATHER */
+
+let weatherInfo = {
 class:"normal",
 title:"WEATHER",
 message:"No Alerts in Effect"
 };
 
-let currentPage=0;
+let currentPage = 0;
 
 async function loadWeather(){
-try{
-const response=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${LATITUDE}&longitude=${LONGITUDE}&daily=weather_code&timezone=Europe/London`);
-const data=await response.json();
-const code=data.daily.weather_code[0];
 
-weatherInfo={class:"normal",title:"WEATHER",message:"No Alerts in Effect"};
+try{
+
+const response =
+await fetch(
+`https://api.open-meteo.com/v1/forecast?latitude=${LATITUDE}&longitude=${LONGITUDE}&daily=weather_code&timezone=Europe/London`
+);
+
+const data = await response.json();
+
+const code =
+data.daily.weather_code[0];
+
+weatherInfo = {
+class:"normal",
+title:"WEATHER",
+message:"No Alerts in Effect"
+};
 
 if([95,96,99].includes(code)){
-weatherInfo={class:"red",title:"WEATHER WARNING",message:"Severe Thunderstorm Warning"};
-}else if([61,63,65,80,81,82].includes(code)){
-weatherInfo={class:"amber",title:"WEATHER WARNING",message:"Heavy Rain Expected"};
-}else if([71,73,75,77,85,86].includes(code)){
-weatherInfo={class:"yellow",title:"WEATHER WARNING",message:"Heavy Snow Expected"};
+weatherInfo = {
+class:"red",
+title:"WEATHER WARNING",
+message:"Severe Thunderstorm Warning"
+};
 }
-}catch(e){console.log(e)}
+else if([61,63,65,80,81,82].includes(code)){
+weatherInfo = {
+class:"amber",
+title:"WEATHER WARNING",
+message:"Heavy Rain Expected"
+};
+}
+else if([71,73,75,77,85,86].includes(code)){
+weatherInfo = {
+class:"yellow",
+title:"WEATHER WARNING",
+message:"Heavy Snow Expected"
+};
 }
 
-function getPages(){
-const pages=[];
-for(let i=0;i<announcements.length;i+=3){
-pages.push(announcements.slice(i,i+3));
 }
-if(!pages.length) pages.push([]);
+catch(e){
+console.log(e);
+}
+}
+
+/* PAGING */
+
+function getPages(){
+
+const pages = [];
+
+for(let i=0;i<announcements.length;i+=3){
+pages.push(
+announcements.slice(i,i+3)
+);
+}
+
+if(!pages.length){
+pages.push([]);
+}
+
 return pages;
 }
 
-function render(){
-const pages=getPages();
-const page=pages[currentPage]||[];
+/* RENDER */
 
-let html=`
+function render(){
+
+const pages = getPages();
+
+const page =
+pages[currentPage] || [];
+
+let html = `
 <div class="row weather ${weatherInfo.class}">
-<div class="icon-wrap"><span class="material-symbols-outlined">warning</span></div>
-<div class="text">
-<div class="title">${weatherInfo.title}</div>
-<div class="message">${weatherInfo.message}</div>
+<div class="icon-wrap">
+<span class="material-symbols-outlined">
+warning
+</span>
 </div>
-</div>`;
+
+<div class="text">
+<div class="title">
+${weatherInfo.title}
+</div>
+
+<div class="message">
+${weatherInfo.message}
+</div>
+</div>
+</div>
+`;
 
 page.forEach(item=>{
-const icon=iconMap[item.category]||"campaign";
-html+=`
-<div class="row">
-<div class="icon-wrap"><span class="material-symbols-outlined">${icon}</span></div>
-<div class="text">
-<div class="title">${item.title}</div>
-<div class="message">${item.message}</div>
+
+const icon =
+iconMap[item.category] ||
+"campaign";
+
+html += `
+<div class="row standard-card">
+
+<div class="icon-wrap">
+<span class="material-symbols-outlined">
+${icon}
+</span>
 </div>
-</div>`;
+
+<div class="text">
+<div class="title">
+${item.title}
+</div>
+
+<div class="message">
+${item.message}
+</div>
+</div>
+
+</div>
+`;
 });
 
-document.getElementById("content").innerHTML=html;
+document.getElementById("content").innerHTML =
+html;
 
 currentPage++;
-if(currentPage>=pages.length) currentPage=0;
+
+if(currentPage >= pages.length){
+currentPage = 0;
+}
 }
 
+/* START */
+
 async function start(){
+
+updateLTIDays();
+
 await loadWeather();
+
 render();
-setInterval(render,ROTATE_EVERY);
-setInterval(loadWeather,900000);
+
+setInterval(render, ROTATE_EVERY);
+
+setInterval(loadWeather, 900000);
+
+setInterval(updateLTIDays, 3600000);
 }
+
 start();
 </script>
+
 </body>
 </html>
 
