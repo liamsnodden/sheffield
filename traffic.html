@@ -4,7 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=450">
 
+<title>Road Status</title>
+
 <style>
+
 *{
 box-sizing:border-box;
 margin:0;
@@ -12,75 +15,194 @@ padding:0;
 font-family:Arial,sans-serif;
 }
 
-body{
+html,body{
 width:450px;
-background:transparent;
+height:320px;
 overflow:hidden;
+
+background:linear-gradient(
+180deg,
+#062a5c 0%,
+#031c42 100%
+);
 }
+
+/* HEADER */
+
+.header{
+height:52px;
+
+display:flex;
+align-items:center;
+
+padding:0 12px;
+}
+
+.header-accent{
+width:4px;
+height:24px;
+
+background:#D22630;
+
+border-radius:2px;
+
+margin-right:10px;
+
+flex-shrink:0;
+}
+
+.header-title{
+font-family:"Arial Narrow",Arial,sans-serif;
+font-size:20px;
+font-weight:700;
+
+color:#fff;
+
+line-height:1;
+}
+
+.header-line{
+flex:1;
+
+height:1px;
+
+margin-left:12px;
+
+background:linear-gradient(
+to right,
+rgba(255,255,255,.18),
+rgba(255,255,255,.03)
+);
+}
+
+/* WIDGET */
 
 #widget{
 width:450px;
-height:320px;
-background:transparent;
+height:268px;
+
 color:#fff;
+
 overflow:hidden;
 }
 
 #content{
-height:320px;
-padding:4px 12px;
+height:268px;
+
+padding:4px 12px 0 12px;
 }
+
+/* ROWS */
 
 .row{
-height:28px;
+height:34px;
+
 display:flex;
 align-items:center;
+
 gap:10px;
-border-bottom:1px solid rgba(255,255,255,.08);
+
+padding:0 4px;
 }
 
+/* DOTS */
+
 .dot{
-width:14px;
-height:14px;
+width:10px;
+height:10px;
+
 border-radius:50%;
+
 flex-shrink:0;
 }
 
-.dot.red{background:#ff4d4f;}
-.dot.amber{background:#faad14;}
-.dot.yellow{background:#fadb14;}
-.dot.green{background:#73d13d;}
+.dot.red{
+background:#ff5a5f;
+}
+
+.dot.amber{
+background:#f5a623;
+}
+
+.dot.yellow{
+background:#fadb14;
+}
+
+.dot.green{
+background:#67c23a;
+}
+
+/* ROAD */
 
 .road{
-width:160px;
+width:155px;
+
+font-family:"Arial Narrow",Arial,sans-serif;
 font-size:16px;
 font-weight:700;
+
 white-space:nowrap;
 overflow:hidden;
 text-overflow:ellipsis;
+
+color:#fff;
 }
+
+/* STATUS */
 
 .status{
 flex:1;
+
 font-size:14px;
-color:#e5e5e5;
+
+color:rgba(255,255,255,.82);
 }
+
+/* DELAY */
 
 .delay{
 width:65px;
+
 text-align:right;
-font-size:16px;
+
+font-size:14px;
 font-weight:700;
 }
 
-.red-text{color:#ff4d4f;}
-.amber-text{color:#faad14;}
-.yellow-text{color:#fadb14;}
-.green-text{color:#73d13d;}
+/* DELAY COLOURS */
+
+.red-text{
+color:#ff5a5f;
+}
+
+.amber-text{
+color:#f5a623;
+}
+
+.yellow-text{
+color:#fadb14;
+}
+
+.green-text{
+color:#67c23a;
+}
+
 </style>
 </head>
 
 <body>
+
+<div class="header">
+
+<div class="header-accent"></div>
+
+<div class="header-title">
+Road Status
+</div>
+
+<div class="header-line"></div>
+
+</div>
 
 <div id="widget">
 <div id="content"></div>
@@ -178,6 +300,7 @@ return roads.some(r=>String(r).toUpperCase()==="M1")
 }
 
 return roads.some(r=>String(r).toUpperCase()===road);
+
 });
 
 let totalDelay=0;
