@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=450,height=450">
-
-<title>Announcements</title>
+<title>Announcements & Alerts</title>
 
 <link rel="stylesheet"
 href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
@@ -21,63 +20,136 @@ html,body{
 width:450px;
 height:450px;
 overflow:hidden;
-background:transparent;
+
 font-family:Arial, Helvetica, sans-serif;
+
+background:
+linear-gradient(
+180deg,
+#062a5c 0%,
+#031c42 100%
+);
 }
 
+/* HEADER */
+
+.header{
+height:60px;
+
+display:flex;
+align-items:center;
+gap:12px;
+
+padding:0 16px;
+
+color:white;
+
+font-size:20px;
+font-weight:700;
+letter-spacing:1px;
+
+border-bottom:1px solid rgba(255,255,255,0.15);
+}
+
+.header .material-symbols-outlined{
+font-size:32px;
+opacity:.9;
+}
+
+/* CONTENT */
+
 #content{
-width:450px;
-height:450px;
+height:390px;
+
 display:grid;
 grid-template-rows:repeat(4,1fr);
 }
 
-/* ROWS */
+/* CARDS */
 
 .row{
 display:flex;
 align-items:center;
-gap:20px;
-padding:18px 6px;
-border-bottom:1px solid rgba(255,255,255,0.15);
-background:transparent;
+gap:16px;
+
+margin:8px 12px;
+padding:18px 20px;
+
+border-radius:10px;
+
+background:
+linear-gradient(
+180deg,
+rgba(6,48,100,.95),
+rgba(2,28,65,.95)
+);
+
+border:1px solid rgba(255,255,255,.08);
+
+color:white;
 }
 
-.row:last-child{
-border-bottom:none;
-}
-
-/* WEATHER */
-
-.weather{
-transition:background .3s ease;
-}
+/* WEATHER COLOURS */
 
 .weather.normal{
-background:#00A651;
-  color:#fff;
+background:
+linear-gradient(
+180deg,
+#00A651,
+#008f46
+);
 }
 
 .weather.yellow{
-background:#FFD100;
+background:
+linear-gradient(
+180deg,
+#FFD100,
+#e0ba00
+);
+
 color:#000;
 }
 
 .weather.amber{
-background:#F39C12;
-color:#fff;
+background:
+linear-gradient(
+180deg,
+#d8871a,
+#c8700d
+);
 }
 
 .weather.red{
-background:#C8102E;
-color:#fff;
+background:
+linear-gradient(
+180deg,
+#d3203e,
+#b00020
+);
 }
 
-/* ICONS */
+/* ICON CIRCLE */
+
+.icon-wrap{
+width:64px;
+height:64px;
+
+border-radius:50%;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+border:2px solid rgba(255,255,255,.15);
+
+background:rgba(0,0,0,.15);
+
+flex-shrink:0;
+}
 
 .material-symbols-outlined{
-font-size:40px;
-flex-shrink:0;
+font-size:34px;
 
 font-variation-settings:
 'FILL' 0,
@@ -86,49 +158,65 @@ font-variation-settings:
 'opsz' 48;
 }
 
-.row:not(.weather){
-color:white;
-}
-
-.weather.normal .material-symbols-outlined{
-color:white;
-}
-
-.weather.yellow .material-symbols-outlined{
-color:black;
-}
-
-.weather.amber .material-symbols-outlined,
-.weather.red .material-symbols-outlined{
-color:white;
-}
-
 /* TEXT */
 
 .text{
+flex:1;
+
 display:flex;
 flex-direction:column;
 }
 
 .title{
-font-size:16px;
+font-size:20px;
 font-weight:700;
-line-height:1;
+line-height:1.15;
 }
 
 .message{
-margin-top:4px;
-font-size:14px;
-opacity:0.95;
+margin-top:6px;
+
+font-size:15px;
+line-height:1.35;
+
+opacity:.95;
 }
 
-.weather .message{
-opacity:1;
+/* RIGHT ARROW */
+
+.arrow{
+margin-left:auto;
+
+font-size:36px;
+
+opacity:.5;
+
+flex-shrink:0;
+}
+
+/* WEATHER CARD ICONS */
+
+.weather.yellow .material-symbols-outlined{
+color:black;
+}
+
+.weather.yellow .title,
+.weather.yellow .message{
+color:black;
+}
+
+.weather .arrow{
+display:none;
 }
 
 </style>
 </head>
 <body>
+
+<div class="header">
+<span class="material-symbols-outlined">info</span>
+<span>ANNOUNCEMENTS & ALERTS</span>
+</div>
 
 <div id="content"></div>
 
@@ -174,7 +262,7 @@ DEMO DATA
 let announcements = [
 
 {
-category:"school",
+category:"training",
 title:"Compliance Training - Now Due!",
 message:"Please arrange completion of your Code of Conduct training with your line manager."
 },
@@ -185,8 +273,11 @@ title:"Callum Rickhuss Promotion",
 message:"Congratulations to Callum on his promotion to Warehouse Team Leader - well done Callum!"
 },
 
-
-
+{
+category:"announcement",
+title:"Site Communication",
+message:"Please ensure noticeboards are checked regularly for important updates."
+}
 
 ];
 
@@ -211,11 +302,9 @@ await fetch(
 `https://api.open-meteo.com/v1/forecast?latitude=${LATITUDE}&longitude=${LONGITUDE}&daily=weather_code&timezone=Europe/London`
 );
 
-const data =
-await response.json();
+const data = await response.json();
 
-const code =
-data.daily.weather_code[0];
+const code = data.daily.weather_code[0];
 
 weatherInfo = {
 class:"normal",
@@ -227,34 +316,30 @@ if([95,96,99].includes(code)){
 
 weatherInfo = {
 class:"red",
-title:"WEATHER ALERT",
+title:"WEATHER WARNING",
 message:"Severe Thunderstorm Warning in Effect"
 };
 
 }
-
 else if(
-[61,63,65,80,81,82]
-.includes(code)
+[61,63,65,80,81,82].includes(code)
 ){
 
 weatherInfo = {
 class:"amber",
-title:"WEATHER ALERT",
-message:"Heavy Rain Warning in Effect. Periods of Heavy Rain Expected"
+title:"WEATHER WARNING",
+message:"Heavy Rain Expected"
 };
 
 }
-
 else if(
-[71,73,75,77,85,86]
-.includes(code)
+[71,73,75,77,85,86].includes(code)
 ){
 
 weatherInfo = {
 class:"yellow",
-title:"WEATHER ALERT",
-message:"Heavy Snow Warning in Effect"
+title:"WEATHER WARNING",
+message:"Heavy Snow Expected"
 };
 
 }
@@ -336,18 +421,18 @@ RENDER
 
 function render(){
 
-const pages =
-getPages();
-
-const page =
-pages[currentPage] || [];
+const pages = getPages();
+const page = pages[currentPage] || [];
 
 let html = `
+
 <div class="row weather ${weatherInfo.class}">
 
+<div class="icon-wrap">
 <span class="material-symbols-outlined">
 warning
 </span>
+</div>
 
 <div class="text">
 
@@ -362,6 +447,7 @@ ${weatherInfo.message}
 </div>
 
 </div>
+
 `;
 
 for(let i=0;i<3;i++){
@@ -375,13 +461,14 @@ iconMap[item.category] ||
 "campaign";
 
 html += `
+
 <div class="row">
 
-<span
-class="material-symbols-outlined"
->
+<div class="icon-wrap">
+<span class="material-symbols-outlined">
 ${icon}
 </span>
+</div>
 
 <div class="text">
 
@@ -395,13 +482,19 @@ ${item.message}
 
 </div>
 
+<span class="material-symbols-outlined arrow">
+chevron_right
+</span>
+
 </div>
+
 `;
 
 }
 else{
 
 html += `
+
 <div class="row">
 
 <div class="text">
@@ -409,6 +502,7 @@ html += `
 </div>
 
 </div>
+
 `;
 
 }
