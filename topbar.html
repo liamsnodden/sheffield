@@ -24,10 +24,9 @@ color:#fff;
 
 #weatherSection{
 display:flex;
-align-items:flex-start;
-height:120px;
+align-items:center;
 width:500px;
-  
+height:120px;
 }
 
 #weather-icon{
@@ -39,26 +38,29 @@ flex-shrink:0;
 #weatherText{
 display:flex;
 flex-direction:column;
+justify-content:center;
 margin-left:4px;
-min-width:110px;
+min-width:120px;
+height:85px;
 }
 
 #weather-temp{
-font-family:"Arial Narrow", Arial, Helvetica, Sans-serif;
+font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
 font-size:42px;
 font-weight:700;
 line-height:1;
 }
 
 #weather-condition{
-font-family:"Arial Narrow", Arial, Helvetica, Sans-serif;
+font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
 font-size:15px;
 font-weight:600;
 line-height:1.1;
+margin-top:2px;
 }
 
 #weather-feels{
-font-family:"Arial Narrow", Arial, Helvetica, Sans-serif;
+font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
 font-size:12px;
 opacity:.9;
 margin-top:2px;
@@ -70,33 +72,28 @@ margin-top:2px;
 display:flex;
 align-items:center;
 margin-left:12px;
-padding-top:10px;
-height:100px;
+height:85px;
+flex:1;
 }
 
 .forecastDay{
 display:flex;
 flex-direction:column;
 align-items:center;
-justify-content:center;
-padding:0 10px;
+justify-content:space-between;
+height:85px;
+min-width:65px;
+padding:0 12px;
 position:relative;
-min-width:56px;
 }
 
 .forecastDay::before{
 content:'';
 position:absolute;
 left:0;
-top:15%;
-height:70%;
+top:8px;
+bottom:8px;
 width:1px;
-background:rgba(255,255,255,.18);
-}
-
-.forecastEnd{
-width:1px;
-height:70%;
 background:rgba(255,255,255,.18);
 }
 
@@ -106,19 +103,31 @@ font-weight:700;
 letter-spacing:.8px;
 opacity:.8;
 text-transform:uppercase;
+height:12px;
+display:flex;
+align-items:center;
 }
 
 .forecastIcon{
-width:45px;
-height:45px;
-margin:2px 0;
+width:42px;
+height:42px;
+display:block;
 }
 
 .forecastTemp{
-font-family:"Arial Narrow", Arial, Helvetica, Sans-serif;
+font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
 font-size:22px;
 font-weight:700;
 line-height:1;
+height:22px;
+display:flex;
+align-items:center;
+}
+
+.forecastEnd{
+width:1px;
+height:70px;
+background:rgba(255,255,255,.18);
 }
 </style>
 </head>
@@ -132,28 +141,28 @@ src="https://openweathermap.org/img/wn/01d@4x.png"
 alt="Weather">
 
 <div id="weatherText">
-<div id="weather-temp">--°c</div>
+<div id="weather-temp">--°C</div>
 <div id="weather-condition">Loading...</div>
-<div id="weather-feels">Feels like --°c</div>
+<div id="weather-feels">Feels like --°C</div>
 </div>
 
 <div id="forecast">
 
 <div class="forecastDay">
 <div class="forecastName" id="day1Name">Wed</div>
-<img class="forecastIcon" id="day1Icon">
+<img class="forecastIcon" id="day1Icon" alt="">
 <div class="forecastTemp" id="day1Temp">--°</div>
 </div>
 
 <div class="forecastDay">
 <div class="forecastName" id="day2Name">Thu</div>
-<img class="forecastIcon" id="day2Icon">
+<img class="forecastIcon" id="day2Icon" alt="">
 <div class="forecastTemp" id="day2Temp">--°</div>
 </div>
 
 <div class="forecastDay">
 <div class="forecastName" id="day3Name">Fri</div>
-<img class="forecastIcon" id="day3Icon">
+<img class="forecastIcon" id="day3Icon" alt="">
 <div class="forecastTemp" id="day3Temp">--°</div>
 </div>
 
@@ -229,7 +238,7 @@ const data = await response.json();
 const code = data.current.weather_code;
 
 document.getElementById('weather-temp').textContent =
-Math.round(data.current.temperature_2m) + '°c';
+Math.round(data.current.temperature_2m) + '°C';
 
 document.getElementById('weather-condition').textContent =
 weatherDescriptions[code] || 'Unknown';
@@ -237,7 +246,7 @@ weatherDescriptions[code] || 'Unknown';
 document.getElementById('weather-feels').textContent =
 'Feels like ' +
 Math.round(data.current.apparent_temperature) +
-'°c';
+'°C';
 
 document.getElementById('weather-icon').src =
 `https://openweathermap.org/img/wn/${iconMap[code] || '04d'}@4x.png`;
@@ -246,7 +255,7 @@ const days = data.daily.time;
 const temps = data.daily.temperature_2m_max;
 const codes = data.daily.weather_code;
 
-for(let i=1;i<=3;i++){
+for(let i = 1; i <= 3; i++){
 
 const date = new Date(days[i]);
 
@@ -260,7 +269,6 @@ Math.round(temps[i]) + '°';
 
 document.getElementById(`day${i}Icon`).src =
 `https://openweathermap.org/img/wn/${iconMap[codes[i]] || '04d'}@2x.png`;
-
 }
 
 }catch(error){
@@ -271,9 +279,7 @@ document.getElementById('weather-condition').textContent =
 document.getElementById('weather-feels').textContent = '';
 
 console.error(error);
-
 }
-
 }
 
 updateWeather();
