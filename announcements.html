@@ -136,7 +136,8 @@ opacity:.95;
 
 .safety-content{
 flex:1;
-text-align:center;
+text-align:left;
+padding-left:8px;
 }
 
 .days{
@@ -144,6 +145,7 @@ font-size:42px;
 font-weight:700;
 line-height:1;
 margin-top:2px;
+text-align:left;
 }
 
 .days-label{
@@ -154,7 +156,7 @@ margin-top:4px;
 
 .last-date{
 display:flex;
-align-items:center;
+align-items:flex-start;
 justify-content:center;
 gap:4px;
 margin-top:8px;
@@ -273,8 +275,8 @@ message:"Congratulations on promotion to Warehouse Team Leader."
 /* WEATHER */
 
 let weatherInfo = {
-class:"normal",
-title:"WEATHER",
+class:"standard-card",
+title:"Weather",
 message:"No Alerts in Effect"
 };
 
@@ -295,8 +297,8 @@ const code =
 data.daily.weather_code[0];
 
 weatherInfo = {
-class:"normal",
-title:"WEATHER",
+class:"standard-card",
+title:"Weather",
 message:"No Alerts in Effect"
 };
 
@@ -357,7 +359,11 @@ const page =
 pages[currentPage] || [];
 
 let html = `
-<div class="row weather ${weatherInfo.class}">
+<div class="row $weatherInfo.class === "standard-card"
+? "standard-card"
+:'weather ${weatherInfo.class}'
+}">
+
 <div class="icon-wrap">
 <span class="material-symbols-outlined">
 warning
