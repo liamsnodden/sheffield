@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=450, initial-scale=1.0">
+
+<title>Airport Travel Times</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+width:450px;
+background:#ffffff;
+color:#222;
+overflow:hidden;
+}
+
+.widget{
+width:450px;
+padding:12px;
+}
+
+.header{
+background:#004990;
+color:#fff;
+text-align:center;
+padding:14px;
+border-radius:8px;
+margin-bottom:10px;
+}
+
+.header h1{
+font-size:24px;
+margin-bottom:4px;
+}
+
+.header p{
+font-size:13px;
+opacity:0.95;
+}
+
+.airport{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#f5f7fa;
+border-left:6px solid #004990;
+padding:12px;
+margin-bottom:8px;
+border-radius:6px;
+min-height:70px;
+}
+
+.airport-name{
+font-size:15px;
+font-weight:bold;
+margin-bottom:4px;
+}
+
+.airport-label{
+font-size:11px;
+color:#666;
+}
+
+.time{
+text-align:right;
+}
+
+.time-value{
+font-size:26px;
+font-weight:bold;
+color:#004990;
+}
+
+.updated{
+margin-top:10px;
+text-align:center;
+font-size:11px;
+color:#666;
+}
+
+.status-good{
+border-left-color:#2e7d32;
+}
+
+.status-medium{
+border-left-color:#f9a825;
+}
+
+.status-bad{
+border-left-color:#c62828;
+}
+</style>
+</head>
+
+<body>
+
+<div class="widget">
+
+<div class="header">
+<h1>✈ Airport Travel Times</h1>
+<p>Live traffic from S35 2YP</p>
+</div>
+
+<div class="airport" id="man-card">
+<div>
+<div class="airport-name">
+Manchester (MAN / EGCC)
+</div>
+<div class="airport-label">
+Current drive time
+</div>
+</div>
+<div class="time">
+<div class="time-value" id="man-time">Loading...</div>
+</div>
+</div>
+
+<div class="airport" id="lba-card">
+<div>
+<div class="airport-name">
+Leeds Bradford (LBA / EGNM)
+</div>
+<div class="airport-label">
+Current drive time
+</div>
+</div>
+<div class="time">
+<div class="time-value" id="lba-time">Loading...</div>
+</div>
+</div>
+
+<div class="airport" id="ema-card">
+<div>
+<div class="airport-name">
+East Midlands (EMA / EGNX)
+</div>
+<div class="airport-label">
+Current drive time
+</div>
+</div>
+<div class="time">
+<div class="time-value" id="ema-time">Loading...</div>
+</div>
+</div>
+
+<div class="airport" id="bhx-card">
+<div>
+<div class="airport-name">
+Birmingham (BHX / EGBB)
+</div>
+<div class="airport-label">
+Current drive time
+</div>
+</div>
+<div class="time">
+<div class="time-value" id="bhx-time">Loading...</div>
+</div>
+</div>
+
+<div class="updated">
+Last updated: <span id="update-time">--:--</span>
+</div>
+
+</div>
+
+<script>
+
+// ==========================================
+// TOMTOM API KEY
+// ==========================================
+
+const TOMTOM_KEY = "N61XFRwHAscPzxZI6ci39stZrnzoc4qS";
+
+// ==========================================
+// ORIGIN - S35 2YP
+// ==========================================
+
+const origin = "-1.4705,53.4645";
+
+// ==========================================
+// AIRPORTS
+// ==========================================
+
+const airports = [
+{
+id: "man-time",
+card: "man-card",
+coords: "-2.27495,53.36500"
+},
+{
+id: "lba-time",
+card: "lba-card",
+coords: "-1.66167,53.86590"
+},
+{
+id: "ema-time",
+card: "ema-card",
+coords: "-1.32806,52.83111"
+},
+{
+id: "bhx-time",
+card: "bhx-card",
+coords: "-1.74803,52.45386"
+}
+];
+
+// ==========================================
+// ROUTING
+// ==========================================
+
+async function getTravelTime(destination, elementId, cardId){
+
+const url =
+`https://api.tomtom.com/routing/1/calculateRoute/${origin}:${destination}/json?traffic=true&travelMode=car&key=${TOMTOM_KEY}`;
+
+try{
+
+const response = await fetch(url);
+const data = await response.json();
+
+const seconds =
+data.routes[0].summary.travelTimeInSeconds;
+
+const mins = Math.round(seconds / 60);
+
+document.getElementById(elementId).innerHTML =
+mins + " min";
+
+const card = document.getElementById(cardId);
+
+card.classList.remove(
+"status-good",
+"status-medium",
+"status-bad"
+);
+
+if(mins < 90){
+card.classList.add("status-good");
+}
+else if(mins < 130){
+card.classList.add("status-medium");
+}
+else{
+card.classList.add("status-bad");
+}
+
+}
+catch(error){
+
+document.getElementById(elementId).innerHTML =
+"N/A";
+}
+}
+
+// ==========================================
+// UPDATE ALL
+// ==========================================
+
+function updateTimes(){
+
+airports.forEach(airport => {
+
+getTravelTime(
+airport.coords,
+airport.id,
+airport.card
+);
+
+});
+
+document.getElementById("update-time").innerHTML =
+new Date().toLocaleTimeString("en-GB",{
+hour:"2-digit",
+minute:"2-digit"
+});
+}
+
+// Initial load
+updateTimes();
+
+// Refresh every 5 minutes
+setInterval(updateTimes,300000);
+
+</script>
+
+</body>
+</html>
