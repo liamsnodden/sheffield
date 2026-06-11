@@ -1,33 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>JSON Test</title>
+<meta charset="UTF-8">
+<title>Weather Test</title>
+<style>
+body{
+background:#111;
+color:white;
+font-family:Arial;
+padding:40px;
+}
+</style>
 </head>
+<body>
 
-<body style="background:black;color:white;font-family:Arial;padding:50px;">
+<h1>Sheffield Weather</h1>
 
-<h1>JSON Test</h1>
-
-<div id="result">Loading...</div>
+<div id="weather">Loading...</div>
 
 <script>
 
-fetch('test.json')
-.then(response => response.json())
+const weatherUrl =
+"https://api.open-meteo.com/v1/forecast?latitude=53.3811&longitude=-1.4701&current=temperature_2m,weather_code,wind_speed_10m&timezone=Europe%2FLondon";
+
+fetch(weatherUrl)
+.then(r => r.json())
 .then(data => {
 
-document.getElementById('result').innerHTML = `
-Status: ${data.status}<br>
-Temperature: ${data.temperature}°C<br>
-Airport: ${data.airport}<br>
-Travel Time: ${data.travelTime} mins
+document.getElementById("weather").innerHTML = `
+Temperature: ${data.current.temperature_2m}°C<br>
+Wind: ${data.current.wind_speed_10m} km/h<br>
+Weather Code: ${data.current.weather_code}
 `;
 
 })
-.catch(error => {
+.catch(err => {
 
-document.getElementById('result').innerHTML =
-'FAILED: ' + error;
+document.getElementById("weather").innerHTML =
+"FAILED: " + err;
 
 });
 
