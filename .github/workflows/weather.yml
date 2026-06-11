@@ -1,0 +1,31 @@
+name: Update Weather
+
+on:
+schedule:
+- cron: '*/15 * * * *'
+workflow_dispatch:
+
+permissions:
+contents: write
+
+jobs:
+update:
+runs-on: ubuntu-latest
+
+steps:
+- uses: actions/checkout@v4
+
+- name: Get Sheffield Weather
+run: |
+curl -o weather.json "https://api.open-meteo.com/v1/forecast?latitude=53.3811&longitude=-1.4701&current=temperature_2m,weather_code,wind_speed_10m&timezone=Europe%2FLondon"
+
+- name: Commit Weather
+run: |
+git config user.name "github-actions"
+git config user.email "github-actions@github.com"
+
+git add weather.json
+
+git diff --staged --quiet || git commit -m "Update weather"
+
+git push
