@@ -1,40 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>JS Test</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<script src="dashboard-data.js"></script>
+<title>Weather Widget</title>
 
 <style>
-body{
-background:black;
-color:white;
-font-family:Arial;
-font-size:40px;
-padding:20px;
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
 }
+
+html,body{
+width:100%;
+height:100%;
+background:transparent;
+overflow:hidden;
+color:#fff;
+}
+
+#weatherSection{
+display:flex;
+align-items:center;
+width:500px;
+height:120px;
+padding:10px;
+}
+
+#weatherText{
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+#weather-temp{
+font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
+font-size:48px;
+font-weight:700;
+line-height:1;
+}
+
+#weather-condition{
+font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
+font-size:16px;
+font-weight:600;
+margin-top:4px;
+}
+
+#weather-feels{
+font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
+font-size:12px;
+opacity:.9;
+margin-top:4px;
+}
+
 </style>
 
 </head>
+
 <body>
 
-<div id="temp">Loading...</div>
-<div id="condition"></div>
-<div id="feels"></div>
+<div id="weatherSection">
 
-<script>
+<div id="weatherText">
 
-document.getElementById('temp').innerHTML =
-dashboardData.weather.temp + '°C';
+<div id="weather-temp">%%TEMP%%°C</div>
 
-document.getElementById('condition').innerHTML =
-dashboardData.weather.condition;
+<div id="weather-condition">%%CONDITION%%</div>
 
-document.getElementById('feels').innerHTML =
-'Feels like ' + dashboardData.weather.feelsLike + '°C';
+<div id="weather-feels">
+Feels like %%FEELS%%°C
+</div>
 
-</script>
+</div>
+
+</div>
 
 </body>
 </html>
