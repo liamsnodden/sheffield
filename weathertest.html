@@ -1,0 +1,124 @@
+<script>
+
+const weatherDescriptions = {
+0:"Clear",
+1:"Mainly Clear",
+2:"Partly Cloudy",
+3:"Overcast",
+45:"Fog",
+48:"Fog",
+51:"Light Drizzle",
+53:"Drizzle",
+55:"Heavy Drizzle",
+61:"Light Rain",
+63:"Rain",
+65:"Heavy Rain",
+71:"Snow",
+73:"Snow",
+75:"Heavy Snow",
+80:"Rain Showers",
+81:"Heavy Showers",
+82:"Heavy Rain",
+95:"Thunderstorm",
+96:"Thunderstorm",
+99:"Thunderstorm"
+};
+
+const iconMap = {
+0:"01d",
+1:"02d",
+2:"03d",
+3:"04d",
+45:"50d",
+48:"50d",
+51:"09d",
+53:"09d",
+55:"09d",
+61:"10d",
+63:"10d",
+65:"10d",
+71:"13d",
+73:"13d",
+75:"13d",
+80:"09d",
+81:"09d",
+82:"09d",
+95:"11d",
+96:"11d",
+99:"11d"
+};
+
+const WEATHER_URL =
+'https://weather.liam-snodden.workers.dev';
+
+async function updateWeather(){
+
+try{
+
+const response = await fetch(WEATHER_URL, {
+cache: 'no-store'
+});
+
+if(!response.ok){
+throw new Error('Weather service unavailable');
+}
+
+const data = await response.json();
+
+const code = data.current.weather_code;
+
+document.getElementById('weather-temp').textContent =
+Math.round(data.current.temperature_2m) + '°C';
+
+document.getElementById('weather-condition').textContent =
+weatherDescriptions[code] || 'Unknown';
+
+document.getElementById('weather-feels').textContent =
+'Feels like ' +
+Math.round(data.current.apparent_temperature) +
+'°C';
+
+document.getElementById('weather-icon').src =
+`https://openweathermap.org/img/wn/${iconMap[code] || '04d'}@4x.png`;
+
+const days = data.daily.time;
+const temps = data.daily.temperature_2m_max;
+const codes = data.daily.weather_code;
+
+for(let i = 1; i <= 3; i++){
+
+const date = new Date(days[i]);
+
+document.getElementById(`day${i}Name`).textContent =
+date.toLocaleDateString('en-GB',{
+weekday:'short'
+});
+
+document.getElementById(`day${i}Temp`).textContent =
+Math.round(temps[i]) + '°';
+
+document.getElementById(`day${i}Icon`).src =
+`https://openweathermap.org/img/wn/${iconMap[codes[i]] || '04d'}@2x.png`;
+
+}
+
+}catch(error){
+
+console.error('Weather Error:', error);
+
+document.getElementById('weather-temp').textContent =
+'--°C';
+
+document.getElementById('weather-condition').textContent =
+'Weather unavailable';
+
+document.getElementById('weather-feels').textContent =
+'';
+
+}
+}
+
+updateWeather();
+setInterval(updateWeather, 600000);
+
+</script>
