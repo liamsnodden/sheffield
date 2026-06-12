@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Weather Widget</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+html,body{
+width:100%;
+height:100%;
+background:transparent;
+overflow:hidden;
+color:#fff;
+}
+
+#weatherSection{
+display:flex;
+align-items:center;
+width:500px;
+height:120px;
+padding:10px;
+}
+
+#weatherText{
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+#weather-temp{
+font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
+font-size:48px;
+font-weight:700;
+line-height:1;
+}
+
+#weather-condition{
+font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
+font-size:16px;
+font-weight:600;
+margin-top:4px;
+}
+
+#weather-feels{
+font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
+font-size:12px;
+opacity:.9;
+margin-top:4px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="weatherSection">
+
+<div id="weatherText">
+
+<div id="weather-temp">19°C</div>
+
+<div id="weather-condition">Partly Cloudy</div>
+
+<div id="weather-feels">
+Feels like 17°C
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
