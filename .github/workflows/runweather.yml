@@ -1,24 +1,33 @@
-name: Create Weather File
+name: Update Weather
 
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
-  create:
+  weather:
     runs-on: ubuntu-latest
 
     steps:
+
       - uses: actions/checkout@v4
 
-      - name: Create file
-        run: |
-          echo "15°C Cloudy" > weather.txt
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Generate Weather
+        run: node update-weather.js
 
       - name: Commit
         run: |
           git config user.name github-actions
           git config user.email actions@github.com
 
-          git add weather.txt
-          git commit -m "Update weather" || exit 0
+          git add jsweatherupdated.html
+
+          git diff --staged --quiet || git commit -m "Weather update"
+
           git push
