@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JS Test</title>
+
+<script src="dashboard-data.js"></script>
+
+<style>
+body{
+background:black;
+color:white;
+font-family:Arial;
+font-size:40px;
+padding:20px;
+}
+</style>
+
+</head>
+<body>
+
+<div id="temp">Loading...</div>
+<div id="condition"></div>
+<div id="feels"></div>
+
+<script>
+
+document.getElementById('temp').innerHTML =
+dashboardData.weather.temp + '°C';
+
+document.getElementById('condition').innerHTML =
+dashboardData.weather.condition;
+
+document.getElementById('feels').innerHTML =
+'Feels like ' + dashboardData.weather.feelsLike + '°C';
+
+</script>
+
+</body>
+</html>
