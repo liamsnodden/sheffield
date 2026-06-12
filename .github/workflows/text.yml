@@ -8,5 +8,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Hello
-    run "Hello!"
+    run: echo "Hello!"
 
