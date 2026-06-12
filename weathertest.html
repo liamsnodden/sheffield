@@ -3,48 +3,130 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Weather Test</title>
+
+<title>Weather Widget + 3 Day Forecast</title>
 
 <style>
-body{
-background:#111;
-color:white;
-font-family:Arial;
-padding:20px;
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+html,body{
+width:100%;
+height:100%;
+background:transparent;
+overflow:hidden;
+color:#fff;
 }
 
 #weatherSection{
 display:flex;
-align-items:center;
-gap:15px;
+align-items:flex-start;
+width:500px;
+height:120px;
 }
 
 #weather-icon{
-width:80px;
-height:80px;
+width:85px;
+height:85px;
+flex-shrink:0;
+}
+
+#weatherText{
+display:flex;
+flex-direction:column;
+justify-content:center;
+margin-left:4px;
+min-width:120px;
+height:85px;
 }
 
 #weather-temp{
-font-size:40px;
-font-weight:bold;
+font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
+font-size:42px;
+font-weight:700;
+line-height:1;
 }
 
 #weather-condition{
-font-size:18px;
+font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
+font-size:15px;
+font-weight:600;
+line-height:1.1;
+margin-top:2px;
 }
 
 #weather-feels{
-font-size:14px;
-opacity:0.8;
+font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
+font-size:12px;
+opacity:.9;
+margin-top:2px;
 }
 
-#debug{
-margin-top:20px;
-font-size:12px;
-white-space:pre-wrap;
-background:#222;
-padding:10px;
-border-radius:5px;
+#forecast{
+display:flex;
+align-items:center;
+margin-left:12px;
+margin-top:6px;
+height:70px;
+flex:1;
+}
+
+.forecastDay{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:space-between;
+height:70px;
+min-width:65px;
+padding:0 12px;
+position:relative;
+}
+
+.forecastDay::before{
+content:'';
+position:absolute;
+left:0;
+top:8px;
+bottom:8px;
+width:1px;
+background:rgba(255,255,255,.18);
+}
+
+.forecastName{
+font-size:10px;
+font-weight:700;
+letter-spacing:.8px;
+opacity:.8;
+text-transform:uppercase;
+height:12px;
+display:flex;
+align-items:center;
+}
+
+.forecastIcon{
+width:42px;
+height:42px;
+display:block;
+}
+
+.forecastTemp{
+font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
+font-size:22px;
+font-weight:700;
+line-height:1;
+height:22px;
+display:flex;
+align-items:center;
+}
+
+.forecastEnd{
+width:1px;
+height:70px;
+background:rgba(255,255,255,.18);
 }
 </style>
 </head>
@@ -54,38 +136,160 @@ border-radius:5px;
 <div id="weatherSection">
 
 <img id="weather-icon"
-src="https://openweathermap.org/img/wn/01d@4x.png">
+src="https://openweathermap.org/img/wn/01d@4x.png"
+alt="Weather">
 
-<div>
+<div id="weatherText">
+<div id="weather-temp">--°C</div>
+<div id="weather-condition">Loading...</div>
+<div id="weather-feels">Feels like --°C</div>
+</div>
 
-<div id="weather-temp">Loading...</div>
+<div id="forecast">
 
-<div id="weather-condition"></div>
+<div class="forecastDay">
+<div class="forecastName" id="day1Name">---</div>
+<img class="forecastIcon" id="day1Icon" alt="">
+<div class="forecastTemp" id="day1Temp">--°</div>
+</div>
 
-<div id="weather-feels"></div>
+<div class="forecastDay">
+<div class="forecastName" id="day2Name">---</div>
+<img class="forecastIcon" id="day2Icon" alt="">
+<div class="forecastTemp" id="day2Temp">--°</div>
+</div>
+
+<div class="forecastDay">
+<div class="forecastName" id="day3Name">---</div>
+<img class="forecastIcon" id="day3Icon" alt="">
+<div class="forecastTemp" id="day3Temp">--°</div>
+</div>
+
+<div class="forecastEnd"></div>
 
 </div>
 
 </div>
-
-<div id="debug">Connecting...</div>
 
 <script>
 
-fetch('https://weather.liam-snodden.workers.dev')
-.then(r => r.json())
-.then(data => {
+const WEATHER_URL =
+'https://weather.liam-snodden.workers.dev';
 
-document.body.innerHTML =
-'<pre>' + JSON.stringify(data,null,2) + '</pre>';
+const weatherDescriptions = {
+0:"Clear",
+1:"Mainly Clear",
+2:"Partly Cloudy",
+3:"Overcast",
+45:"Fog",
+48:"Fog",
+51:"Light Drizzle",
+53:"Drizzle",
+55:"Heavy Drizzle",
+61:"Light Rain",
+63:"Rain",
+65:"Heavy Rain",
+71:"Snow",
+73:"Snow",
+75:"Heavy Snow",
+80:"Rain Showers",
+81:"Heavy Showers",
+82:"Heavy Rain",
+95:"Thunderstorm",
+96:"Thunderstorm",
+99:"Thunderstorm"
+};
 
-})
-.catch(err => {
+const iconMap = {
+0:"01d",
+1:"02d",
+2:"03d",
+3:"04d",
+45:"50d",
+48:"50d",
+51:"09d",
+53:"09d",
+55:"09d",
+61:"10d",
+63:"10d",
+65:"10d",
+71:"13d",
+73:"13d",
+75:"13d",
+80:"09d",
+81:"09d",
+82:"09d",
+95:"11d",
+96:"11d",
+99:"11d"
+};
 
-document.body.innerHTML =
-'<h1>ERROR</h1><pre>' + err + '</pre>';
+async function updateWeather(){
 
+try{
+
+const response = await fetch(WEATHER_URL,{
+cache:"no-store"
 });
+
+if(!response.ok){
+throw new Error("Weather service unavailable");
+}
+
+const data = await response.json();
+
+const code = data.current.weather_code;
+
+document.getElementById('weather-temp').textContent =
+Math.round(data.current.temperature_2m) + '°C';
+
+document.getElementById('weather-condition').textContent =
+weatherDescriptions[code] || 'Unknown';
+
+document.getElementById('weather-feels').textContent =
+'Feels like ' +
+Math.round(data.current.apparent_temperature) +
+'°C';
+
+document.getElementById('weather-icon').src =
+`https://openweathermap.org/img/wn/${iconMap[code] || '04d'}@4x.png`;
+
+for(let i=1;i<=3;i++){
+
+const date = new Date(data.daily.time[i]);
+
+document.getElementById(`day${i}Name`).textContent =
+date.toLocaleDateString('en-GB',{
+weekday:'short'
+});
+
+document.getElementById(`day${i}Temp`).textContent =
+Math.round(data.daily.temperature_2m_max[i]) + '°';
+
+document.getElementById(`day${i}Icon`).src =
+`https://openweathermap.org/img/wn/${iconMap[data.daily.weather_code[i]] || '04d'}@2x.png`;
+
+}
+
+}catch(error){
+
+console.error('Weather Error:', error);
+
+document.getElementById('weather-temp').textContent =
+'--°C';
+
+document.getElementById('weather-condition').textContent =
+'Weather unavailable';
+
+document.getElementById('weather-feels').textContent =
+'';
+
+}
+
+}
+
+updateWeather();
+setInterval(updateWeather,300000);
 
 </script>
 
