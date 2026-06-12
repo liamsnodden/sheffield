@@ -200,96 +200,52 @@ const weatherDescriptions = {
 99:"Thunderstorm"
 };
 
-const iconMap = {
-0:"01d",
-1:"02d",
-2:"03d",
-3:"04d",
-45:"50d",
-48:"50d",
-51:"09d",
-53:"09d",
-55:"09d",
-61:"10d",
-63:"10d",
-65:"10d",
-71:"13d",
-73:"13d",
-75:"13d",
-80:"09d",
-81:"09d",
-82:"09d",
-95:"11d",
-96:"11d",
-99:"11d"
-};
-
 async function updateWeather(){
 
 try{
 
-const response = await fetch(WEATHER_URL,{
-cache:"no-store"
-});
+document.getElementById('weather-condition').textContent =
+'Connecting...';
 
-if(!response.ok){
-throw new Error("Weather service unavailable");
-}
+const response = await fetch(WEATHER_URL);
+
+document.getElementById('weather-condition').textContent =
+'Connected';
 
 const data = await response.json();
 
-const code = data.current.weather_code;
+document.getElementById('weather-condition').textContent =
+'JSON OK';
 
 document.getElementById('weather-temp').textContent =
 Math.round(data.current.temperature_2m) + '°C';
 
 document.getElementById('weather-condition').textContent =
-weatherDescriptions[code] || 'Unknown';
+weatherDescriptions[data.current.weather_code] || 'Unknown';
 
 document.getElementById('weather-feels').textContent =
 'Feels like ' +
 Math.round(data.current.apparent_temperature) +
 '°C';
 
-document.getElementById('weather-icon').src =
-`https://openweathermap.org/img/wn/${iconMap[code] || '04d'}@4x.png`;
-
-for(let i=1;i<=3;i++){
-
-const date = new Date(data.daily.time[i]);
-
-document.getElementById(`day${i}Name`).textContent =
-date.toLocaleDateString('en-GB',{
-weekday:'short'
-});
-
-document.getElementById(`day${i}Temp`).textContent =
-Math.round(data.daily.temperature_2m_max[i]) + '°';
-
-document.getElementById(`day${i}Icon`).src =
-`https://openweathermap.org/img/wn/${iconMap[data.daily.weather_code[i]] || '04d'}@2x.png`;
-
-}
-
 }catch(error){
 
-console.error('Weather Error:', error);
-
 document.getElementById('weather-temp').textContent =
-'--°C';
+'ERROR';
 
 document.getElementById('weather-condition').textContent =
-'Weather unavailable';
+error.message;
 
 document.getElementById('weather-feels').textContent =
-'';
+WEATHER_URL;
+
+console.error(error);
 
 }
 
 }
 
 updateWeather();
-setInterval(updateWeather,300000);
 
 </script>
 
