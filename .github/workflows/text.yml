@@ -5,7 +5,7 @@ on:
 
 jobs:
   test:
-    runs-on uubuntu-latest
+    runs-on: uubuntu-latest
 
   steps:
    - name: Hello
