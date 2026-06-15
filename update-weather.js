@@ -24,6 +24,15 @@ const weatherDescriptions = {
 99:"Thunderstorm"
 };
 
+0:'01d', 1:'02d', 2:'03d', 3:'04d', 45:'50d', 48:'50d',
+51:'09d',53:'09d',55:'09d',61:'10d',63:'10d',65:'10d',
+71:'13d',73:'13d',75:'13d',80:'09d',81:'09d',82:'09d',
+95:'11d',96:'11d',99:'11d'
+After 'const code = data.current.weather_code;' add:
+const icon = iconMap[code] || '04d';
+Before fs.writeFileSync add:
+html = html.replace('%%ICON%%', `images/${icon}.png`);
+
 async function updateWeather() {
 
 const response = await fetch(
