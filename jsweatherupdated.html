@@ -28,7 +28,13 @@ display:flex;
 align-items:center;
 width:500px;
 height:120px;
-padding:10px;
+}
+
+#weather-icon{
+  width:85px;
+  height:85px;
+  flex-shrink:0;
+  margin-right:8px;
 }
 
 #weatherText{
@@ -65,6 +71,8 @@ margin-top:4px;
 <body>
 
 <div id="weatherSection">
+
+<img id="weather-icon" src="images/weather/04d.png" alt="weather">
 
 <div id="weatherText">
 
