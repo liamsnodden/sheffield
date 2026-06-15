@@ -31,46 +31,48 @@ height:120px;
 }
 
 #weather-icon{
-  width:85px;
-  height:85px;
-  flex-shrink:0;
-  margin-right:8px;
+width:85px;
+height:85px;
+flex-shrink:0;
+margin-right:8px;
 }
 
 #weatherText{
 display:flex;
 flex-direction:column;
 justify-content:center;
+height:85px;
 }
 
 #weather-temp{
 font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
 font-size:42px;
 font-weight:700;
-margin-bottom:0;
+line-height:0.9;
 }
 
 #weather-condition{
 font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
 font-size:15px;
 font-weight:600;
-margin-top:0px;
 line-height:1;
+margin-top:0;
 }
 
 #weather-feels{
 font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
 font-size:12px;
 opacity:.9;
-margin-top:4px;
+line-height:1;
+margin-top:1px;
 }
 
 .separator{
-  width:1px;
-  height:80px;
-  background:rgba(255,255,255,0.25);
-  margin-left:12px;
-  margin-right:12px;
+width:1px;
+height:80px;
+background:rgba(255,255,255,0.25);
+margin-left:12px;
+margin-right:12px;
 }
 
 </style>
@@ -81,7 +83,7 @@ margin-top:4px;
 
 <div id="weatherSection">
 
-<img id="weather-icon" src="%%ICON%%" alt="weather">
+<img id="weather-icon" src="%%ICON%%" alt="Weather">
 
 <div id="weatherText">
 
@@ -93,9 +95,9 @@ margin-top:4px;
 Feels like %%FEELS%%°C
 </div>
 
-<div class="separator"></div>
-
 </div>
+
+<div class="separator"></div>
 
 </div>
 
