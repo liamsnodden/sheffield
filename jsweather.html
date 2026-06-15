@@ -45,16 +45,17 @@ justify-content:center;
 
 #weather-temp{
 font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
-font-size:48px;
+font-size:42px;
 font-weight:700;
-line-height:1;
+margin-bottom:0;
 }
 
 #weather-condition{
 font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
-font-size:16px;
+font-size:15px;
 font-weight:600;
-margin-top:4px;
+margin-top:0px;
+line-height:1;
 }
 
 #weather-feels{
@@ -62,6 +63,14 @@ font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
 font-size:12px;
 opacity:.9;
 margin-top:4px;
+}
+
+.separator{
+  width:1px;
+  height:80px;
+  background:rgba(255,255,255,0.25);
+  margin-left:12px;
+  margin-right:12px;
 }
 
 </style>
@@ -83,6 +92,8 @@ margin-top:4px;
 <div id="weather-feels">
 Feels like %%FEELS%%°C
 </div>
+
+<div class="separator"></div>
 
 </div>
 
