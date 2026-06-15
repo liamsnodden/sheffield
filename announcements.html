@@ -5,8 +5,6 @@
 <meta name="viewport" content="width=450,height=auto">
 <title>Announcements & Alerts</title>
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-
 <style>
 *{
 margin:0;
@@ -20,6 +18,7 @@ height:auto;
 overflow:hidden;
 font-family:Arial,Helvetica,sans-serif;
 background:transparent;
+color:#fff;
 }
 
 /* HEADERS */
@@ -67,7 +66,7 @@ color:#fff;
 }
 
 .standard-card{
-
+background:rgba(255,255,255,.04);
 }
 
 .weather.normal{
@@ -106,8 +105,18 @@ background:rgba(0,0,0,.15);
 flex-shrink:0;
 }
 
-.material-symbols-outlined{
-font-size:28px;
+.icon{
+width:28px;
+height:28px;
+object-fit:contain;
+filter:brightness(0) invert(1);
+}
+
+.calendar-icon{
+width:16px;
+height:16px;
+object-fit:contain;
+filter:brightness(0) invert(1);
 }
 
 .text{
@@ -132,7 +141,6 @@ opacity:.95;
 
 .safety-content{
 flex:1;
-text-align:left;
 padding-left:8px;
 }
 
@@ -141,25 +149,14 @@ font-size:42px;
 font-weight:700;
 line-height:1;
 margin-top:2px;
-text-align:left;
-}
-
-.days-label{
-font-size:14px;
-font-weight:600;
-margin-top:4px;
 }
 
 .last-date{
 display:flex;
-align-items:flex-start;
-gap:4px;
+align-items:center;
+gap:6px;
 margin-top:8px;
 font-size:13px;
-}
-
-.last-date .material-symbols-outlined{
-font-size:16px;
 }
 
 /* CONTENT AREA */
@@ -181,20 +178,17 @@ overflow:hidden;
 </div>
 
 <div class="row safety-card">
+
 <div class="icon-wrap">
-<span class="material-symbols-outlined">shield</span>
+<img src="https://liamsnodden.github.io/sheffield/icons/shield.svg" class="icon">
 </div>
 
 <div class="safety-content">
 
 <div id="daysSince" class="days">0</div>
 
-
-
 <div class="last-date">
-<span class="material-symbols-outlined">
-calendar_month
-</span>
+<img src="https://liamsnodden.github.io/sheffield/icons/calendar.svg" class="calendar-icon">
 25 May 2025
 </div>
 
@@ -212,6 +206,7 @@ calendar_month
 <div id="content"></div>
 
 <script>
+
 const ROTATE_EVERY = 30000;
 
 const LATITUDE = 53.3811;
@@ -226,30 +221,30 @@ function updateLTIDays(){
 const today = new Date();
 
 const start = new Date(LTI_DATE);
-start.setHours(0,0,0,0);
 
+start.setHours(0,0,0,0);
 today.setHours(0,0,0,0);
 
-const days =
-Math.floor(
+const days = Math.floor(
 (today - start) /
 (1000 * 60 * 60 * 24)
 );
 
 document.getElementById("daysSince").textContent =
 days.toLocaleString();
+
 }
 
 /* ICONS */
 
 const iconMap = {
-training:"school",
-celebration:"celebration",
-announcement:"campaign",
-safety:"shield",
-maintenance:"build",
-people:"groups",
-production:"factory"
+training:"https://liamsnodden.github.io/sheffield/icons/training.svg",
+celebration:"https://liamsnodden.github.io/sheffield/icons/celebration.svg",
+announcement:"https://liamsnodden.github.io/sheffield/icons/campaign.svg",
+safety:"https://liamsnodden.github.io/sheffield/icons/shield.svg",
+maintenance:"https://liamsnodden.github.io/sheffield/icons/build.svg",
+people:"https://liamsnodden.github.io/sheffield/icons/groups.svg",
+production:"https://liamsnodden.github.io/sheffield/icons/factory.svg"
 };
 
 /* SAMPLE DATA */
@@ -270,7 +265,7 @@ message:"Congratulations on promotion to Warehouse Team Leader."
 /* WEATHER */
 
 let weatherInfo = {
-class:"standard-card",
+class:"normal",
 title:"Weather",
 message:"No Alerts in Effect"
 };
@@ -288,11 +283,10 @@ await fetch(
 
 const data = await response.json();
 
-const code =
-data.daily.weather_code[0];
+const code = data.daily.weather_code[0];
 
 weatherInfo = {
-class:"standard-card",
+class:"normal",
 title:"Weather",
 message:"No Alerts in Effect"
 };
@@ -323,6 +317,7 @@ message:"Heavy Snow Expected"
 catch(e){
 console.log(e);
 }
+
 }
 
 /* PAGING */
@@ -342,6 +337,7 @@ pages.push([]);
 }
 
 return pages;
+
 }
 
 /* RENDER */
@@ -350,30 +346,20 @@ function render(){
 
 const pages = getPages();
 
-const page =
-pages[currentPage] || [];
+const page = pages[currentPage] || [];
 
 let html = `
-<div class="row $weatherInfo.class === "standard-card"
-? "standard-card"
-:'weather ${weatherInfo.class}'
-}">
+<div class="row weather ${weatherInfo.class}">
 
 <div class="icon-wrap">
-<span class="material-symbols-outlined">
-warning
-</span>
+<img src="https://liamsnodden.github.io/sheffield/icons/warning.svg" class="icon">
 </div>
 
 <div class="text">
-<div class="title">
-${weatherInfo.title}
+<div class="title">${weatherInfo.title}</div>
+<div class="message">${weatherInfo.message}</div>
 </div>
 
-<div class="message">
-${weatherInfo.message}
-</div>
-</div>
 </div>
 `;
 
@@ -381,39 +367,33 @@ page.forEach(item=>{
 
 const icon =
 iconMap[item.category] ||
-"campaign";
+iconMap.announcement;
 
 html += `
 <div class="row standard-card">
 
 <div class="icon-wrap">
-<span class="material-symbols-outlined">
-${icon}
-</span>
+<img src="${icon}" class="icon">
 </div>
 
 <div class="text">
-<div class="title">
-${item.title}
-</div>
-
-<div class="message">
-${item.message}
-</div>
+<div class="title">${item.title}</div>
+<div class="message">${item.message}</div>
 </div>
 
 </div>
 `;
+
 });
 
-document.getElementById("content").innerHTML =
-html;
+document.getElementById("content").innerHTML = html;
 
 currentPage++;
 
 if(currentPage >= pages.length){
 currentPage = 0;
 }
+
 }
 
 /* START */
@@ -427,13 +407,13 @@ await loadWeather();
 render();
 
 setInterval(render, ROTATE_EVERY);
-
 setInterval(loadWeather, 900000);
-
 setInterval(updateLTIDays, 3600000);
+
 }
 
 start();
+
 </script>
 
 </body>
