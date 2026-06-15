@@ -58,6 +58,27 @@ opacity:.9;
 margin-top:4px;
 }
 
+#weatherSection{
+display:flex;
+align-items:center;
+width:500px;
+height:120px;
+}
+  
+#weather-icon{
+width:85px;
+height:85px;
+flex-shrink:0;
+margin-right:8px;
+}
+  
+#weatherText{
+display:flex;
+flex-direction:column;
+justify-content:center;
+height:85px;
+}
+  
 </style>
 
 </head>
@@ -65,15 +86,12 @@ margin-top:4px;
 <body>
 
 <div id="weatherSection">
-
+<img id="weather-icon" src="%%ICON%%" alt="Weather">
 <div id="weatherText">
-
 <div id="weather-temp">%%TEMP%%°C</div>
-
 <div id="weather-condition">%%CONDITION%%</div>
-
-<div id="weather-feels">
-Feels like %%FEELS%%°C
+<div id="weather-feels">Feels like %%FEELS%%°C</div>
+</div>
 </div>
 
 </div>
