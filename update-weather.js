@@ -78,7 +78,7 @@ weatherDescriptions[code] || 'Unknown'
 
 html = html.replace(
 '%%ICON%%',
-`images/weather/${icon}.png`
+`${icon}.png`
 );
 
 fs.writeFileSync('jsweatherupdated.html', html);
