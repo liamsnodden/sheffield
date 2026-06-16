@@ -23,6 +23,7 @@ jobs:
       - name: Generate Weather
         run: node update-weather.js
 
+
       - name: Commit
         run: |
           git config user.name github-actions
@@ -30,6 +31,7 @@ jobs:
 
           git add jsweatherupdated.html
 
-          git diff --staged --quiet || git commit -m "Weather update"
+          git commit -m "Weather update $(date)" || true
 
           git push
+
