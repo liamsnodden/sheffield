@@ -3,7 +3,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Weather Widget</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 
 <style>
 
@@ -17,9 +18,9 @@ font-family:Arial,Helvetica,sans-serif;
 html,body{
 width:100%;
 height:100%;
-background:transparent;
+background:#000;
 overflow:hidden;
-color:white;
+color:#fff;
 }
 
 #weatherSection{
@@ -27,6 +28,7 @@ display:flex;
 align-items:center;
 width:500px;
 height:120px;
+padding:10px;
 }
 
 #weather-icon{
@@ -45,68 +47,84 @@ height:85px;
 #weather-temp{
 font-size:42px;
 font-weight:700;
-line-height:0.9;
+line-height:1;
 }
 
 #weather-condition{
 font-size:15px;
 font-weight:600;
-line-height:1;
+margin-top:2px;
 }
 
 #weather-feels{
 font-size:12px;
-opacity:.9;
-margin-top:2px;
+opacity:.85;
+margin-top:4px;
+}
+
+#metrics{
+display:flex;
+margin-left:auto;
+gap:30px;
+align-items:center;
+height:85px;
+}
+
+.metric{
+display:flex !important;
+flex-direction:column !important;
+align-items:center !important;
+justify-content:flex-start;
+width:60px;
+}
+
+.metricIcon{
+font-family:'Material Symbols Outlined';
+font-size:28px;
+line-height:1;
+margin-bottom:4px;
+color:#ffffff;
+}
+
+.metricLabel{
+font-size:11px;
+opacity:.75;
+margin-bottom:2px;
+}
+
+.metricValue{
+font-size:18px;
+font-weight:700;
 }
 
 </style>
-
 </head>
 
 <body>
 
 <div id="weatherSection">
 
-<img
-id="weather-icon"
-src="04d.png"
-alt="Weather"
->
+<img id="weather-icon" src="04d.png" alt="Weather">
 
 <div id="weatherText">
-
-<div id="weather-temp">
-21°C
-</div>
-
-<div id="weather-condition">
-Overcast
-</div>
-
-<div id="weather-feels">
-Feels like 20°C
+<div id="weather-temp">21°C</div>
+<div id="weather-condition">Overcast</div>
+<div id="weather-feels">Feels like 20°C</div>
 </div>
 
 <div id="metrics">
 
 <div class="metric">
-
-<img src="uv.png" class="metricIcon">
-
+<span class="metricIcon">wb_sunny</span>
 <div class="metricLabel">UV</div>
-
 <div class="metricValue">2</div>
-
 </div>
 
 <div class="metric">
-
-<img src="wind.png" class="metricIcon">
-
+<span class="metricIcon">air</span>
 <div class="metricLabel">Wind</div>
-
-<div class="metricValue">15</div>
+<div class="metricValue">14</div>
+</div>
 
 </div>
 
