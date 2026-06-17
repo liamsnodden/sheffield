@@ -1,9 +1,8 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Weather Widget</title>
 
 <style>
@@ -20,7 +19,7 @@ width:100%;
 height:100%;
 background:transparent;
 overflow:hidden;
-color:#fff;
+color:white;
 }
 
 #weatherSection{
@@ -33,7 +32,6 @@ height:120px;
 #weather-icon{
 width:85px;
 height:85px;
-flex-shrink:0;
 margin-right:18px;
 }
 
@@ -45,72 +43,21 @@ height:85px;
 }
 
 #weather-temp{
-font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
 font-size:42px;
 font-weight:700;
 line-height:0.9;
 }
 
 #weather-condition{
-font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
 font-size:15px;
 font-weight:600;
 line-height:1;
-margin-top:0;
 }
 
 #weather-feels{
-font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
 font-size:12px;
 opacity:.9;
-line-height:1;
-margin-top:1px;
-}
-
-.separator{
-width:1px;
-height:80px;
-background:rgba(255,255,255,0.25);
-margin-left:12px;
-margin-right:12px;
-}
-
-#forecast{
-display:flex;
-align-items:center;
-flex:1;
-height:90px;
-}
-
-.forecastDay{
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-width:65px;
-height:90px;
-}
-
-.forecastName{
-font-size:10px;
-font-weight:700;
-letter-spacing:.5px;
-opacity:.8;
-text-transform:uppercase;
-margin-bottom:2px;
-}
-
-.forecastIcon{
-width:32px;
-height:32px;
-}
-
-.forecastTemp{
-font-family:"Arial Narrow",Arial,Helvetica,sans-serif;
-font-size:20px;
-font-weight:700;
-line-height:1;
-margin-top:-2px;
+margin-top:2px;
 }
 
 </style>
@@ -121,40 +68,24 @@ margin-top:-2px;
 
 <div id="weatherSection">
 
-<img id="weather-icon" src="04d.png" alt="Weather">
+<img
+id="weather-icon"
+src="04d.png"
+alt="Weather"
+>
 
 <div id="weatherText">
 
-<div id="weather-temp">18°C</div>
+<div id="weather-temp">
+19°C
+</div>
 
-<div id="weather-condition">Overcast</div>
+<div id="weather-condition">
+Overcast
+</div>
 
 <div id="weather-feels">
 Feels like 18°C
-</div>
-
-</div>
-
-<div class="separator"></div>
-
-<div id="forecast">
-
-<div class="forecastDay">
-<div class="forecastName">WED</div>
-<img class="forecastIcon" src="10d.png" alt="">
-<div class="forecastTemp">22°</div>
-</div>
-
-<div class="forecastDay">
-<div class="forecastName">THU</div>
-<img class="forecastIcon" src="04d.png" alt="">
-<div class="forecastTemp">24°</div>
-</div>
-
-<div class="forecastDay">
-<div class="forecastName">FRI</div>
-<img class="forecastIcon" src="03d.png" alt="">
-<div class="forecastTemp">25°</div>
 </div>
 
 </div>
