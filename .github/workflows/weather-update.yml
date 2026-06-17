@@ -2,7 +2,7 @@ name: Update Weather
 
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    types: [update-weather]
   workflow_dispatch:
 
 permissions:
