@@ -6,7 +6,6 @@
 <title>Weather Widget</title>
 
 <style>
-
 *{
 margin:0;
 padding:0;
@@ -51,7 +50,6 @@ line-height:0.9;
 #weather-condition{
 font-size:15px;
 font-weight:600;
-line-height:1;
 }
 
 #weather-feels{
@@ -60,54 +58,61 @@ opacity:.9;
 margin-top:2px;
 }
 
-</style>
+#metrics{
+display:flex;
+margin-left:auto;
+gap:22px;
+align-items:center;
+}
 
+.metric{
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+.metricIcon{
+width:22px;
+height:22px;
+margin-bottom:4px;
+}
+
+.metricLabel{
+font-size:11px;
+opacity:0.8;
+}
+
+.metricValue{
+font-size:15px;
+font-weight:600;
+}
+</style>
 </head>
 
 <body>
 
 <div id="weatherSection">
 
-<img
-id="weather-icon"
-src="04d.png"
-alt="Weather"
->
+<img id="weather-icon" src="04d.png" alt="Weather">
 
 <div id="weatherText">
-
-<div id="weather-temp">
-21°C
-</div>
-
-<div id="weather-condition">
-Overcast
-</div>
-
-<div id="weather-feels">
-Feels like 20°C
+  <div id="weather-temp">21°C</div>
+  <div id="weather-condition">Overcast</div>
+  <div id="weather-feels">Feels like 20°C</div>
 </div>
 
 <div id="metrics">
+  <div class="metric">
+    <img src="uv.png" class="metricIcon">
+    <div class="metricLabel">UV</div>
+    <div class="metricValue">2</div>
+  </div>
 
-<div class="metric">
-
-<img src="uv.png" class="metricIcon">
-
-<div class="metricLabel">UV</div>
-
-<div class="metricValue">2</div>
-
-</div>
-
-<div class="metric">
-
-<img src="wind.png" class="metricIcon">
-
-<div class="metricLabel">Wind</div>
-
-<div class="metricValue">15</div>
-
+  <div class="metric">
+    <img src="wind.png" class="metricIcon">
+    <div class="metricLabel">Wind</div>
+    <div class="metricValue">14</div>
+  </div>
 </div>
 
 </div>
