@@ -3,11 +3,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
 
 <style>
-
 *{
 margin:0;
 padding:0;
@@ -26,7 +24,7 @@ color:#fff;
 #weatherSection{
 display:flex;
 align-items:center;
-width:500px;
+width:700px;
 height:120px;
 padding:10px;
 }
@@ -53,7 +51,6 @@ line-height:1;
 #weather-condition{
 font-size:15px;
 font-weight:600;
-margin-top:2px;
 }
 
 #weather-feels{
@@ -65,16 +62,14 @@ margin-top:4px;
 #metrics{
 display:flex;
 margin-left:auto;
-gap:30px;
+gap:22px;
 align-items:center;
-height:85px;
 }
 
 .metric{
-display:flex !important;
-flex-direction:column !important;
-align-items:center !important;
-justify-content:flex-start;
+display:flex;
+flex-direction:column;
+align-items:center;
 width:60px;
 }
 
@@ -82,21 +77,17 @@ width:60px;
 font-family:'Material Symbols Outlined';
 font-size:28px;
 line-height:1;
-margin-bottom:4px;
-color:#ffffff;
 }
 
 .metricLabel{
 font-size:11px;
 opacity:.75;
-margin-bottom:2px;
 }
 
 .metricValue{
-font-size:18px;
+font-size:16px;
 font-weight:700;
 }
-
 </style>
 </head>
 
@@ -104,12 +95,12 @@ font-weight:700;
 
 <div id="weatherSection">
 
-<img id="weather-icon" src="04d.png" alt="Weather">
+<img id="weather-icon" src="04d.png">
 
 <div id="weatherText">
-<div id="weather-temp">20Â°C</div>
+<div id="weather-temp">24°C</div>
 <div id="weather-condition">Overcast</div>
-<div id="weather-feels">Feels like 20Â°C</div>
+<div id="weather-feels">Feels like 23°C</div>
 </div>
 
 <div id="metrics">
@@ -117,13 +108,31 @@ font-weight:700;
 <div class="metric">
 <span class="metricIcon">wb_sunny</span>
 <div class="metricLabel">UV</div>
-<div class="metricValue">0</div>
+<div class="metricValue">4</div>
 </div>
 
 <div class="metric">
 <span class="metricIcon">air</span>
 <div class="metricLabel">Wind</div>
-<div class="metricValue">6</div>
+<div class="metricValue">17</div>
+</div>
+
+<div class="metric">
+<span class="metricIcon">airwave</span>
+<div class="metricLabel">Gust</div>
+<div class="metricValue">37</div>
+</div>
+
+<div class="metric">
+<span class="metricIcon">sunny</span>
+<div class="metricLabel">Rise</div>
+<div class="metricValue">04:36</div>
+</div>
+
+<div class="metric">
+<span class="metricIcon">bedtime</span>
+<div class="metricLabel">Set</div>
+<div class="metricValue">21:37</div>
 </div>
 
 </div>
