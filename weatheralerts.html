@@ -7,52 +7,47 @@
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
-body { margin:0; font-family: Helvetica, Arial, sans-serif; }
+body { margin:0; }
 
-.bar { display:flex; height:66px; border-bottom:1px solid #ddd; } /* slightly reduced */
+.bar { display:flex; height:66px; border-bottom:1px solid #e2e8f0; }
 .item { flex:1; display:flex; align-items:center; padding-left:12px; border-right:1px solid #ddd; }
 .row { display:flex; align-items:center; gap:16px; }
 .dot { width:18px; height:18px; border-radius:50%; }
 
-.label { font-size:14px; font-weight:700; color:#082b5b; }
+.label { font-size:14px; font-weight:700; color:#082b5b; font-family:'Inter'; }
 .status { font-family:'Oswald'; font-size:26px; font-weight:700; }
 
-/* ALERT BAR */
 .alert-bar {
   display:flex;
   align-items:center;
-  gap:16px;
+  gap:14px;
   height:40px;
   padding:0 16px;
   background:#fff;
-  border-top:1px solid #ddd;
+  border-top:1px solid #e2e8f0;
 }
 
-/* TEXT FONT = INTER */
-.alert-message,
-.alert-message *,
-.alert-time {
-  font-family: 'Inter', Arial, sans-serif !important;
-}
-
-/* TITLE */
 .alert-title {
   font-family:'Oswald';
-  font-size:15px;   /* slightly bigger */
-  font-weight:700;
+  font-size:15px;
   color:#b91c1c;
 }
 
-/* DIVIDER */
 .alert-divider {
   width:1px;
-  height:20px;
+  height:18px;
   background:#e5e5e5;
 }
 
-/* MESSAGE */
+/* TEXT */
+.alert-message,
+.alert-message *,
+.alert-time {
+  font-family:'Inter', Arial, sans-serif !important;
+}
+
 .alert-message {
-  font-size:14px;   /* increased */
+  font-size:14px;
   font-weight:600;
   color:#222;
 }
@@ -61,6 +56,16 @@ body { margin:0; font-family: Helvetica, Arial, sans-serif; }
 .high {
   color:#991b1b;
   font-weight:700;
+  background:rgba(153,27,27,0.08);
+  padding:2px 6px;
+  border-radius:4px;
+}
+
+/* RED SCOPE */
+.scope {
+  color:#dc2626;
+  font-weight:700;
+  margin-right:6px;
 }
 
 /* TIME */
@@ -81,9 +86,7 @@ body { margin:0; font-family: Helvetica, Arial, sans-serif; }
           <div class="dot" style="background:#f59e0b"></div>
           <div>
             <div class="label">Temp (Hi/Lo)</div>
-            <div class="status" style="">
-              <span style="color:#f59e0b;font-weight:700;">25°</span> / 17°
-            </div>
+            <div class="status" style=""><span style="color:#f59e0b;font-weight:700;">25°</span> / 17°</div>
           </div>
         </div>
       </div>
@@ -93,69 +96,57 @@ body { margin:0; font-family: Helvetica, Arial, sans-serif; }
           <div class="dot" style="background:#f59e0b"></div>
           <div>
             <div class="label">UV</div>
-            <div class="status" style="color:#f59e0b">
-              CAUTION
-            </div>
+            <div class="status" style="color:#f59e0b">CAUTION</div>
           </div>
         </div>
       </div>
 
       <div class="item">
         <div class="row">
-          <div class="dot" style="background:#22c55e"></div>
+          <div class="dot" style="background:#16a34a"></div>
           <div>
             <div class="label">Wind</div>
-            <div class="status" style="color:#22c55e">
-              NORMAL
-            </div>
+            <div class="status" style="color:#16a34a">NORMAL</div>
           </div>
         </div>
       </div>
 
       <div class="item">
         <div class="row">
-          <div class="dot" style="background:#22c55e"></div>
+          <div class="dot" style="background:#16a34a"></div>
           <div>
             <div class="label">Rain</div>
-            <div class="status" style="color:#22c55e">
-              LOW
-            </div>
+            <div class="status" style="color:#16a34a">LOW</div>
           </div>
         </div>
       </div>
 
       <div class="item">
         <div class="row">
-          <div class="dot" style="background:#22c55e"></div>
+          <div class="dot" style="background:#16a34a"></div>
           <div>
             <div class="label">Storm</div>
-            <div class="status" style="color:#22c55e">
-              NONE
-            </div>
+            <div class="status" style="color:#16a34a">NONE</div>
           </div>
         </div>
       </div>
 
       <div class="item">
         <div class="row">
-          <div class="dot" style="background:#22c55e"></div>
+          <div class="dot" style="background:#16a34a"></div>
           <div>
             <div class="label">Air Quality</div>
-            <div class="status" style="color:#22c55e">
-              GOOD
-            </div>
+            <div class="status" style="color:#16a34a">GOOD</div>
           </div>
         </div>
       </div>
 
       <div class="item">
         <div class="row">
-          <div class="dot" style="background:#22c55e"></div>
+          <div class="dot" style="background:#16a34a"></div>
           <div>
             <div class="label">Visibility</div>
-            <div class="status" style="color:#22c55e">
-              GOOD
-            </div>
+            <div class="status" style="color:#16a34a">GOOD</div>
           </div>
         </div>
       </div>
@@ -165,8 +156,11 @@ body { margin:0; font-family: Helvetica, Arial, sans-serif; }
 <div class="alert-bar">
 <div class="alert-title">ALERT ACTION</div>
      <div class="alert-divider"></div>
-     <div class="alert-message">Warm temperatures (25–29°C): Stay hydrated and use caution &nbsp;&nbsp;•&nbsp;&nbsp; Moderate UV levels: Use sun protection</div>
-     <div class="alert-time">Updated 20:09</div>
+     <div class="alert-message">
+        <span class="scope">Applies to outdoor work:</span>
+        Warm temperatures (25–29°C): Stay hydrated and use caution &nbsp;&nbsp;•&nbsp;&nbsp; Moderate UV levels: Use sun protection
+      </div>
+     <div class="alert-time">Valid for today • Updated 19 Jun, 20:12</div>
 </div>
 
 </body>
