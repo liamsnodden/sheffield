@@ -4,22 +4,16 @@
 <head>
 <meta charset="UTF-8">
 
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
-
 body { margin:0; font-family: Helvetica, Arial, sans-serif; }
 
 .bar { display:flex; height:68px; border-bottom:1px solid #ddd; }
-
 .item { flex:1; display:flex; align-items:center; padding-left:12px; border-right:1px solid #ddd; }
-
 .row { display:flex; align-items:center; gap:16px; }
-
 .dot { width:18px; height:18px; border-radius:50%; }
-
 .label { font-size:14px; font-weight:700; color:#082b5b; }
-
 .status { font-family:'Oswald'; font-size:26px; font-weight:700; }
 
 .alert-bar {
@@ -32,13 +26,15 @@ body { margin:0; font-family: Helvetica, Arial, sans-serif; }
   border-top:1px solid #ddd;
 }
 
-/* FORCE HELVETICA */
-.alert-bar, .alert-bar * {
-  font-family: Helvetica, Arial, sans-serif !important;
+/* INTER FOR MESSAGE */
+.alert-message,
+.alert-message *,
+.alert-time {
+  font-family: 'Inter', Arial, sans-serif !important;
 }
 
 .alert-title {
-  font-family:'Oswald';
+  font-family: 'Oswald', sans-serif;
   font-size:14px;
   font-weight:700;
   color:#b91c1c;
@@ -56,7 +52,6 @@ body { margin:0; font-family: Helvetica, Arial, sans-serif; }
   color:#222;
 }
 
-/* HIGH highlight */
 .high {
   color:#991b1b;
   font-weight:700;
@@ -66,7 +61,6 @@ body { margin:0; font-family: Helvetica, Arial, sans-serif; }
   font-size:12px;
   color:#666;
 }
-
 </style>
 </head>
 
