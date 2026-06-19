@@ -9,54 +9,61 @@
 <style>
 body { margin:0; font-family: Helvetica, Arial, sans-serif; }
 
-.bar { display:flex; height:68px; border-bottom:1px solid #ddd; }
+.bar { display:flex; height:66px; border-bottom:1px solid #ddd; } /* slightly reduced */
 .item { flex:1; display:flex; align-items:center; padding-left:12px; border-right:1px solid #ddd; }
 .row { display:flex; align-items:center; gap:16px; }
 .dot { width:18px; height:18px; border-radius:50%; }
+
 .label { font-size:14px; font-weight:700; color:#082b5b; }
 .status { font-family:'Oswald'; font-size:26px; font-weight:700; }
 
+/* ALERT BAR */
 .alert-bar {
   display:flex;
   align-items:center;
-  gap:18px;
-  height:38px;
+  gap:16px;
+  height:40px;
   padding:0 16px;
   background:#fff;
   border-top:1px solid #ddd;
 }
 
-/* INTER FOR MESSAGE */
+/* TEXT FONT = INTER */
 .alert-message,
 .alert-message *,
 .alert-time {
   font-family: 'Inter', Arial, sans-serif !important;
 }
 
+/* TITLE */
 .alert-title {
-  font-family: 'Oswald', sans-serif;
-  font-size:14px;
+  font-family:'Oswald';
+  font-size:15px;   /* slightly bigger */
   font-weight:700;
   color:#b91c1c;
 }
 
+/* DIVIDER */
 .alert-divider {
   width:1px;
   height:20px;
   background:#e5e5e5;
 }
 
+/* MESSAGE */
 .alert-message {
-  font-size:13px;
+  font-size:14px;   /* increased */
   font-weight:600;
   color:#222;
 }
 
+/* HIGH */
 .high {
   color:#991b1b;
   font-weight:700;
 }
 
+/* TIME */
 .alert-time {
   font-size:12px;
   color:#666;
