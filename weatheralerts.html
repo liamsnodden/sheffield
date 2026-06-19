@@ -2,71 +2,76 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset="UTF-8">
 
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&display=swap" rel="stylesheet">
 
 <style>
-
 html,body{
-margin:0;
-padding:0;
-background:#ffffff;
-overflow:hidden;
+  margin:0;
+  padding:0;
+  background:#ffffff;
+  overflow:hidden;
 }
 
 *{
-box-sizing:border-box;
+  box-sizing:border-box;
 }
 
 .bar{
-width:100%;
-height:78px;
-display:flex;
-align-items:center;
-background:#ffffff;
-border-top:1px solid #e5e5e5;
-border-bottom:1px solid #e5e5e5;
-font-family:Helvetica,Arial,sans-serif;
+  width:100%;
+  height:78px;
+  display:flex;
+  align-items:center;
+  background:#ffffff;
+  border-top:1px solid #e5e5e5;
+  border-bottom:1px solid #e5e5e5;
+  font-family:Helvetica,Arial,sans-serif;
 }
 
 .item{
-flex:1;
-text-align:center;
-border-right:1px solid #d9d9d9;
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  padding-left:12px;
+  border-right:1px solid #d9d9d9;
 }
 
 .item:last-child{
-border-right:none;
+  border-right:none;
+}
+
+.row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.text{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
 }
 
 .label{
-display:flex;
-justify-content:center;
-align-items:center;
-gap:10px;
-margin-bottom:4px;
-
-font-family:Helvetica,Arial,sans-serif;
-font-size:16px;
-font-weight:700;
-color:#082b5b;
-}
-
-.dot{
-width:18px;
-height:18px;
-border-radius:50%;
+  font-size:14px;
+  font-weight:700;
+  color:#082b5b;
 }
 
 .status{
-font-family:'Oswald',sans-serif;
-font-size:32px;
-line-height:1;
-font-weight:700;
+  font-family:'Oswald',sans-serif;
+  font-size:28px;
+  font-weight:700;
+  line-height:1;
 }
 
+.dot{
+  width:18px;
+  height:18px;
+  border-radius:50%;
+}
 </style>
 </head>
 
@@ -74,75 +79,75 @@ font-weight:700;
 
 <div class="bar">
 
-<div class="item">
-<div class="label">
-<div class="dot" style="background:#f59e0b"></div>
-UV Index
-</div>
-<div class="status" style="color:#f59e0b">
-CAUTION
-</div>
-</div>
+  <div class="item">
+    <div class="row">
+      <div class="dot" style="background:#f59e0b"></div>
+      <div class="text">
+        <div class="label">UV Index</div>
+        <div class="status" style="color:#f59e0b">CAUTION</div>
+      </div>
+    </div>
+  </div>
 
-<div class="item">
-<div class="label">
-<div class="dot" style="background:#22c55e"></div>
-Wind
-</div>
-<div class="status" style="color:#22c55e">
-NORMAL
-</div>
-</div>
+  <div class="item">
+    <div class="row">
+      <div class="dot" style="background:#22c55e"></div>
+      <div class="text">
+        <div class="label">Wind</div>
+        <div class="status" style="color:#22c55e">NORMAL</div>
+      </div>
+    </div>
+  </div>
 
-<div class="item">
-<div class="label">
-<div class="dot" style="background:#22c55e"></div>
-Rain Impact
-</div>
-<div class="status" style="color:#22c55e">
-LOW
-</div>
-</div>
+  <div class="item">
+    <div class="row">
+      <div class="dot" style="background:#22c55e"></div>
+      <div class="text">
+        <div class="label">Rain Impact</div>
+        <div class="status" style="color:#22c55e">LOW</div>
+      </div>
+    </div>
+  </div>
 
-<div class="item">
-<div class="label">
-<div class="dot" style="background:#22c55e"></div>
-Thunderstorm
-</div>
-<div class="status" style="color:#22c55e">
-NONE
-</div>
-</div>
+  <div class="item">
+    <div class="row">
+      <div class="dot" style="background:#22c55e"></div>
+      <div class="text">
+        <div class="label">Thunderstorm</div>
+        <div class="status" style="color:#22c55e">NONE</div>
+      </div>
+    </div>
+  </div>
 
-<div class="item">
-<div class="label">
-<div class="dot" style="background:#22c55e"></div>
-Heat Stress
-</div>
-<div class="status" style="color:#22c55e">
-LOW
-</div>
-</div>
+  <div class="item">
+    <div class="row">
+      <div class="dot" style="background:#22c55e"></div>
+      <div class="text">
+        <div class="label">Heat Stress</div>
+        <div class="status" style="color:#22c55e">LOW</div>
+      </div>
+    </div>
+  </div>
 
-<div class="item">
-<div class="label">
-<div class="dot" style="background:#22c55e"></div>
-Air Quality
-</div>
-<div class="status" style="color:#22c55e">
-GOOD
-</div>
-</div>
+  <div class="item">
+    <div class="row">
+      <div class="dot" style="background:#22c55e"></div>
+      <div class="text">
+        <div class="label">Air Quality</div>
+        <div class="status" style="color:#22c55e">GOOD</div>
+      </div>
+    </div>
+  </div>
 
-<div class="item">
-<div class="label">
-<div class="dot" style="background:#22c55e"></div>
-Visibility
-</div>
-<div class="status" style="color:#22c55e">
-GOOD
-</div>
-</div>
+  <div class="item">
+    <div class="row">
+      <div class="dot" style="background:#22c55e"></div>
+      <div class="text">
+        <div class="label">Visibility</div>
+        <div class="status" style="color:#22c55e">GOOD</div>
+      </div>
+    </div>
+  </div>
 
 </div>
 
