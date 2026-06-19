@@ -18,9 +18,9 @@ body{margin:0;font-family:Helvetica,Arial,sans-serif;}
 .alert-bar{
   display:flex;
   align-items:center;
-  gap:16px;
-  height:36px;
-  padding:0 14px;
+  gap:18px;
+  height:38px;
+  padding:0 16px;
   background:#fff;
   border-top:1px solid #ddd;
 }
@@ -28,14 +28,29 @@ body{margin:0;font-family:Helvetica,Arial,sans-serif;}
 .alert-title{
   font-family:'Oswald';
   font-size:14px;
+  font-weight:700;
   color:#b91c1c;
   white-space:nowrap;
 }
 
+.alert-divider{
+  width:1px;
+  height:20px;
+  background:#e5e5e5;
+}
+
 .alert-text{
+  font-family:Helvetica,Arial,sans-serif;
   font-size:13px;
   font-weight:600;
   color:#222;
+  flex:1;
+}
+
+.alert-time{
+  font-size:12px;
+  color:#666;
+  white-space:nowrap;
 }
 
 strong{color:#991b1b;}
@@ -134,7 +149,10 @@ strong{color:#991b1b;}
 </div>
 
 <div class="alert-bar">
-<div class="alert-title">ALERT ACTION</div><div class="alert-text">Heat approaching threshold: Stay hydrated &nbsp;&nbsp;•&nbsp;&nbsp; UV approaching threshold: Use sun protection</div>
+<div class="alert-title">ALERT ACTION</div>
+     <div class="alert-divider"></div>
+     <div class="alert-text">Warm temperatures (25–29°C): Stay hydrated and use caution &nbsp;&nbsp;•&nbsp;&nbsp; Moderate UV levels (index 5–7): Use sun protection</div>
+     <div class="alert-time">Updated 19:38</div>
 </div>
 
 </body>
