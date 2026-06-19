@@ -3,32 +3,92 @@
 <head>
 <meta charset="UTF-8">
 
-<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
-
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
-html,body{width:100%;height:100%;background:transparent;color:#fff;overflow:hidden;}
+@font-face {
+  font-family: 'Oswald';
+  src: url('https://liamsnodden.github.io/sheffield/Oswald-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 700;
+  font-style: normal;
+}
 
-#weatherSection{display:flex;align-items:center;width:700px;height:120px;padding:10px;}
-#weather-icon{width:85px;height:85px;margin-right:18px;}
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Oswald', Arial, sans-serif;
+}
 
-#weatherText{display:flex;flex-direction:column;}
+html,body{
+  width:100%;
+  height:100%;
+  background:transparent;
+  color:#fff;
+  overflow:hidden;
+}
+
+#weatherSection{
+  display:flex;
+  align-items:center;
+  width:700px;
+  height:120px;
+  padding:10px;
+}
+
+#weather-icon{
+  width:85px;
+  height:85px;
+  margin-right:18px;
+}
+
+#weatherText{
+  display:flex;
+  flex-direction:column;
+}
 
 #weather-temp{
   font-size:52px;
-  font-family:'Anton', sans-serif;
+  font-weight:700;
   letter-spacing:2px;
   line-height:1;
 }
 
-#weather-condition{font-size:15px;font-weight:600;}
-#weather-feels{font-size:12px;opacity:.85;}
+#weather-condition{
+  font-size:15px;
+  font-weight:600;
+}
 
-#metrics{display:flex;margin-left:auto;gap:22px;}
-.metric{display:flex;flex-direction:column;align-items:center;width:60px;}
-.metric img{width:28px;height:28px;}
-.metricLabel{font-size:11px;opacity:.75;}
-.metricValue{font-size:16px;font-weight:700;}
+#weather-feels{
+  font-size:12px;
+  opacity:.85;
+}
+
+#metrics{
+  display:flex;
+  margin-left:auto;
+  gap:22px;
+}
+
+.metric{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  width:60px;
+}
+
+.metric img{
+  width:28px;
+  height:28px;
+}
+
+.metricLabel{
+  font-size:11px;
+  opacity:.75;
+}
+
+.metricValue{
+  font-size:16px;
+  font-weight:700;
+}
 </style>
 </head>
 
@@ -39,42 +99,42 @@ html,body{width:100%;height:100%;background:transparent;color:#fff;overflow:hidd
 <img id="weather-icon" src="icons/mainly_clear.png">
 
 <div id="weatherText">
-<div id="weather-temp">24&deg;C</div>
-<div id="weather-condition">Mainly Clear</div>
-<div id="weather-feels">Feels like 24&deg;C</div>
+  <div id="weather-temp">25&deg;C</div>
+  <div id="weather-condition">Mainly Clear</div>
+  <div id="weather-feels">Feels like 24&deg;C</div>
 </div>
 
 <div id="metrics">
 
-<div class="metric">
-<img src="icons/uv.png">
-<div class="metricLabel">UV</div>
-<div class="metricValue">5</div>
-</div>
+  <div class="metric">
+    <img src="icons/uv.png">
+    <div class="metricLabel">UV</div>
+    <div class="metricValue">5</div>
+  </div>
 
-<div class="metric">
-<img src="icons/wind.png">
-<div class="metricLabel">Wind</div>
-<div class="metricValue">18</div>
-</div>
+  <div class="metric">
+    <img src="icons/wind.png">
+    <div class="metricLabel">Wind</div>
+    <div class="metricValue">19</div>
+  </div>
 
-<div class="metric">
-<img src="icons/gusts.png">
-<div class="metricLabel">Gust</div>
-<div class="metricValue">40</div>
-</div>
+  <div class="metric">
+    <img src="icons/gusts.png">
+    <div class="metricLabel">Gust</div>
+    <div class="metricValue">41</div>
+  </div>
 
-<div class="metric">
-<img src="icons/sunrise.png">
-<div class="metricLabel">Rise</div>
-<div class="metricValue">04:36</div>
-</div>
+  <div class="metric">
+    <img src="icons/sunrise.png">
+    <div class="metricLabel">Rise</div>
+    <div class="metricValue">04:36</div>
+  </div>
 
-<div class="metric">
-<img src="icons/sunset.png">
-<div class="metricLabel">Set</div>
-<div class="metricValue">21:38</div>
-</div>
+  <div class="metric">
+    <img src="icons/sunset.png">
+    <div class="metricLabel">Set</div>
+    <div class="metricValue">21:38</div>
+  </div>
 
 </div>
 
