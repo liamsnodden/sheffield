@@ -1,131 +1,150 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Weather Alerts</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&display=swap" rel="stylesheet">
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0f172a;
+
+html,body{
+margin:0;
+padding:0;
+background:#ffffff;
+overflow:hidden;
 }
 
-#weather {
-  display: flex;
-  height: 150px;
-  color: white;
+*{
+box-sizing:border-box;
 }
 
-.panel {
-  flex: 1;
-  padding: 15px;
-  box-sizing: border-box;
+.bar{
+width:100%;
+height:78px;
+display:flex;
+align-items:center;
+background:#ffffff;
+border-top:1px solid #e5e5e5;
+border-bottom:1px solid #e5e5e5;
+font-family:Helvetica,Arial,sans-serif;
 }
 
-.left {
-  border-right: 1px solid rgba(255,255,255,0.1);
+.item{
+flex:1;
+text-align:center;
+border-right:1px solid #d9d9d9;
 }
 
-.title {
-  font-size: 20px;
-  font-weight: bold;
-  color: #93c5fd;
-  margin-bottom: 12px;
+.item:last-child{
+border-right:none;
 }
 
-.alerts {
-  display: flex;
-  flex-wrap: wrap;
+.label{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:10px;
+margin-bottom:4px;
+
+font-family:Helvetica,Arial,sans-serif;
+font-size:16px;
+font-weight:700;
+color:#082b5b;
 }
 
-.pill {
-  padding: 6px 10px;
-  margin: 4px;
-  border-radius: 20px;
-  font-size: 13px;
-  font-weight: bold;
-  display: inline-block;
+.dot{
+width:18px;
+height:18px;
+border-radius:50%;
 }
 
-/* alert colours */
-.uv { background: rgba(245,158,11,0.2); color:#fbbf24; }
-.rain { background: rgba(37,99,235,0.2); color:#60a5fa; }
-.wind { background: rgba(20,184,166,0.2); color:#2dd4bf; }
-.storm { background: rgba(124,58,237,0.2); color:#a78bfa; }
-.none { background: rgba(255,255,255,0.1); color:#ccc; }
+.status{
+font-family:'Oswald',sans-serif;
+font-size:32px;
+line-height:1;
+font-weight:700;
+}
 
 </style>
 </head>
 
 <body>
 
-<div id="weather">
-  <div class="panel left">
-    <div class="title">TODAY</div>
-    <div id="today" class="alerts">Loading...</div>
-  </div>
+<div class="bar">
 
-  <div class="panel">
-    <div class="title">TOMORROW</div>
-    <div id="tomorrow" class="alerts">Loading...</div>
-  </div>
+<div class="item">
+<div class="label">
+<div class="dot" style="background:#f59e0b"></div>
+UV Index
+</div>
+<div class="status" style="color:#f59e0b">
+CAUTION
+</div>
 </div>
 
-<script>
-function makePill(text, className) {
-  return '<div class="pill ' + className + '">' + text + '</div>';
-}
+<div class="item">
+<div class="label">
+<div class="dot" style="background:#22c55e"></div>
+Wind
+</div>
+<div class="status" style="color:#22c55e">
+NORMAL
+</div>
+</div>
 
-function loadWeather() {
+<div class="item">
+<div class="label">
+<div class="dot" style="background:#22c55e"></div>
+Rain Impact
+</div>
+<div class="status" style="color:#22c55e">
+LOW
+</div>
+</div>
 
-  var url = "https://api.open-meteo.com/v1/forecast?latitude=53.3811&longitude=-1.4701&daily=uv_index_max,precipitation_sum,windspeed_10m_max,weathercode&windspeed_unit=kmh&timezone=Europe/London";
+<div class="item">
+<div class="label">
+<div class="dot" style="background:#22c55e"></div>
+Thunderstorm
+</div>
+<div class="status" style="color:#22c55e">
+NONE
+</div>
+</div>
 
-  fetch(url)
-    .then(res => res.json())
-    .then(data => {
+<div class="item">
+<div class="label">
+<div class="dot" style="background:#22c55e"></div>
+Heat Stress
+</div>
+<div class="status" style="color:#22c55e">
+LOW
+</div>
+</div>
 
-      function build(i) {
-        var html = "";
+<div class="item">
+<div class="label">
+<div class="dot" style="background:#22c55e"></div>
+Air Quality
+</div>
+<div class="status" style="color:#22c55e">
+GOOD
+</div>
+</div>
 
-        var uv = data.daily.uv_index_max[i];
-        var rain = data.daily.precipitation_sum[i];
-        var wind = data.daily.windspeed_10m_max[i];
-        var code = data.daily.weathercode[i];
+<div class="item">
+<div class="label">
+<div class="dot" style="background:#22c55e"></div>
+Visibility
+</div>
+<div class="status" style="color:#22c55e">
+GOOD
+</div>
+</div>
 
-        if (uv >= 6)
-          html += makePill("UV " + uv, "uv");
-
-        if (rain >= 10)
-          html += makePill(rain + "mm Rain", "rain");
-
-        if (wind >= 35)
-          html += makePill(wind + "kmh Wind", "wind");
-
-        if (code == 95 || code == 96 || code == 99)
-          html += makePill("Storm Risk", "storm");
-
-        if (html === "")
-          html = makePill("No Alerts", "none");
-
-        return html;
-      }
-
-      document.getElementById("today").innerHTML = build(0);
-      document.getElementById("tomorrow").innerHTML = build(1);
-
-    })
-    .catch(() => {
-      document.getElementById("today").innerHTML = makePill("Unavailable", "none");
-      document.getElementById("tomorrow").innerHTML = makePill("Unavailable", "none");
-    });
-}
-
-// load + refresh every 30 mins
-loadWeather();
-setInterval(loadWeather, 1800000);
-</script>
+</div>
 
 </body>
 </html>
