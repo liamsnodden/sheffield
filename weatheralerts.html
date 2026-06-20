@@ -3,6 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -10,59 +11,56 @@ body { margin:0; }
 
 .container { display:flex; }
 
+/* HEADER */
 .header-block{
   background:#ffffff;
   color:#111;
-  font-family:'Oswald';
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:0 12px;
+  padding:0 20px 0 10px;
   width:170px;
 }
 
-/* ===== HEADER LAYOUT ===== */
 .header-inner{
   display:flex;
   align-items:center;
-  gap:12px;
+  gap:14px;
 }
 
-/* BIG ICON */
 .icon{
   width:64px;
-  height:64px;
 }
 
-/* TEXT COLUMN */
 .text-col{
   display:flex;
   flex-direction:column;
-  line-height:1.2;
+  line-height:1.25;
 }
 
-/* BIG TEMP */
+/* BIGGER TEMP */
 .temp{
-  font-size:26px;
+  font-size:32px;
+  font-family:'Oswald';
   font-weight:700;
 }
 
-/* FEELS LIKE (Helvetica) */
+/* FEELS = Helvetica */
 .feels{
   font-size:12px;
   font-family:Helvetica, Arial, sans-serif;
 }
 
-/* CONDITION */
+/* CONDITIONS = bigger + oswald */
 .desc{
-  font-size:12px;
-  font-family:Helvetica, Arial, sans-serif;
-  font-weight:600;
+  font-size:16px;
+  font-family:'Oswald';
+  font-weight:700;
 }
 
+/* ===== REST UNCHANGED ===== */
 .content{ display:flex; flex-direction:column; width:100%; }
 
-/* ===== REST UNCHANGED ===== */
 .bar{
   display:flex;
   height:54px;
@@ -120,7 +118,6 @@ body { margin:0; }
   margin-left:auto;
   font-size:11px;
   color:#666;
-  font-family:'Inter';
 }
 </style>
 </head>
@@ -132,7 +129,7 @@ body { margin:0; }
 <div class="header-block">
   <div class="header-inner">
 
-    <img class="icon" src="https://openweathermap.org/img/wn/04d@2x.png" />
+    <img class="icon" src="https://openweathermap.org/img/wn/04d@2x.png" alt="weather">
 
     <div class="text-col">
       <div class="temp">22°C</div>
@@ -219,8 +216,8 @@ body { margin:0; }
 </div>
 
 <div class="alert-bar">
-  <div class="alert-message">Moderate/high UV exposure</div>
-  <div class="alert-time">20 Jun, 18:49</div>
+  <div class="alert-message">High UV exposure</div>
+  <div class="alert-time">20 Jun, 18:52</div>
 </div>
 
 </div>
