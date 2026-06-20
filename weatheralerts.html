@@ -3,23 +3,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
-
 <style>
 body { margin:0; }
-
 .container { display:flex; }
 
 .header-block{
   background:linear-gradient(180deg,#7f1d1d,#b91c1c,#ef4444);
   color:#fff;
-  font-family:'Oswald';
-  font-weight:700;
   display:flex;
   align-items:center;
   justify-content:center;
   width:170px;
-  text-align:center;
 }
 
 .header-inner{
@@ -29,63 +23,20 @@ body { margin:0; }
   line-height:1.1;
 }
 
-.content{
-  display:flex;
-  flex-direction:column;
-  width:100%;
-}
+.content{ display:flex; flex-direction:column; width:100%; }
+.bar{ display:flex; height:54px; }
 
-.bar{
-  display:flex;
-  height:54px;
-}
+.item{ flex:1; display:flex; align-items:center; padding-left:8px; }
+.row{ display:flex; align-items:center; gap:10px; }
 
-.item{
-  flex:1;
-  display:flex;
-  align-items:center;
-  padding-left:8px;
-}
+.dot{ width:14px; height:14px; border-radius:50%; }
 
-.row{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
+.label{ font-size:12px; }
+.status{ font-size:18px; }
 
-.dot{
-  width:14px;
-  height:14px;
-  border-radius:50%;
-}
+.alert-bar{ display:flex; align-items:center; height:28px; padding:0 12px; }
+.alert-time{ margin-left:auto; font-size:11px; }
 
-.label{
-  font-size:12px;
-  font-family:'Inter';
-}
-
-.status{
-  font-family:'Oswald';
-  font-size:18px;
-}
-
-.alert-bar{
-  display:flex;
-  align-items:center;
-  height:28px;
-  padding:0 12px;
-}
-
-.alert-message{
-  font-family:'Inter';
-  font-size:12px;
-}
-
-.alert-time{
-  margin-left:auto;
-  font-size:11px;
-  color:#666;
-}
 </style>
 </head>
 
@@ -135,11 +86,51 @@ body { margin:0; }
           </div>
         </div>
       </div>
+
+      <div class="item">
+        <div class="row">
+          <div class="dot" style="background:#16a34a"></div>
+          <div>
+            <div class="label">Rain</div>
+            <div class="status" style="color:#16a34a">NO ALERTS</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="row">
+          <div class="dot" style="background:#16a34a"></div>
+          <div>
+            <div class="label">Storm</div>
+            <div class="status" style="color:#16a34a">NO ALERTS</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="row">
+          <div class="dot" style="background:#16a34a"></div>
+          <div>
+            <div class="label">Air</div>
+            <div class="status" style="color:#16a34a">GOOD</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="row">
+          <div class="dot" style="background:#16a34a"></div>
+          <div>
+            <div class="label">Vis</div>
+            <div class="status" style="color:#16a34a">GOOD</div>
+          </div>
+        </div>
+      </div>
 </div>
 
 <div class="alert-bar">
-  <div class="alert-message">High UV exposure</div>
-  <div class="alert-time">20 Jun, 18:15</div>
+  <div>Moderate/high UV exposure</div>
+  <div class="alert-time">20 Jun, 18:17</div>
 </div>
 
 </div>
