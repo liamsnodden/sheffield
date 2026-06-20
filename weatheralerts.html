@@ -4,74 +4,71 @@
 <head>
 <meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+
 <style>
 body { margin:0; }
 
 .container { display:flex; }
 
-/* HEADER */
 .header-block{
   background:linear-gradient(180deg,#7f1d1d,#b91c1c,#ef4444);
   color:#fff;
   font-family:'Oswald';
-  font-size:16px;
   font-weight:700;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:0 16px;
-  width:200px;
+  width:170px;
+  text-align:center;
 }
 
-/* RIGHT SIDE */
+.header-inner{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  line-height:1.1;
+}
+
 .content{
   display:flex;
   flex-direction:column;
   width:100%;
 }
 
-/* CURRENT CONDITIONS ROW */
-.current{
+.bar{
   display:flex;
-  align-items:center;
-  height:70px;
-  border-bottom:1px solid #e2e8f0;
+  height:54px;
 }
 
-/* ICON COLUMN */
-.icon-col{
-  width:80px;
+.item{
+  flex:1;
   display:flex;
-  justify-content:center;
   align-items:center;
-  font-size:40px;
+  padding-left:8px;
 }
 
-/* DATA COLUMN */
-.data-col{
+.row{
   display:flex;
-  flex-direction:column;
+  align-items:center;
+  gap:10px;
+}
+
+.dot{
+  width:14px;
+  height:14px;
+  border-radius:50%;
+}
+
+.label{
+  font-size:12px;
   font-family:'Inter';
 }
 
-.temp{
+.status{
   font-family:'Oswald';
-  font-size:26px;
-  font-weight:700;
+  font-size:18px;
 }
 
-.feels{
-  font-size:12px;
-  color:#555;
-}
-
-.desc{
-  font-size:14px;
-  font-weight:600;
-  color:#082b5b;
-}
-
-/* ALERT BAR (UNCHANGED) */
 .alert-bar{
   display:flex;
   align-items:center;
@@ -82,7 +79,6 @@ body { margin:0; }
 .alert-message{
   font-family:'Inter';
   font-size:12px;
-  font-weight:600;
 }
 
 .alert-time{
@@ -97,25 +93,57 @@ body { margin:0; }
 
 <div class="container">
 
-<div class="header-block">CURRENT WEATHER CONDITIONS</div>
+<div class="header-block">
+  <div class="header-inner">
+    <div style="font-size:28px">☁️</div>
+    <div style="font-size:16px">22°C</div>
+    <div style="font-size:11px">Feels 22°C</div>
+    <div style="font-size:11px">Overcast</div>
+  </div>
+</div>
 
 <div class="content">
 
-  <div class="current">
-    <div class="icon-col">☁️</div>
-    <div class="data-col">
-      <div class="temp">22°C</div>
-      <div class="feels">Feels like 22°C</div>
-      <div class="desc">Overcast</div>
-    </div>
-  </div>
+<div class="bar">
 
-  <div class="alert-bar">
-    <div class="alert-message">Moderate or high UV. Use sun protection</div>
-    <div class="alert-time">20 Jun, 18:06</div>
-  </div>
+      <div class="item">
+        <div class="row">
+          <div class="dot" style="background:#16a34a"></div>
+          <div>
+            <div class="label">Temp</div>
+            <div class="status" style="">23° / 18°</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="row">
+          <div class="dot" style="background:#f59e0b"></div>
+          <div>
+            <div class="label">UV</div>
+            <div class="status" style="color:#f59e0b">CAUTION</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="item">
+        <div class="row">
+          <div class="dot" style="background:#16a34a"></div>
+          <div>
+            <div class="label">Wind</div>
+            <div class="status" style="color:#16a34a">NO ALERTS</div>
+          </div>
+        </div>
+      </div>
+</div>
+
+<div class="alert-bar">
+  <div class="alert-message">High UV exposure</div>
+  <div class="alert-time">20 Jun, 18:15</div>
+</div>
 
 </div>
+
 </div>
 
 </body>
