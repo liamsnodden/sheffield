@@ -3,14 +3,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
 body { margin:0; }
+
 .container { display:flex; }
 
-/* ✅ WHITE HEADER */
 .header-block{
   background:#ffffff;
   color:#111;
@@ -18,12 +17,52 @@ body { margin:0; }
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:0 10px;
+  padding:0 12px;
   width:170px;
+}
+
+/* ===== HEADER LAYOUT ===== */
+.header-inner{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+/* BIG ICON */
+.icon{
+  width:64px;
+  height:64px;
+}
+
+/* TEXT COLUMN */
+.text-col{
+  display:flex;
+  flex-direction:column;
+  line-height:1.2;
+}
+
+/* BIG TEMP */
+.temp{
+  font-size:26px;
+  font-weight:700;
+}
+
+/* FEELS LIKE (Helvetica) */
+.feels{
+  font-size:12px;
+  font-family:Helvetica, Arial, sans-serif;
+}
+
+/* CONDITION */
+.desc{
+  font-size:12px;
+  font-family:Helvetica, Arial, sans-serif;
+  font-weight:600;
 }
 
 .content{ display:flex; flex-direction:column; width:100%; }
 
+/* ===== REST UNCHANGED ===== */
 .bar{
   display:flex;
   height:54px;
@@ -75,7 +114,6 @@ body { margin:0; }
   font-family:'Inter';
   font-size:12px;
   font-weight:600;
-  color:#222;
 }
 
 .alert-time{
@@ -92,15 +130,16 @@ body { margin:0; }
 <div class="container">
 
 <div class="header-block">
-  <div style="display:flex;align-items:center;gap:10px;">
-    <div>
-      <img src="https://openweathermap.org/img/wn/04d@2x.png" style="width:42px;height:42px;">
+  <div class="header-inner">
+
+    <img class="icon" src="https://openweathermap.org/img/wn/04d@2x.png" />
+
+    <div class="text-col">
+      <div class="temp">22°C</div>
+      <div class="feels">Feels 22°C</div>
+      <div class="desc">OVERCAST</div>
     </div>
-    <div style="display:flex;flex-direction:column;line-height:1.2;">
-      <div style="font-size:18px;">22°C</div>
-      <div style="font-size:12px;">Feels 22°C</div>
-      <div style="font-size:12px;">Overcast</div>
-    </div>
+
   </div>
 </div>
 
@@ -181,7 +220,7 @@ body { margin:0; }
 
 <div class="alert-bar">
   <div class="alert-message">Moderate/high UV exposure</div>
-  <div class="alert-time">20 Jun, 18:46</div>
+  <div class="alert-time">20 Jun, 18:49</div>
 </div>
 
 </div>
