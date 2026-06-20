@@ -3,122 +3,72 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
 body { margin:0; }
-
 .container { display:flex; }
 
 /* HEADER */
 .header-block{
   background:#ffffff;
-  color:#111;
+  padding:0 24px 0 12px;
+  width:220px;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:0 20px 0 10px;
-  width:170px;
 }
 
 .header-inner{
   display:flex;
   align-items:center;
-  gap:14px;
+  gap:16px;
 }
 
 .icon{
-  width:64px;
+  width:72px;
+  height:72px;
 }
 
 .text-col{
   display:flex;
   flex-direction:column;
-  line-height:1.25;
+  gap:2px;
 }
 
-/* BIGGER TEMP */
 .temp{
-  font-size:32px;
+  font-size:36px;
   font-family:'Oswald';
   font-weight:700;
 }
 
-/* FEELS = Helvetica */
 .feels{
   font-size:12px;
   font-family:Helvetica, Arial, sans-serif;
 }
 
-/* CONDITIONS = bigger + oswald */
 .desc{
-  font-size:16px;
+  font-size:18px;
   font-family:'Oswald';
   font-weight:700;
 }
 
-/* ===== REST UNCHANGED ===== */
-.content{ display:flex; flex-direction:column; width:100%; }
-
-.bar{
-  display:flex;
-  height:54px;
-  border-bottom:1px solid #e2e8f0;
-}
-
-.item{
-  flex:1;
-  display:flex;
-  align-items:center;
-  padding-left:8px;
-  border-right:1px solid #eee;
-}
-
-.row{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.dot{
-  width:14px;
-  height:14px;
-  border-radius:50%;
-}
-
-.label{
-  font-size:12px;
-  font-weight:600;
-  color:#082b5b;
-  font-family:'Inter';
-}
-
-.status{
-  font-family:'Oswald';
-  font-size:20px;
-  font-weight:700;
-}
-
-.alert-bar{
-  display:flex;
-  align-items:center;
-  height:28px;
-  padding:0 12px;
-  border-top:1px solid #e2e8f0;
-}
-
-.alert-message{
-  font-family:'Inter';
-  font-size:12px;
-  font-weight:600;
-}
-
-.alert-time{
-  margin-left:auto;
+.meta{
   font-size:11px;
-  color:#666;
+  font-family:Helvetica, Arial, sans-serif;
+  color:#555;
 }
+
+/* REST */
+.content{ display:flex; flex-direction:column; width:100%; }
+.bar{ display:flex;height:54px;border-bottom:1px solid #e2e8f0;}
+.item{ flex:1;display:flex;align-items:center;padding-left:8px;border-right:1px solid #eee;}
+.row{ display:flex;align-items:center;gap:10px;}
+.dot{ width:14px;height:14px;border-radius:50%;}
+.label{ font-size:12px;font-family:'Inter';}
+.status{ font-family:'Oswald';font-size:20px;}
+.alert-bar{display:flex;height:28px;align-items:center;padding:0 12px;}
+.alert-time{margin-left:auto;font-size:11px;font-family:Helvetica, Arial, sans-serif;}
 </style>
 </head>
 
@@ -129,12 +79,14 @@ body { margin:0; }
 <div class="header-block">
   <div class="header-inner">
 
-    <img class="icon" src="https://openweathermap.org/img/wn/04d@2x.png" alt="weather">
+    <img class="icon" src="https://openweathermap.org/img/wn/04d@2x.png">
 
     <div class="text-col">
       <div class="temp">22°C</div>
-      <div class="feels">Feels 22°C</div>
+      <div class="feels">FEELS LIKE 22°C</div>
       <div class="desc">OVERCAST</div>
+      <div class="meta">UPDATED Saturday 20 June 20 Jun, 18:57</div>
+      <div class="meta">VALID FOR TODAY</div>
     </div>
 
   </div>
@@ -149,7 +101,7 @@ body { margin:0; }
           <div class="dot" style="background:#16a34a"></div>
           <div>
             <div class="label">Temp</div>
-            <div class="status" style="">23° / 18°</div>
+            <div class="status">23° / 18°</div>
           </div>
         </div>
       </div>
@@ -159,7 +111,7 @@ body { margin:0; }
           <div class="dot" style="background:#f59e0b"></div>
           <div>
             <div class="label">UV</div>
-            <div class="status" style="color:#f59e0b">CAUTION</div>
+            <div class="status">CAUTION</div>
           </div>
         </div>
       </div>
@@ -169,7 +121,7 @@ body { margin:0; }
           <div class="dot" style="background:#16a34a"></div>
           <div>
             <div class="label">Wind</div>
-            <div class="status" style="color:#16a34a">NO ALERTS</div>
+            <div class="status">NO ALERTS</div>
           </div>
         </div>
       </div>
@@ -179,7 +131,7 @@ body { margin:0; }
           <div class="dot" style="background:#16a34a"></div>
           <div>
             <div class="label">Rain</div>
-            <div class="status" style="color:#16a34a">NO ALERTS</div>
+            <div class="status">NO ALERTS</div>
           </div>
         </div>
       </div>
@@ -189,7 +141,7 @@ body { margin:0; }
           <div class="dot" style="background:#16a34a"></div>
           <div>
             <div class="label">Storm</div>
-            <div class="status" style="color:#16a34a">NO ALERTS</div>
+            <div class="status">NO ALERTS</div>
           </div>
         </div>
       </div>
@@ -199,7 +151,7 @@ body { margin:0; }
           <div class="dot" style="background:#16a34a"></div>
           <div>
             <div class="label">Air</div>
-            <div class="status" style="color:#16a34a">GOOD</div>
+            <div class="status">GOOD</div>
           </div>
         </div>
       </div>
@@ -209,15 +161,15 @@ body { margin:0; }
           <div class="dot" style="background:#16a34a"></div>
           <div>
             <div class="label">Vis</div>
-            <div class="status" style="color:#16a34a">GOOD</div>
+            <div class="status">GOOD</div>
           </div>
         </div>
       </div>
 </div>
 
 <div class="alert-bar">
-  <div class="alert-message">High UV exposure</div>
-  <div class="alert-time">20 Jun, 18:52</div>
+  <div>No weather-related risks identified.</div>
+  <div class="alert-time">20 Jun, 18:57</div>
 </div>
 
 </div>
