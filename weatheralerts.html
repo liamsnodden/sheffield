@@ -9,97 +9,108 @@
 <style>
 body { margin:0; }
 
-/* MAIN BAR */
-.bar { display:flex; height:54px; border-bottom:1px solid #e2e8f0; }
+/* CONTAINER */
+.container {
+  display:flex;
+}
 
-/* ESPN HEADER */
+/* ESPN LEFT BLOCK (FULL HEIGHT) */
 .header-block{
   position:relative;
-  background: linear-gradient(90deg, #7f1d1d 0%, #b91c1c 50%, #ef4444 100%);
+  background:linear-gradient(180deg,#7f1d1d,#b91c1c,#ef4444);
   color:#fff;
   font-family:'Oswald';
-  font-size:15px;
+  font-size:16px;
   font-weight:700;
-  letter-spacing:0.8px;
+  letter-spacing:1px;
   display:flex;
   align-items:center;
   justify-content:center;
-  padding:0 14px;
-  min-width:165px;
-  border-right:2px solid #7f1d1d;
-
-  box-shadow:
-    inset -3px 0 0 rgba(0,0,0,0.25),
-    inset 0 2px 4px rgba(255,255,255,0.15);
+  padding:0 16px;
+  width:170px;
 }
 
-.header-block::after{
-  content:"";
-  position:absolute;
-  left:0; top:0; right:0; bottom:0;
-  background:linear-gradient(to bottom, rgba(255,255,255,0.15), transparent 40%);
-  pointer-events:none;
+/* RIGHT SIDE STACK */
+.content{
+  display:flex;
+  flex-direction:column;
+  width:100%;
 }
 
-.item { flex:1; display:flex; align-items:center; padding-left:8px; border-right:1px solid #eee; }
-.row { display:flex; align-items:center; gap:10px; }
+/* TOP BAR */
+.bar{
+  display:flex;
+  height:54px;
+  border-bottom:1px solid #e2e8f0;
+}
 
-.dot { width:14px; height:14px; border-radius:50%; }
+.item{
+  flex:1;
+  display:flex;
+  align-items:center;
+  padding-left:8px;
+  border-right:1px solid #eee;
+}
 
-.label { font-size:12px; font-weight:600; color:#082b5b; font-family:'Inter'; }
-
-.status { font-family:'Oswald'; font-size:20px; font-weight:700; }
-
-/* ALERT BAR */
-.alert-bar {
+.row{
   display:flex;
   align-items:center;
   gap:10px;
+}
+
+.dot{
+  width:14px;
+  height:14px;
+  border-radius:50%;
+}
+
+.label{
+  font-size:12px;
+  font-weight:600;
+  color:#082b5b;
+  font-family:'Inter';
+}
+
+.status{
+  font-family:'Oswald';
+  font-size:20px;
+  font-weight:700;
+}
+
+/* ALERT BAR */
+.alert-bar{
+  display:flex;
+  align-items:center;
   height:28px;
   padding:0 12px;
-  background:#fff;
   border-top:1px solid #e2e8f0;
 }
 
-.alert-message,
-.alert-message *,
-.alert-time {
-  font-family:'Inter', Arial, sans-serif !important;
-}
-
-.alert-title {
-  font-family:'Oswald';
-  font-size:13px;
-  color:#b91c1c;
-}
-
-.alert-message {
+.alert-message{
+  font-family:'Inter';
   font-size:12px;
   font-weight:600;
   color:#222;
 }
 
-.high {
-  color:#991b1b;
-  font-weight:700;
-  background:rgba(153,27,27,0.08);
-  padding:1px 4px;
-  border-radius:3px;
-}
-
-.alert-time {
+.alert-time{
+  margin-left:auto;
   font-size:11px;
   color:#666;
+  font-family:'Inter';
 }
 </style>
 </head>
 
 <body>
 
-<div class="bar">
+<div class="container">
 
 <div class="header-block">WEATHER ALERTS</div>
 
+<div class="content">
+
+<div class="bar">
 
       <div class="item">
         <div class="row">
@@ -170,13 +181,15 @@ body { margin:0; }
           </div>
         </div>
       </div>
-
 </div>
 
 <div class="alert-bar">
-<div class="alert-title">ALERT</div>
-     <div class="alert-message">Moderate UV: Use protection</div>
-     <div class="alert-time">20 Jun, 10:56</div>
+  <div class="alert-message">Moderate UV levels. Use sunscreen and protective clothing where possible</div>
+  <div class="alert-time">20 Jun, 10:59</div>
+</div>
+
+</div>
+
 </div>
 
 </body>
