@@ -7,147 +7,118 @@
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
+body { margin:0; }
 
-/* ========================================================= */
-/* BASE */
-/* ========================================================= */
+.container { display:flex; }
 
-body {
-  margin:0;
-}
-
-.container {
-  display:flex;
-}
-
-/* ========================================================= */
-/* HEADER BLOCK */
-/* ========================================================= */
-
-.header-block {
+/* HEADER */
+.header-block{
   background:#ffffff;
-  width:260px;
+  color:#111;
   display:flex;
   align-items:center;
-  padding:0 30px 0 10px;
+  justify-content:center;
+  padding:0 20px 0 10px;
+  width:170px;
 }
 
-.header-inner {
+.header-inner{
   display:flex;
   align-items:center;
-  gap:18px;
+  gap:14px;
 }
 
-/* ========================================================= */
-/* ICON (50% bigger) */
-/* ========================================================= */
-
-.icon {
-  width:108px;
-  height:108px;
+.icon{
+  width:64px;
 }
 
-/* ========================================================= */
-/* TEXT COLUMN */
-/* ========================================================= */
-
-.text-col {
+.text-col{
   display:flex;
   flex-direction:column;
-  gap:3px;
+  line-height:1.25;
 }
 
-/* TEMP */
-
-.temp {
-  font-size:40px;
+/* BIGGER TEMP */
+.temp{
+  font-size:32px;
   font-family:'Oswald';
   font-weight:700;
 }
 
-/* FEELS LIKE */
-
-.feels {
-  font-family:Helvetica, Arial, sans-serif;
+/* FEELS = Helvetica */
+.feels{
   font-size:12px;
+  font-family:Helvetica, Arial, sans-serif;
 }
 
-/* CONDITIONS */
-
-.desc {
+/* CONDITIONS = bigger + oswald */
+.desc{
+  font-size:16px;
   font-family:'Oswald';
-  font-size:18px;
   font-weight:700;
 }
 
-/* ========================================================= */
-/* MAIN CONTENT */
-/* ========================================================= */
+/* ===== REST UNCHANGED ===== */
+.content{ display:flex; flex-direction:column; width:100%; }
 
-.content {
-  display:flex;
-  flex-direction:column;
-  width:100%;
-}
-
-/* BAR */
-
-.bar {
+.bar{
   display:flex;
   height:54px;
-  border-bottom:1px solid #eee;
+  border-bottom:1px solid #e2e8f0;
 }
 
-/* ITEMS */
-
-.item {
+.item{
   flex:1;
   display:flex;
   align-items:center;
-  padding-left:10px;
+  padding-left:8px;
   border-right:1px solid #eee;
 }
 
-.row {
+.row{
   display:flex;
   align-items:center;
   gap:10px;
 }
 
-.dot {
+.dot{
   width:14px;
   height:14px;
   border-radius:50%;
 }
 
-.label {
+.label{
   font-size:12px;
+  font-weight:600;
+  color:#082b5b;
   font-family:'Inter';
 }
 
-.status {
-  font-size:20px;
+.status{
   font-family:'Oswald';
+  font-size:20px;
   font-weight:700;
 }
 
-/* ========================================================= */
-/* ALERT BAR */
-/* ========================================================= */
-
-.alert-bar {
+.alert-bar{
   display:flex;
   align-items:center;
   height:28px;
   padding:0 12px;
+  border-top:1px solid #e2e8f0;
 }
 
-.alert-time {
+.alert-message{
+  font-family:'Inter';
+  font-size:12px;
+  font-weight:600;
+}
+
+.alert-time{
   margin-left:auto;
   font-size:11px;
-  font-family:Helvetica, Arial, sans-serif;
+  color:#666;
 }
-
 </style>
 </head>
 
@@ -156,19 +127,17 @@ body {
 <div class="container">
 
 <div class="header-block">
-
   <div class="header-inner">
 
-    https://openweathermap.org/img/wn/04d@2x.png
+    <img class="icon" src="https://openweathermap.org/img/wn/04d@2x.png" alt="weather">
 
     <div class="text-col">
       <div class="temp">21°C</div>
-      <div class="feels">Feels like 21°C</div>
+      <div class="feels">Feels 21°C</div>
       <div class="desc">OVERCAST</div>
     </div>
 
   </div>
-
 </div>
 
 <div class="content">
@@ -180,7 +149,7 @@ body {
           <div class="dot" style="background:#16a34a"></div>
           <div>
             <div class="label">Temp</div>
-            <div class="status">23° / 18°</div>
+            <div class="status" style="">23° / 18°</div>
           </div>
         </div>
       </div>
@@ -190,7 +159,7 @@ body {
           <div class="dot" style="background:#f59e0b"></div>
           <div>
             <div class="label">UV</div>
-            <div class="status">CAUTION</div>
+            <div class="status" style="color:#f59e0b">CAUTION</div>
           </div>
         </div>
       </div>
@@ -200,7 +169,7 @@ body {
           <div class="dot" style="background:#16a34a"></div>
           <div>
             <div class="label">Wind</div>
-            <div class="status">NO ALERTS</div>
+            <div class="status" style="color:#16a34a">NO ALERTS</div>
           </div>
         </div>
       </div>
@@ -210,7 +179,7 @@ body {
           <div class="dot" style="background:#16a34a"></div>
           <div>
             <div class="label">Rain</div>
-            <div class="status">NO ALERTS</div>
+            <div class="status" style="color:#16a34a">NO ALERTS</div>
           </div>
         </div>
       </div>
@@ -220,7 +189,7 @@ body {
           <div class="dot" style="background:#16a34a"></div>
           <div>
             <div class="label">Storm</div>
-            <div class="status">NO ALERTS</div>
+            <div class="status" style="color:#16a34a">NO ALERTS</div>
           </div>
         </div>
       </div>
@@ -230,7 +199,7 @@ body {
           <div class="dot" style="background:#16a34a"></div>
           <div>
             <div class="label">Air</div>
-            <div class="status">GOOD</div>
+            <div class="status" style="color:#16a34a">GOOD</div>
           </div>
         </div>
       </div>
@@ -240,15 +209,15 @@ body {
           <div class="dot" style="background:#16a34a"></div>
           <div>
             <div class="label">Vis</div>
-            <div class="status">GOOD</div>
+            <div class="status" style="color:#16a34a">GOOD</div>
           </div>
         </div>
       </div>
 </div>
 
 <div class="alert-bar">
-  <div>No weather-related risks identified.</div>
-  <div class="alert-time">UPDATED 20 Jun, 19:10 • VALID FOR TODAY</div>
+  <div class="alert-message">High UV exposure</div>
+  <div class="alert-time">20 Jun, 19:26</div>
 </div>
 
 </div>
