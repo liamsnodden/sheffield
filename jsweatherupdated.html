@@ -1,140 +1,142 @@
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+
 <style>
-@font-face {
-  font-family: 'Oswald';
-  src: url('https://liamsnodden.github.io/sheffield/Oswald-VariableFont_wght.ttf') format('truetype');
-  font-weight: 100 700;
-  font-style: normal;
-}
+body { margin:0; }
 
-* {
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Oswald', Arial, sans-serif;
-}
-
-html,body{
-  width:100%;
-  height:100%;
-  background:transparent;
-  color:#fff;
-  overflow:hidden;
-}
-
-#weatherSection{
+.container {
   display:flex;
-  align-items:center;
-  width:700px;
-  height:120px;
-  padding:10px;
 }
 
-#weather-icon{
-  width:85px;
-  height:85px;
-  margin-right:18px;
-}
-
-#weatherText{
+/* ✅ FORECAST PANEL */
+.header-block{
+  background:linear-gradient(180deg,#7f1d1d,#b91c1c,#ef4444);
+  color:#fff;
+  width:180px;
   display:flex;
   flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:10px;
+  font-family:'Oswald';
 }
 
-#weather-temp{
-  font-size:52px;
+/* ICON */
+.header-icon{
+  width:50px;
+  height:50px;
+  margin-bottom:6px;
+}
+
+/* TEMP */
+.header-temp{
+  font-size:34px;
   font-weight:700;
-  letter-spacing:2px;
   line-height:1;
 }
 
-#weather-condition{
-  font-size:15px;
-  font-weight:600;
-}
-
-#weather-feels{
-  font-size:12px;
+/* FEELS */
+.header-feels{
+  font-size:13px;
   opacity:.85;
 }
 
-#metrics{
-  display:flex;
-  margin-left:auto;
-  gap:22px;
+/* CONDITION */
+.header-cond{
+  font-size:13px;
 }
 
-.metric{
+/* RIGHT SIDE */
+.content{
   display:flex;
   flex-direction:column;
+  width:100%;
+}
+
+.bar{
+  display:flex;
+  height:54px;
+  border-bottom:1px solid #e2e8f0;
+}
+
+.item{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
   align-items:center;
-  width:60px;
+  border-right:1px solid #eee;
 }
 
-.metric img{
-  width:28px;
+.label{
+  font-size:12px;
+  font-family:'Inter';
+}
+
+.status{
+  font-family:'Oswald';
+  font-size:20px;
+}
+
+/* ALERT BAR */
+.alert-bar{
+  display:flex;
+  align-items:center;
   height:28px;
+  padding:0 12px;
 }
 
-.metricLabel{
+.alert-message{
+  font-family:'Inter';
+  font-size:12px;
+}
+
+.alert-time{
+  margin-left:auto;
   font-size:11px;
-  opacity:.75;
-}
-
-.metricValue{
-  font-size:16px;
-  font-weight:700;
+  color:#666;
+  font-family:'Inter';
 }
 </style>
 </head>
 
 <body>
 
-<div id="weatherSection">
+<div class="container">
 
-<img id="weather-icon" src="icons/cloudy.png">
-
-<div id="weatherText">
-  <div id="weather-temp">21&deg;C</div>
-  <div id="weather-condition">Overcast</div>
-  <div id="weather-feels">Feels like 20&deg;C</div>
+<!-- ✅ FORECAST PANEL -->
+<div class="header-block">
+  <img class="header-icon" src="icons/cloudy.png">
+  <div class="header-temp">21°C</div>
+  <div class="header-feels">Feels 20°C</div>
+  <div class="header-cond">Overcast</div>
 </div>
 
-<div id="metrics">
+<div class="content">
 
-  <div class="metric">
-    <img src="icons/uv.png">
-    <div class="metricLabel">UV</div>
-    <div class="metricValue">5</div>
+<div class="bar">
+
+  <div class="item">
+    <div class="label">UV</div>
+    <div class="status">5</div>
   </div>
 
-  <div class="metric">
-    <img src="icons/wind.png">
-    <div class="metricLabel">Wind</div>
-    <div class="metricValue">12</div>
+  <div class="item">
+    <div class="label">Wind</div>
+    <div class="status">12</div>
   </div>
 
-  <div class="metric">
-    <img src="icons/gusts.png">
-    <div class="metricLabel">Gust</div>
-    <div class="metricValue">30</div>
-  </div>
+</div>
 
-  <div class="metric">
-    <img src="icons/sunrise.png">
-    <div class="metricLabel">Rise</div>
-    <div class="metricValue">04:36</div>
-  </div>
-
-  <div class="metric">
-    <img src="icons/sunset.png">
-    <div class="metricLabel">Set</div>
-    <div class="metricValue">21:38</div>
-  </div>
+<div class="alert-bar">
+  <div class="alert-message">No weather-related risks identified</div>
+  <div class="alert-time">20 Jun, 11:10</div>
+</div>
 
 </div>
 
