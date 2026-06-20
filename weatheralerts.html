@@ -3,30 +3,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
 body { margin:0; }
 
-.container { display:flex; }
+.container {
+  display:flex;
+}
 
 .header-block{
-  background:linear-gradient(180deg,#7f1d1d,#b91c1c,#ef4444);
-  color:#fff;
+  background:#ffffff;
+  color:#111;
   font-family:'Oswald';
+  font-size:16px;
+  font-weight:700;
   display:flex;
   align-items:center;
   justify-content:center;
+  padding:0 16px;
   width:170px;
-  text-align:center;
-}
-
-.header-inner{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  line-height:1.1;
 }
 
 .content{
@@ -102,23 +98,18 @@ body { margin:0; }
 
 <div class="container">
 
-
 <div class="header-block">
   <div style="display:flex;align-items:center;gap:10px;">
-
-    <div style="font-size:32px;">
-      ☁️
+    <div>
+      <img src="https://raw.githubusercontent.com/basmilius/meteocons/main/packages/svg-static/cloudy.svg" width="42">
     </div>
-
     <div style="display:flex;flex-direction:column;line-height:1.2;">
       <div style="font-size:18px;">22°C</div>
       <div style="font-size:12px;">Feels 22°C</div>
       <div style="font-size:12px;">Overcast</div>
     </div>
-
   </div>
 </div>
-
 
 <div class="content">
 
@@ -196,8 +187,8 @@ body { margin:0; }
 </div>
 
 <div class="alert-bar">
-  <div class="alert-message">Moderate UV levels</div>
-  <div class="alert-time">20 Jun, 18:24</div>
+  <div class="alert-message">Moderate UV levels. Use sunscreen and protective clothing where possible</div>
+  <div class="alert-time">20 Jun, 18:29</div>
 </div>
 
 </div>
