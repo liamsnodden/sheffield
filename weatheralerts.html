@@ -3,101 +3,92 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
-https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@500;600;700&display=swap
-
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 body { margin:0; }
 
-/* CONTAINER */
-.container {
-  display:flex;
-}
+.container { display:flex; }
 
-/* ESPN LEFT BLOCK (FULL HEIGHT) */
+/* HEADER */
 .header-block{
-  position:relative;
   background:linear-gradient(180deg,#7f1d1d,#b91c1c,#ef4444);
   color:#fff;
   font-family:'Oswald';
   font-size:16px;
   font-weight:700;
-  letter-spacing:1px;
   display:flex;
   align-items:center;
   justify-content:center;
   padding:0 16px;
-  width:170px;
+  width:200px;
 }
 
-/* RIGHT SIDE STACK */
+/* RIGHT SIDE */
 .content{
   display:flex;
   flex-direction:column;
   width:100%;
 }
 
-/* TOP BAR */
-.bar{
+/* CURRENT CONDITIONS ROW */
+.current{
   display:flex;
-  height:54px;
+  align-items:center;
+  height:70px;
   border-bottom:1px solid #e2e8f0;
 }
 
-.item{
-  flex:1;
+/* ICON COLUMN */
+.icon-col{
+  width:80px;
   display:flex;
+  justify-content:center;
   align-items:center;
-  padding-left:8px;
-  border-right:1px solid #eee;
+  font-size:40px;
 }
 
-.row{
+/* DATA COLUMN */
+.data-col{
   display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.dot{
-  width:14px;
-  height:14px;
-  border-radius:50%;
-}
-
-.label{
-  font-size:12px;
-  font-weight:600;
-  color:#082b5b;
+  flex-direction:column;
   font-family:'Inter';
 }
 
-.status{
+.temp{
   font-family:'Oswald';
-  font-size:20px;
+  font-size:26px;
   font-weight:700;
 }
 
-/* ALERT BAR */
+.feels{
+  font-size:12px;
+  color:#555;
+}
+
+.desc{
+  font-size:14px;
+  font-weight:600;
+  color:#082b5b;
+}
+
+/* ALERT BAR (UNCHANGED) */
 .alert-bar{
   display:flex;
   align-items:center;
   height:28px;
   padding:0 12px;
-  border-top:1px solid #e2e8f0;
 }
 
 .alert-message{
   font-family:'Inter';
   font-size:12px;
   font-weight:600;
-  color:#222;
 }
 
 .alert-time{
   margin-left:auto;
   font-size:11px;
   color:#666;
-  font-family:'Inter';
 }
 </style>
 </head>
@@ -106,90 +97,25 @@ body { margin:0; }
 
 <div class="container">
 
-<div class="header-block">WEATHER ALERTS</div>
+<div class="header-block">CURRENT WEATHER CONDITIONS</div>
 
 <div class="content">
 
-<div class="bar">
+  <div class="current">
+    <div class="icon-col">☁️</div>
+    <div class="data-col">
+      <div class="temp">22°C</div>
+      <div class="feels">Feels like 22°C</div>
+      <div class="desc">Overcast</div>
+    </div>
+  </div>
 
-      <div class="item">
-        <div class="row">
-          <div class="dot" style="background:#16a34a"></div>
-          <div>
-            <div class="label">Temp</div>
-            <div class="status" style="">23° / 18°</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="item">
-        <div class="row">
-          <div class="dot" style="background:#f59e0b"></div>
-          <div>
-            <div class="label">UV</div>
-            <div class="status" style="color:#f59e0b">CAUTION</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="item">
-        <div class="row">
-          <div class="dot" style="background:#16a34a"></div>
-          <div>
-            <div class="label">Wind</div>
-            <div class="status" style="color:#16a34a">NO ALERTS</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="item">
-        <div class="row">
-          <div class="dot" style="background:#16a34a"></div>
-          <div>
-            <div class="label">Rain</div>
-            <div class="status" style="color:#16a34a">NO ALERTS</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="item">
-        <div class="row">
-          <div class="dot" style="background:#16a34a"></div>
-          <div>
-            <div class="label">Storm</div>
-            <div class="status" style="color:#16a34a">NO ALERTS</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="item">
-        <div class="row">
-          <div class="dot" style="background:#16a34a"></div>
-          <div>
-            <div class="label">Air</div>
-            <div class="status" style="color:#16a34a">GOOD</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="item">
-        <div class="row">
-          <div class="dot" style="background:#16a34a"></div>
-          <div>
-            <div class="label">Vis</div>
-            <div class="status" style="color:#16a34a">GOOD</div>
-          </div>
-        </div>
-      </div>
-</div>
-
-<div class="alert-bar">
-  <div class="alert-message">Moderate UV levels. Use sunscreen and protective clothing where possible</div>
-  <div class="alert-time">20 Jun, 18:00</div>
-</div>
+  <div class="alert-bar">
+    <div class="alert-message">Moderate or high UV. Use sun protection</div>
+    <div class="alert-time">20 Jun, 18:06</div>
+  </div>
 
 </div>
-
 </div>
 
 </body>
