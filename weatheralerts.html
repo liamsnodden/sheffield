@@ -3,17 +3,23 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+
 <style>
 body { margin:0; }
+
 .container { display:flex; }
 
 .header-block{
   background:linear-gradient(180deg,#7f1d1d,#b91c1c,#ef4444);
   color:#fff;
+  font-family:'Oswald';
   display:flex;
   align-items:center;
   justify-content:center;
   width:170px;
+  text-align:center;
 }
 
 .header-inner{
@@ -23,20 +29,72 @@ body { margin:0; }
   line-height:1.1;
 }
 
-.content{ display:flex; flex-direction:column; width:100%; }
-.bar{ display:flex; height:54px; }
+.content{
+  display:flex;
+  flex-direction:column;
+  width:100%;
+}
 
-.item{ flex:1; display:flex; align-items:center; padding-left:8px; }
-.row{ display:flex; align-items:center; gap:10px; }
+.bar{
+  display:flex;
+  height:54px;
+  border-bottom:1px solid #e2e8f0;
+}
 
-.dot{ width:14px; height:14px; border-radius:50%; }
+.item{
+  flex:1;
+  display:flex;
+  align-items:center;
+  padding-left:8px;
+  border-right:1px solid #eee;
+}
 
-.label{ font-size:12px; }
-.status{ font-size:18px; }
+.row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
 
-.alert-bar{ display:flex; align-items:center; height:28px; padding:0 12px; }
-.alert-time{ margin-left:auto; font-size:11px; }
+.dot{
+  width:14px;
+  height:14px;
+  border-radius:50%;
+}
 
+.label{
+  font-size:12px;
+  font-weight:600;
+  color:#082b5b;
+  font-family:'Inter';
+}
+
+.status{
+  font-family:'Oswald';
+  font-size:20px;
+  font-weight:700;
+}
+
+.alert-bar{
+  display:flex;
+  align-items:center;
+  height:28px;
+  padding:0 12px;
+  border-top:1px solid #e2e8f0;
+}
+
+.alert-message{
+  font-family:'Inter';
+  font-size:12px;
+  font-weight:600;
+  color:#222;
+}
+
+.alert-time{
+  margin-left:auto;
+  font-size:11px;
+  color:#666;
+  font-family:'Inter';
+}
 </style>
 </head>
 
@@ -46,10 +104,10 @@ body { margin:0; }
 
 <div class="header-block">
   <div class="header-inner">
-    <div style="font-size:28px">☁️</div>
-    <div style="font-size:16px">22°C</div>
-    <div style="font-size:11px">Feels 22°C</div>
-    <div style="font-size:11px">Overcast</div>
+    <div style="font-size:28px;">☁️</div>
+    <div style="font-size:18px;">22°C</div>
+    <div style="font-size:12px;">Feels 22°C</div>
+    <div style="font-size:12px;">Overcast</div>
   </div>
 </div>
 
@@ -129,8 +187,8 @@ body { margin:0; }
 </div>
 
 <div class="alert-bar">
-  <div>Moderate/high UV exposure</div>
-  <div class="alert-time">20 Jun, 18:17</div>
+  <div class="alert-message">Moderate UV levels</div>
+  <div class="alert-time">20 Jun, 18:20</div>
 </div>
 
 </div>
