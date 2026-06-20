@@ -4,34 +4,38 @@
 <head>
 <meta charset="UTF-8">
 
-://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@500;600;700&display=swap" rel="stylesheet">
 
 <style>
+
+/* GLOBAL */
 body { margin:0; }
 
-.bar { display:flex; height:66px; border-bottom:1px solid #e2e8f0; }
+/* MAIN BAR (REDUCED HEIGHT) */
+.bar { display:flex; height:54px; border-bottom:1px solid #e2e8f0; }
 
-.item { flex:1; display:flex; align-items:center; padding-left:12px; border-right:1px solid #ddd; }
+.item { flex:1; display:flex; align-items:center; padding-left:8px; border-right:1px solid #eee; }
 
-.row { display:flex; align-items:center; gap:16px; }
+.row { display:flex; align-items:center; gap:10px; }
 
-.dot { width:18px; height:18px; border-radius:50%; }
+.dot { width:14px; height:14px; border-radius:50%; }
 
-.label { font-size:14px; font-weight:700; color:#082b5b; font-family:'Inter'; }
+.label { font-size:12px; font-weight:600; color:#082b5b; font-family:'Inter'; }
 
-.status { font-family:'Oswald'; font-size:26px; font-weight:700; }
+.status { font-family:'Oswald'; font-size:20px; font-weight:700; line-height:1; }
 
+/* ALERT BAR (COMPACT) */
 .alert-bar {
   display:flex;
   align-items:center;
-  gap:14px;
-  height:40px;
-  padding:0 16px;
+  gap:10px;
+  height:28px;
+  padding:0 12px;
   background:#fff;
   border-top:1px solid #e2e8f0;
 }
 
-/* TEXT */
+/* TEXT (INTER) */
 .alert-message,
 .alert-message *,
 .alert-time {
@@ -40,18 +44,12 @@ body { margin:0; }
 
 .alert-title {
   font-family:'Oswald';
-  font-size:15px;
+  font-size:13px;
   color:#b91c1c;
 }
 
-.alert-divider {
-  width:1px;
-  height:18px;
-  background:#e5e5e5;
-}
-
 .alert-message {
-  font-size:14px;
+  font-size:12px;
   font-weight:600;
   color:#222;
 }
@@ -60,19 +58,15 @@ body { margin:0; }
   color:#991b1b;
   font-weight:700;
   background:rgba(153,27,27,0.08);
-  padding:2px 6px;
-  border-radius:4px;
-}
-
-.scope {
-  color:#dc2626;
-  font-weight:700;
+  padding:1px 4px;
+  border-radius:3px;
 }
 
 .alert-time {
-  font-size:12px;
+  font-size:11px;
   color:#666;
 }
+
 </style>
 </head>
 
@@ -80,99 +74,81 @@ body { margin:0; }
 
 <div class="bar">
 
-        <div class="item">
-          <div class="row">
-            <div class="dot" style="background:#16a34a"></div>
-            <div>
-              <div class="label">Temp (Hi/Lo)</div>
-              <div class="status" style="">
-                23° / 18°
-              </div>
-            </div>
+      <div class="item">
+        <div class="row">
+          <div class="dot" style="background:#16a34a"></div>
+          <div>
+            <div class="label">Temp</div>
+            <div class="status" style="">23° / 18°</div>
           </div>
         </div>
+      </div>
 
-        <div class="item">
-          <div class="row">
-            <div class="dot" style="background:#f59e0b"></div>
-            <div>
-              <div class="label">UV</div>
-              <div class="status" style="color:#f59e0b">
-                CAUTION
-              </div>
-            </div>
+      <div class="item">
+        <div class="row">
+          <div class="dot" style="background:#f59e0b"></div>
+          <div>
+            <div class="label">UV</div>
+            <div class="status" style="color:#f59e0b">CAUTION</div>
           </div>
         </div>
+      </div>
 
-        <div class="item">
-          <div class="row">
-            <div class="dot" style="background:#16a34a"></div>
-            <div>
-              <div class="label">Wind</div>
-              <div class="status" style="color:#16a34a">
-                NO ALERTS
-              </div>
-            </div>
+      <div class="item">
+        <div class="row">
+          <div class="dot" style="background:#16a34a"></div>
+          <div>
+            <div class="label">Wind</div>
+            <div class="status" style="color:#16a34a">NO ALERTS</div>
           </div>
         </div>
+      </div>
 
-        <div class="item">
-          <div class="row">
-            <div class="dot" style="background:#16a34a"></div>
-            <div>
-              <div class="label">Rain</div>
-              <div class="status" style="color:#16a34a">
-                NO ALERTS
-              </div>
-            </div>
+      <div class="item">
+        <div class="row">
+          <div class="dot" style="background:#16a34a"></div>
+          <div>
+            <div class="label">Rain</div>
+            <div class="status" style="color:#16a34a">NO ALERTS</div>
           </div>
         </div>
+      </div>
 
-        <div class="item">
-          <div class="row">
-            <div class="dot" style="background:#16a34a"></div>
-            <div>
-              <div class="label">Storm</div>
-              <div class="status" style="color:#16a34a">
-                NO ALERTS
-              </div>
-            </div>
+      <div class="item">
+        <div class="row">
+          <div class="dot" style="background:#16a34a"></div>
+          <div>
+            <div class="label">Storm</div>
+            <div class="status" style="color:#16a34a">NO ALERTS</div>
           </div>
         </div>
+      </div>
 
-        <div class="item">
-          <div class="row">
-            <div class="dot" style="background:#16a34a"></div>
-            <div>
-              <div class="label">Air Quality</div>
-              <div class="status" style="color:#16a34a">
-                GOOD
-              </div>
-            </div>
+      <div class="item">
+        <div class="row">
+          <div class="dot" style="background:#16a34a"></div>
+          <div>
+            <div class="label">Air</div>
+            <div class="status" style="color:#16a34a">GOOD</div>
           </div>
         </div>
+      </div>
 
-        <div class="item">
-          <div class="row">
-            <div class="dot" style="background:#16a34a"></div>
-            <div>
-              <div class="label">Visibility</div>
-              <div class="status" style="color:#16a34a">
-                GOOD
-              </div>
-            </div>
+      <div class="item">
+        <div class="row">
+          <div class="dot" style="background:#16a34a"></div>
+          <div>
+            <div class="label">Vis</div>
+            <div class="status" style="color:#16a34a">GOOD</div>
           </div>
         </div>
+      </div>
 </div>
 
 <div class="alert-bar">
-<div class="alert-title">ALERT ACTION</div>
-     <div class="alert-divider"></div>
-     <div class="alert-message">
-        <span class="scope">Applies to outdoor work:</span>
-        Moderate UV levels: Use sun protection
-      </div>
-     <div class="alert-time">Valid for today • Updated 20 Jun, 10:41</div>
+<div class="alert-title">ALERT</div>
+     <div class="alert-message">Moderate UV: Use protection</div>
+     <div class="alert-time">20 Jun, 10:44</div>
 </div>
 
 </body>
