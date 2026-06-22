@@ -73,10 +73,18 @@ body { margin:0; }
 }
 
 
+.sub{
+  font-size:11px;
+  font-family:'Inter';
+  color:#555;
+  margin-top:2px;
+}
+
+
 /* FEELS = Helvetica */
 
 
-feels{
+.feels{
   font-size:10px;
   font-family:'Inter', Helvetica, Arial, sans-serif;
   font-weight:400;
@@ -192,7 +200,7 @@ feels{
 
       <!-- ICON -->
       <div class="icon-col">
-        <img class="icon" src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/clear-day.svg" alt="weather">
+        <img class="icon" src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg" alt="weather">
       </div>
 
       <!-- TEMP -->
@@ -202,7 +210,7 @@ feels{
 
       <!-- CONDITIONS -->
       <div class="desc-col">
-        <div class="desc">CLEAR SKY</div>
+        <div class="desc">OVERCAST</div>
         <div class="feels">Feels Like 27°C</div>
       </div>
 
@@ -214,69 +222,110 @@ feels{
 
 <div class="bar">
 
+
   <div class="item">
     <div class="label">Today</div>
+
     <div class="status" style="">
       <span style="color:#f59e0b;font-weight:700;">27°</span> / 16°
     </div>
+
+    <div class="sub"></div>
+
     <div class="underline" style="background:#f59e0b"></div>
   </div>
+
 
   <div class="item">
     <div class="label">UV Index</div>
+
     <div class="status" style="color:#f59e0b">
       CAUTION
     </div>
+
+    <div class="sub">UV 5.3</div>
+
     <div class="underline" style="background:#f59e0b"></div>
   </div>
 
+
   <div class="item">
     <div class="label">Wind</div>
+
     <div class="status" style="color:#16a34a">
       NO ALERTS
     </div>
+
+    <div class="sub">12 km/h</div>
+
     <div class="underline" style="background:#16a34a"></div>
   </div>
 
+
   <div class="item">
-    <div class="label">Heavy Rain</div>
+    <div class="label">Rain</div>
+
     <div class="status" style="color:#16a34a">
       NO ALERTS
     </div>
+
+    <div class="sub">1 mm</div>
+
     <div class="underline" style="background:#16a34a"></div>
   </div>
 
+
   <div class="item">
-    <div class="label">Storm Warnings</div>
+    <div class="label">Storms</div>
+
     <div class="status" style="color:#16a34a">
       NO ALERTS
     </div>
+
+    <div class="sub"></div>
+
     <div class="underline" style="background:#16a34a"></div>
   </div>
+
 
   <div class="item">
     <div class="label">Air Quality</div>
+
     <div class="status" style="color:#16a34a">
       GOOD
     </div>
+
+    <div class="sub">AQ Good</div>
+
     <div class="underline" style="background:#16a34a"></div>
   </div>
 
-  <div class="item">
-    <div class="label">Pollen</div>
-    <div class="status" style="color:#16a34a">
-      LOW
-    </div>
-    <div class="underline" style="background:#16a34a"></div>
-  </div>
 
   <div class="item">
     <div class="label">Visibility</div>
+
     <div class="status" style="color:#16a34a">
       GOOD
     </div>
+
+    <div class="sub"></div>
+
     <div class="underline" style="background:#16a34a"></div>
   </div>
+
+
+  <div class="item">
+    <div class="label">Pollen</div>
+
+    <div class="status" style="color:#16a34a">
+      LOW
+    </div>
+
+    <div class="sub">0</div>
+
+    <div class="underline" style="background:#16a34a"></div>
+  </div>
+
 
 <div class="item">
   <div class="label">Wind Direction</div>
@@ -287,7 +336,7 @@ feels{
 
 <div class="alert-bar">
   <div class="alert-message">Alert Threshold Met: UV index greater than 5. Action: Enforce sun protection - apply sun protection, wear appropriate PPE (long sleeves, eye protection), and limit prolonged sun exposure where possible.</div>
-  <div class="alert-time">22 Jun, 14:00</div>
+  <div class="alert-time">22 Jun, 14:40</div>
 </div>
 
 </div>
