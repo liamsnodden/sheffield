@@ -193,24 +193,35 @@ body { margin:0; }
 }
 
 
+
 .alert-bar{
   display:flex;
   align-items:center;
-  height:28px;
-  padding:0 12px;
-  border-top:1px solid #e2e8f0;
+  width:100%;
+  height:32px;
+
+  background:#000;   /* ✅ black background */
+  color:#fff;        /* ✅ white text */
+
+  padding:0 14px;
+  box-sizing:border-box;
 }
 
+
+
 .alert-message{
-  font-family:'Inter';
+  font-family:'Inter', Arial, sans-serif;
   font-size:12px;
   font-weight:600;
+  color:#fff;   /* ✅ force white */
 }
+
 
 .alert-time{
   margin-left:auto;
+  font-family:'Inter', Arial, sans-serif;
   font-size:11px;
-  color:#666;
+  color:#fff;
 }
 </style>
 </head>
@@ -236,7 +247,7 @@ body { margin:0; }
       <!-- CONDITIONS -->
       
 <div class="desc-col">
-  <div class="desc">PARTLY CLOUDY</div>
+  <div class="desc">MAINLY CLEAR</div>
   <div class="feels">Feels Like 23°C</div>
   
   <div class="hi-lo">
@@ -288,7 +299,7 @@ body { margin:0; }
       NO ALERTS
     </div>
 
-    <div class="sub">14 km/h</div>
+    <div class="sub">13 km/h</div>
 
     <div class="underline" style="background:linear-gradient(to right, transparent, #16a34a, transparent)"></div>
   </div>
@@ -373,7 +384,7 @@ body { margin:0; }
 </div>
 <div class="alert-bar">
   <div class="alert-message">Alert Threshold Met: UV index greater than 5. Action: Enforce sun protection - apply sun protection, wear appropriate PPE (long sleeves, eye protection), and limit prolonged sun exposure where possible.</div>
-  <div class="alert-time">22 Jun, 19:42</div>
+  <div class="alert-time">22 Jun, 19:45</div>
 </div>
 </body>
 </html>
