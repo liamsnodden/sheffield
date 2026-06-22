@@ -153,12 +153,21 @@ body { margin:0; }
 }
 
 
-.underline{
-  width:70%;
-  height:6px;
+
+.underline{. width:70%;
+  height:4px;                 /* ✅ thinner */
   border-radius:3px;
   margin-top:6px;
+
+  /* ✅ fade effect */
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--bar-color),
+    transparent
+  );
 }
+
 
 
 .status{
@@ -232,7 +241,7 @@ body { margin:0; }
 
     <div class="sub"></div>
 
-    <div class="underline" style="background:#f59e0b"></div>
+    <div class="underline" style="--bar-color:#f59e0b"></div>
   </div>
 
 
@@ -245,7 +254,7 @@ body { margin:0; }
 
     <div class="sub">UV 5.3</div>
 
-    <div class="underline" style="background:#f59e0b"></div>
+    <div class="underline" style="--bar-color:#f59e0b"></div>
   </div>
 
 
@@ -258,7 +267,7 @@ body { margin:0; }
 
     <div class="sub">12 km/h</div>
 
-    <div class="underline" style="background:#16a34a"></div>
+    <div class="underline" style="--bar-color:#16a34a"></div>
   </div>
 
 
@@ -271,7 +280,7 @@ body { margin:0; }
 
     <div class="sub">1 mm</div>
 
-    <div class="underline" style="background:#16a34a"></div>
+    <div class="underline" style="--bar-color:#16a34a"></div>
   </div>
 
 
@@ -284,7 +293,7 @@ body { margin:0; }
 
     <div class="sub"></div>
 
-    <div class="underline" style="background:#16a34a"></div>
+    <div class="underline" style="--bar-color:#16a34a"></div>
   </div>
 
 
@@ -297,7 +306,7 @@ body { margin:0; }
 
     <div class="sub">AQ 0</div>
 
-    <div class="underline" style="background:#16a34a"></div>
+    <div class="underline" style="--bar-color:#16a34a"></div>
   </div>
 
 
@@ -310,7 +319,7 @@ body { margin:0; }
 
     <div class="sub">34 km</div>
 
-    <div class="underline" style="background:#16a34a"></div>
+    <div class="underline" style="--bar-color:#16a34a"></div>
   </div>
 
 
@@ -323,7 +332,7 @@ body { margin:0; }
 
     <div class="sub">Low (0)</div>
 
-    <div class="underline" style="background:#16a34a"></div>
+    <div class="underline" style="--bar-color:#16a34a"></div>
   </div>
 
 
@@ -336,7 +345,7 @@ body { margin:0; }
 
 <div class="alert-bar">
   <div class="alert-message">Alert Threshold Met: UV index greater than 5. Action: Enforce sun protection - apply sun protection, wear appropriate PPE (long sleeves, eye protection), and limit prolonged sun exposure where possible.</div>
-  <div class="alert-time">22 Jun, 14:50</div>
+  <div class="alert-time">22 Jun, 14:54</div>
 </div>
 
 </div>
