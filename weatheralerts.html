@@ -45,6 +45,23 @@ body { margin:0; }
 }
 
 
+.hi-lo{
+  font-family:'Oswald', Arial, sans-serif;
+  font-size:14px;
+  font-weight:700;
+  margin-top:4px;
+  display:flex;
+  gap:8px;
+}
+
+.hi-temp{
+  color:#dc2626; /* red */
+}
+
+.lo-temp{
+  color:#2563eb; /* blue */
+}
+
 
 .forecast{
   font-family:'Oswald';
@@ -217,10 +234,17 @@ body { margin:0; }
       </div>
 
       <!-- CONDITIONS -->
-      <div class="desc-col">
-        <div class="desc">PARTLY CLOUDY</div>
-        <div class="feels">Feels Like 23°C</div>
-      </div>
+      
+<div class="desc-col">
+  <div class="desc">PARTLY CLOUDY</div>
+  <div class="feels">Feels Like 23°C</div>
+  
+  <div class="hi-lo">
+    <span class="hi-temp">27°</span>
+    <span class="lo-temp">16°</span>
+  </div>
+</div>
+
 
     </div>
   </div>
@@ -344,7 +368,7 @@ body { margin:0; }
 
 <div class="alert-bar">
   <div class="alert-message">Alert Threshold Met: UV index greater than 5. Action: Enforce sun protection - apply sun protection, wear appropriate PPE (long sleeves, eye protection), and limit prolonged sun exposure where possible.</div>
-  <div class="alert-time">22 Jun, 19:30</div>
+  <div class="alert-time">22 Jun, 19:31</div>
 </div>
 
 </div>
