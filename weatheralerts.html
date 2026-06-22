@@ -305,7 +305,7 @@ body { margin:0; }
     <div class="label">Wind</div>
 
     <div class="status" style="color:#16a34a">
-      NO ALERTS
+      NOne
     </div>
 
     <div class="sub">13 km/h</div>
@@ -318,7 +318,7 @@ body { margin:0; }
     <div class="label">Rain</div>
 
     <div class="status" style="color:#16a34a">
-      NO ALERTS
+      NONE
     </div>
 
     <div class="sub">0 mm</div>
@@ -331,7 +331,7 @@ body { margin:0; }
     <div class="label">Storms</div>
 
     <div class="status" style="color:#16a34a">
-      NO ALERTS
+      NONE
     </div>
 
     <div class="sub"></div>
@@ -396,11 +396,23 @@ body { margin:0; }
   
   <div class="alert-title">WEATHER SAFETY ALERT!</div>
 
-  <div class="alert-message">UV index greater than 5. Action: Enforce sun protection - apply sun protection, wear appropriate PPE (long sleeves, eye protection), and limit prolonged sun exposure where possible.</div>
+  <div class="alert-message" id="alertMessage">UV index greater than 5. Action: Enforce sun protection - apply sun protection, wear appropriate PPE (long sleeves, eye protection), and limit prolonged sun exposure where possible.</div>
 
-  <div class="alert-time">22 Jun, 19:53</div>
+  <div class="alert-time">22 Jun, 19:59</div>
 
 </div>
+
+
+<script>
+  const alerts = ["UV index greater than 5. Action: Enforce sun protection - apply sun protection, wear appropriate PPE (long sleeves, eye protection), and limit prolonged sun exposure where possible."];
+  let index = 0;
+
+  setInterval(() => {
+    index = (index + 1) % alerts.length;
+    document.getElementById("alertMessage").textContent = alerts[index];
+  }, 20000); // 20 seconds
+</script>
+
 
 </body>
 </html>
