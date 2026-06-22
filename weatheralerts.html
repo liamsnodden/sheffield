@@ -261,7 +261,7 @@ body { margin:0; }
 
       <!-- ICON -->
       <div class="icon-col">
-        <img class="icon" src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/clear-day.svg" alt="weather">
+        <img class="icon" src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg" alt="weather">
       </div>
 
       <!-- TEMP -->
@@ -272,12 +272,12 @@ body { margin:0; }
       <!-- CONDITIONS -->
       
 <div class="desc-col">
-  <div class="desc">CLEAR SKY</div>
+  <div class="desc">OVERCAST</div>
   <div class="feels">Feels Like 20°C</div>
   
   <div class="hi-lo">
-    <span class="hi-temp">27°</span>
-    <span class="lo-temp">16°</span>
+    <span class="hi-temp">32°</span>
+    <span class="lo-temp">17°</span>
   </div>
 </div>
 
@@ -298,7 +298,7 @@ body { margin:0; }
       CAUTION
     </div>
 
-    <div class="sub">UV 5.4</div>
+    <div class="sub">UV 5.5</div>
 
 
   </div>
@@ -311,7 +311,7 @@ body { margin:0; }
       NONE
     </div>
 
-    <div class="sub">8 km/h</div>
+    <div class="sub">6 km/h</div>
 
 
   </div>
@@ -363,7 +363,7 @@ body { margin:0; }
       GOOD
     </div>
 
-    <div class="sub">35 km</div>
+    <div class="sub">34 km</div>
 
 
   </div>
@@ -399,16 +399,16 @@ body { margin:0; }
   
   <div class="alert-title" id="alertTitle">WEATHER SAFETY ALERT!</div>
 
-  <div class="alert-message" id="alertMessage">Forecast high temperature of 25°C or above. Action: Monitor workforce for heat stress, encourage hydration, and consider additional rest breaks.</div>
+  <div class="alert-message" id="alertMessage">Forecast high temperature in excess of 30°C. Action: Implement heat stress controls—ensure hydration, schedule additional breaks, and monitor personnel for signs of heat-related illness.</div>
 
-  <div class="alert-time">22 Jun, 22:00</div>
+  <div class="alert-time">22 Jun, 23:00</div>
 
 </div>
 
 
 
 <script>
-  const alerts = ["Forecast high temperature of 25°C or above. Action: Monitor workforce for heat stress, encourage hydration, and consider additional rest breaks.","UV index greater than 5. Action: Enforce sun protection - apply sun protection, wear appropriate PPE (long sleeves, eye protection), and limit prolonged sun exposure where possible."];
+  const alerts = ["Forecast high temperature in excess of 30°C. Action: Implement heat stress controls—ensure hydration, schedule additional breaks, and monitor personnel for signs of heat-related illness.","UV index greater than 5. Action: Enforce sun protection - apply sun protection, wear appropriate PPE (long sleeves, eye protection), and limit prolonged sun exposure where possible."];
   let index = 0;
 
   const messageEl = document.getElementById("alertMessage");
