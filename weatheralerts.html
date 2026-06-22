@@ -266,14 +266,14 @@ body { margin:0; }
 
       <!-- TEMP -->
       <div class="temp-col">
-        <div class="temp">23°C</div>
+        <div class="temp">22°C</div>
       </div>
 
       <!-- CONDITIONS -->
       
 <div class="desc-col">
   <div class="desc">CLEAR SKY</div>
-  <div class="feels">Feels Like 23°C</div>
+  <div class="feels">Feels Like 22°C</div>
   
   <div class="hi-lo">
     <span class="hi-temp">27°</span>
@@ -363,7 +363,7 @@ body { margin:0; }
       GOOD
     </div>
 
-    <div class="sub">36 km</div>
+    <div class="sub">37 km</div>
 
 
   </div>
@@ -401,20 +401,36 @@ body { margin:0; }
 
   <div class="alert-message" id="alertMessage">Forecast high temperature of 25°C or above. Action: Monitor workforce for heat stress, encourage hydration, and consider additional rest breaks.</div>
 
-  <div class="alert-time">22 Jun, 20:08</div>
+  <div class="alert-time">22 Jun, 20:18</div>
 
 </div>
+
 
 
 <script>
   const alerts = ["Forecast high temperature of 25°C or above. Action: Monitor workforce for heat stress, encourage hydration, and consider additional rest breaks.","UV index greater than 5. Action: Enforce sun protection - apply sun protection, wear appropriate PPE (long sleeves, eye protection), and limit prolonged sun exposure where possible."];
   let index = 0;
 
+  const messageEl = document.getElementById("alertMessage");
+  const titleEl = document.getElementById("alertTitle");
+
   setInterval(() => {
+
+    // ✅ TRIGGER FLASH
+    titleEl.classList.add("flash");
+
+    // ✅ ROTATE MESSAGE
     index = (index + 1) % alerts.length;
-    document.getElementById("alertMessage").textContent = alerts[index];
-  }, 20000); // 20 seconds
+    messageEl.textContent = alerts[index];
+
+    // ✅ REMOVE FLASH so it resets
+    setTimeout(() => {
+      titleEl.classList.remove("flash");
+    }, 1000);
+
+  }, 20000);
 </script>
+
 
 
 </body>
