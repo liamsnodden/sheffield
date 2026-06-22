@@ -80,19 +80,26 @@ feels{
 /* ===== REST UNCHANGED ===== */
 .content{ display:flex; flex-direction:column; width:90%; }
 
+
 .bar{
   display:flex;
-  height:54px;
-  border-bottom:1px solid #e2e8f0;
+  height:90px;
+  background:#f3f4f6;
+  border-top:1px solid #ddd;
+  border-bottom:1px solid #ddd;
 }
+
+
 
 .item{
   flex:1;
   display:flex;
+  flex-direction:column;
+  justify-content:center;
   align-items:center;
-  padding-left:8px;
-  border-right:1px solid #eee;
+  border-right:1px solid #ddd;
 }
+
 
 .row{
   display:flex;
@@ -106,18 +113,32 @@ feels{
   border-radius:50%;
 }
 
+
 .label{
-  font-size:12px;
+  font-size:11px;
+  letter-spacing:1px;
   font-weight:600;
-  color:#082b5b;
+  color:#666;
   font-family:'Inter';
+  text-transform:uppercase;
+  margin-bottom:4px;
 }
+
+
+.underline{
+  width:70%;
+  height:6px;
+  border-radius:3px;
+  margin-top:6px;
+}
+
 
 .status{
   font-family:'Oswald';
-  font-size:20px;
+  font-size:24px;
   font-weight:700;
 }
+
 
 .alert-bar{
   display:flex;
@@ -164,89 +185,71 @@ feels{
 <div class="bar">
 
   <div class="item">
-    <div class="row">
-      <div class="dot" style="background:#f59e0b"></div>
-      <div>
-        <div class="label">Temp (High/Low)</div>
-        <div class="status" style=""><span style="color:#f59e0b;font-weight:700;">27°</span> / 16°</div>
-      </div>
+    <div class="label">Temp (High/Low)</div>
+    <div class="status" style="">
+      <span style="color:#f59e0b;font-weight:700;">27°</span> / 16°
     </div>
+    <div class="underline" style="background:#f59e0b"></div>
   </div>
 
   <div class="item">
-    <div class="row">
-      <div class="dot" style="background:#f59e0b"></div>
-      <div>
-        <div class="label">UV Index</div>
-        <div class="status" style="color:#f59e0b">CAUTION</div>
-      </div>
+    <div class="label">UV Index</div>
+    <div class="status" style="color:#f59e0b">
+      CAUTION
     </div>
+    <div class="underline" style="background:#f59e0b"></div>
   </div>
 
   <div class="item">
-    <div class="row">
-      <div class="dot" style="background:#16a34a"></div>
-      <div>
-        <div class="label">Wind</div>
-        <div class="status" style="color:#16a34a">NO ALERTS</div>
-      </div>
+    <div class="label">Wind</div>
+    <div class="status" style="color:#16a34a">
+      NO ALERTS
     </div>
+    <div class="underline" style="background:#16a34a"></div>
   </div>
 
   <div class="item">
-    <div class="row">
-      <div class="dot" style="background:#16a34a"></div>
-      <div>
-        <div class="label">Heavy Rain</div>
-        <div class="status" style="color:#16a34a">NO ALERTS</div>
-      </div>
+    <div class="label">Heavy Rain</div>
+    <div class="status" style="color:#16a34a">
+      NO ALERTS
     </div>
+    <div class="underline" style="background:#16a34a"></div>
   </div>
 
   <div class="item">
-    <div class="row">
-      <div class="dot" style="background:#16a34a"></div>
-      <div>
-        <div class="label">Storm Warnings</div>
-        <div class="status" style="color:#16a34a">NO ALERTS</div>
-      </div>
+    <div class="label">Storm Warnings</div>
+    <div class="status" style="color:#16a34a">
+      NO ALERTS
     </div>
+    <div class="underline" style="background:#16a34a"></div>
   </div>
 
   <div class="item">
-    <div class="row">
-      <div class="dot" style="background:#16a34a"></div>
-      <div>
-        <div class="label">Air Quality</div>
-        <div class="status" style="color:#16a34a">GOOD</div>
-      </div>
+    <div class="label">Air Quality</div>
+    <div class="status" style="color:#16a34a">
+      GOOD
     </div>
+    <div class="underline" style="background:#16a34a"></div>
   </div>
 
   <div class="item">
-    <div class="row">
-      <div class="dot" style="background:#16a34a"></div>
-      <div>
-        <div class="label">Visibility</div>
-        <div class="status" style="color:#16a34a">GOOD</div>
-      </div>
+    <div class="label">Visibility</div>
+    <div class="status" style="color:#16a34a">
+      GOOD
     </div>
+    <div class="underline" style="background:#16a34a"></div>
   </div>
 
-  <div class="item">
-    <div class="row">
-      
-      <div>
-        <div class="label">Wind Direction</div>
-        <div class="status" style="">SE (M1)</div>
-      </div>
-    </div>
-  </div>
+<div class="item">
+  <div class="label">WIND DIR</div>
+  <div class="status" style="color:#111">SE (M1)</div>
+</div>
+
 </div>
 
 <div class="alert-bar">
   <div class="alert-message">Alert Threshold Met: UV index greater than 5. Action: Enforce sun protection - apply sun protection, wear appropriate PPE (long sleeves, eye protection), and limit prolonged sun exposure where possible.</div>
-  <div class="alert-time">22 Jun, 12:50</div>
+  <div class="alert-time">22 Jun, 13:03</div>
 </div>
 
 </div>
