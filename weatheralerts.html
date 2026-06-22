@@ -12,12 +12,13 @@ body { margin:0; }
 .container { display:flex; }
 
 /* HEADER */
+
 .header-block{
   background:#ffffff;
   color:#111;
   display:flex;
-  align-items:left;
-  justify-content:center;
+  justify-content:flex-start;  /* ✅ left align horizontally */
+  align-items:center;          /* ✅ vertical centering */
   padding:0 20px 0 10px;
   width:310px;
 }
@@ -25,8 +26,10 @@ body { margin:0; }
 .header-inner{
   display:flex;
   align-items:center;
+  justify-content:flex-start;  /* ✅ ensures no centering */
   gap:14px;
 }
+
 
 .icon{
   width:90px;
@@ -35,7 +38,8 @@ body { margin:0; }
 .text-col{
   display:flex;
   flex-direction:column;
-  line-height:1.25;
+  align-items:flex-start;      /* ✅ text left aligned */
+  text-align:left;
 }
 
 /* BIGGER TEMP */
@@ -217,7 +221,7 @@ body { margin:0; }
 
 <div class="alert-bar">
   <div class="alert-message">Alert Threshold Met: UV index greater than 5. Action: Enforce sun protection - apply sun protection, wear appropriate PPE (long sleeves, eye protection), and limit prolonged sun exposure where possible.</div>
-  <div class="alert-time">22 Jun, 09:14</div>
+  <div class="alert-time">22 Jun, 09:16</div>
 </div>
 
 </div>
