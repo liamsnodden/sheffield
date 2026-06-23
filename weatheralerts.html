@@ -25,12 +25,14 @@ body { margin:0; }
   width:450px;
 }
 
+
 .header-inner{
   display:flex;
   align-items:center;
-  justify-content:flex-start;  /* ✅ ensures no centering */
-  gap:14px;
+  justify-content:space-between;  /* ✅ THIS pushes clock right */
+  width:100%;
 }
+
 
 
 .top-bar{
@@ -302,17 +304,19 @@ body { margin:0; }
   color:#fff;
 }
 
-.clock-box{
+
+.clock-right{
   display:flex;
   flex-direction:column;
-  align-items:center;
-  justify-content:center;
+  align-items:flex-end;
+  text-align:right;
   gap:2px;
+  margin-left:20px;
 }
 
 .clock-time{
   font-family:'Oswald';
-  font-size:22px;
+  font-size:20px;
   font-weight:700;
   line-height:1;
 }
@@ -320,10 +324,12 @@ body { margin:0; }
 .clock-world{
   display:flex;
   align-items:center;
+  justify-content:flex-end;
   gap:6px;
   font-family:'Inter', Arial, sans-serif;
-  font-size:11px;
+  font-size:10px;
 }
+
 
 .clock-flag{
   width:16px;
@@ -351,23 +357,50 @@ body { margin:0; }
 
   <div class="header-block">
     <div class="header-inner">
+<div class="header-inner">
 
-    
-      <!-- TEMP -->
-      <div class="temp-col">
-        <div class="temp">30°C</div>
-      </div>
+  <!-- LEFT SIDE -->
+  <div style="display:flex; align-items:center; gap:14px;">
 
-      <!-- ICON -->
-      <div class="icon-col">
-        <img class="icon" src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/clear-day.svg" alt="weather">
+    <div class="temp-col">
+      <div class="temp">29°C</div>
+    </div>
+
+    <div class="icon-col">
+      <img class="icon" src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/clear-day.svg" alt="weather">
+    </div>
+
+    <div class="desc-col">
+      <div class="desc">CLEAR SKY</div>
+      <div class="feels">Feels Like 29°C</div>
+
+      <div class="hi-lo">
+        <span class="hi-temp">32°</span>
+        <span class="lo-temp">17°</span>
       </div>
+    </div>
+
+  </div>
+
+  <!-- ✅ RIGHT SIDE CLOCK -->
+  <div class="clock-right">
+    <div class="clock-time" id="time"></div>
+
+    <div class="clock-world">
+      <span id="worldTime"></span>
+      <span id="worldStatus" class="clock-dot"></span>
+      <span id="worldLocation"></span>
+      <img id="worldFlag" class="clock-flag" />
+    </div>
+  </div>
+
+</div>
 
       <!-- CONDITIONS -->
       
 <div class="desc-col">
   <div class="desc">CLEAR SKY</div>
-  <div class="feels">Feels Like 30°C</div>
+  <div class="feels">Feels Like 29°C</div>
   
   <div class="hi-lo">
     <span class="hi-temp">32°</span>
@@ -501,7 +534,7 @@ body { margin:0; }
   <div class="label">Direction</div>
 
   <div class="status" style="color:#111">
-    NW (314°)
+    NW (322°)
   </div>
 
   <div class="sub">
@@ -510,21 +543,9 @@ body { margin:0; }
 </div>
 
 
-<div class="item">
-  <div class="top-bar" style="background:#2563eb"></div>
 
-  <div class="clock-box">
 
-    <div class="clock-time" id="time"></div>
-
-    <div class="clock-world">
-      <span id="worldTime"></span>
-      <span id="worldStatus" class="clock-dot"></span>
-      <span id="worldLocation"></span>
-      <img id="worldFlag" class="clock-flag" />
-    </div>
-
-  </div>
+  
 </div>
 
 </div>
