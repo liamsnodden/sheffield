@@ -31,6 +31,16 @@ body { margin:0; }
 }
 
 
+.top-bar{
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:4px;
+  border-top-left-radius:8px;
+  border-top-right-radius:8px;
+}
+
 
 .icon{
   width:75px;
@@ -164,25 +174,32 @@ body { margin:0; }
 
 .bar{
   display:flex;
-  height:100%;
-  background:#fff;
-  border-top:1px solid #ddd;
-  border-bottom:1px solid #ddd;
+  gap:12px;                    /* ✅ space between cards */
+  padding:10px;
+  background:#f3f4f6;          /* ✅ light grey background */
 }
+
+
 
 
 
 
 .item{
   flex:1;
+  background:#fff;
+
+  border-radius:8px;           /* ✅ rounded corners */
+  padding:10px 6px;
+
   display:flex;
   flex-direction:column;
   justify-content:center;
   align-items:center;
-  border-right:1px solid #ddd;
-  padding:2px 4px;
-  gap:1px;
+
+  box-shadow:0 1px 2px rgba(0,0,0,0.08);  /* ✅ subtle depth */
+  position:relative;
 }
+
 
 
 
@@ -219,6 +236,20 @@ body { margin:0; }
 }
 
 
+
+alert-pill{
+  background:#dc2626;
+  color:#fff;
+
+  font-family:'Oswald';
+  font-weight:700;
+  font-size:13px;
+
+  padding:6px 12px;
+  border-radius:6px;
+
+  white-space:nowrap;
+}
 
 
 
@@ -394,7 +425,11 @@ body { margin:0; }
 
 
 
+
 <div class="item">
+
+  <div class="top-bar" style="background:#16a34a"></div>
+
   <div class="label">Direction</div>
 
   <div class="status" style="color:#111">
@@ -415,15 +450,21 @@ body { margin:0; }
 
 </div>
 
+
+
 <div class="alert-bar">
-  
-  <div class="alert-title" id="alertTitle">WEATHER SAFETY ALERT!</div>
 
-  <div class="alert-message" id="alertMessage">Forecast high temperature in excess of 30°C. Action: Implement heat stress controls—ensure hydration, schedule additional breaks, and monitor personnel for signs of heat-related illness.</div>
+  <div class="alert-pill" id="alertTitle">
+    ⚠ WEATHER SAFETY ALERT
+  </div>
 
-  <div class="alert-time">23 Jun, 09:09</div>
+  <div class="alert-message" id="alertMessage">
+    Forecast high temperature in excess of 30°C. Action: Implement heat stress controls—ensure hydration, schedule additional breaks, and monitor personnel for signs of heat-related illness.
+  </div>
 
 </div>
+
+
 
 
 
