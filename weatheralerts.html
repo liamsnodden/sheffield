@@ -9,7 +9,12 @@
 <style>
 body { margin:0; }
 
-.container { display:flex; }
+
+.container {
+  display:flex;
+  flex-direction:column;   /* ✅ THIS FIXES EVERYTHING */
+}
+
 
 /* HEADER */
 
@@ -178,7 +183,13 @@ body { margin:0; }
 
 
 /* ===== REST UNCHANGED ===== */
-.content{ display:flex; flex-direction:column; width:90%; }
+
+.content{
+  display:flex;
+  flex-direction:column;
+  width:100%;   /* ✅ was 90% */
+}
+
 
 
 .bar{
