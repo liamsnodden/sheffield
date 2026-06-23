@@ -31,8 +31,20 @@ body { margin:0; }
 }
 
 
+
 .icon{
   width:75px;
+  height:auto;
+  transform: translateY(2px);  /* ✅ adjust: try 1–3px if needed */
+  display:block;  /* ✅ removes inline spacing issues */
+}
+
+
+
+.icon-col{
+  display:flex;
+  align-items:center;   /* ✅ vertical centering */
+  justify-content:center;
 }
 
 
@@ -401,7 +413,7 @@ body { margin:0; }
 
   <div class="alert-message" id="alertMessage">Forecast high temperature in excess of 30°C. Action: Implement heat stress controls—ensure hydration, schedule additional breaks, and monitor personnel for signs of heat-related illness.</div>
 
-  <div class="alert-time">23 Jun, 07:52</div>
+  <div class="alert-time">23 Jun, 07:54</div>
 
 </div>
 
