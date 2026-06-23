@@ -301,6 +301,46 @@ body { margin:0; }
   font-size:11px;
   color:#fff;
 }
+
+.clock-box{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:2px;
+}
+
+.clock-time{
+  font-family:'Oswald';
+  font-size:22px;
+  font-weight:700;
+  line-height:1;
+}
+
+.clock-world{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-family:'Inter', Arial, sans-serif;
+  font-size:11px;
+}
+
+.clock-flag{
+  width:16px;
+  height:12px;
+  border-radius:2px;
+}
+
+.clock-dot{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+}
+
+.day{ background:#22c55e; }
+.evening{ background:#f59e0b; }
+.night{ background:#6b7280; }
+
 </style>
 </head>
 
@@ -372,7 +412,7 @@ body { margin:0; }
       NONE
     </div>
 
-    <div class="sub">15 km/h</div>
+    <div class="sub">14 km/h</div>
 
   </div>
 
@@ -432,7 +472,7 @@ body { margin:0; }
       GOOD
     </div>
 
-    <div class="sub">21 km</div>
+    <div class="sub">20 km</div>
 
   </div>
 
@@ -461,7 +501,7 @@ body { margin:0; }
   <div class="label">Direction</div>
 
   <div class="status" style="color:#111">
-    NW (305°)
+    NW (314°)
   </div>
 
   <div class="sub">
@@ -469,6 +509,23 @@ body { margin:0; }
   </div>
 </div>
 
+
+<div class="item">
+  <div class="top-bar" style="background:#2563eb"></div>
+
+  <div class="clock-box">
+
+    <div class="clock-time" id="time"></div>
+
+    <div class="clock-world">
+      <span id="worldTime"></span>
+      <span id="worldStatus" class="clock-dot"></span>
+      <span id="worldLocation"></span>
+      <img id="worldFlag" class="clock-flag" />
+    </div>
+
+  </div>
+</div>
 
 </div>
 
@@ -518,6 +575,78 @@ body { margin:0; }
     }, 1000);
 
   }, 20000);
+
+// ===== LOCAL TIME (NO DATE) =====
+function updateTime(){
+  const now = new Date();
+
+  const time = now.toLocaleTimeString('en-GB',{
+    hour:'2-digit',
+    minute:'2-digit'
+  });
+
+  document.getElementById('time').textContent = time;
+}
+
+updateTime();
+setInterval(updateTime,1000);
+
+
+// ===== WORLD CLOCK =====
+const FLAG_BASE = "https://liamsnodden.github.io/sheffield/";
+
+const sites = [
+  {city:"Cleveland HQ",flag:"us.png",timezone:"America/New_York"},
+  {city:"Tournus",flag:"fr.png",timezone:"Europe/Paris"},
+  {city:"Lelystad",flag:"nl.png",timezone:"Europe/Amsterdam"},
+  {city:"Frankfurt",flag:"de.png",timezone:"Europe/Berlin"},
+  {city:"Pianoro",flag:"it.png",timezone:"Europe/Rome"},
+  {city:"Brodziszewo",flag:"pl.png",timezone:"Europe/Warsaw"},
+  {city:"Bangalore",flag:"in.png",timezone:"Asia/Kolkata"},
+  {city:"Ho Chi Minh City",flag:"vn.png",timezone:"Asia/Ho_Chi_Minh"}
+];
+
+let currentSite = 0;
+
+function getStatus(timezone){
+  const hour = parseInt(
+    new Intl.DateTimeFormat('en-GB',{
+      hour:'2-digit',
+      hour12:false,
+      timeZone:timezone
+    }).format(new Date())
+  );
+
+  if(hour >= 7 && hour < 18) return 'day';
+  if(hour >= 18 && hour < 22) return 'evening';
+  return 'night';
+}
+
+function updateWorldClock(){
+  const site = sites[currentSite];
+
+  document.getElementById('worldFlag').src =
+    FLAG_BASE + site.flag;
+
+  document.getElementById('worldLocation').textContent =
+    site.city;
+
+  document.getElementById('worldTime').textContent =
+    new Intl.DateTimeFormat('en-GB',{
+      hour:'2-digit',
+      minute:'2-digit',
+      timeZone:site.timezone
+    }).format(new Date());
+
+  const status = document.getElementById('worldStatus');
+  status.className = 'clock-dot ' + getStatus(site.timezone);
+
+  currentSite = (currentSite + 1) % sites.length;
+}
+
+updateWorldClock();
+setInterval(updateWorldClock,10000);
+
 </script>
 
 
