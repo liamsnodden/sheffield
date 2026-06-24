@@ -4,10 +4,13 @@
 <head>
 <meta charset="UTF-8">
 
-https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@400;500;600&display=swap
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-body { margin:0; font-family:'Inter', sans-serif; }
+body {
+  margin:0;
+  font-family:'Inter', sans-serif;
+}
 
 .container{
   display:flex;
@@ -16,7 +19,7 @@ body { margin:0; font-family:'Inter', sans-serif; }
   padding:12px 16px;
 }
 
-/* LEFT SIDE */
+/* LEFT */
 .left{
   display:flex;
   align-items:center;
@@ -52,11 +55,8 @@ body { margin:0; font-family:'Inter', sans-serif; }
 .hi{ color:#dc2626; }
 .lo{ color:#2563eb; }
 
-/* RIGHT SIDE CLOCK */
+/* CLOCK */
 .clock{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-end;
   text-align:right;
 }
 
@@ -75,7 +75,6 @@ body { margin:0; font-family:'Inter', sans-serif; }
   font-size:11px;
   color:#444;
 }
-
 </style>
 </head>
 
@@ -83,24 +82,21 @@ body { margin:0; font-family:'Inter', sans-serif; }
 
 <div class="container">
 
-  <!-- LEFT -->
+  <!-- WEATHER -->
   <div class="left">
-
-    https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/partly-cloudy-day.svg
-
+    <img class="icon" src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg" />
     <div>
       <div class="temp">27°C</div>
-      <div class="desc">MAINLY CLEAR</div>
+      <div class="desc">OVERCAST</div>
       <div class="feels">Feels like 27°C</div>
       <div class="hilo">
         <span class="hi">32°</span> /
         <span class="lo">22°</span>
       </div>
     </div>
-
   </div>
 
-  <!-- RIGHT CLOCK -->
+  <!-- CLOCK -->
   <div class="clock">
     <div class="date" id="date"></div>
     <div class="time" id="time"></div>
@@ -110,6 +106,7 @@ body { margin:0; font-family:'Inter', sans-serif; }
 </div>
 
 <script>
+
 // DATE
 function updateDate(){
   const d = new Date();
@@ -124,7 +121,7 @@ function updateTime(){
     t.toLocaleTimeString("en-GB",{ hour:"2-digit", minute:"2-digit" });
 }
 
-// WORLD CLOCK ROTATION
+// WORLD CLOCK
 const sites = [
   {city:"Cleveland", tz:"America/New_York"},
   {city:"Tournus", tz:"Europe/Paris"},
@@ -140,7 +137,6 @@ let i = 0;
 
 function updateWorld(){
   const s = sites[i];
-
   const time = new Intl.DateTimeFormat("en-GB",{
     hour:"2-digit",
     minute:"2-digit",
