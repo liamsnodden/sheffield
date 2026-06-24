@@ -7,13 +7,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-body { margin:0; font-family:'Inter'; }
+body {
+  margin:0;
+  font-family:'Inter', sans-serif;
+}
 
 .container{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:10px 14px;
+  padding:12px 16px;
 }
 
 /* LEFT */
@@ -29,29 +32,24 @@ body { margin:0; font-family:'Inter'; }
 
 .temp{
   font-family:'Oswald';
-  font-size:44px;
+  font-size:40px;
   font-weight:700;
-}
-
-.details{
-  display:flex;
-  flex-direction:column;
-  gap:2px;
 }
 
 .desc{
   font-family:'Oswald';
-  font-size:15px;
+  font-size:16px;
   font-weight:700;
 }
 
 .feels{
-  font-size:12px;
+  font-size:13px;
+  color:#555;
 }
 
 .hilo{
   font-family:'Oswald';
-  font-size:13px;
+  font-size:14px;
 }
 
 .hi{ color:#dc2626; }
@@ -63,7 +61,7 @@ body { margin:0; font-family:'Inter'; }
 }
 
 .date{
-  font-size:11px;
+  font-size:12px;
   color:#666;
 }
 
@@ -73,29 +71,10 @@ body { margin:0; font-family:'Inter'; }
   font-weight:700;
 }
 
-.world-row{
-  display:flex;
-  align-items:center;
-  justify-content:flex-end;
-  gap:6px;
+.world{
   font-size:11px;
+  color:#444;
 }
-
-.flag{
-  width:16px;
-  height:12px;
-}
-
-.dot{
-  width:7px;
-  height:7px;
-  border-radius:50%;
-}
-
-.day{ background:#22c55e; }
-.evening{ background:#f59e0b; }
-.night{ background:#6b7280; }
-
 </style>
 </head>
 
@@ -105,35 +84,23 @@ body { margin:0; font-family:'Inter'; }
 
   <!-- WEATHER -->
   <div class="left">
-
-    <img class="icon" src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg">
-
-    <div style="display:flex; align-items:center; gap:14px;">
+    <img class="icon" src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg" />
+    <div>
       <div class="temp">28°C</div>
-
-      <div class="details">
-        <div class="desc">OVERCAST</div>
-        <div class="feels">Feels 28°C</div>
-        <div class="hilo">
-          <span class="hi">32°</span> /
-          <span class="lo">22°</span>
-        </div>
+      <div class="desc">OVERCAST</div>
+      <div class="feels">Feels like 28°C</div>
+      <div class="hilo">
+        <span class="hi">32°</span> /
+        <span class="lo">22°</span>
       </div>
     </div>
-
   </div>
 
   <!-- CLOCK -->
   <div class="clock">
     <div class="date" id="date"></div>
     <div class="time" id="time"></div>
-
-    <div class="world-row">
-      <span id="worldTime"></span>
-      <span id="worldDot" class="dot"></span>
-      <span id="worldCity"></span>
-      <img id="worldFlag" class="flag">
-    </div>
+    <div class="world" id="world"></div>
   </div>
 
 </div>
@@ -156,47 +123,28 @@ function updateTime(){
 
 // WORLD CLOCK
 const sites = [
-  {city:"Cleveland", flag:"us.png", tz:"America/New_York"},
-  {city:"Tournus", flag:"fr.png", tz:"Europe/Paris"},
-  {city:"Lelystad", flag:"nl.png", tz:"Europe/Amsterdam"},
-  {city:"Frankfurt", flag:"de.png", tz:"Europe/Berlin"},
-  {city:"Pianoro", flag:"it.png", tz:"Europe/Rome"},
-  {city:"Poland", flag:"pl.png", tz:"Europe/Warsaw"},
-  {city:"Bangalore", flag:"in.png", tz:"Asia/Kolkata"},
-  {city:"Vietnam", flag:"vn.png", tz:"Asia/Ho_Chi_Minh"}
+  {city:"Cleveland", tz:"America/New_York"},
+  {city:"Tournus", tz:"Europe/Paris"},
+  {city:"Lelystad", tz:"Europe/Amsterdam"},
+  {city:"Frankfurt", tz:"Europe/Berlin"},
+  {city:"Pianoro", tz:"Europe/Rome"},
+  {city:"Poland", tz:"Europe/Warsaw"},
+  {city:"Bangalore", tz:"Asia/Kolkata"},
+  {city:"Vietnam", tz:"Asia/Ho_Chi_Minh"}
 ];
 
 let i = 0;
 
-function getStatus(tz){
-  const hour = new Intl.DateTimeFormat('en-GB',{
-    hour:'2-digit',
-    hour12:false,
-    timeZone:tz
-  }).format(new Date());
-
-  const h = parseInt(hour);
-
-  if (h >= 7 && h < 18) return "day";
-  if (h >= 18 && h < 22) return "evening";
-  return "night";
-}
-
 function updateWorld(){
   const s = sites[i];
-
   const time = new Intl.DateTimeFormat("en-GB",{
     hour:"2-digit",
     minute:"2-digit",
     timeZone:s.tz
   }).format(new Date());
 
-  document.getElementById("worldTime").textContent = time;
-  document.getElementById("worldCity").textContent = s.city;
-  document.getElementById("worldFlag").src = "https://liamsnodden.github.io/sheffield/" + s.flag;
-
-  const dot = document.getElementById("worldDot");
-  dot.className = "dot " + getStatus(s.tz);
+  document.getElementById("world").textContent =
+    time + " • " + s.city;
 
   i = (i + 1) % sites.length;
 }
