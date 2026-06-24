@@ -32,6 +32,8 @@ body { margin:0; font-family:'Inter'; }
 
 .icon{
   width:70px;
+  display:block;        /* ✅ removes baseline shift */
+
 }
 
 .temp{
@@ -128,14 +130,17 @@ body { margin:0; font-family:'Inter'; }
 }
 
 .ficon{
-  width:28px;
+  width:35px;
   margin:2px 0;
 }
 
-.fhilo{
+
+.ftemp{
   font-family:'Oswald';
-  font-size:12px;
+  font-size:13px;
+  font-weight:700;
 }
+
 
 
 .day{ background:#22c55e; }
@@ -190,28 +195,25 @@ body { margin:0; font-family:'Inter'; }
     <div class="fcol">
       <div class="fday">Thu</div>
       <img src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg" class="ficon">
-      <div class="fhilo">
-        <span class="hi">31°</span>
-        <span class="lo">20°</span>
-      </div>
+      
+<div class="ftemp">31°</div>
+
     </div>
   
     <div class="fcol">
       <div class="fday">Fri</div>
       <img src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/thunderstorms.svg" class="ficon">
-      <div class="fhilo">
-        <span class="hi">30°</span>
-        <span class="lo">20°</span>
-      </div>
+      
+<div class="ftemp">30°</div>
+
     </div>
   
     <div class="fcol">
       <div class="fday">Sat</div>
       <img src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/partly-cloudy-day.svg" class="ficon">
-      <div class="fhilo">
-        <span class="hi">28°</span>
-        <span class="lo">19°</span>
-      </div>
+      
+<div class="ftemp">28°</div>
+
     </div>
   
 </div>
