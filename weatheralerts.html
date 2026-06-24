@@ -107,6 +107,37 @@ body { margin:0; font-family:'Inter'; }
   border-radius:50%;
 }
 
+
+/* FORECAST */
+.forecast{
+  display:flex;
+  gap:16px;
+  margin-left:20px;
+}
+
+.fcol{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  font-size:11px;
+}
+
+.fday{
+  font-family:'Oswald';
+  font-weight:700;
+}
+
+.ficon{
+  width:28px;
+  margin:2px 0;
+}
+
+.fhilo{
+  font-family:'Oswald';
+  font-size:12px;
+}
+
+
 .day{ background:#22c55e; }
 .evening{ background:#f59e0b; }
 .night{ background:#6b7280; }
@@ -136,9 +167,43 @@ body { margin:0; font-family:'Inter'; }
       </div>
     </div>
 
-  </div>
+  
+</div>
 
-  <!-- CLOCK -->
+<!-- FORECAST -->
+<div class="forecast">
+  
+    <div class="fcol">
+      <div class="fday">Thu</div>
+      <img src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg" class="ficon">
+      <div class="fhilo">
+        <span class="hi">31°</span>
+        <span class="lo">20°</span>
+      </div>
+    </div>
+  
+    <div class="fcol">
+      <div class="fday">Fri</div>
+      <img src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/thunderstorms.svg" class="ficon">
+      <div class="fhilo">
+        <span class="hi">30°</span>
+        <span class="lo">20°</span>
+      </div>
+    </div>
+  
+    <div class="fcol">
+      <div class="fday">Sat</div>
+      <img src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/partly-cloudy-day.svg" class="ficon">
+      <div class="fhilo">
+        <span class="hi">28°</span>
+        <span class="lo">19°</span>
+      </div>
+    </div>
+  
+</div>
+
+<!-- CLOCK -->
+
   <div class="clock">
     <div class="time" id="time"></div>
 
