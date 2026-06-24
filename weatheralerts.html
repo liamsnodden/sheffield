@@ -10,16 +10,21 @@
 body { margin:0; font-family:'Inter'; }
 
 
+
 .container{
-  width:800px;              /* ✅ fixed width */
+  position:fixed;        /* ✅ locks it to viewport */
+  top:0;                 /* ✅ stick to top */
+  right:0;               /* ✅ keep your right alignment */
+
+  width:800px;
+
   display:flex;
   justify-content:space-between;
   align-items:center;
 
   padding:10px 14px;
-
-  margin-left:auto;         /* ✅ pushes it to the right */
 }
+
 
 
 
@@ -214,7 +219,7 @@ body { margin:0; font-family:'Inter'; }
 
 <!-- FORECAST -->
 
-<div class="forecast-wrap"><div class="="forecast">
+<div class="forecast-wrap"><div class="forecast">
   
     <div class="fcol">
       <div class="fday">Thu</div>
