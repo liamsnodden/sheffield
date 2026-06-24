@@ -58,8 +58,11 @@ body { margin:0; font-family:'Inter'; }
 .lo{ color:#2563eb; }
 
 /* CLOCK */
+
 .clock{
   text-align:right;
+  line-height:1.1;
+
 }
 
 .date{
@@ -139,13 +142,6 @@ body { margin:0; font-family:'Inter'; }
 
 <script>
 
-// DATE
-function updateDate(){
-  const d = new Date();
-  document.getElementById("date").textContent =
-    d.toLocaleDateString("en-GB",{ day:"2-digit", month:"short" });
-}
-
 // LOCAL TIME
 function updateTime(){
   const t = new Date();
@@ -200,7 +196,6 @@ function updateWorld(){
   i = (i + 1) % sites.length;
 }
 
-updateDate();
 updateTime();
 updateWorld();
 
