@@ -59,11 +59,13 @@ body { margin:0; font-family:'Inter'; }
 
 /* CLOCK */
 
-.clock{
-  text-align:right;
-  line-height:1.1;
 
+.clock{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;     /* ✅ makes BOTH rows align perfectly */
 }
+
 
 .date{
   font-size:11px;
@@ -84,10 +86,13 @@ body { margin:0; font-family:'Inter'; }
   font-size:11px;
 }
 
+
 .flag{
   width:16px;
   height:12px;
+  display:block;            /* ✅ removes baseline shift */
 }
+
 
 .dot{
   width:7px;
@@ -109,14 +114,14 @@ body { margin:0; font-family:'Inter'; }
   <!-- WEATHER -->
   <div class="left">
 
-    <img class="icon" src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/partly-cloudy-day.svg">
+    <img class="icon" src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/clear-day.svg">
 
     <div style="display:flex; align-items:center; gap:14px;">
-      <div class="temp">28°C</div>
+      <div class="temp">29°C</div>
 
       <div class="details">
-        <div class="desc">PARTLY CLOUDY</div>
-        <div class="feels">Feels 28°C</div>
+        <div class="desc">CLEAR SKY</div>
+        <div class="feels">Feels 29°C</div>
         <div class="hilo">
           <span class="hi">32°</span> /
           <span class="lo">22°</span>
@@ -200,7 +205,7 @@ updateTime();
 updateWorld();
 
 setInterval(updateTime,1000);
-setInterval(updateWorld,10000);
+setInterval(updateWorld,1000);
 
 </script>
 
