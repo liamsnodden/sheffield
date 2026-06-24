@@ -142,6 +142,22 @@ body { margin:0; font-family:'Inter'; }
 .evening{ background:#f59e0b; }
 .night{ background:#6b7280; }
 
+
+.world{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:11px;
+}
+
+/* ✅ FIX: lock location width */
+#worldCity{
+  display:inline-block;
+  width:90px;              /* ✅ adjust to fit your longest name */
+  text-align:left;
+}
+
+
 </style>
 </head>
 
@@ -152,11 +168,9 @@ body { margin:0; font-family:'Inter'; }
   <!-- WEATHER -->
   <div class="left">
 
-    <img class="icon" src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/clear-day.svg">
-
-    <div style="display:flex; align-items:center; gap:14px;">
+      <div style="display:flex; align-items:center; gap:14px;">
       <div class="temp">29°C</div>
-
+      <div class="temp"><img class="icon" src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/clear-day.svg"></div>
       <div class="details">
         <div class="desc">CLEAR SKY</div>
         <div class="feels">Feels 29°C</div>
