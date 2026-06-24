@@ -124,10 +124,13 @@ body { margin:0; font-family:'Inter'; }
   font-size:11px;
 }
 
+
 .fday{
-  font-family:'Oswald';
-  font-weight:700;
+  font-family:'Inter', Arial, sans-serif;
+  font-size:11px;
+  font-weight:600;
 }
+
 
 .ficon{
   width:35px;
@@ -163,6 +166,26 @@ body { margin:0; font-family:'Inter'; }
 }
 
 
+/* WRAPPER WITH SEPARATORS */
+.forecast-wrap{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:0 10px;
+}
+
+/* LEFT + RIGHT LINES */
+.forecast-wrap::before,
+.forecast-wrap::after{
+  content:"";
+  width:1px;
+  height:48px;              /* ✅ adjust height if needed */
+  background:#ffffff;       /* ✅ white line */
+  opacity:0.8;              /* softer look */
+}
+
+
+
 </style>
 </head>
 
@@ -190,7 +213,8 @@ body { margin:0; font-family:'Inter'; }
 </div>
 
 <!-- FORECAST -->
-<div class="forecast">
+
+<div class="forecast-wrap"><div class="="forecast">
   
     <div class="fcol">
       <div class="fday">Thu</div>
@@ -216,6 +240,7 @@ body { margin:0; font-family:'Inter'; }
 
     </div>
   
+</div>
 </div>
 
 <!-- CLOCK -->
@@ -293,7 +318,7 @@ updateTime();
 updateWorld();
 
 setInterval(updateTime,1000);
-setInterval(updateWorld,1000);
+setInterval(updateWorld,10000);
 
 </script>
 
