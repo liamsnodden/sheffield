@@ -6,30 +6,22 @@
 
 <style>
 
-/* ✅ YOUR GITHUB FONTS */
-@font-face {
-  font-family: 'InterCustom';
-  src: url('https://liamsnodden.github.io/sheffield/Inter-VariableFont_opsz,wght.ttf') format('truetype');
-  font-weight: 100 900;
-}
-
-@font-face {
-  font-family: 'Inter';
-  src: url('https://liamsnodden.github.io/sheffield/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype');
-  font-style: italic;
-}
-
+/* ✅ YOUR FONTS */
 @font-face {
   font-family: 'OswaldCustom';
-  src: url('https://liamsnodden.github.io/sheffield/Oswald-VariableFont_wght.ttf') format('truetype');
-  font-weight: 200 700;
+  src: url('https://liamsnodden.github.io/sheffield/fonts/Oswald-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'InterCustom';
+  src: url('https://liamsnodden.github.io/sheffield/fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype');
 }
 
 /* BASE */
 body {
   margin:0;
+  background:#fff;
   overflow:hidden;
-  background:#ffffff;
 }
 
 /* BAR */
@@ -44,13 +36,13 @@ body {
   gap:14px;
 
   padding:12px 16px;
-  background:#ffffff;
+  background:#fff;
 }
 
-/* ✅ RED PILL (OSWALD) */
+/* 🔴 ALERT PILL */
 .alert-pill{
   font-family:'OswaldCustom', Arial, sans-serif;
-  font-weight:600;
+  font-weight:700;
 
   background:#dc2626;
   color:#fff;
@@ -63,7 +55,7 @@ body {
   white-space:nowrap;
 }
 
-/* ✅ MESSAGE (INTER) */
+/* TEXT */
 .alert-message{
   font-family:'InterCustom', Arial, sans-serif;
   font-weight:600;
@@ -71,11 +63,18 @@ body {
   color:#111;
 }
 
-/* ✅ FLASH (HARD SWITCH — WORKS IN XIBO) */
+/* ✅ 3-FLASH ANIMATION */
+@keyframes tripleFlash {
+  0%   { opacity:1; }
+  20%  { opacity:0.2; }
+  40%  { opacity:1; }
+  60%  { opacity:0.2; }
+  80%  { opacity:1; }
+  100% { opacity:1; }
+}
+
 .flash{
-  transform:scale(0.96);
-  opacity:0.4;
-  transition: all 0.15s ease;
+  animation: tripleFlash 0.9s ease;
 }
 
 </style>
@@ -85,11 +84,11 @@ body {
 
 <div class="alert-bar">
   <div class="alert-pill" id="title">FORECAST ALERT</div>
-  <div class="alert-message" id="message">HIGH RISK: Extreme heat. Hydration required.</div>
+  <div class="alert-message" id="message">TEMPERATURES ABOVE 30°C: DRINK WATER FREQUENTLY</div>
 </div>
 
 <script>
-const alerts = ["HIGH RISK: Extreme heat. Hydration required.","CAUTION: Elevated UV."];
+const alerts = ["TEMPERATURES ABOVE 30°C: DRINK WATER FREQUENTLY","EXTREME HEAT: TAKE BREAKS IN SHADE","ELEVATED UV: LIMIT SUN EXPOSURE"];
 let i = 0;
 
 const msg = document.getElementById("message");
@@ -97,12 +96,13 @@ const title = document.getElementById("title");
 
 setInterval(() => {
 
+  // NEXT ALERT
   i = (i + 1) % alerts.length;
   msg.textContent = alerts[i];
 
-  // ✅ FORCE FLASH (works reliably in Xibo)
+  // ✅ FORCE RESTART ANIMATION (important for Xibo)
   title.classList.remove("flash");
-  void title.offsetWidth; // force reflow
+  void title.offsetWidth;
   title.classList.add("flash");
 
 }, 20000);
