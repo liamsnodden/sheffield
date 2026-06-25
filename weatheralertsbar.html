@@ -4,40 +4,59 @@
 <head>
 <meta charset="UTF-8">
 
-
 <style>
-@font-face: 100 900;@font-face {
+
+/* ✅ LOAD FONTS PROPERLY */
+@font-face {
+  font-family: 'OswaldCustom';
+  src: url('https://liamsnodden.github.io/sheffield/fonts/Oswald-VariableFont_wght.ttf') format('truetype');
+  font-weight: 200 700;
 }
 
+@font-face {
+  font-family: 'InterCustom';
+  src: url('https://liamsnodden.github.io/sheffield/fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: 100 900;
+}
+
+/* BASE */
 body {
   margin:0;
   background:#ffffff;
   overflow:hidden;
 }
 
+/* BAR */
 .alert-bar{
   position:fixed;
   bottom:0;
   left:0;
   right:0;
+
   display:flex;
   align-items:center;
   gap:14px;
+
   padding:12px 16px;
   background:#ffffff;
 }
 
+/* 🔴 OSWALD PILL */
 .alert-pill{
   font-family:'OswaldCustom', Arial, sans-serif;
   font-weight:700;
+
   background:#dc2626;
   color:#fff;
-  font-size:18px;
+
+  font-size:18px;   /* slightly bigger so you see difference */
   letter-spacing:1px;
+
   padding:6px 14px;
   border-radius:6px;
 }
 
+/* ✅ INTER MESSAGE */
 .alert-message{
   font-family:'InterCustom', Arial, sans-serif;
   font-weight:600;
@@ -45,6 +64,7 @@ body {
   color:#111;
 }
 
+/* FLASH */
 @keyframes tripleFlash {
   0% {opacity:1;}
   20% {opacity:0.2;}
@@ -57,16 +77,6 @@ body {
 .flash{
   animation: tripleFlash 0.9s ease;
 }
-</style>
-  font-family: 'OswaldCustom';
-  src: url('https://liamsnodden.github.io/sheffield/fonts/Oswald-VariableFont_wght.ttf') format('truetype');
-  font-weight: 200 700;
-}
-
-@font-face {
-  font-family: 'InterCustom';
-  src: url('https://liamsnodden.github.io/sheffield/fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype');
-
 
 </style>
 </head>
