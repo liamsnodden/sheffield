@@ -4,26 +4,27 @@
 <head>
 <meta charset="UTF-8">
 
+<style>
 
+/* ✅ YOUR FONTS */
 @font-face {
   font-family: 'OswaldCustom';
   src: url('https://liamsnodden.github.io/sheffield/fonts/Oswald-VariableFont_wght.ttf') format('truetype');
-  font-weight: 200 700;
 }
 
 @font-face {
   font-family: 'InterCustom';
   src: url('https://liamsnodden.github.io/sheffield/fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype');
-  font-weight: 100 900;
 }
 
-
+/* BASE */
 body {
   margin:0;
   background:#fff;
   overflow:hidden;
 }
 
+/* BAR */
 .alert-bar{
   position:fixed;
   bottom:0;
@@ -38,6 +39,7 @@ body {
   background:#fff;
 }
 
+/* 🔴 ALERT PILL */
 .alert-pill{
   font-family:'OswaldCustom', Arial, sans-serif;
   font-weight:700;
@@ -50,8 +52,10 @@ body {
 
   padding:6px 14px;
   border-radius:6px;
+  white-space:nowrap;
 }
 
+/* TEXT */
 .alert-message{
   font-family:'InterCustom', Arial, sans-serif;
   font-weight:600;
@@ -59,14 +63,14 @@ body {
   color:#111;
 }
 
-/* ✅ 3 FLASHES */
+/* ✅ 3-FLASH ANIMATION */
 @keyframes tripleFlash {
-  0% {opacity:1;}
-  20% {opacity:0.2;}
-  40% {opacity:1;}
-  60% {opacity:0.2;}
-  80% {opacity:1;}
-  100% {opacity:1;}
+  0%   { opacity:1; }
+  20%  { opacity:0.2; }
+  40%  { opacity:1; }
+  60%  { opacity:0.2; }
+  80%  { opacity:1; }
+  100% { opacity:1; }
 }
 
 .flash{
@@ -80,20 +84,23 @@ body {
 
 <div class="alert-bar">
   <div class="alert-pill" id="title">FORECAST ALERT</div>
-  <div class="alert-message" id="message">HEAT WARNING (≥30°C): Drink water frequently and take regular breaks in a cool area.</div>
+  <div class="alert-message" id="message">HEAT WARNING (≥30°C): Drink water frequently and take regular breaks.</div>
 </div>
 
 <script>
-const alerts = ["HEAT WARNING (≥30°C): Drink water frequently and take regular breaks in a cool area.","EXTREME HEAT CONDITIONS: Monitor for signs of heat stress and report symptoms immediately.","ELEVATED UV LEVELS (≥5): Limit prolonged exposure to direct sunlight."];
+const alerts = ["HEAT WARNING (≥30°C): Drink water frequently and take regular breaks.","EXTREME HEAT CONDITIONS: Monitor for signs of heat stress.","ELEVATED UV LEVELS (≥5): Limit prolonged sun exposure."];
 let i = 0;
 
 const msg = document.getElementById("message");
 const title = document.getElementById("title");
 
 setInterval(() => {
+
+  // NEXT ALERT
   i = (i + 1) % alerts.length;
   msg.textContent = alerts[i];
 
+  // ✅ FORCE RESTART ANIMATION (important for Xibo)
   title.classList.remove("flash");
   void title.offsetWidth;
   title.classList.add("flash");
