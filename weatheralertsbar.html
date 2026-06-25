@@ -6,28 +6,27 @@
 
 <style>
 
-/* ✅ LOAD FONTS CORRECTLY */
+/* ✅ VARIABLE FONTS (YOUR FILES) */
 @font-face {
   font-family: 'OswaldCustom';
-  src: url('https://liamsnodden.github.io/sheffield/fonts/Oswald-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
+  src: url('https://liamsnodden.github.io/sheffield/fonts/Oswald-VariableFont_wght.ttf') format('truetype');
+  font-weight: 200 700;
 }
 
 @font-face {
   font-family: 'InterCustom';
-  src: url('https://liamsnodden.github.io/sheffield/fonts/Inter-Regular.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
+  src: url('https://liamsnodden.github.io/sheffield/fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: 100 900;
 }
 
+/* BASE */
 body {
   margin:0;
   overflow:hidden;
   background:#ffffff;
 }
 
-/* ALERT BAR */
+/* BAR */
 .alert-bar{
   position:fixed;
   bottom:0;
@@ -38,43 +37,39 @@ body {
   align-items:center;
   gap:14px;
 
-  background:#ffffff;
-  color:#111;
-
   padding:12px 16px;
+  background:#ffffff;
 }
 
-/* ✅ RED PILL RESTORED */
+/* ✅ RED PILL (OSWALD) */
 .alert-pill{
-  font-family:'OswaldCustom', sans-serif;
+  font-family:'OswaldCustom', Arial, sans-serif;
+  font-weight:600;
+
   background:#dc2626;
   color:#fff;
 
-  font-size:15px;
-  letter-spacing:0.8px;
+  font-size:16px;
+  letter-spacing:1px;
 
-  padding:5px 12px;
+  padding:6px 14px;
   border-radius:6px;
   white-space:nowrap;
 }
 
-/* ✅ INTER MESSAGE */
+/* ✅ MESSAGE (INTER) */
 .alert-message{
-  font-family:'InterCustom', sans-serif;
-  font-size:15px;
+  font-family:'InterCustom', Arial, sans-serif;
   font-weight:600;
+  font-size:16px;
   color:#111;
 }
 
-/* FLASH */
-@keyframes flash {
-  0% { opacity:1; }
-  50% { opacity:0.3; }
-  100% { opacity:1; }
-}
-
+/* ✅ FLASH (HARD SWITCH — WORKS IN XIBO) */
 .flash{
-  animation: flash 0.6s ease;
+  transform:scale(0.96);
+  opacity:0.4;
+  transition: all 0.15s ease;
 }
 
 </style>
@@ -84,22 +79,25 @@ body {
 
 <div class="alert-bar">
   <div class="alert-pill" id="title">FORECAST ALERT</div>
-  <div class="alert-message" id="message">HIGH RISK: Extreme heat. Hydration and breaks required.</div>
+  <div class="alert-message" id="message">HIGH RISK: Extreme heat. Hydration required.</div>
 </div>
 
 <script>
-const alerts = ["HIGH RISK: Extreme heat. Hydration and breaks required.","CAUTION: Elevated UV."];
+const alerts = ["HIGH RISK: Extreme heat. Hydration required.","CAUTION: Elevated UV."];
 let i = 0;
 
 const msg = document.getElementById("message");
 const title = document.getElementById("title");
 
 setInterval(() => {
+
   i = (i + 1) % alerts.length;
   msg.textContent = alerts[i];
 
+  // ✅ FORCE FLASH (works reliably in Xibo)
+  title.classList.remove("flash");
+  void title.offsetWidth; // force reflow
   title.classList.add("flash");
-  setTimeout(() => title.classList.remove("flash"), 600);
 
 }, 20000);
 </script>
