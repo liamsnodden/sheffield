@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<style>
+body {
+  margin:0;
+  overflow:hidden;
+}
+
+.alert-bar{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+
+  display:flex;
+  align-items:center;
+  gap:14px;
+
+  font-family: Arial, sans-serif;
+  background:#111;
+  color:#fff;
+
+  padding:12px 16px;
+  border-top:3px solid #dc2626;
+}
+
+.alert-pill{
+  background:#dc2626;
+  color:#fff;
+  font-weight:bold;
+  font-size:14px;
+  padding:5px 12px;
+  border-radius:6px;
+  white-space:nowrap;
+}
+
+.alert-message{
+  font-size:15px;
+  font-weight:600;
+}
+
+/* FLASH EFFECT */
+@keyframes flash {
+  0% { color:#fff; }
+  50% { color:#ff0000; }
+  100% { color:#fff; }
+}
+
+.flash{
+  animation: flash 0.8s ease;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="alert-bar">
+  <div class="alert-pill" id="title">FORECAST ALERT</div>
+  <div class="alert-message" id="message">HIGH RISK: Extreme heat. Enforce hydration and rest breaks.</div>
+</div>
+
+<script>
+const alerts = ["HIGH RISK: Extreme heat. Enforce hydration and rest breaks.","CAUTION: Elevated UV levels."];
+let i = 0;
+
+const msg = document.getElementById("message");
+const title = document.getElementById("title");
+
+setInterval(() => {
+  i = (i + 1) % alerts.length;
+  msg.textContent = alerts[i];
+
+  title.classList.add("flash");
+  setTimeout(() => title.classList.remove("flash"), 800);
+
+}, 20000);
+</script>
+
+</body>
+</html>
