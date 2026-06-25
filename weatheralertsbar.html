@@ -5,14 +5,20 @@
 <meta charset="UTF-8">
 
 <style>
+
+/* ✅ LOAD FONTS CORRECTLY */
 @font-face {
   font-family: 'OswaldCustom';
   src: url('https://liamsnodden.github.io/sheffield/fonts/Oswald-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
   font-family: 'InterCustom';
   src: url('https://liamsnodden.github.io/sheffield/fonts/Inter-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
 body {
@@ -21,6 +27,7 @@ body {
   background:#ffffff;
 }
 
+/* ALERT BAR */
 .alert-bar{
   position:fixed;
   bottom:0;
@@ -37,19 +44,21 @@ body {
   padding:12px 16px;
 }
 
+/* ✅ RED PILL RESTORED */
 .alert-pill{
   font-family:'OswaldCustom', sans-serif;
-  background:#111;
+  background:#dc2626;
   color:#fff;
 
   font-size:15px;
-  letter-spacing:0.5px;
+  letter-spacing:0.8px;
 
   padding:5px 12px;
   border-radius:6px;
   white-space:nowrap;
 }
 
+/* ✅ INTER MESSAGE */
 .alert-message{
   font-family:'InterCustom', sans-serif;
   font-size:15px;
@@ -57,7 +66,7 @@ body {
   color:#111;
 }
 
-/* FLASH EFFECT */
+/* FLASH */
 @keyframes flash {
   0% { opacity:1; }
   50% { opacity:0.3; }
