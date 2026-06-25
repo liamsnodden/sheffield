@@ -6,85 +6,122 @@
 
 <style>
 
-/* ✅ YOUR GITHUB FONTS */
+/* ✅ FONTS FROM YOUR GITHUB */
 @font-face {
-  font-family: 'Inter';
-  src: url('https://liamsnodden.github.io/sheffield/Inter-VariableFont_opsz,wght.ttf') format('truetype');
-  font-weight: 100 900;
+  font-family:'Inter';
+  src:url('https://liamsnodden.github.io/sheffield/Inter-VariableFont_opsz,wght.ttf');
 }
 
 @font-face {
-  font-family: 'Inter';
-  src: url('https://liamsnodden.github.io/sheffield/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype');
-  font-style: italic;
+  font-family:'Oswald';
+  src:url('https://liamsnodden.github.io/sheffield/Oswald-VariableFont_wght.ttf');
 }
 
-@font-face {
-  font-family: 'Oswald';
-  src: url('https://liamsnodden.github.io/sheffield/Oswald-VariableFont_wght.ttf') format('truetype');
-  font-weight: 200 700;
+/* RESET */
+html,body{
+  margin:0;
+  padding:0;
+  width:100vw;
+  overflow:hidden;
+  font-family:'Inter';
+  color:#fff;
 }
 
-body { margin:0; font-family:'Inter'; color:#fff; }
-
+/* ✅ FULL WIDTH XIBO BAR */
 .container{
   position:fixed;
   top:0;
-  right:0;
+  left:0;
 
-  display:inline-flex;      /* ✅ shrink-to-fit */
-  width:auto;               /* ✅ remove fixed width */
-  white-space:nowrap;       /* ✅ prevent wrapping */
+  width:100vw;              /* ✅ FORCE FULL WIDTH */
+  height:90px;
 
-  justify-content:space-between;
+  display:grid;
+  grid-template-columns: 1fr 1px 1fr 1px 180px; /* ✅ fixed layout */
   align-items:center;
-  gap:20px;
 
-  padding:10px 14px;
+  padding:10px 30px;
+  box-sizing:border-box;
+
+  background:linear-gradient(90deg,#1e3a8a,#1e40af); /* blue bar */
+  border-bottom:4px solid #dc2626; /* red strip */
 }
 
-.left{
+/* SECTIONS */
+.left, .middle, .right{
   display:flex;
   align-items:center;
-  gap:14px;
+  gap:16px;
+  overflow:hidden;
 }
 
-.icon{ width:70px; }
+/* DIVIDERS */
+.divider{
+  width:1px;
+  height:60px;
+  background:#fff;
+  opacity:0.5;
+}
 
+/* WEATHER */
 .temp{
   font-family:'Oswald';
-  font-size:50px;
-  font-weight:500;
+  font-size:56px;
+  white-space:nowrap;
+}
+
+.icon{
+  width:60px;
 }
 
 .desc{
   font-family:'Oswald';
-  font-size:18px;
+  font-size:20px;
 }
 
+.sub{
+  font-size:13px;
+}
 
-.clock{
+/* FORECAST */
+.forecast{
   display:flex;
-  flex-direction:column;
-  align-items:flex-end;
-
-  width:140px;        /* ✅ FIXED WIDTH */
-  flex-shrink:0;      /* ✅ NEVER shrink */
+  gap:22px;
 }
 
+.fcol{
+  text-align:center;
+  min-width:60px;
+}
+
+.ficon{
+  width:36px;
+}
+
+.ftemp{
+  font-family:'Oswald';
+  font-size:16px;
+}
+
+/* CLOCK */
+.clock-box{
+  width:100%;              /* ✅ locked width column */
+  background:rgba(0,0,0,0.25);
+  padding:10px;
+  border-radius:10px;
+  text-align:center;
+}
 
 .time{
   font-family:'Oswald';
-  font-size:46px;
-  font-weight:700;
+  font-size:42px;
+  line-height:1;
 }
 
-.forecast{
-  display:flex;
-  gap:10px;
+.date{
+  font-size:14px;
+  opacity:0.9;
 }
-
-.fcol{text-align:center;}
 
 </style>
 </head>
@@ -93,50 +130,67 @@ body { margin:0; font-family:'Inter'; color:#fff; }
 
 <div class="container">
 
-<div class="left">
-  <div class="temp">29°C</div>
-  <img class="icon" src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/clear-day.svg">
-  <div>
-    <div class="desc">CLEAR SKIES</div>
-    <div>Feels 29°C</div>
-    <div>30° / 19°</div>
-  </div>
-</div>
-
-<div class="forecast">
-
-  <div class="fcol">
-    <div>Fri</div>
-    <img src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg" width="35">
-    <div>34°</div>
+  <!-- LEFT -->
+  <div class="left">
+    <div class="temp">30°C</div>
+    <img class="icon" src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/clear-day.svg">
+    <div>
+      <div class="desc">CLEAR SKIES</div>
+      <div class="sub">Feels 30°C</div>
+      <div class="sub">30° / 19°</div>
+    </div>
   </div>
 
-  <div class="fcol">
-    <div>Sat</div>
-    <img src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/thunderstorms.svg" width="35">
-    <div>28°</div>
+  <div class="divider"></div>
+
+  <!-- MIDDLE -->
+  <div class="middle">
+    <div class="forecast">
+      
+        <div class="fcol">
+          <div>Fri</div>
+          <img src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg" class="ficon">
+          <div class="ftemp">34°</div>
+        </div>
+      
+        <div class="fcol">
+          <div>Sat</div>
+          <img src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg" class="ficon">
+          <div class="ftemp">28°</div>
+        </div>
+      
+        <div class="fcol">
+          <div>Sun</div>
+          <img src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg" class="ficon">
+          <div class="ftemp">22°</div>
+        </div>
+      
+    </div>
   </div>
 
-  <div class="fcol">
-    <div>Sun</div>
-    <img src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg" width="35">
-    <div>22°</div>
+  <div class="divider"></div>
+
+  <!-- RIGHT -->
+  <div class="right">
+    <div class="clock-box">
+      <div class="time" id="time"></div>
+      <div class="date" id="date"></div>
+    </div>
   </div>
-
-</div>
-
-<div class="clock">
-  <div class="time" id="time"></div>
-</div>
 
 </div>
 
 <script>
 function updateTime(){
   const t = new Date();
+
   document.getElementById("time").textContent =
-    t.toLocaleTimeString("en-GB",{ hour:"2-digit", minute:"2-digit" });
+    t.toLocaleTimeString("en-GB",{hour:"2-digit",minute:"2-digit"});
+
+  document.getElementById("date").textContent =
+    t.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
 }
+
 setInterval(updateTime,1000);
 updateTime();
 </script>
