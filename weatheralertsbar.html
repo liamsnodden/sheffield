@@ -6,8 +6,7 @@
 
 <style>
 
-/* ✅ YOUR FONTS */
-
+/* ✅ LOAD FONTS PROPERLY */
 @font-face {
   font-family: 'OswaldCustom';
   src: url('https://liamsnodden.github.io/sheffield/fonts/Oswald-VariableFont_wght.ttf') format('truetype');
@@ -23,10 +22,9 @@
 /* BASE */
 body {
   margin:0;
-  background:#fff;
+  background:#ffffff;
   overflow:hidden;
 }
-
 
 /* BAR */
 .alert-bar{
@@ -40,11 +38,10 @@ body {
   gap:14px;
 
   padding:12px 16px;
-  background:#fff;
+  background:#ffffff;
 }
 
-/* 🔴 ALERT PILL */
-
+/* 🔴 OSWALD PILL */
 .alert-pill{
   font-family:'OswaldCustom', Arial, sans-serif;
   font-weight:700;
@@ -52,15 +49,14 @@ body {
   background:#dc2626;
   color:#fff;
 
-  font-size:16px;
+  font-size:18px;   /* slightly bigger so you see difference */
   letter-spacing:1px;
 
   padding:6px 14px;
   border-radius:6px;
 }
 
-
-/* TEXT */
+/* ✅ INTER MESSAGE */
 .alert-message{
   font-family:'InterCustom', Arial, sans-serif;
   font-weight:600;
@@ -68,14 +64,14 @@ body {
   color:#111;
 }
 
-/* ✅ 3-FLASH ANIMATION */
+/* FLASH */
 @keyframes tripleFlash {
-  0%   { opacity:1; }
-  20%  { opacity:0.2; }
-  40%  { opacity:1; }
-  60%  { opacity:0.2; }
-  80%  { opacity:1; }
-  100% { opacity:1; }
+  0% {opacity:1;}
+  20% {opacity:0.2;}
+  40% {opacity:1;}
+  60% {opacity:0.2;}
+  80% {opacity:1;}
+  100% {opacity:1;}
 }
 
 .flash{
@@ -101,11 +97,9 @@ const title = document.getElementById("title");
 
 setInterval(() => {
 
-  // NEXT ALERT
   i = (i + 1) % alerts.length;
   msg.textContent = alerts[i];
 
-  // ✅ FORCE RESTART ANIMATION (important for Xibo)
   title.classList.remove("flash");
   void title.offsetWidth;
   title.classList.add("flash");
