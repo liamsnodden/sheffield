@@ -4,47 +4,48 @@
 <head>
 <meta charset="UTF-8">
 
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
 <style>
-body { margin:0; font-family:'Inter'; }
 
-body {
-  color:#ffffff;
+/* ✅ YOUR GITHUB FONTS */
+@font-face {
+  font-family: 'Inter';
+  src: url('https://liamsnodden.github.io/sheffield/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: 100 900;
 }
 
+@font-face {
+  font-family: 'Inter';
+  src: url('https://liamsnodden.github.io/sheffield/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype');
+  font-style: italic;
+}
 
+@font-face {
+  font-family: 'Oswald';
+  src: url('https://liamsnodden.github.io/sheffield/Oswald-VariableFont_wght.ttf') format('truetype');
+  font-weight: 200 700;
+}
+
+body { margin:0; font-family:'Inter'; color:#fff; }
 
 .container{
-  position:fixed;        /* ✅ locks it to viewport */
-  top:0;                 /* ✅ stick to top */
-  right:0;               /* ✅ keep your right alignment */
-
+  position:fixed;
+  top:0;
+  right:0;
   width:700px;
-
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:20px;
-
   padding:10px 14px;
 }
 
-
-
-
-/* LEFT */
 .left{
   display:flex;
   align-items:center;
   gap:14px;
 }
 
-.icon{
-  width:70px;
-  display:block;        /* ✅ removes baseline shift */
-
-}
+.icon{ width:70px; }
 
 .temp{
   font-family:'Oswald';
@@ -52,176 +53,28 @@ body {
   font-weight:700;
 }
 
-.details{
-  display:flex;
-  flex-direction:column;
-  gap:2px;
-}
-
 .desc{
   font-family:'Oswald';
   font-size:18px;
-  font-weight:600;
 }
-
-.feels{
-  font-size:12px;
-}
-
-.hilo{
-  font-family:'Oswald';
-  font-size:14px;
-}
-
-.hi{ color:#dc2626; }
-.lo{ color:#2563eb; }
-
-/* CLOCK */
-
 
 .clock{
   display:flex;
   flex-direction:column;
-  align-items:flex-end;     /* ✅ makes BOTH rows align perfectly */
-}
-
-
-.date{
-  font-size:11px;
-  color:#fff;
+  align-items:flex-end;
 }
 
 .time{
   font-family:'Oswald';
   font-size:46px;
-  font-weight:700;
-  
- line-height:1;        /* ✅ removes extra vertical space */
-  margin-top:-2px;      /* ✅ nudges it up slightly */
-
 }
 
-.world-row{
-  display:flex;
-  align-items:center;
-  justify-content:flex-end;
-  gap:6px;
-  font-size:11px;
-}
-
-
-#wtime{
-  margin-right:6px;
-  display:inline-block;
-}
-
-#worldDot{
-  margin-right:6px;
-}
-
-#worldCity{
-  margin-right:6px;
-  display:inline-block;
-  width:90px;
-  text-align:left;
-}
-
-.flag{
-  display:block;
-}
-
-
-.flag{
-  width:16px;
-  height:12px;
-  display:block;            /* ✅ removes baseline shift */
-}
-
-
-.dot{
-  width:7px;
-  height:7px;
-  border-radius:50%;
-}
-
-
-/* FORECAST */
 .forecast{
   display:flex;
-  gap:0;
-  margin:0 10px;
-  margin-left:20px;
+  gap:10px;
 }
 
-.fcol{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  font-size:11px;
-  padding:0 6px;
-}
-
-
-.fday{
-  font-family:'Inter', Arial, sans-serif;
-  font-size:11px;
-  font-weight:600;
-}
-
-
-.ficon{
-  width:35px;
-  margin:2px 0;
-}
-
-
-.ftemp{
-  font-family:'Oswald';
-  font-size:13px;
-  font-weight:700;
-}
-
-
-
-.day{ background:#22c55e; }
-.evening{ background:#f59e0b; }
-.night{ background:#6b7280; }
-
-
-.world{
-  display:flex;
-  align-items:center;
-  gap:6px;
-  font-size:11px;
-}
-
-/* ✅ FIX: lock location width */
-#worldCity{
-  display:inline-block;
-  width:90px;              /* ✅ adjust to fit your longest name */
-  text-align:left;
-}
-
-
-/* WRAPPER WITH SEPARATORS */
-.forecast-wrap{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin:0 10px;
-}
-
-/* LEFT + RIGHT LINES */
-.forecast-wrap::before,
-.forecast-wrap::after{
-  content:"";
-  width:1px;
-  height:48px;              /* ✅ adjust height if needed */
-  background:#ffffff;       /* ✅ white line */
-  opacity:0.8;              /* softer look */
-}
-
-
+.fcol{text-align:center;}
 
 </style>
 </head>
@@ -230,133 +83,52 @@ body {
 
 <div class="container">
 
-  <!-- WEATHER -->
-  <div class="left">
-
-      <div style="display:flex; align-items:center; gap:14px;">
-      <div class="temp">29°C</div>
-      <div class="temp"><img class="icon" src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/clear-day.svg"></div>
-      <div class="details">
-        <div class="desc">CLEAR SKIES</div>
-        <div class="feels">Feels 29°C</div>
-        <div class="hilo">
-          <span class="hi">30°</span> /
-          <span class="lo">19°</span>
-        </div>
-      </div>
-    </div>
-
-  
+<div class="left">
+  <div class="temp">29°C</div>
+  <img class="icon" src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/clear-day.svg">
+  <div>
+    <div class="desc">CLEAR SKIES</div>
+    <div>Feels 29°C</div>
+    <div>30° / 19°</div>
+  </div>
 </div>
 
-<!-- FORECAST -->
+<div class="forecast">
 
-<div class="forecast-wrap"><div class="forecast">
-  
-    <div class="fcol">
-      <div class="fday">Fri</div>
-      <img src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg" class="ficon">
-      
-<div class="ftemp">34°</div>
+  <div class="fcol">
+    <div>Fri</div>
+    <img src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg" width="35">
+    <div>34°</div>
+  </div>
 
-    </div>
-  
-    <div class="fcol">
-      <div class="fday">Sat</div>
-      <img src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/thunderstorms.svg" class="ficon">
-      
-<div class="ftemp">28°</div>
+  <div class="fcol">
+    <div>Sat</div>
+    <img src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/thunderstorms.svg" width="35">
+    <div>28°</div>
+  </div>
 
-    </div>
-  
-    <div class="fcol">
-      <div class="fday">Sun</div>
-      <img src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg" class="ficon">
-      
-<div class="ftemp">22°</div>
-
-    </div>
-  
-</div>
-</div>
-
-<!-- CLOCK -->
-
-  <div class="clock">
-    <div class="time" id="time"></div>
-
-    <div class="world-row">
-      <span id="worldTime"></span>
-      <span id="worldDot" class="dot"></span>
-      <span id="worldCity"></span>
-      <img id="worldFlag" class="flag">
-    </div>
+  <div class="fcol">
+    <div>Sun</div>
+    <img src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg" width="35">
+    <div>22°</div>
   </div>
 
 </div>
 
-<script>
+<div class="clock">
+  <div class="time" id="time"></div>
+</div>
 
-// LOCAL TIME
+</div>
+
+<script>
 function updateTime(){
   const t = new Date();
   document.getElementById("time").textContent =
     t.toLocaleTimeString("en-GB",{ hour:"2-digit", minute:"2-digit" });
 }
-
-// WORLD CLOCK
-const sites = [
-  {city:"Cleveland", flag:"us.png", tz:"America/New_York"},
-  {city:"Tournus", flag:"fr.png", tz:"Europe/Paris"},
-  {city:"Lelystad", flag:"nl.png", tz:"Europe/Amsterdam"},
-  {city:"Frankfurt", flag:"de.png", tz:"Europe/Berlin"},
-  {city:"Pianoro", flag:"it.png", tz:"Europe/Rome"},
-  {city:"Poland", flag:"pl.png", tz:"Europe/Warsaw"},
-  {city:"Bangalore", flag:"in.png", tz:"Asia/Kolkata"},
-  {city:"Vietnam", flag:"vn.png", tz:"Asia/Ho_Chi_Minh"}
-];
-
-let i = 0;
-
-function getStatus(tz){
-  const hour = new Intl.DateTimeFormat('en-GB',{
-    hour:'2-digit',
-    hour12:false,
-    timeZone:tz
-  }).format(new Date());
-
-  const h = parseInt(hour);
-
-  if (h >= 7 && h < 18) return "day";
-  if (h >= 18 && h < 22) return "evening";
-  return "night";
-}
-
-function updateWorld(){
-  const s = sites[i];
-
-  const time = new Intl.DateTimeFormat("en-GB",{
-    hour:"2-digit",
-    minute:"2-digit",
-    timeZone:s.tz
-  }).format(new Date());
-
-  document.getElementById("worldTime").textContent = time;
-  document.getElementById("worldCity").textContent = s.city;
-  document.getElementById("worldFlag").src = "https://liamsnodden.github.io/sheffield/" + s.flag;
-
-  const dot = document.getElementById("worldDot");
-  dot.className = "dot " + getStatus(s.tz);
-
-  i = (i + 1) % sites.length;
-}
-
-updateTime();
-updateWorld();
-
 setInterval(updateTime,1000);
-setInterval(updateWorld,10000);
-
+updateTime();
 </script>
 
 </body>
