@@ -2,415 +2,338 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=450,height=auto">
-<title>Announcements & Alerts</title>
+<meta name="viewport" content="width=506">
+<title>Safety & Announcements</title>
+
+<!-- GOOGLE FONTS -->
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-*{
+body{
 margin:0;
-padding:0;
-box-sizing:border-box;
+font-family:'Inter',sans-serif;
+background:#f4f6f9;
 }
 
-html,body{
-width:506px;
-height:auto;
-overflow:hidden;
-font-family:Arial,Helvetica,sans-serif;
-background:transparent;
-color:#fff;
-}
-
-/* HEADERS */
-
-.header{
-height:40px;
-display:flex;
-align-items:center;
-padding:0 12px;
-}
-
-.header-accent{
-width:4px;
-height:24px;
-background:#D22630;
-border-radius:2px;
-margin-right:10px;
-}
-
-.header-title{
-font-family:"Arial Narrow",Arial,sans-serif;
-font-size:20px;
-font-weight:700;
-color:#fff;
-}
-
-.header-line{
-flex:1;
-height:1px;
-margin-left:12px;
-background:rgba(255,255,255,.25);
-}
-
-/* CARDS */
-
-.row{
-display:flex;
-align-items:center;
-gap:12px;
-margin:4px 10px;
-padding:12px 14px;
+/* CARD */
+.card{
+background:#fff;
 border-radius:10px;
-border:1px solid rgba(255,255,255,.08);
-color:#fff;
+box-shadow:0 2px 8px rgba(0,0,0,.08);
+margin:10px;
+overflow:hidden;
 }
 
-.standard-card{
-background:rgba(255,255,255,.04);
-}
-
-.weather.normal{
-background:linear-gradient(180deg,#00A651,#008f46);
-}
-
-.weather.yellow{
-background:linear-gradient(180deg,#FFD100,#E0BA00);
-color:#000;
-}
-
-.weather.amber{
-background:linear-gradient(180deg,#D8871A,#C8700D);
-}
-
-.weather.red{
-background:linear-gradient(180deg,#D3203E,#B00020);
-}
-
-.safety-card{
-background:linear-gradient(180deg,#00A651,#008F46);
-min-height:85px;
-}
-
-/* ICONS */
-
-.icon-wrap{
-width:50px;
-height:50px;
-border-radius:50%;
+/* HEADER */
+.section-header{
 display:flex;
 align-items:center;
-justify-content:center;
-margin-right:15px;
-border:2px solid rgba(255,255,255,.15);
-background:rgba(0,0,0,.15);
-flex-shrink:0;
+background:linear-gradient(135deg,#0d47a1,#1565c0);
+color:#fff;
+padding:12px 16px;
+font-family:'Oswald',sans-serif;
+font-size:20px;
+letter-spacing:.5px;
 }
 
-.icon{
-width:28px;
-height:28px;
-object-fit:contain;
-filter:brightness(0) invert(1);
-}
-
-.calendar-icon{
-width:16px;
-height:16px;
-object-fit:contain;
-filter:brightness(0) invert(1);
-}
-
-.text{
-flex:1;
-min-width:0;
-}
-
-.title{
-font-size:16px;
-font-weight:700;
-line-height:1.15;
-}
-
-.message{
-margin-top:4px;
-font-size:14px;
-line-height:1.3;
-opacity:.95;
+.section-header img{
+width:22px;
+margin-right:10px;
+filter:invert(1);
 }
 
 /* SAFETY */
+.safety-body{
+display:flex;
+padding:20px;
+align-items:center;
+}
 
-.safety-content{
+.safety-left{
 flex:1;
-padding-left:8px;
+}
+
+.safety-label{
+color:#666;
+font-size:13px;
+font-weight:500;
+letter-spacing:.3px;
 }
 
 .days{
-font-size:42px;
+font-family:'Oswald',sans-serif;
+font-size:90px;
 font-weight:700;
+color:#d32f2f;
 line-height:1;
-margin-top:2px;
 }
 
-.last-date{
+.safety-message{
+margin-top:12px;
+color:#1565c0;
+font-weight:600;
+font-size:14px;
+}
+
+.safety-right{
+width:140px;
+text-align:center;
+}
+
+.safety-right img{
+width:100px;
+opacity:.25;
+}
+
+/* VALUES */
+.values{
+display:flex;
+border-top:1px solid #eee;
+padding:12px;
+justify-content:space-around;
+text-align:center;
+font-size:12px;
+color:#444;
+}
+
+.values div{
+flex:1;
+font-family:'Oswald',sans-serif;
+font-weight:500;
+}
+
+/* ANNOUNCEMENTS */
+.announcement{
 display:flex;
 align-items:center;
-gap:6px;
-margin-top:8px;
-font-size:13px;
+padding:14px;
+border-bottom:1px solid #eee;
 }
 
-/* CONTENT AREA */
+.announcement:last-child{
+border-bottom:none;
+}
 
-#content{
-height:420px;
-overflow:hidden;
+.announcement-icon{
+width:50px;
+height:50px;
+border-radius:8px;
+display:flex;
+align-items:center;
+justify-content:center;
+margin-right:12px;
+flex-shrink:0;
+}
+
+.announcement-icon img{
+width:26px;
+filter:invert(1);
+}
+
+.blue{background:#1565c0;}
+.grey{background:#6d6d6d;}
+.red{background:#c62828;}
+
+.announcement-text{
+flex:1;
+}
+
+.announcement-title{
+font-family:'Oswald',sans-serif;
+font-weight:600;
+font-size:16px;
+}
+
+.announcement-message{
+font-size:13px;
+color:#555;
+margin-top:3px;
+}
+
+.announcement-date{
+font-size:12px;
+color:#1565c0;
+white-space:nowrap;
+margin-left:10px;
+font-weight:500;
 }
 </style>
 </head>
+
 <body>
 
-<!-- SAFETY PERFORMANCE -->
-
-<div class="header">
-<div class="header-accent"></div>
-<div class="header-title">Lost Time Incident Free Days</div>
-<div class="header-line"></div>
+<!-- SAFETY -->
+<div class="card">
+<div class="section-header">
+<img src="https://liamsnodden.github.io/sheffield/icons/shield.svg">
+SAFETY PERFORMANCE
 </div>
 
-<div class="row safety-card">
-
-<div class="icon-wrap">
-<img src="https://liamsnodden.github.io/sheffield/icons/shield.svg" class="icon">
+<div class="safety-body">
+<div class="safety-left">
+<div class="safety-label">DAYS SINCE LAST LTI</div>
+<div id="daysSince" class="days">261</div>
+<div class="safety-message">EVERY DAY SAFE, WE ALL GO HOME SAFE</div>
 </div>
 
-<div class="safety-content">
-
-<div id="daysSince" class="days">0</div>
-
-<div class="last-date">
-<img src="https://liamsnodden.github.io/sheffield/icons/calendar.svg" class="calendar-icon">
-25 May 2025
+<div class="safety-right">
+<img src="https://liamsnodden.github.io/sheffield/icons/shield.svg">
+</div>
 </div>
 
+<div class="values">
+<div>CARE<br><small>FOR EACH OTHER</small></div>
+<div>WORK<br><small>SAFE</small></div>
+<div>BE<br><small>RESPONSIBLE</small></div>
+<div>STRIVE FOR<br><small>EXCELLENCE</small></div>
 </div>
 </div>
 
 <!-- ANNOUNCEMENTS -->
-
-<div class="header">
-<div class="header-accent"></div>
-<div class="header-title">Announcements & Alerts</div>
-<div class="header-line"></div>
+<div class="card">
+<div class="section-header">
+<img src="https://liamsnodden.github.io/sheffield/icons/campaign.svg">
+ANNOUNCEMENTS
 </div>
-
 <div id="content"></div>
+</div>
 
 <script>
 
+/* SETTINGS */
 const ROTATE_EVERY = 30000;
-
 const LATITUDE = 53.3811;
 const LONGITUDE = -1.4701;
 
-/* SAFETY */
-
-const LTI_DATE = new Date("2025-09-29");
-
+/* STATIC DAYS (FORCED TO 261) */
 function updateLTIDays(){
-
-const today = new Date();
-
-const start = new Date(LTI_DATE);
-
-start.setHours(0,0,0,0);
-today.setHours(0,0,0,0);
-
-const days = Math.floor(
-(today - start) /
-(1000 * 60 * 60 * 24)
-);
-
-document.getElementById("daysSince").textContent =
-days.toLocaleString();
-
+document.getElementById("daysSince").textContent = "261";
 }
 
 /* ICONS */
-
 const iconMap = {
-training:"https://liamsnodden.github.io/sheffield/icons/training.svg",
-celebration:"https://liamsnodden.github.io/sheffield/icons/celebration.svg",
-announcement:"https://liamsnodden.github.io/sheffield/icons/campaign.svg",
-safety:"https://liamsnodden.github.io/sheffield/icons/shield.svg",
-maintenance:"https://liamsnodden.github.io/sheffield/icons/build.svg",
-people:"https://liamsnodden.github.io/sheffield/icons/groups.svg",
-production:"https://liamsnodden.github.io/sheffield/icons/factory.svg"
+training:'https://liamsnodden.github.io/sheffield/icons/training.svg',
+celebration:'https://liamsnodden.github.io/sheffield/icons/celebration.svg',
+announcement:'https://liamsnodden.github.io/sheffield/icons/campaign.svg',
+maintenance:'https://liamsnodden.github.io/sheffield/icons/build.svg'
 };
 
-/* SAMPLE DATA */
-
+/* DATA */
 let announcements = [
 {
+category:"announcement",
+title:"Safety Standdown This Friday",
+message:"Join us this Friday at 10:00 AM for a site-wide safety standdown."
+},
+{
 category:"training",
-title:"Compliance Training - Now Due!",
-message:"Please arrange completion of your Code of Conduct training."
+title:"Mandatory Training Reminder",
+message:"Complete all training modules by 31 May 2025."
+},
+{
+category:"maintenance",
+title:"Planned Maintenance – Gate 2",
+message:"Gate 2 closed 26 May from 9:00 AM to 12:00 PM."
 },
 {
 category:"celebration",
-title:"Callum Rickhuss Promotion",
-message:"Congratulations on promotion to Warehouse Team Leader."
+title:"Promotion Announcement",
+message:"Congratulations on your recent promotion."
 }
 ];
 
-/* WEATHER */
-
-let weatherInfo = {
-class:"normal",
-title:"Weather",
-message:"No Alerts in Effect"
-};
-
 let currentPage = 0;
 
+/* PAGING */
+function getPages(){
+const pages = [];
+for(let i=0;i<announcements.length;i+=3){
+pages.push(announcements.slice(i,i+3));
+}
+return pages;
+}
+
+/* WEATHER */
+let weatherInfo = {
+message:"No weather alerts"
+};
+
 async function loadWeather(){
-
 try{
-
-const response =
-await fetch(
+const res = await fetch(
 `https://api.open-meteo.com/v1/forecast?latitude=${LATITUDE}&longitude=${LONGITUDE}&daily=weather_code&timezone=Europe/London`
 );
 
-const data = await response.json();
-
+const data = await res.json();
 const code = data.daily.weather_code[0];
 
-weatherInfo = {
-class:"normal",
-title:"Weather",
-message:"No Alerts in Effect"
-};
-
 if([95,96,99].includes(code)){
-weatherInfo = {
-class:"red",
-title:"WEATHER WARNING",
-message:"Severe Thunderstorm Warning"
-};
+weatherInfo.message = "⚠ Severe thunderstorm warning";
 }
-else if([61,63,65,80,81,82].includes(code)){
-weatherInfo = {
-class:"amber",
-title:"WEATHER WARNING",
-message:"Heavy Rain Expected"
-};
+else if([61,63,65].includes(code)){
+weatherInfo.message = "Heavy rain expected";
 }
-else if([71,73,75,77,85,86].includes(code)){
-weatherInfo = {
-class:"yellow",
-title:"WEATHER WARNING",
-message:"Heavy Snow Expected"
-};
+else{
+weatherInfo.message = "No weather alerts";
 }
-
-}
-catch(e){
-console.log(e);
-}
-
-}
-
-/* PAGING */
-
-function getPages(){
-
-const pages = [];
-
-for(let i=0;i<announcements.length;i+=3){
-pages.push(
-announcements.slice(i,i+3)
-);
-}
-
-if(!pages.length){
-pages.push([]);
-}
-
-return pages;
-
+}catch(e){}
 }
 
 /* RENDER */
-
 function render(){
 
 const pages = getPages();
+const page = pages[currentPage];
+let html = '';
 
-const page = pages[currentPage] || [];
-
-let html = `
-<div class="row weather ${weatherInfo.class}">
-
-<div class="icon-wrap">
-<img src="https://liamsnodden.github.io/sheffield/icons/warning.svg" class="icon">
+/* weather */
+html += `
+<div class="announcement">
+<div class="announcement-icon blue">
+<img src="https://liamsnodden.github.io/sheffield/icons/warning.svgclass="announcement-title">Weather</div>
+<div class="announcement-message">${weatherInfo.message}</div>
 </div>
-
-<div class="text">
-<div class="title">${weatherInfo.title}</div>
-<div class="message">${weatherInfo.message}</div>
-</div>
-
 </div>
 `;
 
-page.forEach(item=>{
+/* announcements */
+page.forEach(item => {
 
-const icon =
-iconMap[item.category] ||
-iconMap.announcement;
+let color = "blue";
+if(item.category==="training") color="grey";
+if(item.category==="maintenance") color="red";
 
 html += `
-<div class="row standard-card">
-
-<div class="icon-wrap">
-<img src="${icon}" class="icon">
+<div class="announcement">
+<div class="announcement-icon ${color}">
+<img src="${iconMap[item.category]}div class="announcement-text">
+<div class="announcement-title">${item.title}</div>
+<div class="announcement-message">${item.message}</div>
 </div>
 
-<div class="text">
-<div class="title">${item.title}</div>
-<div class="message">${item.message}</div>
+<div class="announcement-date">
+${new Date().toLocaleDateString('en-GB',{
+day:'2-digit', month:'short'
+})}
 </div>
-
 </div>
 `;
-
 });
 
 document.getElementById("content").innerHTML = html;
 
 currentPage++;
-
-if(currentPage >= pages.length){
-currentPage = 0;
-}
-
+if(currentPage >= pages.length) currentPage = 0;
 }
 
 /* START */
-
 async function start(){
-
 updateLTIDays();
-
 await loadWeather();
-
 render();
 
 setInterval(render, ROTATE_EVERY);
 setInterval(loadWeather, 900000);
-setInterval(updateLTIDays, 3600000);
-
 }
 
 start();
