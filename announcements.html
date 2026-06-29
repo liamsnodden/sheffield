@@ -17,83 +17,89 @@ body {
 .incident-banner {
   display: flex;
   align-items: center;
-  padding: 20px 30px;
+  padding: 10px 20px;
+  max-height: 138.5px; /* ✅ constraint */
+  height: 138.5px;
+  box-sizing: border-box;
 }
 
 /* LEFT */
 .left {
-  margin-right: 30px;
+  margin-right: 25px;
   text-align: center;
 }
 
 .days {
   font-family: 'Teko', sans-serif;
-  font-size: 130px;
+  font-size: 95px; /* ✅ scaled down */
   font-weight: 700;
   color: #e10600;
   line-height: 0.85;
-  letter-spacing: 2px;
 }
 
 .label {
   font-family: 'Inter', sans-serif;
-  font-size: 14px;
+  font-size: 12px; /* ✅ smaller */
   color: #9a9a9a;
 }
 
 /* DIVIDER */
 .divider {
   width: 1px;
-  height: 120px;
+  height: 90px; /* ✅ scaled */
   background: #d0d0d0;
-  margin: 0 30px;
+  margin: 0 25px;
 }
 
 /* RIGHT */
 .right {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
+/* STATUS */
 .status {
   display: flex;
   align-items: center;
   font-family: 'Inter', sans-serif;
-  font-size: 18px;
+  font-size: 16px; /* ✅ slightly smaller */
   font-weight: 600;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .status img {
-  width: 30px;
-  margin-right: 12px;
+  width: 24px;
+  margin-right: 10px;
 }
 
+/* LINE */
 .line {
   height: 1px;
   background: #e0e0e0;
-  margin: 10px 0;
+  margin: 6px 0;
 }
 
+/* INCIDENT */
 .last-incident {
   display: flex;
   align-items: center;
 }
 
 .last-incident img {
-  width: 32px;
-  margin-right: 12px;
+  width: 26px;
+  margin-right: 10px;
 }
 
 .small {
   font-family: 'Inter', sans-serif;
-  font-size: 14px;
+  font-size: 12px;
   color: #888;
 }
 
 .date {
   font-family: 'Oswald', sans-serif;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
 }
 </style>
