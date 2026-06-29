@@ -2,344 +2,163 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=506">
-<title>Safety & Announcements</title>
+<title>Safety Banner</title>
 
-<!-- GOOGLE FONTS -->
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- ✅ Proper Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;700&family=Inter:wght@400;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
 
 <style>
-body{
-margin:0;
-font-family:'Inter',sans-serif;
-background:#f4f6f9;
+body {
+  margin: 0;
+  background: #ffffff;
 }
 
-/* CARD */
-.card{
-background:#fff;
-border-radius:10px;
-box-shadow:0 2px 8px rgba(0,0,0,.08);
-margin:10px;
-overflow:hidden;
+/* CONTAINER */
+.incident-banner {
+  display: flex;
+  align-items: center;
+  padding: 20px 30px;
 }
 
-/* HEADER */
-.section-header{
-display:flex;
-align-items:center;
-background:linear-gradient(135deg,#0d47a1,#1565c0);
-color:#fff;
-padding:12px 16px;
-font-family:'Oswald',sans-serif;
-font-size:20px;
-letter-spacing:.5px;
+/* LEFT */
+.left {
+  margin-right: 30px;
+  text-align: center;
 }
 
-.section-header img{
-width:22px;
-margin-right:10px;
-filter:invert(1);
+.days {
+  font-family: 'Teko', sans-serif;
+  font-size: 130px;
+  font-weight: 700;
+  color: #e10600;
+  line-height: 0.85;
+  letter-spacing: 2px;
 }
 
-/* SAFETY */
-.safety-body{
-display:flex;
-padding:20px;
-align-items:center;
+.label {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #9a9a9a;
 }
 
-.safety-left{
-flex:1;
+/* DIVIDER */
+.divider {
+  width: 1px;
+  height: 120px;
+  background: #d0d0d0;
+  margin: 0 30px;
 }
 
-.safety-label{
-color:#666;
-font-size:13px;
-font-weight:500;
-letter-spacing:.3px;
+/* RIGHT */
+.right {
+  display: flex;
+  flex-direction: column;
 }
 
-.days{
-font-family:'Oswald',sans-serif;
-font-size:90px;
-font-weight:700;
-color:#d32f2f;
-line-height:1;
+.status {
+  display: flex;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
 }
 
-.safety-message{
-margin-top:12px;
-color:#1565c0;
-font-weight:600;
-font-size:14px;
+.status img {
+  width: 30px;
+  margin-right: 12px;
 }
 
-.safety-right{
-width:140px;
-text-align:center;
+.line {
+  height: 1px;
+  background: #e0e0e0;
+  margin: 10px 0;
 }
 
-.safety-right img{
-width:100px;
-opacity:.25;
+.last-incident {
+  display: flex;
+  align-items: center;
 }
 
-/* VALUES */
-.values{
-display:flex;
-border-top:1px solid #eee;
-padding:12px;
-justify-content:space-around;
-text-align:center;
-font-size:12px;
-color:#444;
+.last-incident img {
+  width: 32px;
+  margin-right: 12px;
 }
 
-.values div{
-flex:1;
-font-family:'Oswald',sans-serif;
-font-weight:500;
+.small {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #888;
 }
 
-/* ANNOUNCEMENTS */
-.announcement{
-display:flex;
-align-items:center;
-padding:14px;
-border-bottom:1px solid #eee;
-}
-
-.announcement:last-child{
-border-bottom:none;
-}
-
-.announcement-icon{
-width:50px;
-height:50px;
-border-radius:8px;
-display:flex;
-align-items:center;
-justify-content:center;
-margin-right:12px;
-flex-shrink:0;
-}
-
-.announcement-icon img{
-width:26px;
-filter:invert(1);
-}
-
-.blue{background:#1565c0;}
-.grey{background:#6d6d6d;}
-.red{background:#c62828;}
-
-.announcement-text{
-flex:1;
-}
-
-.announcement-title{
-font-family:'Oswald',sans-serif;
-font-weight:600;
-font-size:16px;
-}
-
-.announcement-message{
-font-size:13px;
-color:#555;
-margin-top:3px;
-}
-
-.announcement-date{
-font-size:12px;
-color:#1565c0;
-white-space:nowrap;
-margin-left:10px;
-font-weight:500;
+.date {
+  font-family: 'Oswald', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
 }
 </style>
 </head>
 
 <body>
 
-<!-- SAFETY -->
-<div class="card">
-<div class="section-header">
-<img src="https://liamsnodden.github.io/sheffield/icons/shield.svg">
-SAFETY PERFORMANCE
-</div>
+<div class="incident-banner">
+  
+  <div class="left">
+    <div class="days" id="daysCount">0</div>
+    <div class="label">DAYS INCIDENT FREE</div>
+  </div>
 
-<div class="safety-body">
-<div class="safety-left">
-<div class="safety-label">DAYS SINCE LAST LTI</div>
-<div id="daysSince" class="days">261</div>
-<div class="safety-message">EVERY DAY SAFE, WE ALL GO HOME SAFE</div>
-</div>
+  <div class="divider"></div>
 
-<div class="safety-right">
-<img src="https://liamsnodden.github.io/sheffield/icons/shield.svg">
-</div>
-</div>
+  <div class="right">
 
-<div class="values">
-<div>CARE<br><small>FOR EACH OTHER</small></div>
-<div>WORK<br><small>SAFE</small></div>
-<div>BE<br><small>RESPONSIBLE</small></div>
-<div>STRIVE FOR<br><small>EXCELLENCE</small></div>
-</div>
-</div>
+    <div class="status">
+      <img src="https://liamsnodden.github.io/sheffield/icons/tick.svg">
+      <span>Everyone home safe today</span>
+    </div>
 
-<!-- ANNOUNCEMENTS -->
-<div class="card">
-<div class="section-header">
-<img src="https://liamsnodden.github.io/sheffield/icons/campaign.svg">
-ANNOUNCEMENTS
-</div>
-<div id="content"></div>
+    <div class="line"></div>
+
+    <div class="last-incident">
+      <!-- ✅ Calendar icon -->
+      <img src="https://liamsnodden.github.io/sheffield/icons/calendar.svg">
+      <div>
+        <div class="small">Last lost time incident:</div>
+        <div class="date" id="incidentDate"></div>
+      </div>
+    </div>
+
+  </div>
+
 </div>
 
 <script>
+/* ✅ FIXED INCIDENT DATE */
+const incidentDate = new Date("2025-05-30");
 
-/* SETTINGS */
-const ROTATE_EVERY = 30000;
-const LATITUDE = 53.3811;
-const LONGITUDE = -1.4701;
+/* ✅ CALCULATE DAYS FROM DATE */
+const today = new Date();
+const diffDays = Math.floor((today - incidentDate) / (1000 * 60 * 60 * 24));
 
-/* STATIC DAYS (FORCED TO 261) */
-function updateLTIDays(){
-document.getElementById("daysSince").textContent = "261";
+document.getElementById("daysCount").textContent = diffDays;
+
+/* ✅ FORMAT DATE */
+document.getElementById("incidentDate").textContent =
+  incidentDate.toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric'
+  }).toUpperCase();
+
+/* ✅ AUTO REFRESH AT MIDNIGHT */
+function msUntilMidnight() {
+  const midnight = new Date();
+  midnight.setHours(24, 0, 0, 0);
+  return midnight - new Date();
 }
 
-/* ICONS */
-const iconMap = {
-training:'https://liamsnodden.github.io/sheffield/icons/training.svg',
-celebration:'https://liamsnodden.github.io/sheffield/icons/celebration.svg',
-announcement:'https://liamsnodden.github.io/sheffield/icons/campaign.svg',
-maintenance:'https://liamsnodden.github.io/sheffield/icons/build.svg'
-};
-
-/* DATA */
-let announcements = [
-{
-category:"announcement",
-title:"Safety Standdown This Friday",
-message:"Join us this Friday at 10:00 AM for a site-wide safety standdown."
-},
-{
-category:"training",
-title:"Mandatory Training Reminder",
-message:"Complete all training modules by 31 May 2025."
-},
-{
-category:"maintenance",
-title:"Planned Maintenance – Gate 2",
-message:"Gate 2 closed 26 May from 9:00 AM to 12:00 PM."
-},
-{
-category:"celebration",
-title:"Promotion Announcement",
-message:"Congratulations on your recent promotion."
-}
-];
-
-let currentPage = 0;
-
-/* PAGING */
-function getPages(){
-const pages = [];
-for(let i=0;i<announcements.length;i+=3){
-pages.push(announcements.slice(i,i+3));
-}
-return pages;
-}
-
-/* WEATHER */
-let weatherInfo = {
-message:"No weather alerts"
-};
-
-async function loadWeather(){
-try{
-const res = await fetch(
-`https://api.open-meteo.com/v1/forecast?latitude=${LATITUDE}&longitude=${LONGITUDE}&daily=weather_code&timezone=Europe/London`
-);
-
-const data = await res.json();
-const code = data.daily.weather_code[0];
-
-if([95,96,99].includes(code)){
-weatherInfo.message = "⚠ Severe thunderstorm warning";
-}
-else if([61,63,65].includes(code)){
-weatherInfo.message = "Heavy rain expected";
-}
-else{
-weatherInfo.message = "No weather alerts";
-}
-}catch(e){}
-}
-
-/* RENDER */
-function render(){
-
-const pages = getPages();
-const page = pages[currentPage];
-let html = '';
-
-/* weather */
-html += `
-<div class="announcement">
-<div class="announcement-icon blue">
-<img src="https://liamsnodden.github.io/sheffield/icons/warning.svgclass="announcement-title">Weather</div>
-<div class="announcement-message">${weatherInfo.message}</div>
-</div>
-</div>
-`;
-
-/* announcements */
-page.forEach(item => {
-
-let color = "blue";
-if(item.category==="training") color="grey";
-if(item.category==="maintenance") color="red";
-
-html += `
-<div class="announcement">
-<div class="announcement-icon ${color}">
-<img src="${iconMap[item.category]}div class="announcement-text">
-<div class="announcement-title">${item.title}</div>
-<div class="announcement-message">${item.message}</div>
-</div>
-
-<div class="announcement-date">
-${new Date().toLocaleDateString('en-GB',{
-day:'2-digit', month:'short'
-})}
-</div>
-</div>
-`;
-});
-
-document.getElementById("content").innerHTML = html;
-
-currentPage++;
-if(currentPage >= pages.length) currentPage = 0;
-}
-
-/* START */
-async function start(){
-updateLTIDays();
-await loadWeather();
-render();
-
-setInterval(render, ROTATE_EVERY);
-setInterval(loadWeather, 900000);
-}
-
-start();
-
+setTimeout(() => location.reload(), msUntilMidnight());
 </script>
 
 </body>
 </html>
-
