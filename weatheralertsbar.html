@@ -6,28 +6,18 @@
 
 <style>
 
-/* ✅ LOAD FONTS PROPERLY */
-/* ✅ YOUR GITHUB FONTS */
-@font-face {
-  font-family: 'InterCustom';
-  src: url('https://liamsnodden.github.io/sheffield/Inter-VariableFont_opsz,wght.ttf') format('truetype');
-  font-weight: 100 900;
-}
-
-@font-face {
-  font-family: 'Inter';
-  src: url('https://liamsnodden.github.io/sheffield/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype');
-  font-style: italic;
-}
-
+/* ✅ FONTS */
 @font-face {
   font-family: 'OswaldCustom';
-  src: url('https://liamsnodden.github.io/sheffield/Oswald-VariableFont_wght.ttf') format('truetype');
+  src: url('https://liamsnodden.github.io/sheffield/fonts/Oswald-VariableFont_wght.ttf') format('truetype');
   font-weight: 200 700;
 }
 
-
-
+@font-face {
+  font-family: 'InterCustom';
+  src: url('https://liamsnodden.github.io/sheffield/fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: 100 900;
+}
 
 /* BASE */
 body {
@@ -45,33 +35,34 @@ body {
 
   display:flex;
   align-items:center;
-  gap:14px;
 
   padding:12px 16px;
   background:#ffffff;
 }
 
-/* 🔴 OSWALD PILL */
+/* 🔴 / 🟢 ALERT PILL */
 .alert-pill{
   font-family:'OswaldCustom', Arial, sans-serif;
   font-weight:700;
 
-  background:#dc2626;
   color:#fff;
-
-  font-size:18px;   /* slightly bigger so you see difference */
+  font-size:18px;
   letter-spacing:1px;
 
-  padding:6px 14px;
+  padding:6px 16px;
   border-radius:6px;
+
+  margin-right:28px; /* ✅ FORCE SPACING */
 }
 
-/* ✅ INTER MESSAGE */
+/* MESSAGE */
 .alert-message{
   font-family:'InterCustom', Arial, sans-serif;
   font-weight:600;
   font-size:16px;
   color:#111;
+
+  line-height:1.2;
 }
 
 /* FLASH */
@@ -94,28 +85,45 @@ body {
 <body>
 
 <div class="alert-bar">
-  <div class="alert-pill" id="title">FORECAST ALERT</div>
-  <div class="alert-message" id="message">NO WEATHER HAZARDS: Continue standard safe working practices.</div>
+  <div class="alert-pill" id="title"></div>
+  <div class="alert-message" id="message">All conditions normal. Follow standard safe working procedures.</div>
 </div>
 
 <script>
-const alerts = ["NO WEATHER HAZARDS: Continue standard safe working practices."];
+
+const alerts = ["All conditions normal. Follow standard safe working procedures."];
+const noAlerts = true;
+
 let i = 0;
 
 const msg = document.getElementById("message");
 const title = document.getElementById("title");
 
+// ✅ INITIAL STATE
+if (noAlerts) {
+  title.textContent = "NO ALERTS";
+  title.style.background = "#16a34a"; // green
+} else {
+  title.textContent = "FORECAST ALERT";
+  title.style.background = "#dc2626"; // red
+}
+
+// ✅ ROTATION
 setInterval(() => {
 
   i = (i + 1) % alerts.length;
   msg.textContent = alerts[i];
 
-  title.classList.remove("flash");
-  void title.offsetWidth;
-  title.classList.add("flash");
+  if (!noAlerts) {
+    title.classList.remove("flash");
+    void title.offsetWidth;
+    title.classList.add("flash");
+  }
 
 }, 20000);
+
 </script>
 
 </body>
 </html>
+
