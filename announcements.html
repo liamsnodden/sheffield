@@ -4,13 +4,50 @@
 <meta charset="UTF-8">
 <title>Safety Banner</title>
 
-<!-- ✅ Proper Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;700&family=Inter:wght@400;600&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
-
 <style>
+
+/* ✅ ALL FONTS FROM GITHUB */
+
+/* Teko SemiBold */
+@font-face {
+  font-family: 'Teko';
+  src: url('https://raw.githubusercontent.com/liamsnodden/sheffield/main/Teko-SemiBold.ttf') format('truetype'); 
+  font-weight: 600;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'Inter';
+  src: url('https://raw.githubusercontent.com/liamsnodden/sheffield/main/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+/* Inter Italic Variable */
+@font-face {
+  font-family: 'Inter';
+  src: url('raw.githubusercontent.com/liamsnodden/sheffield/main/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+}
+
+/* Oswald Variable */
+@font-face {
+  font-family: 'Oswald';
+  src: url('raw.githubusercontent.com/liamsnodden/sheffield/main/Oswald-VariableFont_wght.ttf') format('truetype');
+  font-weight: 200 700;
+  font-style: normal;
+}
+
 body {
   margin: 0;
   background: #ffffff;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400; /* default */
+
 }
 
 /* CONTAINER */
@@ -18,7 +55,7 @@ body {
   display: flex;
   align-items: center;
   padding: 10px 20px;
-  max-height: 138.5px; /* ✅ constraint */
+  max-height: 138.5px;
   height: 138.5px;
   box-sizing: border-box;
 }
@@ -31,22 +68,22 @@ body {
 
 .days {
   font-family: 'Teko', sans-serif;
-  font-size: 95px; /* ✅ scaled down */
-  font-weight: 700;
+  font-size: 95px;
+  font-weight: 600;
   color: #e10600;
   line-height: 0.85;
 }
 
 .label {
   font-family: 'Inter', sans-serif;
-  font-size: 12px; /* ✅ smaller */
+  font-size: 12px;
   color: #9a9a9a;
 }
 
 /* DIVIDER */
 .divider {
   width: 1px;
-  height: 90px; /* ✅ scaled */
+  height: 90px;
   background: #d0d0d0;
   margin: 0 25px;
 }
@@ -63,7 +100,7 @@ body {
   display: flex;
   align-items: center;
   font-family: 'Inter', sans-serif;
-  font-size: 16px; /* ✅ slightly smaller */
+  font-size: 16px;
   font-weight: 600;
   margin-bottom: 8px;
 }
@@ -102,6 +139,7 @@ body {
   font-size: 16px;
   font-weight: 700;
 }
+
 </style>
 </head>
 
@@ -126,8 +164,7 @@ body {
     <div class="line"></div>
 
     <div class="last-incident">
-      <!-- ✅ Calendar icon -->
-      <img src="https://liamsnodden.github.io/sheffield/icons/calendar.svg">
+     
       <div>
         <div class="small">Last lost time incident:</div>
         <div class="date" id="incidentDate"></div>
@@ -139,16 +176,13 @@ body {
 </div>
 
 <script>
-/* ✅ FIXED INCIDENT DATE */
 const incidentDate = new Date("2025-05-30");
 
-/* ✅ CALCULATE DAYS FROM DATE */
 const today = new Date();
 const diffDays = Math.floor((today - incidentDate) / (1000 * 60 * 60 * 24));
 
 document.getElementById("daysCount").textContent = diffDays;
 
-/* ✅ FORMAT DATE */
 document.getElementById("incidentDate").textContent =
   incidentDate.toLocaleDateString('en-GB', {
     day: '2-digit',
@@ -156,7 +190,6 @@ document.getElementById("incidentDate").textContent =
     year: 'numeric'
   }).toUpperCase();
 
-/* ✅ AUTO REFRESH AT MIDNIGHT */
 function msUntilMidnight() {
   const midnight = new Date();
   midnight.setHours(24, 0, 0, 0);
