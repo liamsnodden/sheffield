@@ -24,91 +24,99 @@
   font-weight: 200 700;
 }
 
+
 body {
-  margin:0;
-  font-family:'Inter';
-  color:#fff;
+  margin: 0;
+  font-family: 'Inter';
+  color: #fff;
 }
 
-/* ✅ MAIN CONTAINER */
-.container{
-  position:fixed;
-  top:0;
-  right:0;
+/* MAIN CONTAINER */
+.container {
+  position: fixed;
+  top: 0;
+  right: 0;
 
-  display:inline-flex;
-  width:auto;
-  white-space:nowrap;
+  display: inline-flex;
+  align-items: center;
 
-  align-items:center;
-  padding:10px 14px;
+  width: auto;
+  white-space: nowrap;
+
+  padding: 10px 14px;
 }
 
-/* ✅ FORCE SPACING (Xibo-safe) */
+/* XIBO-SAFE SPACING */
 .container > * {
-  margin-left:20px;
-}
-.container > *:first-child {
-  margin-left:0;
+  padding-right: 20px;
 }
 
-/* ✅ LEFT BLOCK */
-.left{
-  display:flex;
-  align-items:center;
+.container > *:last-child {
+  padding-right: 0;
+}
+
+/* LEFT BLOCK */
+.left {
+  display: flex;
+  align-items: center;
 }
 
 .left > * {
-  margin-left:14px;
-}
-.left > *:first-child {
-  margin-left:0;
+  padding-right: 14px;
 }
 
-.icon{ width:70px; }
-
-.temp{
-  font-family:'Oswald';
-  font-size:50px;
-  font-weight:500;
+.left > *:last-child {
+  padding-right: 0;
 }
 
-.desc{
-  font-family:'Oswald';
-  font-size:18px;
+.icon {
+  width: 70px;
 }
 
-/* ✅ FORECAST */
-.forecast{
-  display:flex;
+.temp {
+  font-family: 'Oswald';
+  font-size: 50px;
+  font-weight: 500;
+}
+
+.desc {
+  font-family: 'Oswald';
+  font-size: 18px;
+}
+
+/* FORECAST */
+.forecast {
+  display: flex;
 }
 
 .forecast > * {
-  margin-left:10px;
-}
-.forecast > *:first-child {
-  margin-left:0;
+  padding-right: 10px;
 }
 
-.fcol{
-  text-align:center;
+.forecast > *:last-child {
+  padding-right: 0;
 }
 
-/* ✅ CLOCK */
-.clock{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-end;
-
-  width:140px;
-  flex-shrink:0;
+.fcol {
+  text-align: center;
 }
 
-.time{
-  font-family:'Oswald';
-  font-size:46px;
-  font-weight:700;
+/* CLOCK */
+.clock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  width: 140px;
+  flex-shrink: 0;
 }
+
+.time {
+  font-family: 'Oswald';
+  font-size: 46px;
+  font-weight: 700;
+}
+
 
 </style>
 </head>
@@ -118,12 +126,12 @@ body {
 <div class="container">
 
   <div class="left">
-    <div class="temp">15°C</div>
+    <div class="temp">18°C</div>
     <img class="icon" src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg">
     <div>
       <div class="desc">OVERCAST</div>
-      <div>Feels 15°C</div>
-      <div>21° / 15°</div>
+      <div>Feels 18°C</div>
+      <div>22° / 15°</div>
     </div>
   </div>
 
@@ -138,13 +146,13 @@ body {
       <div class="fcol">
         <div>Thu</div>
         <img src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg" width="35">
-        <div>21°</div>
+        <div>20°</div>
       </div>
     
       <div class="fcol">
         <div>Fri</div>
         <img src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg" width="35">
-        <div>24°</div>
+        <div>23°</div>
       </div>
     
   </div>
