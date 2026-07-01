@@ -86,41 +86,60 @@ body {
 
 
 
+.alert-bar{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+
+  display:flex;
+  align-items:center;
+
+  padding:12px 16px;
+  background:#fff;
+}
+
+/* ALERT PILL */
+.alert-pill{
+  flex-shrink:0;
+  margin-right:30px;
+}
+
+/* MESSAGE TAKES ALL AVAILABLE SPACE */
 .alert-message{
-  flex:1;
+  flex:1 1 auto;
+  min-width:0;
 
   font-family:'Inter', Arial, sans-serif;
   font-weight:600;
   font-size:16px;
   color:#111;
-
-  line-height:1.2;
-
-  padding-right:80px;   /* <-- forces gap */
 }
+
+/* RIGHT PANEL */
 
 .weather-strip{
   margin-left:auto;
 
   display:flex;
   align-items:center;
-  gap:24px;             /* <-- bigger spacing between metrics */
-
-  min-width:700px;      /* <-- keeps metrics grouped on right */
 
   white-space:nowrap;
 
-  font-family:'Inter', Arial, sans-serif;
-  font-size:16px;
-  font-weight:600;
+  flex-shrink:0;
 }
 
 
+/* EACH METRIC */
 .metric{
   display:flex;
   align-items:center;
-  gap:8px;
+  gap:10px;
+
+  padding:0 30px;   /* <-- creates spacing */
 }
+
+/* VERTICAL SEPARATORS */
 
 .divider{
   width:1px;
@@ -160,53 +179,54 @@ body {
 <body>
 
 
+
 <div class="alert-bar">
 
-  <div class="alert-pill" id="title"></div>
+    <div class="alert-pill" id="title"></div>
 
-  <div class="alert-message" id="message">
-    All conditions normal. Follow standard safe working procedures.
-  </div>
-
-  <div class="weather-strip">
-
-    <div class="metric">
-      ☀️ UV
-      <span class="uv">4</span>
+    <div class="alert-message" id="message">
+        All conditions normal. Follow standard safe working procedures.
     </div>
 
-    <div class="divider"></div>
+    <div class="weather-strip">
 
-    <div class="metric">
-      🌡️
-      <span class="temp-hi">21°</span>
-      /
-      <span class="temp-lo">15°</span>
+        <div class="metric">
+            ☀️ UV <span class="uv">3.95</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="metric">
+            🌡️
+            <span class="temp-hi">21°</span>
+            /
+            <span class="temp-lo">15°</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="metric">
+            💨 18 mph
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="metric">
+            🌿 POLLEN
+            <span class="pollen">LOW</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="metric">
+            AQI
+            <span class="aqi">FAIR (29)</span>
+        </div>
+
     </div>
-
-    <div class="divider"></div>
-
-    <div class="metric">
-      💨 18 mph
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="metric">
-      🌿 POLLEN
-      <span class="pollen">LOW</span>
-    </div>
-
-    <div class="divider"></div>
-
-    <div class="metric">
-      AQI
-      <span class="aqi">FAIR (29)</span>
-    </div>
-
-  </div>
 
 </div>
+
 
 
 <script>
