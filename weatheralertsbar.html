@@ -85,6 +85,32 @@ body {
 }
 
 
+icon{
+  width:28px;
+  height:28px;
+  display:block;
+}
+
+.icon-uv{
+  filter: brightness(0) saturate(100%) invert(55%) sepia(96%) saturate(1542%) hue-rotate(359deg) brightness(101%) contrast(97%);
+}
+
+.icon-temp{
+  filter: brightness(0) saturate(100%) invert(19%) sepia(95%) saturate(3650%) hue-rotate(355deg) brightness(104%) contrast(97%);
+}
+
+.icon-wind{
+  filter: brightness(0) saturate(100%) invert(28%) sepia(89%) saturate(1650%) hue-rotate(199deg) brightness(98%) contrast(96%);
+}
+
+.icon-pollen{
+  filter: brightness(0) saturate(100%) invert(64%) sepia(77%) saturate(511%) hue-rotate(43deg) brightness(96%) contrast(91%);
+}
+
+.icon-aqi{
+  filter: brightness(0) saturate(100%) invert(49%) sepia(60%) saturate(594%) hue-rotate(70deg) brightness(95%) contrast(89%);
+}
+
 
 .alert-bar{
   position:fixed;
@@ -188,41 +214,63 @@ body {
         All conditions normal. Follow standard safe working procedures.
     </div>
 
-    <div class="weather-strip">
+   <div class="weather-strip">
 
-        <div class="metric">
-            ☀️ UV <span class="uv">3.95</span>
-        </div>
+    <div class="metric">
+        <img
+          src="https://liamsnodden.github.io/sheffield/icons/UV.svg"
+          class="icon icon-uv"
+        >
+        UV
+        <span class="uv">3.95</span>
+    </div>
 
-        <div class="divider"></div>
+    <div class="divider"></div>
 
-        <div class="metric">
-            🌡️
-            <span class="temp-hi">21°</span>
-            /
-            <span class="temp-lo">15°</span>
-        </div>
+    <div class="metric">
+        <img
+          src="https://liamsnodden.github.io/sheffield/icons/Temp.svg"
+          class="icon icon-temp"
+        >
 
-        <div class="divider"></div>
+        <span class="temp-hi">21°</span>
+        /
+        <span class="temp-lo">15°</span>
+    </div>
 
-        <div class="metric">
-            💨 18 mph
-        </div>
+    <div class="divider"></div>
 
-        <div class="divider"></div>
+    <div class="metric">
+        <img
+          src="https://liamsnodden.github.io/sheffield/icons/Wind.svg"
+          class="icon icon-wind"
+        >
 
-        <div class="metric">
-            🌿 POLLEN
-            <span class="pollen">LOW</span>
-        </div>
+        18 mph
+    </div>
 
-        <div class="divider"></div>
+    <div class="divider"></div>
 
-        <div class="metric">
-            AQI
-            <span class="aqi">FAIR (29)</span>
-        </div>
+    <div class="metric">
+        <img
+          src="https://liamsnodden.github.io/sheffield/icons/Pollen.svg"
+          class="icon icon-pollen"
+        >
 
+        POLLEN
+        <span class="pollen">LOW</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="metric">
+        <img
+          src="https://liamsnodden.github.io/sheffield/icons/AQ.svg"
+          class="icon icon-aqi"
+        >
+
+        AQI
+        <span class="aqi">FAIR (29)</span>
     </div>
 
 </div>
