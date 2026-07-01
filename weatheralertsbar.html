@@ -6,17 +6,22 @@
 
 <style>
 
-/* ✅ FONTS */
 @font-face {
-  font-family: 'OswaldCustom';
-  src: url('https://liamsnodden.github.io/sheffield/fonts/Oswald-VariableFont_wght.ttf') format('truetype');
-  font-weight: 200 700;
+  font-family: 'Inter';
+  src: url('https://liamsnodden.github.io/sheffield/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+  font-weight: 100 900;
 }
 
 @font-face {
-  font-family: 'InterCustom';
-  src: url('https://liamsnodden.github.io/sheffield/fonts/Inter-VariableFont_opsz,wght.ttf') format('truetype');
-  font-weight: 100 900;
+  font-family: 'Inter';
+  src: url('https://liamsnodden.github.io/sheffield/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype');
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Oswald';
+  src: url('https://liamsnodden.github.io/sheffield/Oswald-VariableFont_wght.ttf') format('truetype');
+  font-weight: 200 700;
 }
 
 /* BASE */
@@ -42,7 +47,7 @@ body {
 
 /* 🔴 / 🟢 ALERT PILL */
 .alert-pill{
-  font-family:'OswaldCustom', Arial, sans-serif;
+  font-family:'Oswald', Arial, sans-serif;
   font-weight:700;
 
   color:#fff;
@@ -57,7 +62,7 @@ body {
 
 /* MESSAGE */
 .alert-message{
-  font-family:'InterCustom', Arial, sans-serif;
+  font-family:'Inter', Arial, sans-serif;
   font-weight:600;
   font-size:16px;
   color:#111;
@@ -79,15 +84,122 @@ body {
   animation: tripleFlash 0.9s ease;
 }
 
+
+.alert-message{
+  flex:1;
+  font-family:'Inter', Arial, sans-serif;
+  font-weight:600;
+  font-size:16px;
+  color:#111;
+  line-height:1.2;
+}
+
+.weather-strip{
+  margin-left:auto;
+
+  display:flex;
+  align-items:center;
+  gap:18px;
+
+  white-space:nowrap;
+
+  font-family:'Inter', Arial, sans-serif;
+  font-size:16px;
+  font-weight:600;
+}
+
+.metric{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.divider{
+  width:1px;
+  height:28px;
+  background:#d4d4d4;
+}
+
+.temp-hi{
+  color:#dc2626;
+  font-weight:700;
+}
+
+.temp-lo{
+  color:#2563eb;
+  font-weight:700;
+}
+
+.uv{
+  color:#f97316;
+  font-weight:700;
+}
+
+.pollen{
+  color:#f97316;
+  font-weight:700;
+}
+
+.aqi{
+  color:#16a34a;
+  font-weight:700;
+}
+
+
 </style>
 </head>
 
 <body>
 
+
 <div class="alert-bar">
+
   <div class="alert-pill" id="title"></div>
-  <div class="alert-message" id="message">All conditions normal. Follow standard safe working procedures.</div>
+
+  <div class="alert-message" id="message">
+    All conditions normal. Follow standard safe working procedures.
+  </div>
+
+  <div class="weather-strip">
+
+    <div class="metric">
+      ☀️ UV
+      <span class="uv">4</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="metric">
+      🌡️
+      <span class="temp-hi">21°</span>
+      /
+      <span class="temp-lo">15°</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="metric">
+      💨 9 mph
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="metric">
+      🌿 POLLEN
+      <span class="pollen">LOW</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="metric">
+      AQI
+      <span class="aqi">GOOD (23)</span>
+    </div>
+
+  </div>
+
 </div>
+
 
 <script>
 
@@ -101,10 +213,10 @@ const title = document.getElementById("title");
 
 // ✅ INITIAL STATE
 if (noAlerts) {
-  title.textContent = "NO ALERTS";
+  title.textContent = "NO ACTIVE WEATHER ALERTS";
   title.style.background = "#16a34a"; // green
 } else {
-  title.textContent = "FORECAST ALERT";
+  title.textContent = "ACTIVE WEATHER ALERTS";
   title.style.background = "#dc2626"; // red
 }
 
