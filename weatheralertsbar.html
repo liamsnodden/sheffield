@@ -85,13 +85,18 @@ body {
 }
 
 
+
 .alert-message{
   flex:1;
+
   font-family:'Inter', Arial, sans-serif;
   font-weight:600;
   font-size:16px;
   color:#111;
+
   line-height:1.2;
+
+  padding-right:80px;   /* <-- forces gap */
 }
 
 .weather-strip{
@@ -99,7 +104,9 @@ body {
 
   display:flex;
   align-items:center;
-  gap:18px;
+  gap:24px;             /* <-- bigger spacing between metrics */
+
+  min-width:700px;      /* <-- keeps metrics grouped on right */
 
   white-space:nowrap;
 
@@ -107,6 +114,7 @@ body {
   font-size:16px;
   font-weight:600;
 }
+
 
 .metric{
   display:flex;
@@ -179,7 +187,7 @@ body {
     <div class="divider"></div>
 
     <div class="metric">
-      💨 9 mph
+      💨 12 mph
     </div>
 
     <div class="divider"></div>
