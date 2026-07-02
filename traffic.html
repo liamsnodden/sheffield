@@ -39,80 +39,111 @@ body{
 }
 
 table{
-  width:100%;
-  border-collapse:collapse;
+  width:586px;
+  border-collapse:separate;
+  border-spacing:0 4px;
 }
 
+tr{
+  background:#f7f7f7;
+}
 
-
-th,
 td{
+  padding:4px 10px;
+  height:30px;
+  font-size:14px;
+  color:#1c2740;
+  border-top:1px solid #e8e8e8;
+  border-bottom:1px solid #e8e8e8;
+}
+
+td:first-child{
+  border-left:1px solid #e8e8e8;
+  border-radius:8px 0 0 8px;
+}
+
+td:last-child{
+  border-right:1px solid #e8e8e8;
+  border-radius:0 8px 8px 0;
+}
+
+.road-col{
+  width:72px;
+}
+
+.name-col{
+  width:260px;
+}
+
+.status-col{
+  width:160px;
   font-family:'Inter',sans-serif;
-  padding:5px 8px;
-  font-size:13px;
-  line-height:1.1;
+  font-weight:500;
+  white-space:nowrap;
 }
 
-.sign{
-  height:22px;
-  min-width:54px;
-  font-size:12px;
+.delay-pill{
+  width:90px;
+  text-align:center;
+  border-radius:999px;
+  font-family:'Inter',sans-serif;
+  font-weight:700;
 }
-
 
 .sign{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  min-width:64px;
-  height:32px;
-  padding:0 10px;
+  width:52px;
+  height:24px;
   color:#fff;
   font-weight:700;
   border-radius:5px;
+  font-size:14px;
 }
-
-
-
-.delay{
-  font-family:'Inter',sans-serif;
-  font-weight:700;
-  text-align:right;
-}
-
-
 
 .motorway{
-  background:#0057B8;
+  background:#1042b8;
 }
 
 .aroad{
-  background:#0B8F3C;
+  background:#17933d;
+}
+
+.icon{
+  margin-right:8px;
 }
 
 .red{
-  color:#d32f2f;
+  color:#f15a24;
 }
 
 .orange{
-  color:#ef6c00;
+  color:#f29b13;
 }
 
 .yellow{
-  color:#c49000;
+  color:#dba300;
 }
 
 .green{
-  color:#2e7d32;
+  color:#138f42;
 }
 
-.status,
-.delay{
-  font-weight:700;
+.red.delay-pill{
+  background:#fff0e8;
 }
 
-.delay{
-  text-align:right;
+.orange.delay-pill{
+  background:#fff4e8;
+}
+
+.yellow.delay-pill{
+  background:#fff8e7;
+}
+
+.green.delay-pill{
+  background:#edf7ed;
 }
 
 
@@ -137,130 +168,165 @@ th,
 
 <tbody>
 
-<tr>
-<td>
-<span class="sign aroad">
-A616
-</span>
-</td>
+<tr class="row">
 
-<td>Stocksbridge</td>
+  <td class="road-col">
+    <span class="sign aroad">
+      A616
+    </span>
+  </td>
 
-<td class="yellow status">
-Minor delays
-</td>
+  <td class="name-col">
+    Stocksbridge
+  </td>
 
-<td class="yellow delay">
-4 mins
-</td>
+  <td class="status-col yellow">
+    <span class="icon">🚗</span>
+    Minor delays
+  </td>
+
+  <td class="delay-pill yellow">
+    3 mins
+  </td>
+
 </tr>
 
-<tr>
-<td>
-<span class="sign aroad">
-A61
-</span>
-</td>
+<tr class="row">
 
-<td>Barnsley Rd</td>
+  <td class="road-col">
+    <span class="sign aroad">
+      A61
+    </span>
+  </td>
 
-<td class="yellow status">
-Minor delays
-</td>
+  <td class="name-col">
+    Barnsley Rd
+  </td>
 
-<td class="yellow delay">
-4 mins
-</td>
+  <td class="status-col yellow">
+    <span class="icon">🚗</span>
+    Minor delays
+  </td>
+
+  <td class="delay-pill yellow">
+    2 mins
+  </td>
+
 </tr>
 
-<tr>
-<td>
-<span class="sign motorway">
-M1
-</span>
-</td>
+<tr class="row">
 
-<td>Northbound</td>
+  <td class="road-col">
+    <span class="sign aroad">
+      A57
+    </span>
+  </td>
 
-<td class="green status">
-Clear
-</td>
+  <td class="name-col">
+    Worksop Rd
+  </td>
 
-<td class="green delay">
-—
-</td>
+  <td class="status-col yellow">
+    <span class="icon">🚗</span>
+    Minor delays
+  </td>
+
+  <td class="delay-pill yellow">
+    1 min
+  </td>
+
 </tr>
 
-<tr>
-<td>
-<span class="sign motorway">
-M1
-</span>
-</td>
+<tr class="row">
 
-<td>Southbound</td>
+  <td class="road-col">
+    <span class="sign motorway">
+      M1
+    </span>
+  </td>
 
-<td class="green status">
-Clear
-</td>
+  <td class="name-col">
+    Northbound
+  </td>
 
-<td class="green delay">
-—
-</td>
+  <td class="status-col green">
+    <span class="icon">✓</span>
+    Clear
+  </td>
+
+  <td class="delay-pill green">
+    –
+  </td>
+
 </tr>
 
-<tr>
-<td>
-<span class="sign motorway">
-M18
-</span>
-</td>
+<tr class="row">
 
-<td>Doncaster</td>
+  <td class="road-col">
+    <span class="sign motorway">
+      M1
+    </span>
+  </td>
 
-<td class="green status">
-Clear
-</td>
+  <td class="name-col">
+    Southbound
+  </td>
 
-<td class="green delay">
-—
-</td>
+  <td class="status-col green">
+    <span class="icon">✓</span>
+    Clear
+  </td>
+
+  <td class="delay-pill green">
+    –
+  </td>
+
 </tr>
 
-<tr>
-<td>
-<span class="sign aroad">
-A630
-</span>
-</td>
+<tr class="row">
 
-<td>Parkway</td>
+  <td class="road-col">
+    <span class="sign motorway">
+      M18
+    </span>
+  </td>
 
-<td class="green status">
-Clear
-</td>
+  <td class="name-col">
+    Doncaster
+  </td>
 
-<td class="green delay">
-—
-</td>
+  <td class="status-col green">
+    <span class="icon">✓</span>
+    Clear
+  </td>
+
+  <td class="delay-pill green">
+    –
+  </td>
+
 </tr>
 
-<tr>
-<td>
-<span class="sign aroad">
-A57
-</span>
-</td>
+<tr class="row">
 
-<td>Worksop Rd</td>
+  <td class="road-col">
+    <span class="sign aroad">
+      A630
+    </span>
+  </td>
 
-<td class="green status">
-Clear
-</td>
+  <td class="name-col">
+    Parkway
+  </td>
 
-<td class="green delay">
-—
-</td>
+  <td class="status-col green">
+    <span class="icon">✓</span>
+    Clear
+  </td>
+
+  <td class="delay-pill green">
+    –
+  </td>
+
 </tr>
 
 </tbody>
