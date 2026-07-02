@@ -1,186 +1,82 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=450">
 
-<title>Road Status</title>
-
 <style>
 
 *{
-box-sizing:border-box;
-margin:0;
-padding:0;
-font-family:Arial,sans-serif;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
 }
 
-html,body{
-width:450px;
-height:320px;
-overflow:hidden;
-
-
+body{
+  background:#fff;
+  padding:10px;
+  margin:0;
 }
 
-/* HEADER */
-
-.header{
-height:52px;
-
-display:flex;
-align-items:center;
-
-padding:0 12px;
+table{
+  width:430px;
+  border-collapse:collapse;
 }
 
-.header-accent{
-width:4px;
-height:24px;
-
-background:#D22630;
-
-border-radius:2px;
-
-margin-right:10px;
-
-flex-shrink:0;
+th,
+td{
+  padding:10px;
+  border-bottom:1px solid #eee;
+  text-align:left;
 }
 
-.header-title{
-font-family:"Arial Narrow",Arial,sans-serif;
-font-size:20px;
-font-weight:700;
-
-color:#fff;
-
-line-height:1;
+th{
+  border-bottom:2px solid #ddd;
 }
 
-.header-line{
-flex:1;
-
-height:1px;
-
-margin-left:12px;
-
-background:linear-gradient(
-to right,
-rgba(255,255,255,.18),
-rgba(255,255,255,.03)
-);
+.sign{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:64px;
+  height:32px;
+  padding:0 10px;
+  color:#fff;
+  font-weight:700;
+  border-radius:5px;
 }
 
-/* WIDGET */
-
-#widget{
-width:450px;
-height:268px;
-
-color:#fff;
-
-overflow:hidden;
+.motorway{
+  background:#0057B8;
 }
 
-#content{
-height:268px;
-
-padding:4px 12px 0 12px;
+.aroad{
+  background:#0B8F3C;
 }
 
-/* ROWS */
-
-.row{
-height:28px;
-
-display:flex;
-align-items:center;
-
-gap:10px;
-
-padding:0 2px;
+.red{
+  color:#d32f2f;
 }
 
-/* DOTS */
-
-.dot{
-width:10px;
-height:10px;
-
-border-radius:50%;
-
-flex-shrink:0;
+.orange{
+  color:#ef6c00;
 }
 
-.dot.red{
-background:#ff5a5f;
+.yellow{
+  color:#c49000;
 }
 
-.dot.amber{
-background:#f5a623;
+.green{
+  color:#2e7d32;
 }
 
-.dot.yellow{
-background:#fadb14;
+.status,
+.delay{
+  font-weight:700;
 }
-
-.dot.green{
-background:#67c23a;
-}
-
-/* ROAD */
-
-.road{
-width:200px;
-
-font-family:"Arial Narrow",Arial,sans-serif;
-font-size:16px;
-font-weight:700;
-
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis;
-
-color:#fff;
-}
-
-/* STATUS */
-
-.status{
-flex:1;
-
-font-size:14px;
-
-color:rgba(255,255,255,.82);
-}
-
-/* DELAY */
 
 .delay{
-width:45px;
-
-text-align:right;
-
-font-size:14px;
-font-weight:700;
-}
-
-/* DELAY COLOURS */
-
-.red-text{
-color:#ff5a5f;
-}
-
-.amber-text{
-color:#f5a623;
-}
-
-.yellow-text{
-color:#fadb14;
-}
-
-.green-text{
-color:#67c23a;
+  text-align:right;
 }
 
 </style>
@@ -188,196 +84,148 @@ color:#67c23a;
 
 <body>
 
-<div class="header">
+<table>
 
-<div class="header-accent"></div>
+<thead>
+<tr>
+<th>ROAD</th>
+<th>NAME</th>
+<th>STATUS</th>
+<th style="text-align:right">DELAY</th>
+</tr>
+</thead>
 
-<div class="header-title">
-Road Status
-</div>
+<tbody>
 
-<div class="header-line"></div>
+<tr>
+<td>
+<span class="sign aroad">
+A61
+</span>
+</td>
 
-</div>
+<td>Barnsley Rd</td>
 
-<div id="widget">
-<div id="content"></div>
-</div>
+<td class="red status">
+Severe delays
+</td>
 
-<script>
+<td class="red delay">
+18 mins
+</td>
+</tr>
 
-const apiKey="N61XFRwHAscPzxZI6ci39stZrnzoc4qS";
+<tr>
+<td>
+<span class="sign aroad">
+A616
+</span>
+</td>
 
-const bbox="-1.60,53.32,-1.34,53.45";
+<td>Stocksbridge</td>
 
-const monitoredRoads=[
-"M1_N",
-"M1_S",
-"M18",
-"A57",
-"A61",
-"A616",
-"A630"
-];
+<td class="yellow status">
+Minor delays
+</td>
 
-const roadNames={
-"M1_N":"M1 Northbound",
-"M1_S":"M1 Southbound",
-"M18":"M18 to M180",
-"A57":"A57 to Worksop",
-"A61":"A61 to Barnsley",
-"A616":"Stocksbridge Bypass to MCR",
-"A630":"Sheffield Parkway to City"
-};
+<td class="yellow delay">
+3 mins
+</td>
+</tr>
 
-const trafficUrl=
-`https://api.tomtom.com/traffic/services/5/incidentDetails?bbox=${bbox}&language=en-GB&fields={incidents{properties{roadNumbers,delay,events{description}}}}&key=${apiKey}`;
+<tr>
+<td>
+<span class="sign motorway">
+M1
+</span>
+</td>
 
-function getColour(delay){
+<td>Northbound</td>
 
-if(delay>=15) return "red";
-if(delay>=5) return "amber";
-if(delay>0) return "yellow";
+<td class="green status">
+Clear
+</td>
 
-return "green";
-}
+<td class="green delay">
+—
+</td>
+</tr>
 
-function getStatus(delay){
+<tr>
+<td>
+<span class="sign motorway">
+M1
+</span>
+</td>
 
-if(delay>=15) return "Severe Delays";
-if(delay>=5) return "Delays";
-if(delay>0) return "Minor Delays";
+<td>Southbound</td>
 
-return "Clear";
-}
+<td class="green status">
+Clear
+</td>
 
-function getRank(status){
+<td class="green delay">
+—
+</td>
+</tr>
 
-switch(status){
+<tr>
+<td>
+<span class="sign motorway">
+M18
+</span>
+</td>
 
-case "Severe Delays":
-return 4;
+<td>Doncaster</td>
 
-case "Delays":
-return 3;
+<td class="green status">
+Clear
+</td>
 
-case "Minor Delays":
-return 2;
+<td class="green delay">
+—
+</td>
+</tr>
 
-default:
-return 1;
-}
-}
+<tr>
+<td>
+<span class="sign aroad">
+A630
+</span>
+</td>
 
-async function loadTraffic(){
+<td>Parkway</td>
 
-try{
+<td class="green status">
+Clear
+</td>
 
-const response=await fetch(trafficUrl);
-const data=await response.json();
+<td class="green delay">
+—
+</td>
+</tr>
 
-const rows=[];
+<tr>
+<td>
+<span class="sign aroad">
+A57
+</span>
+</td>
 
-monitoredRoads.forEach(road=>{
+<td>Worksop Rd</td>
 
-let incidents=(data.incidents||[]).filter(i=>{
+<td class="green status">
+Clear
+</td>
 
-const roads=i.properties?.roadNumbers||[];
-const text=JSON.stringify(i).toLowerCase();
+<td class="green delay">
+—
+</td>
+</tr>
 
-if(road==="M1_N"){
-return roads.some(r=>String(r).toUpperCase()==="M1")
-&& text.includes("northbound");
-}
+</tbody>
 
-if(road==="M1_S"){
-return roads.some(r=>String(r).toUpperCase()==="M1")
-&& text.includes("southbound");
-}
-
-return roads.some(r=>String(r).toUpperCase()===road);
-
-});
-
-let totalDelay=0;
-
-incidents.forEach(i=>{
-
-totalDelay += i.properties?.delay
-? Math.round(i.properties.delay/60)
-: 0;
-
-});
-
-rows.push({
-road:roadNames[road],
-delay:totalDelay,
-status:getStatus(totalDelay),
-colour:getColour(totalDelay)
-});
-
-});
-
-rows.sort((a,b)=>{
-
-const rankDiff=
-getRank(b.status)-getRank(a.status);
-
-if(rankDiff!==0){
-return rankDiff;
-}
-
-return b.delay-a.delay;
-
-});
-
-render(rows);
-
-}
-catch(error){
-
-console.error(error);
-
-}
-}
-
-function render(rows){
-
-document.getElementById("content").innerHTML=
-
-rows.map(item=>`
-
-<div class="row">
-
-<div class="dot ${item.colour}"></div>
-
-<div class="road">
-${item.road}
-</div>
-
-<div class="status">
-${item.status}
-</div>
-
-<div class="delay ${item.colour}-text">
-${
-item.delay > 0
-? item.delay + " min" + (item.delay===1 ? "" : "s")
-: ""
-}
-</div>
-
-</div>
-
-`).join("");
-
-}
-
-loadTraffic();
-
-setInterval(loadTraffic,60000);
-
-</script>
+</table>
 
 </body>
 </html>
