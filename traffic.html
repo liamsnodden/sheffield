@@ -30,28 +30,34 @@
   font-family:'Inter',sans-serif;
 }
 
+
 body{
-  background:#fff;
+  width:586px;
   padding:10px;
   margin:0;
+  background:#fff;
 }
 
 table{
-  width:430px;
+  width:100%;
   border-collapse:collapse;
 }
 
+
+
 th,
 td{
-  padding:10px;
-  border-bottom:1px solid #eee;
-  text-align:left;
+  padding:5px 8px;
+  font-size:13px;
+  line-height:1.1;
 }
 
-th{
-  border-bottom:2px solid #ddd;
-  font-weight:700;
+.sign{
+  height:22px;
+  min-width:54px;
+  font-size:12px;
 }
+
 
 .sign{
   display:inline-flex;
@@ -137,12 +143,30 @@ A61
 
 <td>Barnsley Rd</td>
 
-<td class="red status">
-Severe delays
+<td class="orange status">
+Delays
 </td>
 
-<td class="red delay">
-16 mins
+<td class="orange delay">
+9 mins
+</td>
+</tr>
+
+<tr>
+<td>
+<span class="sign aroad">
+A616
+</span>
+</td>
+
+<td>Stocksbridge</td>
+
+<td class="yellow status">
+Minor delays
+</td>
+
+<td class="yellow delay">
+3 mins
 </td>
 </tr>
 
@@ -226,24 +250,6 @@ A630
 </td>
 
 <td>Parkway</td>
-
-<td class="green status">
-Clear
-</td>
-
-<td class="green delay">
-—
-</td>
-</tr>
-
-<tr>
-<td>
-<span class="sign aroad">
-A616
-</span>
-</td>
-
-<td>Stocksbridge</td>
 
 <td class="green status">
 Clear
