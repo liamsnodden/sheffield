@@ -32,14 +32,14 @@
 
 
 body{
-  width:586px;
+  width:576px;
   padding:10px;
   margin:0;
   background:#fff;
 }
 
 table{
-  width:576px;
+  width:536px;
   border-collapse:separate;
   border-spacing:0 4px;
 }
@@ -73,7 +73,7 @@ td:last-child{
 }
 
 .name-col{
-  width:250px;
+  width:230px;
 }
 
 
@@ -87,7 +87,41 @@ td:last-child{
   white-space:nowrap;
 }
 
+.status-icon{
+  display:inline-flex;
+  width:18px;
+  height:18px;
+  flex-shrink:0;
+}
 
+.status-icon svg{
+  width:18px;
+  height:18px;
+}
+
+.green-icon{
+  color:#138f42;
+}
+
+.yellow-icon{
+  color:#dba300;
+}
+
+.orange-icon{
+  color:#f29b13;
+}
+
+.red-icon{
+  color:#f15a24;
+}
+
+.green-icon svg *,
+.yellow-icon svg *,
+.orange-icon svg *,
+.red-icon svg *{
+  fill:currentColor !important;
+  stroke:currentColor !important;
+}
 
 .status-icon{
   width:18px;
@@ -217,27 +251,30 @@ th,
 <table>
 
 
-<tbody>
+
+<table>
+
+<tbody id="traffic-body">
 
 <tr class="row">
 
   <td class="road-col">
     <span class="sign aroad">
-      A616
+      A61
     </span>
   </td>
 
   <td class="name-col">
-    Stocksbridge Bypass
+    Barnsley Rd
   </td>
 
-  <td class="status-col yellow">
-    <img class="status-icon" src="https://liamsnodden.github.io/sheffield/icons/crash.svg" alt="">
-    Minor delays
+  <td class="status-col orange">
+    <span class="status-icon orange-icon">https://liamsnodden.github.io/sheffield/icons/crash.svg</span>
+    Delays
   </td>
 
-  <td class="delay-pill yellow">
-    3 mins
+  <td class="delay-pill orange">
+    5 mins
   </td>
 
 </tr>
@@ -255,12 +292,35 @@ th,
   </td>
 
   <td class="status-col yellow">
-    <img class="status-icon" src="https://liamsnodden.github.io/sheffield/icons/crash.svg" alt="">
+    <span class="status-icon yellow-icon">https://liamsnodden.github.io/sheffield/icons/crash.svg</span>
     Minor delays
   </td>
 
   <td class="delay-pill yellow">
-    1 min
+    3 mins
+  </td>
+
+</tr>
+
+<tr class="row">
+
+  <td class="road-col">
+    <span class="sign aroad">
+      A616
+    </span>
+  </td>
+
+  <td class="name-col">
+    Stocksbridge Bypass
+  </td>
+
+  <td class="status-col yellow">
+    <span class="status-icon yellow-icon">https://liamsnodden.github.io/sheffield/icons/crash.svg</span>
+    Minor delays
+  </td>
+
+  <td class="delay-pill yellow">
+    2 mins
   </td>
 
 </tr>
@@ -278,7 +338,7 @@ th,
   </td>
 
   <td class="status-col green">
-    <img class="status-icon" src="https://liamsnodden.github.io/sheffield/icons/tickcircle.svg" alt="">
+    <span class="status-icon green-icon">https://liamsnodden.github.io/sheffield/icons/tickcircle.svg</span>
     Clear
   </td>
 
@@ -301,7 +361,7 @@ th,
   </td>
 
   <td class="status-col green">
-    <img class="status-icon" src="https://liamsnodden.github.io/sheffield/icons/tickcircle.svg" alt="">
+    <span class="status-icon green-icon">https://liamsnodden.github.io/sheffield/icons/tickcircle.svg</span>
     Clear
   </td>
 
@@ -324,7 +384,7 @@ th,
   </td>
 
   <td class="status-col green">
-    <img class="status-icon" src="https://liamsnodden.github.io/sheffield/icons/tickcircle.svg" alt="">
+    <span class="status-icon green-icon">https://liamsnodden.github.io/sheffield/icons/tickcircle.svg</span>
     Clear
   </td>
 
@@ -347,30 +407,7 @@ th,
   </td>
 
   <td class="status-col green">
-    <img class="status-icon" src="https://liamsnodden.github.io/sheffield/icons/tickcircle.svg" alt="">
-    Clear
-  </td>
-
-  <td class="delay-pill green">
-    –
-  </td>
-
-</tr>
-
-<tr class="row">
-
-  <td class="road-col">
-    <span class="sign aroad">
-      A61
-    </span>
-  </td>
-
-  <td class="name-col">
-    Barnsley Rd
-  </td>
-
-  <td class="status-col green">
-    <img class="status-icon" src="https://liamsnodden.github.io/sheffield/icons/tickcircle.svg" alt="">
+    <span class="status-icon green-icon">https://liamsnodden.github.io/sheffield/icons/tickcircle.svg</span>
     Clear
   </td>
 
@@ -383,6 +420,37 @@ th,
 </tbody>
 
 </table>
+
+
+
+<script>
+async function refreshTable() {
+  try {
+    const response = await fetch(
+      window.location.pathname + '?t=' + Date.now(),
+      { cache: 'no-store' }
+    );
+
+    const html = await response.text();
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+
+    const newBody = doc.getElementById('traffic-body');
+    const currentBody = document.getElementById('traffic-body');
+
+    if (newBody && currentBody) {
+      currentBody.innerHTML = newBody.innerHTML;
+    }
+  } catch (err) {
+    console.error('Refresh failed:', err);
+  }
+}
+
+// Refresh every 2 minutes
+setInterval(refreshTable, 120000);
+</script>
+
 
 </body>
 </html>
