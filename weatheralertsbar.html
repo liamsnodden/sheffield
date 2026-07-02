@@ -113,13 +113,17 @@ body {
   filter: brightness(0) saturate(100%) invert(49%) sepia(60%) saturate(594%) hue-rotate(70deg) brightness(95%) contrast(89%);
 }
 
+
 .icon-precipitation{
-  filter: brightness(0) saturate(100%) invert(49%) sepia(60%) saturate(594%) hue-rotate(70deg) brightness(95%) contrast(89%);
+  filter: brightness(0) saturate(100%) invert(28%) sepia(89%) saturate(1650%) hue-rotate(199deg) brightness(98%) contrast(96%);
 }
 
+
+
 .icon-humidity{
-  filter: brightness(0) saturate(100%) invert(49%) sepia(60%) saturate(594%) hue-rotate(70deg) brightness(95%) contrast(89%);
+  filter: brightness(0) saturate(100%) invert(19%) sepia(95%) saturate(3650%) hue-rotate(355deg) brightness(104%) contrast(97%);
 }
+
 
 
 .alert-bar{
@@ -152,6 +156,19 @@ body {
   color:#111;
 }
 
+
+.metric-label{
+  font-family:'Oswald', Arial, sans-serif;
+  font-weight:700;
+  font-size:20px;
+  line-height:1;
+}
+
+.label-uv{
+  color:#f97316;
+}
+
+
 /* RIGHT PANEL */
 
 
@@ -173,14 +190,21 @@ body {
 
 /* EACH METRIC */
 
+
 .metric{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:16px;
 
   padding:0 30px;
 
   font-family:'Inter', Arial, sans-serif;
+}
+
+
+
+label-aq{
+  color:#16a34a;
 }
 
 
@@ -237,9 +261,10 @@ body {
 <div class="weather-strip">
 
     <div class="metric">
-        <img src="https://liamsnodden.github.io/sheffield/icons/UV.svg"
-             class="icon icon-uv">
-        <span class="uv">5.3</span>
+        
+<span class="metric-label label-uv">UV</span>
+<span class="uv">5.3</span>
+
     </div>
 
     <div class="divider"></div>
@@ -263,10 +288,10 @@ body {
     <div class="divider"></div>
 
     <div class="metric">
-        <img src="https://liamsnodden.github.io/sheffield/icons/AQ.svg"
-             class="icon icon-aqi">
+        
+<span class="metric-label label-aq">AQ</span>
+<span>FAIR (27)</span>
 
-        <span>FAIR (27)</span>
     </div>
 
     <div class="divider"></div>
