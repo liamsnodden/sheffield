@@ -86,11 +86,15 @@ body {
 
 
 
+
 .icon{
   width:28px;
   height:28px;
   display:block;
+  margin-right:12px;
+  flex-shrink:0;
 }
+
 
 
 .icon-uv{
@@ -200,12 +204,13 @@ body {
 /* EACH METRIC */
 
 
+
 .metric{
   display:flex;
   align-items:center;
-  gap:16px;
-
+  gap:0;
   padding:0 30px;
+
 
   font-family:'Inter', Arial, sans-serif;
 }
@@ -265,7 +270,7 @@ body {
     <div class="alert-pill" id="title"></div>
 
     <div class="alert-message" id="message">
-        All conditions normal. Follow standard safe working procedures.
+        All conditions normal. Stay safe and have a great day!
     </div>
 
 
@@ -334,7 +339,7 @@ body {
 
 <script>
 
-const alerts = ["All conditions normal. Follow standard safe working procedures."];
+const alerts = ["All conditions normal. Stay safe and have a great day!"];
 const noAlerts = true;
 
 let i = 0;
