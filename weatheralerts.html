@@ -147,16 +147,16 @@ body {
 <div class="container">
 
   <div class="left">
-    <div class="temp">20°C</div>
-    <img class="icon" src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/partly-cloudy-day.svg">
+    <div class="temp">21°C</div>
+    <img class="icon" src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg">
     
 
 <div>
-  <div class="desc">PARTLY CLOUDY</div>
-  <div>Feels 20°C</div>
+  <div class="desc">OVERCAST</div>
+  <div>Feels 21°C</div>
 
   <div class="hilow">
-    <span class="high">22°</span> /
+    <span class="high">23°</span> /
     <span class="low">13°</span>
   </div>
 </div>
@@ -189,23 +189,27 @@ body {
 
 </div>
 
+
 <script>
-function updateTime(){
+function updateTime() {
   const t = new Date();
   document.getElementById("time").textContent =
-    t.toLocaleTimeString("en-GB",{ hour:"2-digit", minute:"2-digit" });
+    t.toLocaleTimeString("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit"
+    });
 }
-setInterval(updateTime,1000);
+
 updateTime();
+setInterval(updateTime, 1000);
 
-
-// Reload page every 5 minutes
+// Refresh every 5 minutes with cache-busting
 setInterval(() => {
-  location.reload();
+  window.location.href =
+    window.location.pathname + "?t=" + Date.now();
 }, 300000);
-
-
 </script>
+
 
 </body>
 </html>
