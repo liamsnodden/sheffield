@@ -119,21 +119,20 @@ body {
   font-weight: 700;
 }
 
+
+
 .hilow {
   color: #ffffff;
 }
 
-
-.hilow {.hil9e9e;
+.high {
+  color: #ffb3b3;
 }
 
 .low {
   color: #9ec5ff;
 }
-  color: #ffffff;
-}
 
-.high {
 
 
 
@@ -195,6 +194,14 @@ function updateTime(){
 }
 setInterval(updateTime,1000);
 updateTime();
+
+
+// Reload page every 5 minutes
+setInterval(() => {
+  location.reload();
+}, 300000);
+
+
 </script>
 
 </body>
