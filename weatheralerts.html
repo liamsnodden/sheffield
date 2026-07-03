@@ -32,19 +32,21 @@ body {
 }
 
 /* MAIN CONTAINER */
+
 .container {
   position: fixed;
   top: 0;
   right: 0;
 
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  gap: 40px;
 
-  width: auto;
   white-space: nowrap;
-
   padding: 10px 14px;
 }
+
+
 
 /* XIBO-SAFE SPACING */
 .container > * {
@@ -85,10 +87,13 @@ body {
 }
 
 
+
 .forecast {
   display: flex;
-  margin-left: 50px;
+  gap: 16px;
+  flex-shrink: 0;
 }
+
 
 
 .forecast > * {
@@ -104,14 +109,14 @@ body {
 }
 
 /* CLOCK */
-.clock {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
 
-  width: 140px;
+.clock {
   flex-shrink: 0;
+  width: 160px;
+  display: flex;
+  justify-content: flex-end;
 }
+
 
 
 .time {
@@ -151,40 +156,41 @@ body {
 
 <body>
 
+
 <div class="container">
 
   <div class="left">
     <div class="temp">19°C</div>
     <img class="icon" src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg">
-    
 
-<div>
-  <div class="desc">OVERCAST</div>
-  <div>Feels 19°C</div>
+    <div>
+      <div class="desc">OVERCAST</div>
+      <div>Feels 19°C</div>
 
-  <div class="hilow">
-    <span class="high">22°</span> /
-    <span class="low">13°</span>
+      <div class="hilow">
+        <span class="high">22°</span> /
+        <span class="low">13°</span>
+      </div>
+    </div>
   </div>
-</div>
 
   <div class="forecast">
     
       <div class="fcol">
         <div>Sat</div>
-        <img src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg" width="35">
+        https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg
         <div>20°</div>
       </div>
     
       <div class="fcol">
         <div>Sun</div>
-        <img src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg" width="35">
+        https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg
         <div>21°</div>
       </div>
     
       <div class="fcol">
         <div>Mon</div>
-        <img src="https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg" width="35">
+        https://raw.githubusercontent.com/liamsnodden/sheffield/main/icons/overcast-day.svg
         <div>23°</div>
       </div>
     
@@ -195,6 +201,7 @@ body {
   </div>
 
 </div>
+
 
 <script>
 function updateTime(){
