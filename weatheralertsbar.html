@@ -205,15 +205,36 @@ body {
 
 
 .metric{
+  
   display:flex;
   align-items:center;
-  gap:16px;
-
+  gap:12px;
   padding:0 30px;
-
   font-family:'Inter', Arial, sans-serif;
 }
 
+
+.metric-text{
+  display:flex;
+  flex-direction:column;
+  line-height:1;
+}
+
+.metric-value{
+  font-family:'Inter', Arial, sans-serif;
+  font-weight:700;
+  font-size:16px;
+}
+
+.metric-sub{
+  font-family:'Inter', Arial, sans-serif;
+  font-size:10px;
+  font-weight:500;
+  color:#737373;
+  text-transform:uppercase;
+  margin-top:4px;
+  letter-spacing:0.5px;
+}
 
 
 
@@ -275,21 +296,29 @@ body {
 
 <div class="weather-strip">
 
-    <div class="metric">
-        
-<span class="metric-label label-uv">UV</span>
-<span class="uv">4.5</span>
+   
+<div class="metric">
 
-    </div>
+  <span class="metric-label label-uv">UV</span>
+
+  <div class="metric-text">
+    <span class="metric-value uv">4.1</span>
+    <span class="metric-sub">UV Index</span>
+  </div>
+
+</div>
+
 
     <div class="divider"></div>
 
-    <div class="metric">
-        <img src="https://liamsnodden.github.io/sheffield/icons/Wind.svg"
-             class="icon icon-wind">
+    
+<div class="metric">
+  <img src="https://liamsnodden.github.io/sheffield/icons/Wind.svglass="metric-text">
+    <span class="metric-value">13 mph</span>
+    <span class="metric-sub">Wind</span>
+  </div>
+</div>
 
-        <span>13 mph</span>
-    </div>
 
     <div class="divider"></div>
 
@@ -297,7 +326,10 @@ body {
         <img src="https://liamsnodden.github.io/sheffield/icons/Pollen.svg"
              class="icon icon-pollen">
 
-        <span>LOW</span>
+        <div class="metric-text">
+          <span class="metric-value pollen">LOW</span>
+          <span class="metric-sub">Pollen</span>
+        </div>
     </div>
 
     <div class="divider"></div>
@@ -305,7 +337,12 @@ body {
     <div class="metric">
         
 <span class="metric-label label-aq">AQ</span>
-<span>GOOD (21)</span>
+
+<div class="metric-text">
+    <span class="metric-value">GOOD (22)</span>
+    <span class="metric-sub">Air Quality</span>
+  </div>
+
 
     </div>
 
@@ -316,7 +353,12 @@ body {
     <img src="https://liamsnodden.github.io/sheffield/icons/humidity.svg"
          class="icon icon-humidity">
 
-    <span>65%</span>
+    
+<div class="metric-text">
+    <span class="metric-value">64%</span>
+    <span class="metric-sub">Humidity</span>
+  </div>
+
 </div>
 
 <div class="divider"></div>
@@ -325,7 +367,11 @@ body {
     <img src="https://liamsnodden.github.io/sheffield/icons/precipitation.svg"
          class="icon icon-precipitation">
 
-    <span>0.0 mm</span>
+  <div class="metric-text">
+    <span class="metric-value">0.0 mm</span>
+    <span class="metric-sub">Rainfall</span>
+  </div>
+
 </div>
 
 
