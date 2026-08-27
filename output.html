@@ -13,125 +13,69 @@
 
 body {
   margin: 0;
-  padding: 30px;
+  padding: 20px;
   background: #ffffff;
   font-family: Arial, Helvetica, sans-serif;
   color: #17233a;
 }
 
 .priority-card {
-  width: 100%;
-  max-width: 1100px;
+  width: 400px;
+  height: 400px;
   margin: 0 auto;
   background: #ffffff;
   border: 1px solid #e5eaf1;
-  border-radius: 22px;
-  padding: 28px;
-  box-shadow: 0 8px 30px rgba(20, 35, 60, 0.08);
-}
-
-.card-header {
-  margin-bottom: 30px;
-}
-
-.card-title {
-  margin: 0;
-  font-size: 26px;
-  font-weight: 700;
-  letter-spacing: -0.5px;
-}
-
-.card-subtitle {
-  margin: 5px 0 0;
-  color: #718096;
-  font-size: 15px;
+  border-radius: 20px;
+  padding: 15px;
+  overflow: hidden;
 }
 
 .column-headings {
   display: grid;
-  grid-template-columns: 170px 260px 1fr;
-  padding: 0 36px 16px;
+  grid-template-columns: 55px 90px 1fr;
+  padding: 0 10px 10px;
   color: #64748b;
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 1px;
   border-bottom: 1px solid #e8edf3;
 }
 
 .priority-row {
   display: grid;
-  grid-template-columns: 170px 260px 1fr;
+  grid-template-columns: 55px 90px 1fr;
   align-items: center;
-  min-height: 88px;
-  margin-top: 14px;
-  padding: 14px 36px;
+  min-height: 58px;
+  margin-top: 8px;
+  padding: 8px 10px;
   border: 1px solid #e6ebf1;
-  border-radius: 18px;
+  border-radius: 12px;
   background: #ffffff;
-  box-shadow: 0 3px 10px rgba(20, 35, 60, 0.04);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.priority-row:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(20, 35, 60, 0.08);
 }
 
 .priority-number {
-  width: 52px;
-  height: 52px;
-  border-radius: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
   background: #2156b5;
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  font-size: 16px;
   font-weight: 700;
 }
 
 .machine {
-  font-size: 23px;
+  font-size: 16px;
   font-weight: 700;
   color: #17233a;
 }
 
 .mixers {
-  font-size: 18px;
+  font-size: 12px;
   color: #475569;
-  line-height: 1.5;
-}
-
-@media (max-width: 700px) {
-
-  body {
-    padding: 15px;
-  }
-
-  .priority-card {
-    padding: 20px;
-  }
-
-  .column-headings {
-    display: none;
-  }
-
-  .priority-row {
-    grid-template-columns: 65px 1fr;
-    gap: 8px 15px;
-    padding: 18px;
-  }
-
-  .mixers {
-    grid-column: 2;
-    font-size: 15px;
-  }
-
-  .machine {
-    font-size: 20px;
-  }
-
+  line-height: 1.3;
 }
 
 </style>
@@ -141,45 +85,40 @@ body {
 
 <div class="priority-card">
 
-  <div class="card-header">
-    <h2 class="card-title">Production Priorities</h2>
-    <p class="card-subtitle">Current machine and mixer assignments</p>
-  </div>
-
   <div class="column-headings">
-    <div>Priority</div>
-    <div>Machine</div>
+    <div>Pri</div>
+    <div>Line</div>
     <div>Mixers</div>
   </div>
 
   <div class="priority-row">
     <div class="priority-number">1</div>
-    <div class="machine">012</div>
-    <div class="mixers">MV5, MV2</div>
+    <div class="machine">011</div>
+    <div class="mixers">MV6</div>
   </div>
 
   <div class="priority-row">
     <div class="priority-number">2</div>
-    <div class="machine">008</div>
-    <div class="mixers">MV3</div>
+    <div class="machine">580</div>
+    <div class="mixers">MV2, MV3, MV4</div>
   </div>
 
   <div class="priority-row">
     <div class="priority-number">3</div>
-    <div class="machine">-</div>
-    <div class="mixers">-</div>
+    <div class="machine">630</div>
+    <div class="mixers">MV2, MV3, MV4</div>
   </div>
 
   <div class="priority-row">
     <div class="priority-number">4</div>
-    <div class="machine">-</div>
-    <div class="mixers">-</div>
+    <div class="machine">PF10</div>
+    <div class="mixers">TMD500</div>
   </div>
 
   <div class="priority-row">
     <div class="priority-number">5</div>
-    <div class="machine">-</div>
-    <div class="mixers">-</div>
+    <div class="machine">PF5</div>
+    <div class="mixers">TMD1300</div>
   </div>
 
 </div>
