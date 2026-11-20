@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+
+<style>
+
+/* TEKO SEMIBOLD */
+@font-face {
+    font-family: 'Teko';
+    src: url('https://raw.githubusercontent.com/liamsnodden/sheffield/main/Teko-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+
+/* DATE */
+#current-date {
+    font-family: 'Teko', sans-serif;
+    font-size: 36px;
+    font-weight: 600;
+    color: #102342;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="current-date"></div>
+
+<script>
+
+document.getElementById("current-date").textContent =
+    new Date().toLocaleDateString("en-US", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+        year: "numeric"
+    });
+
+</script>
+
+</body>
+</html>
