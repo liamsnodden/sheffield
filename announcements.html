@@ -1,203 +1,340 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=856, initial-scale=1.0">
+
 <title>Safety Banner</title>
 
 <style>
 
-/* ✅ ALL FONTS FROM GITHUB */
+/* ================================
+FONTS
+================================ */
 
-/* Teko SemiBold */
 @font-face {
-  font-family: 'Teko';
-  src: url('https://raw.githubusercontent.com/liamsnodden/sheffield/main/Teko-SemiBold.ttf') format('truetype'); 
-  font-weight: 600;
-  font-style: normal;
+    font-family: 'Teko';
+    src: url('https://raw.githubusercontent.com/liamsnodden/sheffield/main/Teko-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('https://raw.githubusercontent.com/liamsnodden/sheffield/main/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter';
+    src: url('https://raw.githubusercontent.com/liamsnodden/sheffield/main/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Oswald';
+    src: url('https://raw.githubusercontent.com/liamsnodden/sheffield/main/Oswald-VariableFont_wght.ttf') format('truetype');
+    font-weight: 200 700;
+    font-style: normal;
 }
 
 
-@font-face {
-  font-family: 'Inter';
-  src: url('https://raw.githubusercontent.com/liamsnodden/sheffield/main/Inter-VariableFont_opsz,wght.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
+/* ================================
+PAGE
+================================ */
+
+* {
+    box-sizing: border-box;
 }
 
-
-/* Inter Italic Variable */
-@font-face {
-  font-family: 'Inter';
-  src: url('raw.githubusercontent.com/liamsnodden/sheffield/main/Inter-Italic-VariableFont_opsz,wght.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: italic;
-}
-
-/* Oswald Variable */
-@font-face {
-  font-family: 'Oswald';
-  src: url('raw.githubusercontent.com/liamsnodden/sheffield/main/Oswald-VariableFont_wght.ttf') format('truetype');
-  font-weight: 200 700;
-  font-style: normal;
-}
-
+html,
 body {
-  margin: 0;
-  background: transparent;
-  font-family: 'Inter', sans-serif;
-  font-weight: 400; /* default */
+    margin: 0;
+    padding: 0;
 
+    width: 856px;
+    height: 105px;
+
+    overflow: hidden;
+
+    background: transparent;
+
+    font-family: 'Inter', Arial, sans-serif;
 }
 
-/* CONTAINER */
+
+/* ================================
+MAIN BANNER
+================================ */
+
 .incident-banner {
-  display: flex;
-  align-items: center;
-  padding: 2px 2px;
-  max-height: 138.5px;
-  height: 138.5px;
-  box-sizing: border-box;
+    width: 856px;
+    height: 105px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 12px;
+
+    background: transparent;
 }
 
-/* LEFT */
+
+/* ================================
+LEFT - DAYS
+================================ */
+
 .left {
-  margin-right: 25px;
-  text-align: center;
+    width: 165px;
+
+    flex-shrink: 0;
+
+    text-align: center;
 }
 
 .days {
-  font-family: 'Teko', sans-serif;
-  font-size: 95px;
-  font-weight: 600;
-  color: #e10600;
-  line-height: 0.85;
+    font-family: 'Teko', sans-serif;
+
+    font-size: 72px;
+    font-weight: 600;
+
+    color: #e10600;
+
+    line-height: 0.73;
+
+    margin: 0;
+    padding: 0;
 }
 
 .label {
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  color: #9a9a9a;
+    margin-top: 7px;
+
+    font-family: 'Inter', Arial, sans-serif;
+
+    font-size: 11px;
+    font-weight: 500;
+
+    color: #9a9a9a;
+
+    line-height: 1;
+
+    letter-spacing: 0.3px;
 }
 
-/* DIVIDER */
+
+/* ================================
+DIVIDER
+================================ */
+
 .divider {
-  width: 1px;
-  height: 90px;
-  background: #d0d0d0;
-  margin: 0 25px;
+    width: 1px;
+    height: 72px;
+
+    flex-shrink: 0;
+
+    margin: 0 28px;
+
+    background: #d0d0d0;
 }
 
-/* RIGHT */
+
+/* ================================
+RIGHT
+================================ */
+
 .right {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    min-width: 0;
 }
 
-/* STATUS */
+
+/* ================================
+STATUS
+================================ */
+
 .status {
-  display: flex;
-  align-items: center;
-  font-family: 'Inter', sans-serif;
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+
+    font-family: 'Inter', Arial, sans-serif;
+
+    font-size: 17px;
+    font-weight: 600;
+
+    color: #102342;
+
+    line-height: 1;
+
+    white-space: nowrap;
 }
 
 .status img {
-  width: 24px;
-  margin-right: 10px;
+    width: 22px;
+    height: 22px;
+
+    margin-right: 10px;
+
+    flex-shrink: 0;
 }
 
-/* LINE */
+
+/* ================================
+HORIZONTAL LINE
+================================ */
+
 .line {
-  height: 1px;
-  background: #e0e0e0;
-  margin: 6px 0;
+    width: 100%;
+    height: 1px;
+
+    margin: 10px 0 8px 0;
+
+    background: #e0e0e0;
 }
 
-/* INCIDENT */
+
+/* ================================
+LAST INCIDENT
+================================ */
+
 .last-incident {
-  display: flex;
-  align-items: center;
-}
-
-.last-incident img {
-  width: 26px;
-  margin-right: 10px;
+    display: flex;
+    align-items: center;
 }
 
 .small {
-  font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  color: #888;
+    font-family: 'Inter', Arial, sans-serif;
+
+    font-size: 11px;
+    font-weight: 400;
+
+    color: #888;
+
+    line-height: 1;
 }
 
 .date {
-  font-family: 'Oswald', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
+    margin-top: 3px;
+
+    font-family: 'Oswald', Arial, sans-serif;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    color: #102342;
+
+    line-height: 1;
 }
 
 </style>
+
 </head>
+
 
 <body>
 
 <div class="incident-banner">
-  
-  <div class="left">
-    <div class="days" id="daysCount">0</div>
-    <div class="label">DAYS LTA FREE</div>
-  </div>
 
-  <div class="divider"></div>
+    <div class="left">
 
-  <div class="right">
+        <div class="days" id="daysCount">
+            0
+        </div>
 
-    <div class="status">
-      <img src="https://liamsnodden.github.io/sheffield/icons/tick.svg">
-      <span>Everyone home safe today</span>
+        <div class="label">
+            DAYS LTA FREE
+        </div>
+
     </div>
 
-    <div class="line"></div>
 
-    <div class="last-incident">
-     
-      <div>
-        <div class="small">Last lost time incident:</div>
-        <div class="date" id="incidentDate"></div>
-      </div>
+    <div class="divider"></div>
+
+
+    <div class="right">
+
+        <div class="status">
+
+            <img
+                src="https://liamsnodden.github.io/sheffield/icons/tick.svg"
+                alt=""
+            >
+
+            <span>
+                Everyone home safe today
+            </span>
+
+        </div>
+
+
+        <div class="line"></div>
+
+
+        <div class="last-incident">
+
+            <div>
+
+                <div class="small">
+                    Last lost time incident:
+                </div>
+
+                <div class="date" id="incidentDate"></div>
+
+            </div>
+
+        </div>
+
     </div>
-
-  </div>
 
 </div>
 
+
 <script>
-const incidentDate = new Date("2025-08-05");
+
+const incidentDate = new Date("2025-08-05T00:00:00");
 
 const today = new Date();
-const diffDays = Math.floor((today - incidentDate) / (1000 * 60 * 60 * 24));
+
+const diffDays = Math.floor(
+    (today - incidentDate) / (1000 * 60 * 60 * 24)
+);
 
 document.getElementById("daysCount").textContent = diffDays;
 
+
 document.getElementById("incidentDate").textContent =
-  incidentDate.toLocaleDateString('en-GB', {
-    day: '2-digit',
-    month: 'long',
-    year: 'numeric'
-  }).toUpperCase();
+    incidentDate.toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+    }).toUpperCase();
+
 
 function msUntilMidnight() {
-  const midnight = new Date();
-  midnight.setHours(24, 0, 0, 0);
-  return midnight - new Date();
+
+    const midnight = new Date();
+
+    midnight.setHours(24, 0, 0, 0);
+
+    return midnight - new Date();
 }
 
-setTimeout(() => location.reload(), msUntilMidnight());
+
+setTimeout(
+    () => location.reload(),
+    msUntilMidnight()
+);
+
 </script>
 
 </body>
+
 </html>
