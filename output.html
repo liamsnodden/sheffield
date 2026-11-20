@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+<html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=587">
 
@@ -11,10 +14,10 @@ FONT
 ================================ */
 
 @font-face {
-font-family: 'Inter';
-src: url('https://liamsnodden.github.io/sheffield/Inter-VariableFont_opsz,wght.ttf')
-format('truetype');
-font-weight: 200 900;
+    font-family: 'Inter';
+    src: url('https://liamsnodden.github.io/sheffield/Inter-VariableFont_opsz,wght.ttf')
+        format('truetype');
+    font-weight: 200 900;
 }
 
 
@@ -23,7 +26,7 @@ RESET
 ================================ */
 
 * {
-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 
@@ -33,28 +36,30 @@ PAGE
 
 html,
 body {
-margin: 0;
-padding: 0;
-width: 100%;
-height: 100%;
-background: #ffffff;
-font-family: 'Inter', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: #ffffff;
+
+    font-family: 'Inter', Arial, sans-serif;
 }
 
 
 /* ================================
-PRIORITY CONTAINER
+PRIORITY LIST
 ================================ */
 
-.priority-card {
-width: 587px;
-height: 295px;
+.priority-list {
+    width: 587px;
 
-padding: 7px 8px;
+    padding: 5px 8px;
 
-overflow: hidden;
+    background: #ffffff;
 
-background: #ffffff;
+    overflow: hidden;
 }
 
 
@@ -63,26 +68,23 @@ PRIORITY ROW
 ================================ */
 
 .priority-row {
-width: 100%;
-height: 51px;
+    width: 100%;
+    height: 29px;
 
-display: grid;
+    display: grid;
 
-grid-template-columns:
-78px
-122px
-1px
-1fr;
+    grid-template-columns:
+        52px
+        125px
+        1fr;
 
-align-items: center;
+    align-items: center;
 
-margin-bottom: 5px;
+    border-bottom: 1px solid #dce3eb;
+}
 
-border-radius: 9px;
-
-background: #eef2f6;
-
-overflow: hidden;
+.priority-row:last-child {
+    border-bottom: none;
 }
 
 
@@ -91,251 +93,170 @@ PRIORITY NUMBER
 ================================ */
 
 .priority-number {
-width: 56px;
-height: 36px;
+    color: #1971c9;
 
-margin-left: 10px;
+    font-size: 14px;
+    font-weight: 800;
 
-display: flex;
-align-items: center;
-justify-content: center;
+    line-height: 1;
 
-border-radius: 7px;
-
-background: #d9e5f3;
-
-color: #124fa8;
-
-font-size: 20px;
-font-weight: 800;
-
-line-height: 1;
+    text-align: center;
 }
 
 
 /* ================================
-MACHINE NUMBER
+MACHINE
 ================================ */
 
 .machine {
-padding-left: 8px;
+    height: 18px;
 
-color: #102342;
+    display: flex;
+    align-items: center;
 
-font-size: 25px;
-font-weight: 800;
+    padding-left: 18px;
 
-line-height: 1;
+    border-left: 1px solid #c9d3df;
 
-white-space: nowrap;
+    color: #102342;
+
+    font-size: 19px;
+    font-weight: 800;
+
+    line-height: 1;
+
+    white-space: nowrap;
 }
 
 
 /* ================================
-DIVIDER
-================================ */
-
-.priority-divider {
-width: 1px;
-height: 27px;
-
-background: #9aacc0;
-}
-
-
-/* ================================
-MIXER INFORMATION
+MIXERS
 ================================ */
 
 .mixers {
-padding-left: 25px;
-padding-right: 12px;
+    padding-left: 20px;
+    padding-right: 8px;
 
-color: #1c2e49;
+    color: #526378;
 
-font-size: 15px;
-font-weight: 500;
+    font-size: 12px;
+    font-weight: 500;
 
-line-height: 1.15;
+    line-height: 1;
 
-white-space: nowrap;
+    white-space: nowrap;
 
-overflow: hidden;
-}
-
-
-/* ================================
-PRIORITY 1
-================================ */
-
-.priority-row.priority-one {
-background: #064a9f;
-}
-
-
-/* Priority 1 number */
-
-.priority-one .priority-number {
-background: #087bea;
-
-color: #ffffff;
-}
-
-
-/* Priority 1 machine */
-
-.priority-one .machine {
-color: #ffffff;
-}
-
-
-/* Priority 1 divider */
-
-.priority-one .priority-divider {
-background: rgba(255,255,255,0.65);
-}
-
-
-/* Priority 1 mixer */
-
-.priority-one .mixers {
-color: #ffffff;
-}
-
-
-/* ================================
-LAST ROW
-================================ */
-
-.priority-row:last-child {
-margin-bottom: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 </style>
+
 </head>
 
 
 <body>
 
-<div class="priority-card">
+<div class="priority-list">
 
 
-<!-- ==========================
-PRIORITY 1
-=========================== -->
+    <!-- PRIORITY 1 -->
 
-<div class="priority-row priority-one">
+    <div class="priority-row">
 
-<div class="priority-number">
-1
-</div>
+        <div class="priority-number">
+            1
+        </div>
 
-<div class="machine">
-001
-</div>
+        <div class="machine">
+            001
+        </div>
 
-<div class="priority-divider"></div>
+        <div class="mixers">
+            HSD1, HSD2
+        </div>
 
-<div class="mixers">
-HSD1, HSD2, LDT1, LDT2, LDT3, LDT4
-</div>
-
-</div>
+    </div>
 
 
-<!-- ==========================
-PRIORITY 2
-=========================== -->
+    <!-- PRIORITY 2 -->
 
-<div class="priority-row">
+    <div class="priority-row">
 
-<div class="priority-number">
-2
-</div>
+        <div class="priority-number">
+            2
+        </div>
 
-<div class="machine">
-580
-</div>
+        <div class="machine">
+            -
+        </div>
 
-<div class="priority-divider"></div>
+        <div class="mixers">
+            -
+        </div>
 
-<div class="mixers">
-MV8
-</div>
-
-</div>
+    </div>
 
 
-<!-- ==========================
-PRIORITY 3
-=========================== -->
+    <!-- PRIORITY 3 -->
 
-<div class="priority-row">
+    <div class="priority-row">
 
-<div class="priority-number">
-3
-</div>
+        <div class="priority-number">
+            3
+        </div>
 
-<div class="machine">
-011
-</div>
+        <div class="machine">
+            -
+        </div>
 
-<div class="priority-divider"></div>
+        <div class="mixers">
+            -
+        </div>
 
-<div class="mixers">
-MV6, MV7
-</div>
-
-</div>
+    </div>
 
 
-<!-- ==========================
-PRIORITY 4
-=========================== -->
+    <!-- PRIORITY 4 -->
 
-<div class="priority-row">
+    <div class="priority-row">
 
-<div class="priority-number">
-4
-</div>
+        <div class="priority-number">
+            4
+        </div>
 
-<div class="machine">
-PF4
-</div>
+        <div class="machine">
+            -
+        </div>
 
-<div class="priority-divider"></div>
+        <div class="mixers">
+            -
+        </div>
 
-<div class="mixers">
-Molteni
-</div>
-
-</div>
+    </div>
 
 
-<!-- ==========================
-PRIORITY 5
-=========================== -->
+    <!-- PRIORITY 5 -->
 
-<div class="priority-row">
+    <div class="priority-row">
 
-<div class="priority-number">
-5
-</div>
+        <div class="priority-number">
+            5
+        </div>
 
-<div class="machine">
-PF6
-</div>
+        <div class="machine">
+            -
+        </div>
 
-<div class="priority-divider"></div>
+        <div class="mixers">
+            -
+        </div>
 
-<div class="mixers">
--
-</div>
-
-</div>
+    </div>
 
 
 </div>
 
 </body>
+
 </html>
