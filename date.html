@@ -6,12 +6,12 @@
 
 <style>
 
-/* TEKO SEMIBOLD */
 @font-face {
-    font-family: 'Teko';
-    src: url('https://raw.githubusercontent.com/liamsnodden/sheffield/main/Teko-SemiBold.ttf') format('truetype');
-    font-weight: 600;
+    font-family: 'Inter';
+    src: url('https://raw.githubusercontent.com/liamsnodden/sheffield/main/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+    font-weight: 100 900;
     font-style: normal;
+    font-display: swap;
 }
 
 html,
@@ -23,10 +23,9 @@ body {
     background: transparent;
 }
 
-/* DATE */
 #current-date {
-    font-family: 'Teko', sans-serif;
-    font-size: 36px;
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 42px;
     font-weight: 600;
     color: #102342;
     line-height: 1;
@@ -41,7 +40,6 @@ body {
 <div id="current-date"></div>
 
 <script>
-
 document.getElementById("current-date").textContent =
     new Date().toLocaleDateString("en-US", {
         weekday: "long",
@@ -49,8 +47,8 @@ document.getElementById("current-date").textContent =
         day: "numeric",
         year: "numeric"
     });
-
 </script>
 
 </body>
 </html>
+
